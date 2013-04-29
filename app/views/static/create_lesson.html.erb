@@ -1,3 +1,16 @@
 <%= render "shared/header" %>
-  herro
+    <div class="row">
+      <form class="span8 offset2">
+        <fieldset>
+          <h1>Create a Lesson</h1>
+          <label>Name</label>
+          <input class="span8" type="text" id="lesson-name" placeholder="Enter a lesson name" />
+          <label>Content</label>
+          <textarea class="span8" id="lesson-content" rows="10" cols="80"></textarea>
+          <div class="form-actions">
+              <button class="btn btn-primary">Create Lesson</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
 <%= render "shared/footer" %>
