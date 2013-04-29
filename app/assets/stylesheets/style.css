@@ -1,18 +1,21 @@
 body {
-  font-family: Helvetica, Arial, sans-serif;
   font-size: 10pt;
 }
 
 #footer {
   background-color: #d3d3d3;
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  padding: 10px;
+  margin-top: 50px;
+  height: 200px;
+  padding: 10px 10px;
   text-align: center;
 }
 
+.form-actions {
+  background: none !important;
+}
 
 #huskysoftlogo img {
+  margin-top: 50px;
   max-height: 100px;
 }
