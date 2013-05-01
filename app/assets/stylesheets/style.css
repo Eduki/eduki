@@ -19,3 +19,11 @@ body {
   margin-top: 50px;
   max-height: 100px;
 }
+
+#create-lesson-success h1 {
+  color: green;
+}
+
+#create-lesson-failure h1 {
+  color: red;
+}
