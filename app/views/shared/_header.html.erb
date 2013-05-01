@@ -2,14 +2,20 @@
 <html>
   <head>
     <title>eduki</title>
-    <%= stylesheet_link_tag "bootstrap.css" %>
-    <%= stylesheet_link_tag "style.css" %>
-    <%= javascript_include_tag "jquery.js" %>
-    <%= javascript_include_tag "underscore-min.js" %>
-    <%= javascript_include_tag "backbone-min.js" %>
-    <%= javascript_include_tag "index.js" %>
   </head>
   <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <ul class="nav">
+          <li>
+            <%= link_to "Home", :controller => "static", :action => :index %>
+          </li>
+          <li>
+            <%= link_to "Create Lesson", :controller => "static", :action => :create_lesson %>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="page-header">
         <h1>eduki <small>start learning now</small></h1>
     </div>
