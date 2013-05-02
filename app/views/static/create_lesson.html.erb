@@ -1,25 +1,21 @@
-<%= render "shared/header" %>
-    <div class="row">
-      <form class="span8 offset2">
+<%
+  content_for :head do
+    javascript_include_tag "create-lesson.js"
+    stylesheet_link_tag "create-lesson.css"
+  end
+%>
+    <div id="create-lesson-form" class="row">
+      <form class="offset2 span8">
         <fieldset>
           <h1>Create a Lesson</h1>
           <label>Name</label>
-          <input class="span8" type="text" id="create-lesson-name" placeholder="Enter a lesson name" />
+          <input class="span8" type="text" id="create-lesson-name" placeholder="Enter a lesson name" required />
           <label>Content</label>
-          <textarea class="span8" id="create-lesson-content" rows="10" cols="80"></textarea>
-          <div class="form-actions">
-              <button id="create-lesson-button" class="btn btn-primary">Create Lesson</button>
-          </div>
+          <textarea class="span8" id="create-lesson-content" rows="10" cols="80" required></textarea>
         </fieldset>
       </form>
     </div>
 
-    <!-- Stub for success message -->
-    <div id="create-lesson-success" class="row">
-      <h1 class="span8 offset2">Lesson successfully created!</h1>
+    <div id="create-lesson-button" class="row">
+      <button class="offset2 span8 btn btn-large btn-primary">Create Lesson</button>
     </div>
-
-    <div id="create-lesson-failure" class="row">
-      <h1 class="span8 offset2">Lesson failed to create.</h1>
-    </div>
-<%= render "shared/footer" %>

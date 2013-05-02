@@ -58,6 +58,7 @@ Eduki::Application.routes.draw do
   root :to => 'static#index'
   match 'api' => 'api/stub#index'
   match 'create_lesson' => 'static#create_lesson'
+  match 'lesson' => 'static#lesson'
   #   match 'products/:id' => 'catalog#view'
   namespace :api do
     resources :courses do
