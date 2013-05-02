@@ -2,6 +2,14 @@ body {
   font-size: 10pt;
 }
 
+#content {
+  margin: 0 auto;
+}
+
+.navbar li a {
+  text-transform: uppercase;
+}
+
 #footer {
   background-color: #d3d3d3;
   width: 100%;
@@ -20,10 +28,3 @@ body {
   max-height: 100px;
 }
 
-#create-lesson-success h1 {
-  color: green;
-}
-
-#create-lesson-failure h1 {
-  color: red;
-}

@@ -1,0 +1,19 @@
+<%
+  content_for :head do
+    javascript_include_tag "lesson.js"
+    stylesheet_link_tag "lesson.css"
+  end
+%>
+    <div id="lesson-form" class="row">
+      <div class="offset2 span8">
+        <form>
+          <fieldset>
+            <h1>Create a Lesson</h1>
+            <label>Lesson ID</label>
+            <input class="span2" type="text" id="lesson-id" pattern="\d*" placeholder="Enter a lesson ID" required />
+          </fieldset>
+        </form>
+        <button id="get-lesson-button" class="btn btn-primary">Get Lesson</button>
+      </div>
+    </div>
+

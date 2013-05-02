@@ -1,0 +1,16 @@
+.feedback-message {
+  margin-bottom: 10px;
+}
+
+.feedback-message p {
+  font-size: 16pt;
+  text-align: center;
+}
+
+#create-lesson-success {
+  color: green;
+}
+
+#create-lesson-failure {
+  color: red;
+}
