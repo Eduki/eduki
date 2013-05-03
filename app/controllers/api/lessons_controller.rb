@@ -4,7 +4,7 @@ class Api::LessonsController < ApplicationController
   end
 
   def index
-    render :json => Lesson.all
+    render :json => Lesson.find_all_by_course_id(params[:course_id])
   end
 
   def create
