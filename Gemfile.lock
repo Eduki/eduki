@@ -14,6 +14,8 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_model_serializers (0.7.0)
+      activemodel (>= 3.0)
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -28,6 +30,8 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    annotate (2.5.0)
+      rake
     arel (3.0.2)
     builder (3.0.4)
     coffee-rails (3.2.2)
@@ -105,6 +109,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers (~> 0.7.0)
+  annotate
   coffee-rails (~> 3.2.1)
   jquery-rails
   pg
