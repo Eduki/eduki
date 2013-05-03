@@ -1,6 +1,12 @@
 class Api::CoursesController < ApplicationController
   def show
-    render :json => Course.find(params[:id])
+    # begin
+    course = Course.find_by_id(params[:id])
+    if course.nil?
+      render :json => Course.missing_course(params[:id])
+    else
+      render :json => course
+    end
   end
 
   def index
@@ -15,9 +21,14 @@ class Api::CoursesController < ApplicationController
   end
 
   def update
-    course = Course.find(params[:id])
-    course.title = params[:title]
-    course.save
-    render :json => course
+    course = Course.find_by_id(params[:id])
+    if course.nil?
+      render :json => Course.missing_course(params[:id])
+    else
+      course.title = params[:title]
+      course.save
+      render :json => course
+    end
   end
+
 end
