@@ -1,9 +1,7 @@
-<%
-  content_for :head do
-    javascript_include_tag "lesson.js"
-    stylesheet_link_tag "lesson.css"
-  end
-%>
+<% content_for :head do %>
+  <%= javascript_include_tag "lesson.js" %>
+  <%= stylesheet_link_tag "lesson.css" %>
+<% end %>
     <div id="lesson-form" class="row">
       <div class="offset2 span8">
         <form>
@@ -16,4 +14,3 @@
         <button id="get-lesson-button" class="btn btn-primary">Get Lesson</button>
       </div>
     </div>
-
