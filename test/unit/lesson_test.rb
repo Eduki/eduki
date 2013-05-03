@@ -1,16 +1,18 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: lessons
 #
 #  id         :integer          not null, primary key
-#  email      :string(255)
+#  title      :string(255)
+#  body       :string(255)
+#  course_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'test_helper'
 
-class UserTest < ActiveSupport::TestCase
+class LessonTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

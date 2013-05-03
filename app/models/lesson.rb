@@ -1,13 +1,16 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: lessons
 #
 #  id         :integer          not null, primary key
-#  email      :string(255)
+#  title      :string(255)
+#  body       :string(255)
+#  course_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class User < ActiveRecord::Base
+class Lesson < ActiveRecord::Base
   # attr_accessible :title, :body
+  belongs_to :course
 end
