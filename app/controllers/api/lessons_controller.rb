@@ -1,4 +1,9 @@
 class Api::LessonsController < ApplicationController
+
+  api :GET, '/courses/:course_id/lessons/:id', "Retrieve a lesson"
+  param :course_id, :number, :required => true
+  param :id, :number, :required => true
+  example %Q[{'id':2,'title':'Fighting wild bears','course_id':1}]
   def show
     course = Course.find_by_id(params[:course_id])
     lesson = Lesson.find_by_id(params[:id])
@@ -16,6 +21,14 @@ class Api::LessonsController < ApplicationController
     end
   end
 
+  api :GET, '/courses/:course_id/lessons', "Retrieve all of a course's lessons"
+  param :course_id, :number, :required => true
+  example <<-EOF
+            [
+              {'id':2,'title':'Fighting wild bears','course_id':1},
+              {'id':4,'title':'Eating wild bears','course_id':1}
+            ]
+            EOF
   def index
     course = Course.find_by_id(params[:course_id])
     if course.nil?
@@ -25,6 +38,10 @@ class Api::LessonsController < ApplicationController
     end
   end
 
+  api :POST, '/courses/:course_id/lessons', "Create a lesson"
+  param :course_id, :number, :required => true
+  param :title, String, :required => true
+  param :body, String, :required => false
   def create
     course = Course.find_by_id(params[:course_id])
     if course.nil?
@@ -39,6 +56,12 @@ class Api::LessonsController < ApplicationController
     end
   end
 
+  api :POST, '/courses/:course_id/lessons', "Update a lesson"
+  param :course_id, :number, :required => true
+  param :id, :number, :required => true
+  param :title, String, :required => false
+  param :body, String, :required => false
+  # example %Q[
   def update
     course = Course.find_by_id(params[:course_id])
     lesson = Lesson.find(params[:id])

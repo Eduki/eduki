@@ -1,4 +1,6 @@
 Eduki::Application.routes.draw do
+  apipie
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
