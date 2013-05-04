@@ -2,13 +2,21 @@ $(document).ready(function() {
   // Get a Lesson based on Course and Lesson ID
   $('#lesson-form').submit(function(e) {
     $('#invalid-lesson-message').remove(); // Remove the error message if it exists
+
+    // Create a parameters for a lesson to fetch
     var lesson = new Lesson();
     lesson.set('id', $('#lesson-id').val());
     lesson.set('course_id', $('#course-id').val());
+
+    // Fetch lesson
     lesson.fetch({
-      success: function() { displayLessonView(lesson); },
-      error: function() { displayInvalidLessonMessage(); }
-      });
+      success: function() {
+        displayLessonView(lesson);
+      },
+      error: function() {
+        displayInvalidLessonMessage();
+      }
+    });
     e.preventDefault(); // Prevents form from submitting
   });
 });

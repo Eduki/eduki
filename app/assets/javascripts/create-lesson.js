@@ -1,12 +1,12 @@
 $(document).ready(function() {
-	$('#create-lesson-button button').click(makeAndSend);
+	$('#create-lesson-button button').click(createLesson);
 });
 
 // Lesson model definition
 var Lesson = Backbone.Model.extend({
 	urlRoot: function() {
-              return '/api/courses/' + this.get('course_id') + '/lessons'
-            },
+    return '/api/courses/' + this.get('course_id') + '/lessons'
+  },
 
 	defaults: {
 		id: null,
@@ -25,7 +25,7 @@ var Lesson = Backbone.Model.extend({
 });
 
 // Grab form contents, create lesson, send to database
-function makeAndSend(event) {
+function createLesson(event) {
   $('#create-lesson-failure').remove();
 	var lesson = new Lesson({title: $('#create-lesson-name').val(),
                            body: $('#create-lesson-content').val()});
@@ -33,7 +33,6 @@ function makeAndSend(event) {
      success: function() {
        displayCreationSuccess();
      },
-
      error: function() {
        displayCreationError();
      }
