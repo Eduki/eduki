@@ -6,13 +6,9 @@ $(document).ready(function() {
     lesson.set('id', $('#lesson-id').val());
     lesson.set('course_id', $('#course-id').val());
     lesson.fetch({
-      success: function() {
-        if (lesson.has('error'))
-          generateInavlidLessonMessage();
-        else
-          generateLessonView(lesson);
-      },
-    });
+      success: function() { displayLessonView(lesson); },
+      error: function() { displayInvalidLessonMessage(); }
+      });
     e.preventDefault(); // Prevents form from submitting
   });
 });
@@ -26,7 +22,7 @@ var Lesson = Backbone.Model.extend({
 });
 
 // Generate the the HTML content for a lesson
-function generateLessonView(lesson) {
+function displayLessonView(lesson) {
   $('#lesson-form').css('display', 'none');
 
   var lessonDiv = $('<div></div>');
@@ -48,7 +44,7 @@ function generateLessonView(lesson) {
   var viewAnotherBtn = $('<button></button>');
   viewAnotherBtn.addClass('btn btn-primary')
   viewAnotherBtn.html('View Another Lesson')
-  viewAnotherBtn.click(function() { generateFormView(); });
+  viewAnotherBtn.click(function() { displayFormView(); });
   containerDiv.append(viewAnotherBtn);
 
   lessonDiv.append(containerDiv);
@@ -56,13 +52,13 @@ function generateLessonView(lesson) {
 }
 
 // Make form appear again and remove error message if exists
-function generateFormView() {
+function displayFormView() {
   $('.lesson').remove();
   $('#lesson-form').css('display', 'block');
 }
 
 // Generate a message for a lesson/course combo that doesn't exist
-function generateInavlidLessonMessage() {
+function displayInvalidLessonMessage() {
   var invalidLessonMessage = $('<p></p>');
   invalidLessonMessage.attr('id', 'invalid-lesson-message');
   invalidLessonMessage.html('Sorry, that lesson does not exist!');
