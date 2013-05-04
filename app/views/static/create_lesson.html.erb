@@ -1,9 +1,7 @@
-<%
-  content_for :head do
-    javascript_include_tag "create-lesson.js"
-    stylesheet_link_tag "create-lesson.css"
-  end
-%>
+<% content_for :head do %>
+  <%= javascript_include_tag "create-lesson.js" %>
+  <%= stylesheet_link_tag "create-lesson.css" %>
+<% end %>
     <div id="create-lesson-form" class="row">
       <form class="offset2 span8">
         <fieldset>
