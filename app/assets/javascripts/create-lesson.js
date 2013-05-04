@@ -12,8 +12,16 @@ var newLesson = Backbone.Model.extend({
 
 	defaults: {
 		id: null,
-		title: 'helo',
-		body: 'whhfdkslsk'
+		title: '',
+		body: '',
+		course_id: 1
+	},
+
+	validate : function (attrs, options) {
+		if (attrs.title == '' || attrs.body == '') {
+			alert('Course info not filled in correctly. Please resubmit with correct info');
+			return 'Course info not properly filled out';
+		}
 	}
 });
 
