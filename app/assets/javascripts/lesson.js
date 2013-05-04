@@ -1,41 +1,33 @@
 $(document).ready(function() {
-  /*
-  var LessonView = Backbone.View.extend({
-    tagName: 'div',
-    className: 'row lesson',
-    id: 'lesson-' + lesson.get('title'),
-    template: _.template($('#lessonTemplate').html(), {}),
-
-    render: function() {
-      this.$el.append(this.template);
-    }
-
+  // Get a Lesson based on Course and Lesson ID
+  $('#lesson-form').submit(function(e) {
+    $('#invalid-lesson-message').remove(); // Remove the error message if it exists
+    var lesson = new Lesson();
+    lesson.set('id', $('#lesson-id').val());
+    lesson.set('course_id', $('#course-id').val());
+    lesson.fetch({
+      success: function() {
+        if (lesson.has('error'))
+          generateInavlidLessonMessage();
+        else
+          generateLessonView(lesson);
+      },
+    });
+    e.preventDefault(); // Prevents form from submitting
   });
-  */
-
-  $('#get-lesson-button').on('click', generateLessonView);
 });
 
+// Lesson model
 var Lesson = Backbone.Model.extend({
-  defaults: {
-    id: 0,
-    title: 'Biology Lesson',
-    body: 'Herpaderpderpp\n nerrrp'
-  },
-  urlRoot: '/api/courses/1/lessons/'
+  // URL for fetching courses and lessons
+  url: function() {
+    return '/api/courses/' + this.get('course_id') + '/lessons/' + this.get('id')
+  }
 });
 
-/*
-var Lessons = Backbone.Collection.extend([], {
-  model: Lesson,
-  url: 'http://eduki.herokuapp.com/api/courses/1/lessons/',
-});
-*/
-
-var lesson = new Lesson();
-
-function generateLessonView() {
-  console.log(lesson.fetch());
+// Generate the the HTML content for a lesson
+function generateLessonView(lesson) {
+  $('#lesson-form').css('display', 'none');
 
   var lessonDiv = $('<div></div>');
   lessonDiv.attr('id', ('lesson-' + lesson.get('id')));
@@ -53,7 +45,27 @@ function generateLessonView() {
     containerDiv.append('<p>' + paragraphs[i] + '<p>');
   }
 
-  lessonDiv.append(containerDiv);
-  $('.container').html(lessonDiv);
+  var viewAnotherBtn = $('<button></button>');
+  viewAnotherBtn.addClass('btn btn-primary')
+  viewAnotherBtn.html('View Another Lesson')
+  viewAnotherBtn.click(function() { generateFormView(); });
+  containerDiv.append(viewAnotherBtn);
 
+  lessonDiv.append(containerDiv);
+  $('.container').append(lessonDiv);
+}
+
+// Make form appear again and remove error message if exists
+function generateFormView() {
+  $('.lesson').remove();
+  $('#lesson-form').css('display', 'block');
+}
+
+// Generate a message for a lesson/course combo that doesn't exist
+function generateInavlidLessonMessage() {
+  var invalidLessonMessage = $('<p></p>');
+  invalidLessonMessage.attr('id', 'invalid-lesson-message');
+  invalidLessonMessage.html('Sorry, that lesson does not exist!');
+  invalidLessonMessage.css({'color': 'red', 'font-size': '18pt'});
+  $('#lesson-form div').append(invalidLessonMessage);
 }
