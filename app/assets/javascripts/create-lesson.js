@@ -1,14 +1,12 @@
 $(document).ready(function() {
-	$("#les_button").click(makeAndSend);
-/*	var ajax = new XMLHttpRequest();
-	ajax.onload = fn;
-	ajax.onerror = errorFunction;
-	ajax.open("GET", "http://eduki.herokuapp.com/api/courses/1/lessons", true);
-	ajax.send();*/
+	$('#create-lesson-button button').click(makeAndSend);
 });
 
-var newLesson = Backbone.Model.extend({
-	urlRoot: '/api/courses/1/lessons',
+// Lesson model definition
+var Lesson = Backbone.Model.extend({
+	urlRoot: function() {
+              return '/api/courses/' + this.get('course_id') + '/lessons'
+            },
 
 	defaults: {
 		id: null,
@@ -17,44 +15,72 @@ var newLesson = Backbone.Model.extend({
 		course_id: 1
 	},
 
+  // Checks if a Lesson has valid content to send
 	validate : function (attrs, options) {
 		if (attrs.title == '' || attrs.body == '') {
-			displayError();
+      displayCreationError();
 			return 'Course info not properly filled out';
 		}
 	}
 });
 
+// Grab form contents, create lesson, send to database
 function makeAndSend(event) {
-	var course = new newLesson({title: $('#create-lesson-name').val(), 
-															body: $('#create-lesson-content').val()});
-	course.save({}, {
+  $('#create-lesson-failure').remove();
+	var lesson = new Lesson({title: $('#create-lesson-name').val(),
+                           body: $('#create-lesson-content').val()});
+	lesson.save({}, {
      success: function() {
-     		alert('course saved successfully');
-     		location.reload();
+       displayCreationSuccess();
      },
 
      error: function() {
-     		alert('course failed');
+       displayCreationError();
      }
  });
 }
 
-function fn(e) {
-  if (this.status == 200) {   // 200 means request succeeded
-    console.log(this.responseText);
-  } else {
-    console.log('error');
-  }
+// Display a success message
+function displayCreationSuccess() {
+  $('#create-lesson-button').remove();
+
+  var successContainer = $('<div></div>');
+  successContainer.attr('id', 'create-lesson-success');
+
+  var successMessageContainer = $('<div></div>');
+  successMessageContainer.attr('id', 'create-lesson-success-message');
+  successMessageContainer.addClass('feedback-message row');
+
+  var successMessage = $('<p></p>');
+  successMessage.addClass('span8 offset2');
+  successMessage.html('Lesson successfully created');
+
+  var row = $('<div></div>');
+  row.addClass('row');
+
+  var newLessonButton = $('<button></button>');
+  newLessonButton.attr('id', 'new-lesson-button');
+  newLessonButton.addClass('span8 offset2 btn btn-large btn-success');
+  newLessonButton.on('click', function() { window.location.href = '/create_lesson'; });
+  newLessonButton.html('Create Another Lesson');
+
+  successMessageContainer.append(successMessage);
+  successContainer.append(successMessageContainer);
+  successContainer.append(newLessonButton);
+
+  $('.container').append(successContainer);
 }
 
+// Display a failure message
 function displayCreationError() {
-	var lessonFailure = $('<div></div>');
-	lessonFailure.attr('id', 'create-lesson-failure');
-	lessonFailure.addClass('feedback-message row');
-	var lessonText = $('<p></p>');
-	lessonText.addClass('span8 offset2');
-	lessonText.text('Lesson failed to create.')
-	lessonFailure.append(lessonText);
-	$('#create-lesson-form').after(lessonFailure);
+	var failureContainer = $('<div></div>');
+	failureContainer.attr('id', 'create-lesson-failure');
+	failureContainer.addClass('feedback-message row');
+
+	var failureMessage = $('<p></p>');
+	failureMessage.addClass('span8 offset2');
+	failureMessage.text('Lesson failed to create. Please enter valid information.')
+	failureContainer.append(failureMessage);
+
+	$('#create-lesson-form').after(failureContainer);
 }
