@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$("#les_button").click(makeAndSend);
+<<<<<<< HEAD
 /*	var ajax = new XMLHttpRequest();
 	ajax.onload = fn;
 	ajax.onerror = errorFunction;
@@ -14,10 +15,21 @@ var newLesson = Backbone.Model.extend({
 		id: null,
 		title: 'helo',
 		body: 'whhfdkslsk'
+=======
+});
+
+var newLesson = Backbone.Model.extend({
+	urlRoot: '/courses',
+
+	defaults: {
+		name: 'helo',
+		content: 'whhfdkslsk'
+>>>>>>> feaf5b2771ff50060a5b3fc0330796f62de5e4aa
 	}
 });
 
 function makeAndSend(event) {
+<<<<<<< HEAD
 	var course = new newLesson({title: $('#create-lesson-name').val(), 
 															body: $('#create-lesson-content').val()});
 	course.save({}, {
@@ -41,4 +53,8 @@ function fn(e) {
 
 function errorFunction(e) {
 	console.log('error');
+=======
+	var course = new newLesson({name: $('#create-lesson-name').val(), content: $('#create-lesson-content').val()});
+	alert('course name: ' + course.get('name') + ',\ncourse content: ' + course.get('content'));
+>>>>>>> feaf5b2771ff50060a5b3fc0330796f62de5e4aa
 }
