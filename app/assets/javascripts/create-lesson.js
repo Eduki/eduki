@@ -19,7 +19,7 @@ var newLesson = Backbone.Model.extend({
 
 	validate : function (attrs, options) {
 		if (attrs.title == '' || attrs.body == '') {
-			alert('Course info not filled in correctly. Please resubmit with correct info');
+			displayError();
 			return 'Course info not properly filled out';
 		}
 	}
@@ -31,6 +31,7 @@ function makeAndSend(event) {
 	course.save({}, {
      success: function() {
      		alert('course saved successfully');
+     		location.reload();
      },
 
      error: function() {
@@ -47,6 +48,13 @@ function fn(e) {
   }
 }
 
-function errorFunction(e) {
-	console.log('error');
+function displayCreationError() {
+	var lessonFailure = $('<div></div>');
+	lessonFailure.attr('id', 'create-lesson-failure');
+	lessonFailure.addClass('feedback-message row');
+	var lessonText = $('<p></p>');
+	lessonText.addClass('span8 offset2');
+	lessonText.text('Lesson failed to create.')
+	lessonFailure.append(lessonText);
+	$('#create-lesson-form').after(lessonFailure);
 }
