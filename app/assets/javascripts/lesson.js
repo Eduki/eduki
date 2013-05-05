@@ -31,8 +31,14 @@ var Lesson = Backbone.Model.extend({
 
 // Generate the the HTML content for a lesson
 function displayLessonView(lesson) {
-  $('#lesson-form').css('display', 'none');
+  if (!lesson.get('title') || !lesson.get('body')) {
+    alert('lesson does not exist!');
+    displayInvalidLessonMessage();
+    return;  
+  }
 
+  $('#lesson-form').css('display', 'none');
+  
   var lessonDiv = $('<div></div>');
   lessonDiv.attr('id', ('lesson-' + lesson.get('id')));
   lessonDiv.addClass('row lesson');
