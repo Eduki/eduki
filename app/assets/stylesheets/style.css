@@ -1,0 +1,30 @@
+body {
+  font-size: 10pt;
+}
+
+#content {
+  margin: 0 auto;
+}
+
+.navbar li a {
+  text-transform: uppercase;
+}
+
+#footer {
+  background-color: #d3d3d3;
+  width: 100%;
+  margin-top: 50px;
+  height: 200px;
+  padding: 10px 10px;
+  text-align: center;
+}
+
+.form-actions {
+  background: none !important;
+}
+
+#huskysoftlogo img {
+  margin-top: 50px;
+  max-height: 100px;
+}
+
