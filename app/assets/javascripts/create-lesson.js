@@ -31,7 +31,7 @@ function createLesson(event) {
                            body: $('#create-lesson-content').val()});
 	lesson.save({}, {
      success: function() {
-       displayCreationSuccess();
+       displayCreationSuccess(lesson);
      },
      error: function() {
        displayCreationError();
@@ -40,7 +40,7 @@ function createLesson(event) {
 }
 
 // Display a success message
-function displayCreationSuccess() {
+function displayCreationSuccess(lesson) {
   $('#create-lesson-button').remove();
 
   var successContainer = $('<div></div>');
@@ -52,7 +52,10 @@ function displayCreationSuccess() {
 
   var successMessage = $('<p></p>');
   successMessage.addClass('span8 offset2');
-  successMessage.html('Lesson successfully created');
+  successMessage.html('Lesson successfully created.' + 'The course ID is: <strong>' +
+                      lesson.get('course_id') + '</strong> and the lesson ID is: <strong>' +
+                      lesson.get('id') + '</strong>');
+
 
   var row = $('<div></div>');
   row.addClass('row');
