@@ -32,7 +32,6 @@ var Lesson = Backbone.Model.extend({
 // Generate the the HTML content for a lesson
 function displayLessonView(lesson) {
   if (!lesson.get('title') || !lesson.get('body')) {
-    alert('lesson does not exist!');
     displayInvalidLessonMessage();
     return;  
   }
