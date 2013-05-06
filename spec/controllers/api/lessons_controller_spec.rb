@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::LessonsController do
 
   def check_failure(code)
-    assert_response 404
+    assert_response code
     body = JSON.parse(response.body)
     body['error'].should_not == nil
   end
@@ -71,8 +71,8 @@ describe Api::LessonsController do
       get :index, :course_id => @course.id
       assert_response :success
       body = JSON.parse(response.body)
-      body[0]['title'].should == "lesson_one example"
-      body[1]['title'].should == "lesson_two example"
+      body[0]['title'].should == "lesson_one title"
+      body[1]['title'].should == "lesson_two title"
       body.size.should == 2
     end
 
@@ -104,9 +104,15 @@ describe Api::LessonsController do
       check_failure(404)
     end
 
-
     it "returns 400 if title missing" do
-      post :create
+      post :create, :course_id => @course.id,
+        :body => "lesson_four body"
+      check_failure(400)
+    end
+
+    it "returns 400 if body missing" do
+      post :create, :course_id => @course.id,
+        :title => "lesson_four title"
       check_failure(400)
     end
   end
