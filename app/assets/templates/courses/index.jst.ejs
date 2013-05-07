@@ -1,5 +1,6 @@
 <h2>Courses</h2>
-<% window.pee = this %>
-<p><%= this.banana %></p>
-<p><%= "where am i" %></p>
-<p>fricketyy</p>
+<ul>
+<% for(var i = 0; i < this.courses.size(); i++) { %>
+  <li>course title: <%= this.courses.models[i].get("title") %></li>
+<% } %>
+</ul>
