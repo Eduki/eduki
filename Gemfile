@@ -4,6 +4,9 @@ gem 'rails', '3.2.13'
 gem "active_model_serializers", "~> 0.7.0"
 gem "annotate"
 
+# Frontend
+gem "backbone-on-rails"
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
