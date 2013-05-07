@@ -61,7 +61,7 @@ function displayLessonView(lesson) {
   containerDiv.append(viewAnotherBtn);
 
   lessonDiv.append(containerDiv);
-  $('.container').append(lessonDiv);
+  $('#container').append(lessonDiv);
 }
 
 // Make form appear again and remove error message if exists

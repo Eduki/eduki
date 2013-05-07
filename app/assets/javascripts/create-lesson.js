@@ -70,7 +70,7 @@ function displayCreationSuccess(lesson) {
   successContainer.append(successMessageContainer);
   successContainer.append(newLessonButton);
 
-  $('.container').append(successContainer);
+  $('#container').append(successContainer);
 }
 
 // Display a failure message
