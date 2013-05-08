@@ -47,22 +47,19 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 20px;
 }
 
-#welcome-content .row div {
+#welcome-content .row a {
   padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 10px;
   background-color: #9FD7E4;
-  box-shadow: 2px 2px 5px;
-}
-
-#welcome-content .row div a {
   font-size: 14pt;
   color: white;
   text-transform: uppercase;
   letter-spacing: 10px;
 }
 
-#welcome-content .row div a:hover {
+
+#welcome-content .row a:hover {
   text-decoration: none;
 }
 
