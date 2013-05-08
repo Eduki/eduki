@@ -69,3 +69,16 @@ h1, h2, h3, h4, h5 {
 #welcome-controls {
   margin-top: 40px;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin:0;
+}
+
+ul li {
+  font-size: 16pt;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
