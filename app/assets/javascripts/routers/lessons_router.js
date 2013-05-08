@@ -1,7 +1,7 @@
 Eduki.Routers.Lessons = Backbone.Router.extend({
   routes: {
+    'courses/:cid/lessons/:id': 'lesson',
     'courses/:cid/lessons': 'index',
-    'courses/:cid/lessons/:id:': 'lesson',
   },
 
   index: function(cid) {
@@ -9,8 +9,8 @@ Eduki.Routers.Lessons = Backbone.Router.extend({
     $('#main-content').html(view.render().el);
   },
 
-  lesson: function(id) {
-    var view = new Eduki.Views.LessonsLesson({attributes:{course_id: cid}});
+  lesson: function(cid, id) {
+    var view = new Eduki.Views.LessonsLesson({attributes:{course_id: cid, lesson_id: id}});
     $('#main-content').html(view.render().el);
   },
 
