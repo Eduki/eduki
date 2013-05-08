@@ -5,6 +5,7 @@ window.Eduki = {
   Routers: {},
   initialize: function() {
     new Eduki.Routers.Courses();
+    new Eduki.Routers.Lessons();
     Backbone.history.start()
   }
 };

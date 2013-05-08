@@ -18,10 +18,16 @@
           <li>
             <%= link_to "View Lesson", :controller => "static", :action => :lesson %>
           </li>
+          <li>
+            <a href="/#/courses">Courses</a>
+          </li>
+          <li>
+            <a href="/#/courses/1/lessons">Lessons</a>
+          </li>
         </ul>
       </div>
     </div>
-    <div id="container">
+    <div id="main-content" class="container">
         <%= yield %>
     </div>
   </body>
