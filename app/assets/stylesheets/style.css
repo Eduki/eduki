@@ -1,13 +1,16 @@
 body {
   font-size: 10pt;
+  font-family: 'Yanone Kaffeesatz';
 }
 
-#content {
-  margin: 0 auto;
+h1, h2, h3, h4, h5 {
+  font-weight: 400;
 }
 
 .navbar li a {
   text-transform: uppercase;
+  letter-spacing: 1pt;
+  font-size: 18pt;
 }
 
 #footer {
@@ -28,3 +31,51 @@ body {
   max-height: 100px;
 }
 
+#welcome-content {
+  text-align: center;
+}
+
+#welcome-content h1 {
+  text-transform: lowercase;
+  letter-spacing: 5px;
+  color: #555656;
+  padding-left: 15px;
+}
+
+#welcome-content .row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#welcome-content .row a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  background-color: #9FD7E4;
+  font-size: 14pt;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+}
+
+
+#welcome-content .row a:hover {
+  text-decoration: none;
+}
+
+#welcome-controls {
+  margin-top: 40px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin:0;
+}
+
+ul li {
+  font-size: 16pt;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
