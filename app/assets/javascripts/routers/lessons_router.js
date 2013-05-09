@@ -1,7 +1,7 @@
 Eduki.Routers.Lessons = Backbone.Router.extend({
   routes: {
     'courses/:cid/lessons/:id': 'lesson',
-    'courses/:cid/lessons': 'index',
+    'courses/:cid/': 'index',
   },
 
   index: function(cid) {

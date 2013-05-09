@@ -2,7 +2,7 @@
 <ul>
 <% for(var i = 0; i < this.courses.size(); i++) { %>
   <li>
-    <a href="/#/courses/<%= this.courses.models[i].get('id') %>/lessons"><%= this.courses.models[i].get('title') %></a>
+    <a href="/#/courses/<%= this.courses.models[i].get('id') %>/"><%= this.courses.models[i].get('title') %></a>
   </li>
 <% } %>
 </ul>
