@@ -1,24 +1,33 @@
 Eduki.Views.LessonsIndex = Backbone.View.extend({
 
   template: JST['lessons/index'],
+  errorTemplate: JST['static/error'],
 
   initialize: function() {
-    // Fetch the course name
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
-    this.course.on('sync', this.render, this);
-    this.course.fetch();
-
-    // Fetch all lessons. Once retrieved, execute
-    // render through the callback to display them.
     this.lessons = new Eduki.Collections.Lessons(this.course.get('id'));
     this.lessons.url = '/api/courses/' + this.course.get('id') + '/lessons';
-    this.lessons.on('sync', this.render, this);
-    this.lessons.fetch();
+
+    // Fetch course and all its lessons. Once retrieved, execute
+    // render through the callback to display them.
+    var self = this;
+    $.when(this.course.fetch(),
+           this.lessons.fetch()).then(
+             function() { self.render(); },
+             function() { self.renderError(); }
+           );
   },
 
+  // Renders a course's lesson
   render: function() {
     $(this.el).html(this.template());
     return this;
   },
 
+  // Renders an error message
+  renderError: function() {
+    this.message = (this.lesson.get('message'));
+    $(this.el).html(this.errorTemplate());
+    return this;
+  }
 });
