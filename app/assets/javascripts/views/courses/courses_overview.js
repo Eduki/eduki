@@ -1,6 +1,6 @@
-Eduki.Views.LessonsIndex = Backbone.View.extend({
+Eduki.Views.CoursesOverview = Backbone.View.extend({
 
-  template: JST['lessons/index'],
+  template: JST['courses/overview'],
   errorTemplate: JST['static/error'],
 
   initialize: function() {
