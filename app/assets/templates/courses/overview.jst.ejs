@@ -1,0 +1,8 @@
+<h1><%= this.course.get('title') %></h1>
+<ul>
+<% for(var i = 0; i < this.lessons.size(); i++) { %>
+  <li>
+    <a href="#/courses/<%= this.lessons.models[i].get('course_id') %>/lessons/<%= this.lessons.models[i].get('id') %>" title="<%= this.lessons.models[i].get('title') %>">Lesson: <%= this.lessons.models[i].get('title') %></a>
+  </li>
+<% } %>
+</ul>
