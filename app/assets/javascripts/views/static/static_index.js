@@ -3,8 +3,7 @@ Eduki.Views.StaticIndex= Backbone.View.extend({
   template: JST['static/index'],
 
   initialize: function() {
-    // Fetch all courses. Once retrieved, execute
-    // render through the callback to display them.
+    // nothing to initialize
   },
 
   render: function() {
