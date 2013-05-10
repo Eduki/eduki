@@ -7,20 +7,16 @@ Eduki.Views.CoursesIndex = Backbone.View.extend({
     // Fetch all courses. Once retrieved, execute
     // render through the callback to display them.
     this.courses = new Eduki.Collections.Courses();
-    this.courses.on('sync', this.render, this);
-    this.courses.fetch()
+    var self = this;
+    $.when(this.courses.fetch()).then(
+             function() { self.render(self.template()); },
+             function() { self.render(self.errorTemplate()); }
+           );
   },
 
   // Renders the course
-  render: function() {
-    $(this.el).html(this.template());
+  render: function(template) {
+    $(this.el).html(template);
     return this;
   },
-
-  // Renders an error message
-  renderError: function() {
-    this.message = (this.courses.get('message'));
-    $(this.el).html(this.errorTemplate());
-    return this;
-  }
 });

@@ -16,21 +16,14 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
     $.when(this.course.fetch(),
            this.lesson.fetch(),
            this.lessons.fetch()).then(
-             function() { self.render(); },
-             function() { self.renderError(); }
+             function() { self.render(self.template()); },
+             function() { self.render(self.errorTemplate()); }
            );
   },
 
   // Renders an individual lesson
-  render: function() {
-    $(this.el).html(this.template());
+  render: function(template) {
+    $(this.el).html(template);
     return this;
   },
-
-  // Renders an error message
-  renderError: function() {
-    this.message = (this.lesson.get('message'));
-    $(this.el).html(this.errorTemplate());
-    return this;
-  }
 });
