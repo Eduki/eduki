@@ -1,4 +1,18 @@
 class Api::LessonsController < ApplicationController
+
+  resource_description do
+    description <<-EOS
+    A lesson has the following fields
+    * id:integer
+    * course_id:integer
+    * title:string
+    * body:string
+    EOS
+  end
+
+  api :GET, '/courses/:course_id/lessons/:id', "Retrieve a lesson"
+  param :course_id, Fixnum, :required => true
+  param :id, Fixnum, :required => true
   def show
     course = Course.find_by_id(params[:course_id])
     lesson = Lesson.find_by_id(params[:id])
@@ -16,6 +30,8 @@ class Api::LessonsController < ApplicationController
     end
   end
 
+  api :GET, '/courses/:course_id/lessons', "Retrieve a list of lessons"
+  param :course_id, Fixnum, :required => true
   def index
     course = Course.find_by_id(params[:course_id])
     if course.nil?
@@ -25,6 +41,8 @@ class Api::LessonsController < ApplicationController
     end
   end
 
+  api :POST, '/courses/:course_id/lessons', "Create a lesson"
+  param :course_id , Fixnum, :required => true
   def create
     course = Course.find_by_id(params[:course_id])
     if course.nil?
@@ -43,6 +61,9 @@ class Api::LessonsController < ApplicationController
     end
   end
 
+  api :PUT, '/courses/:course_id/lessons/:id', "Update a lesson"
+  param :course_id , Fixnum, :required => true
+  param :id , Fixnum, :required => true
   def update
     course = Course.find_by_id(params[:course_id])
     lesson = Lesson.find_by_id(params[:id])
