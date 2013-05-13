@@ -1,0 +1,15 @@
+<div id="create-course-form" class="row">
+  <div class="offset2 span8">
+    <h1>Create a Course</h1>
+    <hr />
+    <p class="success-message-text">Course succesfully created!</p>
+  </div>
+</div>
+<div class="eduki-buttons row">
+  <div class="span4 offset2 span4 eduki-button-container">
+    <a class="eduki-button-primary" href="/#/courses/<%= this.course.get('id') %>">View Course</a>
+  </div>
+  <div class="span4 set2 span4 eduki-button-container">
+    <a class="eduki-button-primary" href="/#/courses/<%= this.course.get('id') %>/lessons/new">Create Lesson</a>
+  </div>
+</div>

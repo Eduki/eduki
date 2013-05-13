@@ -1,10 +1,35 @@
 body {
-  font-size: 10pt;
-  font-family: 'Yanone Kaffeesatz';
+  font-size: 12pt;
+  font-family: "Yanone Kaffeesatz" !important;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+input,
+label,
+button,
+select,
+textarea {
+  font-family: "Yanone Kaffeesatz" !important;
+}
+
+input,
+label,
+select,
+textarea {
+  font-size: 16pt !important;
 }
 
 h1, h2, h3, h4, h5 {
   font-weight: 400;
+}
+
+p {
+  font-family: "Roboto Slab" !important;
+  font-size: 10pt;
+  font-weight: 300;
 }
 
 .navbar li a {
@@ -31,6 +56,44 @@ h1, h2, h3, h4, h5 {
   max-height: 100px;
 }
 
+button {
+  border: none;
+}
+
+.eduki-buttons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.eduki-buttons a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.eduki-button-block .row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.eduki-button-primary {
+  font-size: 14pt !important;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+}
+
+.eduki-button-container:hover {
+  background-image: none !important;
+  cursor: pointer;
+}
+
+
+.success-message-text {
+  color: green;
+  font-size: 16pt;
+  font-weight: 400;
+}
+
 #welcome-content {
   text-align: center;
 }
@@ -40,27 +103,6 @@ h1, h2, h3, h4, h5 {
   letter-spacing: 5px;
   color: #555656;
   padding-left: 15px;
-}
-
-#welcome-content .row {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-#welcome-content .row a {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 10px;
-  background-color: #9FD7E4;
-  font-size: 14pt;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 10px;
-}
-
-
-#welcome-content .row a:hover {
-  text-decoration: none;
 }
 
 #welcome-controls {
@@ -78,4 +120,15 @@ ul li {
   margin-top: 5px;
   margin-bottom: 5px;
   letter-spacing: 1px;
+}
+
+.eduki-button-container {
+  background-image: linear-gradient(to bottom, #9be8f7, #75ddf4) !important;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  background-color: #75ddf4 !important;
+  box-shadow: 2px 2px 2px #999999 !important;
+  overflow: hidden;
+  text-align: center;
 }
