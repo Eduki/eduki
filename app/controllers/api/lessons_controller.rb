@@ -1,4 +1,10 @@
-class Api::LessonsController < ApplicationController
+class Api::LessonsController < Api::ApiController
+
+  # For all methods, assume that
+  # @course and @lesson have been retrieved if applicable
+  before_filter :get_course_or_404
+  before_filter :get_lesson_or_404, :only => [:show, :update]
+  before_filter :check_course_matches_lesson, :only => [:show, :update]
 
   resource_description do
     description <<-EOS
@@ -12,76 +18,67 @@ class Api::LessonsController < ApplicationController
 
   api :GET, '/courses/:course_id/lessons/:id', "Retrieve a lesson"
   param :course_id, Fixnum, :required => true
-  param :id, Fixnum, :required => true
+  param :id,        Fixnum, :required => true
   def show
-    course = Course.find_by_id(params[:course_id])
-    lesson = Lesson.find_by_id(params[:id])
-    if course.nil?
-      render :json => Course.missing_course(params[:course_id]), :status => 404
-    elsif lesson.nil?
-      render :json => Lesson.missing_lesson(params[:id]), :status => 404
-    elsif lesson.course != course
-      err = error_object
-      err[:message] =
-        "Lesson of ID=#{lesson.id} not a member of Course of ID=#{course.id}"
-      render :json => err, :status => 404
-    else
-      render :json => lesson
-    end
+    render :json => @lesson
   end
 
   api :GET, '/courses/:course_id/lessons', "Retrieve a list of lessons"
   param :course_id, Fixnum, :required => true
   def index
-    course = Course.find_by_id(params[:course_id])
-    if course.nil?
-      render :json => Course.missing_course(params[:course_id]), :status => 404
-    else
-      render :json => Lesson.find_all_by_course_id(params[:course_id])
-    end
+    render :json => Lesson.find_all_by_course_id(@course.id)
   end
 
   api :POST, '/courses/:course_id/lessons', "Create a lesson"
-  param :course_id , Fixnum, :required => true
+  param :course_id, Fixnum, :required => true
+  param :title    , String, :required => true
+  param :body     , String, :required => true
   def create
-    course = Course.find_by_id(params[:course_id])
-    if course.nil?
-      render :json => Course.missing_course(params[:course_id]), :status => 404
-    elsif params[:title].nil? or params[:body].nil?
+    if params[:title].nil? or params[:body].nil?
       err = error_object
       err[:message] = "Either :title or :body missing"
       render :json => err, :status => 400
     else
-      lesson = Lesson.new
-      lesson.title = params[:title]
-      lesson.body  = params[:body]
-      lesson.course_id = params[:course_id]
-      lesson.save
-      render :json => lesson
+      @lesson = Lesson.new
+      @lesson.title     = params[:title]
+      @lesson.body      = params[:body]
+      @lesson.course_id = params[:course_id]
+      @lesson.save
+      render :json => @lesson
     end
   end
 
   api :PUT, '/courses/:course_id/lessons/:id', "Update a lesson"
-  param :course_id , Fixnum, :required => true
-  param :id , Fixnum, :required => true
+  param :course_id, Fixnum, :required => true
+  param :id       , Fixnum, :required => true
+  param :title    , String
+  param :body     , String
   def update
-    course = Course.find_by_id(params[:course_id])
-    lesson = Lesson.find_by_id(params[:id])
-    if course.nil?
-      render :json => Course.missing_course(params[:course_id]), :status => 404
-    elsif lesson.nil?
-      render :json => Lesson.missing_lesson(params[:id]), :status => 404
-    elsif lesson.course != course
-      err = error_object
-      err[:message] =
-        "Lesson of ID=#{lesson.id} not a member of Course of ID=#{course.id}"
-      render :json => err, :status => 404
-    else
-      lesson.title = params[:title] if not params[:title].nil?
-      lesson.body  = params[:body] if not params[:body].nil?
-      lesson.save
-      render :json => lesson
-    end
+    @lesson.title = params[:title] if not params[:title].nil?
+    @lesson.body  = params[:body] if not params[:body].nil?
+    @lesson.save
+    render :json => @lesson
   end
 
+private
+  def get_course_or_404
+    super(params[:course_id])
+  end
+
+  def get_lesson_or_404
+    super(params[:id])
+  end
+
+  # Checks of @lesson is indeed a member of @course
+  # Returns false and renders 404 if that isn't the case.
+  # Meant to be used in before_filters
+  def check_course_matches_lesson
+    if @lesson.course != @course
+      err = error_object
+      err[:message] =
+        "Lesson of ID=#{@lesson.id} not a member of Course of ID=#{@course.id}"
+      render :json => err, :status => 404
+      return false
+    end
+  end
 end
