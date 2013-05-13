@@ -1,3 +1,6 @@
+# A controller to handle lessons endpoints on the API
+#
+# David Mah
 class Api::LessonsController < Api::ApiController
 
   # For all methods, assume that

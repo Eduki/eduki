@@ -1,3 +1,7 @@
+# A class for all Api controllers to inherit from. All shared code
+# should go in here.
+#
+# David Mah
 class Api::ApiController < ApplicationController
 
 protected

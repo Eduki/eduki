@@ -1,3 +1,7 @@
+# A test suite for the Lessons endpoints of the API
+# This is a white box test
+# David Mah
+
 require 'spec_helper'
 
 describe Api::LessonsController do

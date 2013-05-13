@@ -1,6 +1,8 @@
+# A test suite for the Courses endpoints of the API
+# This is a white box test
+# David Mah
+
 require 'spec_helper'
-
-
 
 describe Api::CoursesController do
   before(:each) do

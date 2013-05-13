@@ -1,3 +1,6 @@
+# A controller to handle Courses endpoints
+#
+# David Mah
 class Api::CoursesController < Api::ApiController
 
   # For all methods, assume that
