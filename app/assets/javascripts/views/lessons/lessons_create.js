@@ -1,10 +1,13 @@
 Eduki.Views.LessonsCreate = Backbone.View.extend({
 
-	template: JST['lessons/lesson-create'],
+	template: JST['lessons/new'],
   errorTemplate: JST['static/error'],
 
   initialize: function() {
     // nothing to initialize
+    var self = this;
+    self.render(self.template());
+   // self.render(self.errorTemplate());
   },
 
     // Renders the create lesson form

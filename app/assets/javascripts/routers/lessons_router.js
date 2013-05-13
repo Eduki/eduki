@@ -1,7 +1,7 @@
 Eduki.Routers.Lessons = Backbone.Router.extend({
   routes: {
     'courses/:cid/lessons/:id(/)': 'lesson',
-    'create-lesson(/)': 'create'
+    'courses/1/new(/)': 'create'
   },
 
   // Delegate to the StaticIndex View and render it inside of the container
