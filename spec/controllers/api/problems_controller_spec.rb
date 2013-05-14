@@ -3,7 +3,7 @@
 # David Mah
 require 'spec_helper'
 
-describe Api::ProblemController do
+describe Api::ProblemsController do
 
   # Set up some problem examples to be used by the tests
   before(:each) do
