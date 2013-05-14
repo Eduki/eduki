@@ -12,4 +12,11 @@
 class Quiz < ActiveRecord::Base
   belongs_to :course
   has_many :problems
+
+  def self.missing_quiz(id)
+    {
+      :error => "Resource not found",
+      :message => "Could not find Quiz with ID=#{id}"
+    }
+  end
 end
