@@ -70,12 +70,13 @@ describe Problem do
 
   describe "hash constructor" do
     it "should be able to build a proper Problem object from a hash" do
-      previous_count = Problem.size
+      previous_count = Problem.count
       problem = Problem.create_from_hash({:question => "question", :answer => "answer"})
+      problem.quiz = @quiz
       problem.save
 
       # DB should be updated
-      Problem.size.should == (previous_count + 1)
+      Problem.count.should == (previous_count + 1)
       Problem.last.question.should == "question"
       Problem.last.answer.should   == "answer"
     end
