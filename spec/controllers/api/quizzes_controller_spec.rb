@@ -3,7 +3,7 @@
 # David Mah
 require 'spec_helper'
 
-describe Api::QuizController do
+describe Api::QuizzesController do
 
   # Set up some quiz examples to be used by the tests
   before(:each) do
