@@ -1,11 +1,16 @@
+# Tests for the Problem Model
+# This should fill the test driven development requirement
+# David Mah
 require 'spec_helper'
 
 describe Problem do
   before(:each) do
+    # Make a quiz to host this problem
     @quiz = Quiz.new
     @quiz.title = "quiz title"
     @quiz.save
 
+    # Create a problem that tests can use
     @problem = Problem.new
     @problem.question = "problem question"
     @problem.answer = "problem answer"
@@ -21,7 +26,7 @@ describe Problem do
     @problem.quiz.should == @quiz
   end
 
-  it "should disallow saving a quiz with no question field" do
+  it "should disallow saving a problem with no question field" do
     @new_problem = Problem.new
     # @new_problem.question = "new_problem question"
     @new_problem.answer = "new_problem answer"
@@ -29,7 +34,7 @@ describe Problem do
     @new_problem.save.should == nil
   end
 
-  it "should disallow saving a quiz with no answer field" do
+  it "should disallow saving a problem with no answer field" do
     @new_problem = Problem.new
     @new_problem.question = "new_problem question"
     # @new_problem.answer = "new_problem answer"
@@ -37,7 +42,7 @@ describe Problem do
     @new_problem.save.should == nil
   end
 
-  it "should disallow saving a quiz with no quiz field" do
+  it "should disallow saving a problem with no quiz field" do
     @new_problem = Problem.new
     @new_problem.question = "new_problem question"
     @new_problem.answer = "new_problem answer"
