@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: problems
+#
+#  id         :integer          not null, primary key
+#  question   :string(255)      not null
+#  answer     :string(255)      not null
+#  quiz_id    :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 # Tests for the Problem Model
 # This should fill the test driven development requirement
 # David Mah
@@ -37,7 +49,7 @@ describe Problem do
     # @new_problem.question = "new_problem question"
     @new_problem.answer = "new_problem answer"
     @new_problem.quiz = @quiz
-    @new_problem.save.should == nil
+    expect { @new_problem.save }.to raise_error
   end
 
   it "should disallow saving a problem with no answer field" do
@@ -45,7 +57,7 @@ describe Problem do
     @new_problem.question = "new_problem question"
     # @new_problem.answer = "new_problem answer"
     @new_problem.quiz = @quiz
-    @new_problem.save.should == nil
+    expect { @new_problem.save }.to raise_error
   end
 
   it "should disallow saving a problem with no quiz field" do
@@ -53,6 +65,6 @@ describe Problem do
     @new_problem.question = "new_problem question"
     @new_problem.answer = "new_problem answer"
     # @new_problem.quiz = @quiz
-    @new_problem.save.should == nil
+    expect { @new_problem.save }.to raise_error
   end
 end
