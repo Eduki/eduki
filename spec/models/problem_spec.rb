@@ -5,9 +5,15 @@ require 'spec_helper'
 
 describe Problem do
   before(:each) do
+    # Create a course to host this quiz
+    @course = Course.new
+    @course.title = 'course title'
+    @course.save
+
     # Make a quiz to host this problem
     @quiz = Quiz.new
     @quiz.title = "quiz title"
+    @quiz.course = @course
     @quiz.save
 
     # Create a problem that tests can use
