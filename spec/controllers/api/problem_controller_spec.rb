@@ -141,6 +141,18 @@ describe Api::ProblemController do
       put :update, :id => -1, :title => "course title change"
       check_failure(404)
     end
+  end
 
+  describe "DELETE #destroy" do
+    it "removes a problem's record" do
+      delete :destroy, :id => @problem.id
+      assert_response :success
+      expect { Problem.find_by_id(@problem) }.to raise_error
+    end
+
+    it "returns 404 if id not found" do
+      delete :destroy, :id => -1
+      check_failure(404)
+    end
   end
 end
