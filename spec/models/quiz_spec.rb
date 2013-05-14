@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: quizzes
+#
+#  id         :integer          not null, primary key
+#  title      :string(255)      not null
+#  course_id  :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 # Tests for the Quiz Model
 # This should fill the test driven development requirement
 # David Mah
@@ -40,13 +51,13 @@ describe Quiz do
     @new_quiz = Quiz.new
     # @new_quiz.title = "new quiz title"
     @new_quiz.course = @course
-    @new_quiz.save.should == nil
+    expect { @new_quiz.save }.to raise_error
   end
 
   it "should disallow saving a quiz with no course" do
     @new_quiz = Quiz.new
     @new_quiz.title = "new quiz title"
     # @new_quiz.course = @course
-    @new_quiz.save.should == nil
+    expect { @new_quiz.save }.to raise_error
   end
 end

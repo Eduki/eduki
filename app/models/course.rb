@@ -12,6 +12,7 @@
 class Course < ActiveRecord::Base
   attr_accessible :title
   has_many :lessons
+  has_many :quizzes
 
   # An object to return in the case that the given course is not found
   def self.missing_course(id)
