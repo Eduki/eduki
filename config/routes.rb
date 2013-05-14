@@ -64,6 +64,7 @@ Eduki::Application.routes.draw do
     resources :courses do
       resources :lessons
     end
+    resources :users
   end
 
 end

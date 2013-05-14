@@ -38,6 +38,7 @@ GEM
       ejs
       jquery-rails
       rails (>= 3.1)
+    bcrypt-ruby (3.0.1)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -46,13 +47,13 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    diff-lcs (1.2.4)
     eco (1.0.0)
       coffee-script
       eco-source
       execjs
     eco-source (1.1.0.rc.1)
     ejs (1.1.1)
-    diff-lcs (1.2.4)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -135,6 +136,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.7.0)
   annotate
   backbone-on-rails
+  bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 3.2.1)
   jquery-rails
   pg
