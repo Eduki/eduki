@@ -36,3 +36,11 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+
+# Fails the test if the HTTP code does not match the given code
+# Also checks that the 'error' key exists in the text response
+def check_failure(code)
+  assert_response code
+  body = JSON.parse(response.body)
+  body['error'].should_not == nil
+end
