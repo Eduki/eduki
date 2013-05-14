@@ -36,7 +36,7 @@ describe Api::QuizController do
   describe "GET #show" do
 
     it "returns a Quiz with a HTTP 200 status code" do
-      get :show, :course_id => @course.id, :id => @quiz.id
+      get :show, :id => @quiz.id
       assert_response :success
       body = JSON.parse(response.body)
       body['id'].should        == @quiz.id
@@ -44,18 +44,8 @@ describe Api::QuizController do
       body['course_id'].should == @quiz.course_id
     end
 
-    it "returns 404 if course_id not found" do
-      get :show, :course_id => -1, :id => @quiz.id
-      check_failure(404)
-    end
-
     it "returns 404 if id not found" do
-      get :show, :course_id => @course.id, :id => -1
-      check_failure(404)
-    end
-
-    it "returns 404 if course_id and id don't correspond" do
-      get :show, :course_id => @course.id, :id => @quiz_three.id
+      get :show, :id => -1
       check_failure(404)
     end
   end
@@ -104,7 +94,7 @@ describe Api::QuizController do
 
   describe "PUT #update" do
     it "updates 1 Quiz" do
-      put :update, :course_id => @course.id, :id => @quiz.id,
+      put :update, :id => @quiz.id,
         :title => "quiz title change"
       assert_response :success
       body = JSON.parse(response.body)
@@ -114,25 +104,15 @@ describe Api::QuizController do
     end
 
     it "updates nothing if nothing included" do
-      put :update, :course_id => @course.id, :id => @quiz.id
+      put :update, :id => @quiz.id
       assert_response :success
       body = JSON.parse(response.body)
       body['title'].should == @quiz.title
       Quiz.find(@quiz.id).title.should == @quiz.title
     end
 
-    it "returns 404 if course_id not found" do
-      put :update, :course_id => -1, :id => @quiz.id, :title => "course title change"
-      check_failure(404)
-    end
-
     it "returns 404 if id not found" do
-      put :update, :course_id => @course.id, :id => -1, :title => "course title change"
-      check_failure(404)
-    end
-
-    it "returns 404 if course_id and id don't correspond" do
-      put :update, :course_id => @course.id, :id => @quiz_three.id, :title => "course title change"
+      put :update, :id => -1, :title => "course title change"
       check_failure(404)
     end
 
