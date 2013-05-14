@@ -67,4 +67,25 @@ describe Problem do
     # @new_problem.quiz = @quiz
     expect { @new_problem.save }.to raise_error
   end
+
+  describe "hash constructor" do
+    it "should be able to build a proper Problem object from a hash" do
+      previous_count = Problem.size
+      problem = Problem.create_from_hash({:question => "question", :answer => "answer"})
+      problem.save
+
+      # DB should be updated
+      Problem.size.should == (previous_count + 1)
+      Problem.last.question.should == "question"
+      Problem.last.answer.should   == "answer"
+    end
+
+    it "should nil if question is missing" do
+      Problem.create_from_hash({:answer => "answer"}).should be_nil
+    end
+
+    it "should nil if answer is missing" do
+      Problem.create_from_hash({:question => "question"}).should be_nil
+    end
+  end
 end
