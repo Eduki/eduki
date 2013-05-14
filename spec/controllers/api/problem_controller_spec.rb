@@ -80,12 +80,16 @@ describe Api::ProblemController do
       post :create, :quiz_id => @quiz.id,
         :question => "problem_four question", :answer => "problem_four answer"
       assert_response :success
+
+      # Response should have updated version
       body = JSON.parse(response.body)
       body['id'].should_not == @problem.id
       body['id'].should_not == @problem_two.id
       body['id'].should_not == @problem_three.id
       body['question'].should == "problem_four question"
       body['answer'].should   == "problem_four answer"
+
+      # DB should be updated
       Problem.count.should == (previous_size + 1)
       Problem.last.title.should == "problem_four title"
     end
@@ -107,10 +111,14 @@ describe Api::ProblemController do
         :question => "problem question change",
         :answer => "problem question change"
       assert_response :success
+
+      # Response should have updated version
       body = JSON.parse(response.body)
       body['id'].should == @problem.id
       body['question'].should == "problem question change"
       body['answer'].should   == "problem answer change"
+
+      # DB should be updated
       Problem.find(@problem.id).question.should == "problem question change"
       Problem.find(@problem.id).answer.should   == "problem answer change"
     end
@@ -118,9 +126,13 @@ describe Api::ProblemController do
     it "updates nothing if nothing included" do
       put :update,:id => @problem.id
       assert_response :success
+
+      # Response should have updated version
       body = JSON.parse(response.body)
       body['question'].should == @problem.question
       body['answer'].should   == @problem.answer
+
+      # DB should be updated
       Problem.find(@problem.id).question.should == @problem.question
       Problem.find(@problem.id).answer.should    == @problem.answer
     end
