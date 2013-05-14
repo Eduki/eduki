@@ -92,7 +92,8 @@ describe Api::QuizzesController do
       get :index, :course_id => @course.id
       assert_response :success
       body = JSON.parse(response.body)
-      body['problems'].should be_nil
+      # Reach into the first object. It shouldn't have problems
+      body[0]['problems'].should be_nil
     end
 
     it "returns 404 if course_id not found" do
@@ -125,7 +126,7 @@ describe Api::QuizzesController do
       post :create, :course_id => @course.id,
         :title => "quiz_four title",
         :problems => [{:question=>"question_one", :answer=>"answer_one"},
-                      {:question=>"question_two", :answer=>"question_two"}]
+                      {:question=>"question_two", :answer=>"answer_two"}]
       assert_response :success
       body = JSON.parse(response.body)
 
@@ -157,12 +158,18 @@ describe Api::QuizzesController do
   describe "PUT #update" do
     it "updates 1 Quiz" do
       put :update, :id => @quiz.id,
-        :title => "quiz title change"
+        :course_id => @course_two.id, :title => "quiz title change"
       assert_response :success
+
+      # Response should have updated version
       body = JSON.parse(response.body)
       body['id'].should == @quiz.id
       body['title'].should == "quiz title change"
+      body['course_id'].should == @course_two.id
+
+      # DB should match
       Quiz.find(@quiz.id).title.should == "quiz title change"
+      Quiz.find(@quiz.id).course.should == @course_two
     end
 
     it "updates nothing if nothing included" do
@@ -176,7 +183,7 @@ describe Api::QuizzesController do
     it "replaces the full problem set if problems are included" do
       put :update, :id => @quiz_two.id,
         :problems => [{:question=>"question_one", :answer=>"answer_one"},
-                      {:question=>"question_two", :answer=>"question_two"}]
+                      {:question=>"question_two", :answer=>"answer_two"}]
       assert_response :success
 
       # Response should have updated version
@@ -187,14 +194,18 @@ describe Api::QuizzesController do
       body['problems'][1]['answer'].should   == "answer_two"
 
       # DB should be updated
-      Quiz.last.problems.size.should == 2
-      Quiz.last.problems[0].question.should == "question_one"
-      Quiz.last.problems[1].question.should == "question_two"
-      Quiz.last.problems[0].answer.should == "answer_one"
-      Quiz.last.problems[1].answer.should == "answer_two"
+      quiz = Quiz.find_by_id(@quiz_two.id)
+      quiz.problems.size.should == 2
+      quiz.problems[0].question.should == "question_one"
+      quiz.problems[1].question.should == "question_two"
+      quiz.problems[0].answer.should == "answer_one"
+      quiz.problems[1].answer.should == "answer_two"
+
+      # Problems need to get saved also
+      Problem.last.id.should == quiz.problems[1].id
 
       # Old problem records should be destroyed
-      expect { Problem.find_by_id(@problem_three.id) }.to raise_error
+      Problem.find_by_id(@problem_three.id).should be_nil
     end
 
     it "returns 404 if id not found" do

@@ -28,6 +28,17 @@ protected
     end
   end
 
+  # Retrieves the lesson with the given id and assigns it to the
+  # instance variable @lesson. Returns false and renders 404 if not found
+  # Meant to be used in before_filters
+  def get_quiz_or_404(id)
+    @quiz = Quiz.find_by_id(id)
+    if @quiz.nil?
+      render :json => Quiz.missing_quiz(:id), :status => 404
+      return false
+    end
+  end
+
   # A hash that is the base for any errors
   # All errors should have the :error key
   def error_object
