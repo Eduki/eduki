@@ -91,6 +91,12 @@ ul li {
 }
 
 #quiz-results-modal p {
-  font-size: 15pt;
+  font-size: 18pt;
   color: green;
+}
+
+form label {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 18pt;
 }
