@@ -14,8 +14,16 @@
       <div class="navbar-inner">
         <%= link_to "eduki", {:controller => "static", :action => :index}, {:class => "brand"} %>
         <ul class="nav pull-right">
-          <li>
-            <a href="/#/courses">Courses</a>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown"  href="#">Courses</a>
+            <ul class="dropdown-menu">
+              <li role="presentation">
+                <a role="menuitem" href="/#/courses">BROWSE</a>
+              </li>
+              <li role="presentation">
+                <a role="menuitem" href="/#/courses/new">CREATE</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

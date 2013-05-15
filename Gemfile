@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem "active_model_serializers", "~> 0.7.0"
 gem "annotate"
+gem "apipie-rails"
 
 # Frontend
 gem "backbone-on-rails"
