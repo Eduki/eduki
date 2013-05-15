@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# David Mah
 
 class Lesson < ActiveRecord::Base
   attr_accessible :title, :body, :course, :course_id

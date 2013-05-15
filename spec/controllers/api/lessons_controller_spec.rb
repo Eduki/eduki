@@ -1,13 +1,12 @@
+# A test suite for the Lessons endpoints of the API
+# This is a white box test
+# David Mah
+
 require 'spec_helper'
 
 describe Api::LessonsController do
 
-  def check_failure(code)
-    assert_response code
-    body = JSON.parse(response.body)
-    body['error'].should_not == nil
-  end
-
+  # Set up some lesson examples to be used by the tests
   before(:each) do
     @course = Course.new
     @course.title = "course example"
@@ -16,6 +15,10 @@ describe Api::LessonsController do
     @course_two = Course.new
     @course_two.title = "course_two example"
     @course_two.save
+
+    @course_three = Course.new
+    @course_three.title = "course_three example"
+    @course_three.save
 
     @courses = [@course, @course_two]
 
@@ -41,7 +44,7 @@ describe Api::LessonsController do
   describe "GET #show" do
 
     it "returns a Lesson with a HTTP 200 status code" do
-      get :show, :course_id => @course.id, :id => @lesson.id
+      get :show, :id => @lesson.id
       assert_response :success
       body = JSON.parse(response.body)
       body['id'].should        == @lesson.id
@@ -50,23 +53,21 @@ describe Api::LessonsController do
       body['course_id'].should == @lesson.course_id
     end
 
-    it "returns 404 if course_id not found" do
-      get :show, :course_id => -1, :id => @lesson.id
-      check_failure(404)
-    end
-
     it "returns 404 if id not found" do
-      get :show, :course_id => @course.id, :id => -1
-      check_failure(404)
-    end
-
-    it "returns 404 if course_id and id don't correspond" do
-      get :show, :course_id => @course.id, :id => @lesson_three.id
+      get :show, :id => -1
       check_failure(404)
     end
   end
 
+
   describe "GET #index" do
+    it "retrieves no lessons of there are none" do
+      get :index, :course_id => @course_three.id
+      assert_response :success
+      body = JSON.parse(response.body)
+      body.size.should == 0
+    end
+
     it "retrieves all lessons for a course" do
       get :index, :course_id => @course.id
       assert_response :success
@@ -76,7 +77,7 @@ describe Api::LessonsController do
       body.size.should == 2
     end
 
-    it "returns 404 if course_id not found" do
+    it "returns 404 if course not found" do
       get :index, :course_id => -1
       check_failure(404)
     end
@@ -88,70 +89,70 @@ describe Api::LessonsController do
       post :create, :course_id => @course.id,
         :title => "lesson_four title", :body => "lesson_four body"
       assert_response :success
+
+      # Response should have updated version
       body = JSON.parse(response.body)
       body['id'].should_not == @lesson.id
       body['id'].should_not == @lesson_two.id
       body['id'].should_not == @lesson_three.id
       body['title'].should == "lesson_four title"
       body['body'].should == "lesson_four body"
+
+      # DB Should be updated
       Lesson.count.should == (previous_size + 1)
       Lesson.last.title.should == "lesson_four title"
       Lesson.last.body.should == "lesson_four body"
     end
 
-    it "returns 404 if course_id not found" do
-      post :create, :course_id => -1, :title => "this course has a bad course_id"
+    it "returns 404 if course not found" do
+      get :index, :course_id => -1
       check_failure(404)
     end
 
     it "returns 400 if title missing" do
-      post :create, :course_id => @course.id,
-        :body => "lesson_four body"
+      post :create, :course_id => @course.id, :body => "lesson_four body"
       check_failure(400)
     end
 
     it "returns 400 if body missing" do
-      post :create, :course_id => @course.id,
-        :title => "lesson_four title"
+      post :create, :course_id => @course.id, :title => "lesson_four title"
       check_failure(400)
     end
   end
 
   describe "PUT #update" do
     it "updates 1 Lesson" do
-      put :update, :course_id => @course.id, :id => @lesson.id,
+      put :update, :id => @lesson.id,
         :title => "lesson title change", :body => "lesson body change"
+
+      # Response should have updated version
       assert_response :success
       body = JSON.parse(response.body)
       body['id'].should == @lesson.id
       body['title'].should == "lesson title change"
       body['body'].should == "lesson body change"
+
+      # DB Should be updated
       Lesson.find(@lesson.id).title.should == "lesson title change"
       Lesson.find(@lesson.id).body.should == "lesson body change"
     end
 
     it "updates nothing if nothing included" do
-      put :update, :course_id => @course.id, :id => @lesson.id
+      put :update, :id => @lesson.id
       assert_response :success
+
+      # Response should have updated version
       body = JSON.parse(response.body)
       body['title'].should == @lesson.title
       body['body'].should == @lesson.body
+
+      # DB Should be updated
       Lesson.find(@lesson.id).title.should == @lesson.title
       Lesson.find(@lesson.id).body.should == @lesson.body
     end
 
-    it "returns 404 if course_id not found" do
-      put :update, :course_id => -1, :id => @lesson.id, :title => "course title change"
-      check_failure(404)
-    end
-
     it "returns 404 if id not found" do
-      put :update, :course_id => @course.id, :id => -1, :title => "course title change"
-      check_failure(404)
-    end
-
-    it "returns 404 if course_id and id don't correspond" do
-      put :update, :course_id => @course.id, :id => @lesson_three.id, :title => "course title change"
+      put :update, :id => -1, :title => "course title change"
       check_failure(404)
     end
 
