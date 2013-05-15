@@ -12,7 +12,7 @@ protected
   def get_course_or_404(id)
     @course = Course.find_by_id(id)
     if @course.nil?
-      render :json => Course.missing_course(:id), :status => 404
+      render :json => Course.missing_course(id), :status => 404
       return false
     end
   end
@@ -23,7 +23,7 @@ protected
   def get_lesson_or_404(id)
     @lesson = Lesson.find_by_id(id)
     if @lesson.nil?
-      render :json => Lesson.missing_lesson(:id), :status => 404
+      render :json => Lesson.missing_lesson(id), :status => 404
       return false
     end
   end
