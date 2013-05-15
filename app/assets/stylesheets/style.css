@@ -158,4 +158,8 @@ form label {
 
 #enroll {
   margin-left: 20px;
+  display: inline;
+  position: relative;
+  bottom: 4px;
 }
+
