@@ -13,7 +13,7 @@ class Quiz < ActiveRecord::Base
   belongs_to :course
   has_many :problems
 
-  def self.missing_quiz(id)
+  def self.missing_instance(id)
     {
       :error => "Resource not found",
       :message => "Could not find Quiz with ID=#{id}"

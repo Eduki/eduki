@@ -16,7 +16,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :course
 
   # An object to return in the case that the given lesson is not found
-  def self.missing_lesson(id)
+  def self.missing_instance(id)
     {
       :error => "Resource not found",
       :message => "Could not find Lesson with ID=#{id}"

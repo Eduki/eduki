@@ -23,4 +23,11 @@ class Problem < ActiveRecord::Base
     problem.answer   = hash[:answer]
     return problem
   end
+
+  def self.missing_instance(id)
+    {
+      :error => "Resource not found",
+      :message => "Could not find Problem with ID=#{id}"
+    }
+  end
 end

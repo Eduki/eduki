@@ -15,7 +15,7 @@ class Course < ActiveRecord::Base
   has_many :quizzes
 
   # An object to return in the case that the given course is not found
-  def self.missing_course(id)
+  def self.missing_instance(id)
     {
       :error => "Resource not found",
       :message => "Could not find Course with ID=#{id}"
