@@ -136,8 +136,8 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.7.0)
   annotate
-  backbone-on-rails
   apipie-rails
+  backbone-on-rails
   coffee-rails (~> 3.2.1)
   jquery-rails
   pg
