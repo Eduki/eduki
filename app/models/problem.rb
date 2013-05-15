@@ -11,6 +11,7 @@
 #
 
 class Problem < ActiveRecord::Base
+  attr_accessible :question, :answer, :quiz, :quiz_id
   belongs_to :quiz
 
   # Given a HashWithIndifferentAccess containing :question and :answer
