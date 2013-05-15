@@ -1,7 +1,7 @@
 body {
   color: #3d3d3d;
   font-size: 12pt;
-  font-family: "Yanone Kaffeesatz" !important;
+  font-family: 'Yanone Kaffeesatz' !important;
 }
 
 a:hover {
@@ -17,7 +17,7 @@ label,
 button,
 select,
 textarea {
-  font-family: "Yanone Kaffeesatz" !important;
+  font-family: 'Yanone Kaffeesatz' !important;
 }
 
 input,
@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5 {
 }
 
 p {
-  font-family: "Roboto Slab" !important;
+  font-family: 'Roboto Slab' !important;
   font-size: 10pt;
   font-weight: 300;
 }
