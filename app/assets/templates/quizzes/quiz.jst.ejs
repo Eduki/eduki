@@ -7,12 +7,17 @@
       <ol>
         <% for (var i = 0; i < this.quiz.get('problems').length; i++) { %>
           <li>
-            <p><%= this.quiz.get('problems')[i].question %></p>
-            <input type="text" id="problem-<%= this.quiz.get('problems')[i].id %>" />
+            <fieldset>
+              <label><%= this.quiz.get('problems')[i].question %></label>
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "a" /> <span>A</span><br />
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "b" /> <span>B</span><br />
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "c" /> <span>C</span><br />
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "d" /> <span>D</span><br />
+            </fieldset>
           </li>
         <% } %>
       </ol>
-      <button class="eduki-button-primary">Submit Quiz</button>
+      <button class="eduki-button-primary"><span>Submit Quiz</span></button>
     </form>
   </div>
   <div id="course-lessons-list" class="span4">

@@ -160,9 +160,14 @@ ul li {
   margin-bottom: 10px;
 }
 
-.quiz p {
-  padding-top: 5px;
-  padding-bottom: 5px;
+.quiz span {
+  margin-left: 5px;
+  font-size: 14pt;
+}
+
+.quiz input {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #quiz-results-modal p {
