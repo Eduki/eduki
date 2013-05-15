@@ -11,12 +11,19 @@ class Api::QuizzesController < Api::ApiController
     * id:integer
     * course_id:integer
     * title:string
-    * problems:List of  {
+    * problems: List of Problems, where each problem is:
+      {
+      * id:integer
+      * quiz_id:integer
       * question:string
       * answer:string
       }
 
-    Note that problems will not be shown on an index
+    Note that problems will not be shown in an `index` of multiple quizzes.
+
+    Including problems in a `create` or `update` call is optional.
+    If you do, problem objects will be generated for you. Beware
+    of filling in problems in update, for all old problems will be destroyed.
     EOS
   end
 
@@ -26,7 +33,7 @@ class Api::QuizzesController < Api::ApiController
     render :json => @quiz
   end
 
-  api :GET, '/courses/:course_id/quizzes', "Retrieve a list of quizzes"
+  api :GET, '/courses/:course_id/quizzes', "Retrieve a list of quizzes (no problems)"
   param :course_id, Fixnum, :required => true
   def index
     render :json => Quiz.find_all_by_course_id(@course.id), :each_serializer => QuizListingSerializer
