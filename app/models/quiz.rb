@@ -10,6 +10,7 @@
 #
 
 class Quiz < ActiveRecord::Base
+  attr_accessible :title, :course, :course_id, :problems
   belongs_to :course
   has_many :problems
 

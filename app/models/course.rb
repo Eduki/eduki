@@ -10,7 +10,7 @@
 # David Mah
 
 class Course < ActiveRecord::Base
-  attr_accessible :title
+  attr_accessible :title, :lessons, :quizzes
   has_many :lessons
   has_many :quizzes
 
