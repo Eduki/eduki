@@ -1,9 +1,25 @@
-<h1><%= this.course.get('title') %></h1>
+<h1><%= this.course.get('title') %><button class="eduki-button-primary" id="enroll">enroll</button>
+</h1>
 <hr />
-<ul>
-<% for(var i = 0; i < this.lessons.size(); i++) { %>
-  <li>
-    <a href="#/courses/<%= this.lessons.models[i].get('course_id') %>/lessons/<%= this.lessons.models[i].get('id') %>" title="<%= this.lessons.models[i].get('title') %>">Lesson: <%= this.lessons.models[i].get('title') %></a>
-  </li>
-<% } %>
-</ul>
+<div class="row">
+  <div id="course-lessons" class="span6">
+    <h2>Lessons</h2>
+    <ul>
+    <% for(var i = 0; i < this.lessons.size(); i++) { %>
+      <li>
+        <a href="#/courses/<%= this.lessons.models[i].get('course_id') %>/lessons/<%= this.lessons.models[i].get('id') %>" title="<%= this.lessons.models[i].get('title') %>"><%= this.lessons.models[i].get('title') %></a>
+      </li>
+    <% } %>
+    </ul>
+  </div>
+  <div id="course-quizzes" class="span6">
+    <h2>Quizzes</h2>
+    <ul>
+      <% for(var i = 0; i < this.quizzes.size(); i++) { %>
+        <li>
+          <a href="#/courses/<%= this.quizzes.models[i].get('course_id') %>/quizzes/<%= this.quizzes.models[i].get('id') %>" title="<%= this.quizzes.models[i].get('title') %>"><%= this.quizzes.models[i].get('title') %></a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</div>
