@@ -1,3 +1,9 @@
+/*
+ * Renders and controls lesson creation page
+ * 
+ * author: Michael
+ */
+
 Eduki.Views.LessonsCreate = Backbone.View.extend({
 
 	template: JST['lessons/new'],
@@ -5,7 +11,7 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
   createdTemplate: JST['lessons/created'],
 
   events: {
-    'submit form' : "create"
+    'submit form' : 'create'
   },
 
   initialize: function() {
@@ -19,6 +25,7 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
     return this;
   },
 
+  // handles the form submission, displays appropriate pages on success/error
   create: function(e) {
     e.preventDefault();
     this.lesson = new Eduki.Models.Lesson({ title: $('#create-lesson-name').val(), 
