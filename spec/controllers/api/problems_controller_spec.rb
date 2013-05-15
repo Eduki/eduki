@@ -91,7 +91,8 @@ describe Api::ProblemsController do
 
       # DB should be updated
       Problem.count.should == (previous_size + 1)
-      Problem.last.title.should == "problem_four title"
+      Problem.last.question.should == "problem_four question"
+      Problem.last.answer.should == "problem_four answer"
     end
 
     it "returns 400 if question missing" do
@@ -109,7 +110,7 @@ describe Api::ProblemsController do
     it "updates 1 Problem" do
       put :update, :id => @problem.id,
         :question => "problem question change",
-        :answer => "problem question change"
+        :answer => "problem answer change"
       assert_response :success
 
       # Response should have updated version
@@ -147,7 +148,7 @@ describe Api::ProblemsController do
     it "removes a problem's record" do
       delete :destroy, :id => @problem.id
       assert_response :success
-      expect { Problem.find_by_id(@problem) }.to raise_error
+      Problem.find_by_id(@problem).should be_nil
     end
 
     it "returns 404 if id not found" do
