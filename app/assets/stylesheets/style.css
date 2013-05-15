@@ -1,10 +1,15 @@
 body {
+  color: #3d3d3d;
   font-size: 12pt;
   font-family: "Yanone Kaffeesatz" !important;
 }
 
 a:hover {
   text-decoration: none;
+}
+
+a {
+  color: #878787;
 }
 
 input,
@@ -24,6 +29,7 @@ textarea {
 
 h1, h2, h3, h4, h5 {
   font-weight: 400;
+  color: #75ddf4
 }
 
 p {
@@ -68,6 +74,8 @@ button {
 .eduki-buttons a:hover {
   text-decoration: none;
   color: white;
+  background-image: none !important;
+  cursor: pointer;
 }
 
 .eduki-button-block .row {
@@ -76,17 +84,22 @@ button {
 }
 
 .eduki-button-primary {
-  font-size: 14pt !important;
+  display: block;
+  box-shadow: 2px 2px 2px #999999;
   color: white;
+  text-align: center;
+  font-size: 14pt;
   text-transform: uppercase;
   letter-spacing: 10px;
+  background-color: #75ddf4 !important;
+  background-image: linear-gradient(to bottom, #9be8f7, #75ddf4) !important;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
-.eduki-button-container:hover {
-  background-image: none !important;
-  cursor: pointer;
+.eduki-button-primary span {
+  margin-left: 10px;
 }
-
 
 .success-message-text {
   color: green;
@@ -120,15 +133,4 @@ ul li {
   margin-top: 5px;
   margin-bottom: 5px;
   letter-spacing: 1px;
-}
-
-.eduki-button-container {
-  background-image: linear-gradient(to bottom, #9be8f7, #75ddf4) !important;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 10px;
-  background-color: #75ddf4 !important;
-  box-shadow: 2px 2px 2px #999999 !important;
-  overflow: hidden;
-  text-align: center;
 }
