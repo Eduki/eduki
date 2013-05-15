@@ -7,8 +7,8 @@
 
 Eduki.Routers.Lessons = Backbone.Router.extend({
   routes: {
-    'courses/:cid/lessons/:id(/)': 'lesson',
-    'courses/:cid/new-lesson': 'create'
+    'courses/:cid/lessons/new(/)': 'create',
+    'courses/:cid/lessons/:id(/)': 'lesson'
   },
 
   // Delegate to the Lesson View and render it inside of the container
