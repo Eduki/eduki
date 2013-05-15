@@ -79,3 +79,18 @@ ul li {
   margin-bottom: 5px;
   letter-spacing: 1px;
 }
+
+.quiz li {
+  font-size: 18pt;
+  margin-bottom: 10px;
+}
+
+.quiz p {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#quiz-results-modal p {
+  font-size: 15pt;
+  color: green;
+}
