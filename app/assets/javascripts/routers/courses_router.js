@@ -1,3 +1,9 @@
+/* 
+ * Handles routing for course related pages
+ * delegates rendering to each view
+ *
+ * author: Jolie
+ */
 Eduki.Routers.Courses = Backbone.Router.extend({
   routes: {
     'courses(/)': 'index',
