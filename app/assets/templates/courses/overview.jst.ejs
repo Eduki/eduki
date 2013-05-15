@@ -1,11 +1,14 @@
 <h1>
   <%= this.course.get('title') %>
-  <button class="eduki-button-primary" id="enroll"><span>enroll</span></button>
+  <button class="eduki-button-primary eduki-button-inline" id="enroll"><span>enroll</span></button>
 </h1>
 <hr />
 <div class="row">
-  <div id="course-lessons" class="span6">
-    <h2>Lessons</h2>
+  <div id="course-lessons" class="span5">
+    <h2>
+      Lessons
+      <a href="/#/courses/<%= this.course.get('id') %>/lessons/new" title="New Lesson" class="eduki-button-primary eduki-button-inline"><span>create</span></a>
+    </h2>
     <ul>
     <% for(var i = 0; i < this.lessons.size(); i++) { %>
       <li>
@@ -14,8 +17,11 @@
     <% } %>
     </ul>
   </div>
-  <div id="course-quizzes" class="span6">
-    <h2>Quizzes</h2>
+  <div id="course-quizzes" class="span5">
+    <h2>
+      Quizzes
+      <a href="/#/courses/<%= this.course.get('id') %>/quizzes/new" title="New Lesson" class="eduki-button-primary eduki-button-inline"><span>create</span></a>
+    </h2>
     <ul>
       <% for(var i = 0; i < this.quizzes.size(); i++) { %>
         <li>
@@ -23,5 +29,7 @@
         </li>
       <% } %>
     </ul>
+  </div>
+  <div class="span2">
   </div>
 </div>
