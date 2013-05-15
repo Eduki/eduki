@@ -4,15 +4,15 @@
  * author: Michael
  */
 
-Eduki.Routers.SignUp = Backbone.Router.extend({
-	routes: {
-		'signup(/)': 'signup'
-	},
+Eduki.Routers.Signup = Backbone.Router.extend({
+  routes: {
+    'signup(/)': 'index'
+  },
 
-	signup: function() {
-		// delegate to the SignUp view and render it as the main-content 
-		var view = new Eduki.Views.SignUp();
+  index: function() {
+    // Delegate to the SignupIndex View and render it inside of the container
+    var view = new Eduki.Views.SignupIndex();
     $('#main-content').html(view.render().el);
-	}
+  }
 
 });

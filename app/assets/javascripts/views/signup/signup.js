@@ -1,4 +1,4 @@
-Eduki.Views.SignUp = Backbone.View.extend({
+Eduki.Views.SignupIndex = Backbone.View.extend({
 	
 	template: JST['signup/signup'],
 
