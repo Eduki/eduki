@@ -1,7 +1,7 @@
 Eduki.Views.SignupIndex = Backbone.View.extend({
 	
-	template: JST['signup/signup'],
-	successTemplate: JST['signup/success'],
+	template: JST['users/signup'],
+	successTemplate: JST['users/signup_success'],
 	errorTemplate: JST['static/error'],
 
 	events: {
