@@ -39,29 +39,40 @@ describe Api::QuizAttemptsController do
     @problem_three.quiz = @quiz_two
     @problem_three.save
 
+    ############
+
+    # TODO get a real user in here later
+    @user = {}
+    def @user.id
+      return 42
+    end
+
     @quiz_attempt = QuizAttempt.new
-    @quiz
+    @quiz_attempt.quiz = @quiz
+    @quiz_attempt.user_id = @user.id
+    @quiz_attempt.save
+
+    @problem_attempt = ProblemAttempt.new
+    @problem_attempt.quiz_attempt = @quiz_attempt
+    @problem_attempt.problem = @problem
+    @problem_attempt.answer = "problem_one answer"
+    @problem_attempt.correct = true
+    @problem_attempt.save
+
   end
 
   describe "GET #show" do
 
-    it "returns a Quiz with a HTTP 200 status code" do
-      get :show, :id => @quiz.id
+    it "returns a Quiz Attempt with a HTTP 200 status code" do
+      get :show, :id => @quiz_attempt.id
       assert_response :success
       body = JSON.parse(response.body)
-      body['id'].should        == @quiz.id
-      body['title'].should     == @quiz.title
-      body['course_id'].should == @quiz.course_id
-    end
-
-    it "includes nested problems" do
-      get :show, :id => @quiz.id
-      assert_response :success
-      body = JSON.parse(response.body)
-      problems = body['problems']
-      problems.size.should == 2
-      problems[0]['id'] = @problem.id
-      problems[1]['id'] = @problem_two.id
+      body['id'].should      == @quiz_attempt.id
+      body['quiz_id'].should == @quiz_attempt.quiz_id
+      body['user_id'].should == @quiz_attempt.user_id
+      body['problems'][0].id.should         == @problem_attempt.id
+      body['problems'][0].correct.should    == @problem_attempt.correct
+      body['problems'][0].problem_id.should == @problem_attempt.problem.id
     end
 
     it "returns 404 if id not found" do
@@ -71,139 +82,54 @@ describe Api::QuizAttemptsController do
   end
 
   describe "GET #index" do
-    it "retrieves all quizzes for a course" do
-      get :index, :course_id => @course.id
+    it "retrieves all quiz attempts for a user/quiz" do
+      get :index, :user_id => @user.id, :quiz_id => @quiz.id
       assert_response :success
       body = JSON.parse(response.body)
-      body[0]['title'].should == "quiz_one title"
-      body[1]['title'].should == "quiz_two title"
-      body.size.should == 2
+      body[0]['id'].should      == @quiz_attempt.id
+      body.size.should == 1
     end
 
-    it "should not include nested problems" do
-      get :index, :course_id => @course.id
-      assert_response :success
-      body = JSON.parse(response.body)
-      # Reach into the first object. It shouldn't have problems
-      body[0]['problems'].should be_nil
+    it "returns 404 if quiz_id not found" do
+      get :index, :user_id => @user.id, :quiz_id => -1
+      check_failure(404)
     end
 
-    it "returns 404 if course_id not found" do
-      get :index, :course_id => -1
+    it "returns 404 if user_id not found" do
+      get :index, :user_id => -1, :quiz_id => @quiz.id
       check_failure(404)
     end
   end
 
   describe "POST #create" do
-    it "creates 1 quiz" do
-      previous_size = Quiz.count
-      post :create, :course_id => @course.id,
-        :title => "quiz_four title"
+    it "creates 1 quiz attempt" do
+      previous_size = QuizAttempt.count
+      post :create, :user_id => @user.id, :quiz_id => @quiz.id,
+        :problem_attempts => {
+          :answer => "incorrect answer"
+        }
       assert_response :success
 
       # Response should have updated version
       body = JSON.parse(response.body)
-      body['id'].should_not == @quiz.id
-      body['id'].should_not == @quiz_two.id
-      body['id'].should_not == @quiz_three.id
-      body['title'].should    == "quiz_four title"
-      body['problems'].should == []
+      body['quiz_id'].should == @quiz.id
+      body['user_id'].should == @user.id
+      body['problem_attempts'][0]['answer'].should == "incorrect answer"
+      body['problem_attempts'][0]['correct'].should be_false
+      body['problem_attempts'][0]['quiz_attempt_id'].should == body['id']
 
       # DB should be updated
       Quiz.count.should == (previous_size + 1)
-      Quiz.last.title.should == "quiz_four title"
     end
 
-    it "creates problems if problems are included" do
-      post :create, :course_id => @course.id,
-        :title => "quiz_four title",
-        :problems => [{:question=>"question_one", :answer=>"answer_one"},
-                      {:question=>"question_two", :answer=>"answer_two"}]
-      assert_response :success
-      body = JSON.parse(response.body)
-
-      # Response should have updated version
-      body['problems'][0]['question'].should == "question_one"
-      body['problems'][1]['question'].should == "question_two"
-      body['problems'][0]['answer'].should   == "answer_one"
-      body['problems'][1]['answer'].should   == "answer_two"
-
-      # DB should be updated
-      Quiz.last.problems.size.should == 2
-      Quiz.last.problems[0].question.should == "question_one"
-      Quiz.last.problems[1].question.should == "question_two"
-      Quiz.last.problems[0].answer.should == "answer_one"
-      Quiz.last.problems[1].answer.should == "answer_two"
-    end
-
-    it "returns 404 if course_id not found" do
-      post :create, :course_id => -1, :title => "this course has a bad course_id"
+    it "returns 404 if quiz_id not found" do
+      get :index, :user_id => @user.id, :quiz_id => -1
       check_failure(404)
     end
 
-    it "returns 400 if title missing" do
-      post :create, :course_id => @course.id
-      check_failure(400)
-    end
-  end
-
-  describe "PUT #update" do
-    it "updates 1 Quiz" do
-      put :update, :id => @quiz.id,
-        :course_id => @course_two.id, :title => "quiz title change"
-      assert_response :success
-
-      # Response should have updated version
-      body = JSON.parse(response.body)
-      body['id'].should == @quiz.id
-      body['title'].should == "quiz title change"
-      body['course_id'].should == @course_two.id
-
-      # DB should match
-      Quiz.find(@quiz.id).title.should == "quiz title change"
-      Quiz.find(@quiz.id).course.should == @course_two
-    end
-
-    it "updates nothing if nothing included" do
-      put :update, :id => @quiz.id
-      assert_response :success
-      body = JSON.parse(response.body)
-      body['title'].should == @quiz.title
-      Quiz.find(@quiz.id).title.should == @quiz.title
-    end
-
-    it "replaces the full problem set if problems are included" do
-      put :update, :id => @quiz_two.id,
-        :problems => [{:question=>"question_one", :answer=>"answer_one"},
-                      {:question=>"question_two", :answer=>"answer_two"}]
-      assert_response :success
-
-      # Response should have updated version
-      body = JSON.parse(response.body)
-      body['problems'][0]['question'].should == "question_one"
-      body['problems'][1]['question'].should == "question_two"
-      body['problems'][0]['answer'].should   == "answer_one"
-      body['problems'][1]['answer'].should   == "answer_two"
-
-      # DB should be updated
-      quiz = Quiz.find_by_id(@quiz_two.id)
-      quiz.problems.size.should == 2
-      quiz.problems[0].question.should == "question_one"
-      quiz.problems[1].question.should == "question_two"
-      quiz.problems[0].answer.should == "answer_one"
-      quiz.problems[1].answer.should == "answer_two"
-
-      # Problems need to get saved also
-      Problem.last.id.should == quiz.problems[1].id
-
-      # Old problem records should be destroyed
-      Problem.find_by_id(@problem_three.id).should be_nil
-    end
-
-    it "returns 404 if id not found" do
-      put :update, :id => -1, :title => "course title change"
+    it "returns 404 if user_id not found" do
+      get :index, :user_id => -1, :quiz_id => @quiz.id
       check_failure(404)
     end
-
   end
 end
