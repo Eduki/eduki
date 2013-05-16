@@ -3,12 +3,6 @@
 # David Mah
 class Api::EnrollmentsController < Api::ApiController
 
-  # For all methods, assume that
-  # @enrollment has been retrieved if applicable
-  before_filter :get_enrollment_or_404, :only => [:show]
-  before_filter :get_user_or_404, :only => [:index, :create]
-  before_filter :get_course_or_404, :only => [:create]
-
   resource_description do
     description <<-EOS
     An enrollment has the following fields
@@ -17,6 +11,12 @@ class Api::EnrollmentsController < Api::ApiController
     * course_id:integer
     EOS
   end
+
+  # For all methods, assume that
+  # @enrollment has been retrieved if applicable
+  before_filter :get_enrollment_or_404, :only => [:show]
+  before_filter :get_user_or_404, :only => [:index, :create]
+  before_filter :get_course_or_404, :only => [:create]
 
   api :GET, '/enrollments/:id', "Retrieve an enrollment"
   param :id, Fixnum, :required => true

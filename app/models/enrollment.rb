@@ -12,6 +12,7 @@
 class Enrollment < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
+  has_many :quiz_attempts
   attr_accessible :user_id, :user, :course_id, :course, :quiz_attempts
 
   # An object to return in the case that the given enrollment is not found
