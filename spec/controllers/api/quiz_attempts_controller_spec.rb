@@ -42,10 +42,8 @@ describe Api::QuizAttemptsController do
     ############
 
     # TODO get a real user in here later
-    @user = {}
-    def @user.id
-      return 42
-    end
+    @user = User.new
+    @user.save
 
     @quiz_attempt = QuizAttempt.new
     @quiz_attempt.quiz = @quiz

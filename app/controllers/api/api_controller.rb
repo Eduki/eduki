@@ -34,6 +34,10 @@ protected
     @problem = get_or_404(Problem, id)
   end
 
+  def get_quiz_attempt_or_404(id)
+    @quiz_attempt = get_or_404(QuizAttempt, id)
+  end
+
   # A hash that is the base for any errors
   # All errors should have the :error key
   def error_object

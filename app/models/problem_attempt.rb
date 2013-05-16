@@ -16,4 +16,12 @@ class ProblemAttempt < ActiveRecord::Base
                   :answer, :correct
   belongs_to :quiz_attempt
   belongs_to :problem
+
+  def self.create_from_hash(hash)
+    hash = HashWithIndifferentAccess.new(hash)
+    return nil if (hash[:answer].nil?)
+    problem_attempt = ProblemAttempt.new
+    problem_attempt.answer   = hash[:answer]
+    return problem_attempt
+  end
 end
