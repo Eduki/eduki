@@ -15,7 +15,7 @@ class QuizAttempt < ActiveRecord::Base
   belongs_to :quiz
   belongs_to :user
 
-  # An object to return in the case that the given course is not found
+  # An object to return in the case that the given quiz attempt is not found
   def self.missing_instance(id)
     {
       :error => "Resource not found",

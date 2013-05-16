@@ -9,5 +9,13 @@
 #
 
 class User < ActiveRecord::Base
-  # attr_accessible :title, :body
+  has_many :enrollments
+
+  # An object to return in the case that the given user is not found
+  def self.missing_instance(id)
+    {
+      :error => "Resource not found",
+      :message => "Could not find User with ID=#{id}"
+    }
+  end
 end

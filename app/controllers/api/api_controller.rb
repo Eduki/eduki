@@ -6,11 +6,18 @@ class Api::ApiController < ApplicationController
 
 protected
 
+  def get_user_or_404(id)
+    @user = get_or_404(User, id)
+  end
   # Retrieves the course with the given id and assigns it to the
   # instance variable @course. Returns false and renders 404 if not found
   # Meant to be used in before_filters
   def get_course_or_404(id)
     @course = get_or_404(Course, id)
+  end
+
+  def get_enrollment_or_404(id)
+    @enrollment = get_or_404(Enrollment, id)
   end
 
   # Retrieves the lesson with the given id and assigns it to the

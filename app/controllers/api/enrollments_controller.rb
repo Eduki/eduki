@@ -1,0 +1,57 @@
+# A controller to handle Courses endpoints
+#
+# David Mah
+class Api::EnrollmentsController < Api::ApiController
+
+  # For all methods, assume that
+  # @enrollment has been retrieved if applicable
+  before_filter :get_enrollment_or_404, :only => [:show]
+  before_filter :get_user_or_404, :only => [:index, :create]
+  before_filter :get_course_or_404, :only => [:create]
+
+  resource_description do
+    description <<-EOS
+    An enrollment has the following fields
+    * id:integer
+    * user_id:integer
+    * course_id:integer
+    EOS
+  end
+
+  api :GET, '/enrollments/:id', "Retrieve an enrollment"
+  param :id, Fixnum, :required => true
+  def show
+    render :json => @enrollment
+  end
+
+  api :GET, '/user/:user_id/enrollments', "Retrieve a list of enrollments for a user"
+  param :user_id, Fixnum, :required => true
+  def index
+    render :json => @user.enrollments
+  end
+
+  api :POST, '/user/:user_id/enrollments', "Enroll a user in a course"
+  param :user_id, Fixnum, :required => true
+  param :course_id, Fixnum, :required => true
+  def create
+    @enrollment = Enrollment.new
+    @enrollment.user = @user
+    @enrollment.course = @course
+    @enrollment.save
+    render :json => @enrollment
+  end
+
+private
+  def get_enrollment_or_404
+    super(params[:id])
+  end
+
+  def get_course_or_404
+    super(params[:course_id])
+  end
+
+  def get_user_or_404
+    super(params[:user_id])
+  end
+
+end
