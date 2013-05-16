@@ -1,9 +1,15 @@
+/*
+ * Handles rendering a view for a single lesson
+ *
+ * author: Jolie Chen
+ */
 Eduki.Views.LessonsLesson = Backbone.View.extend({
 
   template: JST['lessons/lesson'],
   errorTemplate: JST['static/error'],
 
   initialize: function() {
+    // Initialize models
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.lesson = new Eduki.Models.Lesson({ course_id: this.attributes.course_id,
                                             id: this.attributes.lesson_id });
@@ -14,9 +20,9 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
     // render through the callback to display them.
     var self = this;
     $.when(this.course.fetch(),
-           this.lesson.fetch(),
            this.lessons.fetch()).then(
-             function() { self.render(self.template()); },
+             function() { self.lesson = self.lessons.get(self.lesson.get('id'));
+                          self.render(self.template()); },
              function() { self.render(self.errorTemplate()); }
            );
   },
