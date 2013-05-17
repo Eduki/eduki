@@ -7,7 +7,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# David Mah
 
 class Course < ActiveRecord::Base
   attr_accessible :title, :lessons, :quizzes
