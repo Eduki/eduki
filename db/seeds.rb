@@ -9,3 +9,7 @@ course = Course.create({:title => 'Example Course 1'})
 Lesson.create({:title => 'Example Lesson 1', :course => course, :body => "Example Body 1"})
 Lesson.create({:title => 'Example Lesson 2', :course => course, :body => "Example Body 2"})
 Course.create({:title => 'Example Course 2'})
+
+# User seeds
+User.create({:email => 'bingopoop'})
+User.create({:email => 'bingopooper'})
