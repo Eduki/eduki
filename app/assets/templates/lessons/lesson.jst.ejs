@@ -1,4 +1,4 @@
-<h1><%= this.course.get('title') %></h1>
+<h1><a href="/#/courses/<%= this.course.get('id') %>" title="<%= this.course.get('title') %>"><%= this.course.get('title') %></a></h1>
 <div class="row lesson" id="lesson-<%= this.lesson.get('id') %>">
   <div class="span8">
     <h2><%= this.lesson.get('title') %></h2>
