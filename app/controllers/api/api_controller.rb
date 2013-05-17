@@ -6,12 +6,13 @@ class Api::ApiController < ApplicationController
 
 protected
 
+  # All of these getters retrieve their matching
+  # instance and assigns it to a instance variable
+  # of a corresponding name 
   def get_user_or_404(id)
     @user = get_or_404(User, id)
   end
-  # Retrieves the course with the given id and assigns it to the
-  # instance variable @course. Returns false and renders 404 if not found
-  # Meant to be used in before_filters
+
   def get_course_or_404(id)
     @course = get_or_404(Course, id)
   end
@@ -20,23 +21,14 @@ protected
     @enrollment = get_or_404(Enrollment, id)
   end
 
-  # Retrieves the lesson with the given id and assigns it to the
-  # instance variable @lesson. Returns false and renders 404 if not found
-  # Meant to be used in before_filters
   def get_lesson_or_404(id)
     @lesson = get_or_404(Lesson, id)
   end
 
-  # Retrieves the quiz with the given id and assigns it to the
-  # instance variable @quiz. Returns false and renders 404 if not found
-  # Meant to be used in before_filters
   def get_quiz_or_404(id)
     @quiz = get_or_404(Quiz, id)
   end
 
-  # Retrieves the problem with the given id and assigns it to the
-  # instance variable @problem. Returns false and renders 404 if not found
-  # Meant to be used in before_filters
   def get_problem_or_404(id)
     @problem = get_or_404(Problem, id)
   end
@@ -52,7 +44,9 @@ protected
   end
 
 private
-
+  # Finds a member of `type` with the specified id returns it.
+  # Returns nil and renders a 404 error if one cannot be found with the specified id
+  # Meant to be used in before_filters
   def get_or_404(type, id)
     obj = type.find_by_id(id)
     if obj.nil?

@@ -126,7 +126,7 @@ describe Api::QuizzesController do
       post :create, :course_id => @course.id,
         :title => "quiz_four title",
         :problems => [{:question=>"question_one", :answer=>"answer_one"},
-                      {:question=>"question_two", :answer=>"answer_two"}]
+                      {:question=>"question_two", :answer=>"answer_two"}].to_json
       assert_response :success
       body = JSON.parse(response.body)
 
@@ -183,7 +183,7 @@ describe Api::QuizzesController do
     it "replaces the full problem set if problems are included" do
       put :update, :id => @quiz_two.id,
         :problems => [{:question=>"question_one", :answer=>"answer_one"},
-                      {:question=>"question_two", :answer=>"answer_two"}]
+                      {:question=>"question_two", :answer=>"answer_two"}].to_json
       assert_response :success
 
       # Response should have updated version

@@ -103,9 +103,10 @@ private
   # Format of problems_data is a list of hashes, where each hash is
   # {'question':string, 'answer':string}
   # Returns nil if input is incorrectly formatted
-  def create_new_problems_list(problem_hashes)
+  def create_new_problems_list(problem_hash_data)
     new_problems = []
-    if not problem_hashes.nil?
+    if not problem_hash_data.nil?
+      problem_hashes = JSON.parse(problem_hash_data)
       problem_hashes.each do |problem_hash|
         problem = Problem.create_from_hash(problem_hash)
         problem.quiz = @quiz

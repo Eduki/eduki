@@ -35,10 +35,10 @@ ActiveRecord::Schema.define(:version => 20130516222625) do
   end
 
   create_table "problem_attempts", :force => true do |t|
-    t.integer  "quiz_attempt_id"
-    t.integer  "problem_id"
-    t.string   "answer"
-    t.boolean  "correct"
+    t.integer  "quiz_attempt_id", :null => false
+    t.integer  "problem_id",      :null => false
+    t.string   "answer",          :null => false
+    t.boolean  "correct",         :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20130516222625) do
   end
 
   create_table "quiz_attempts", :force => true do |t|
-    t.integer  "quiz_id"
+    t.integer  "quiz_id",       :null => false
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "enrollment_id", :null => false
@@ -67,8 +67,10 @@ ActiveRecord::Schema.define(:version => 20130516222625) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "password_hash"
+    t.string   "password_salt"
   end
 
 end
