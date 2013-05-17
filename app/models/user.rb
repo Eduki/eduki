@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
 
   # For user not found
-  def self.missing_user(id)
+  def self.missing_instance(id)
     {
       :error => "Resource not found",
       :message => "Could not find User with ID=#{id}"

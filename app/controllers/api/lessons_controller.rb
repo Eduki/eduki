@@ -18,7 +18,7 @@ class Api::LessonsController < Api::ApiController
     EOS
   end
 
-  api :GET, '/courses/:course_id/lessons/:id', "Retrieve a lesson"
+  api :GET, '/lessons/:id', "Retrieve a lesson"
   param :course_id, Fixnum, :required => true
   param :id,        Fixnum, :required => true
   def show
@@ -50,7 +50,7 @@ class Api::LessonsController < Api::ApiController
     end
   end
 
-  api :PUT, '/courses/:course_id/lessons/:id', "Update a lesson"
+  api :PUT, '/lessons/:id', "Update a lesson"
   param :course_id, Fixnum, :required => true
   param :id       , Fixnum, :required => true
   param :title    , String
