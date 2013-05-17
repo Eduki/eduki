@@ -42,6 +42,7 @@ describe Api::QuizAttemptsController do
     ############
 
     @user = User.new
+    @user.email = "user email"
     @user.save
 
     @enrollment = Enrollment.new

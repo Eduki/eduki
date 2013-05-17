@@ -7,6 +7,7 @@ require 'spec_helper'
 describe Api::EnrollmentsController do
   before(:each) do
     @user = User.new
+    @user.email = "user email"
     @user.save
 
     @course = Course.new
