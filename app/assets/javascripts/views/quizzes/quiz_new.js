@@ -20,7 +20,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 
   add: function(e) {
   	e.preventDefault();
-  	$('#questions').append($('#question').clone());
+  	$('#questions').append($('#question').clone().removeClass('hidden'));
   },
 
   submit: function(e) {
