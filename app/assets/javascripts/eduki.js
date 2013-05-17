@@ -7,6 +7,7 @@ window.Eduki = {
     new Eduki.Routers.Courses();
     new Eduki.Routers.Lessons();
     new Eduki.Routers.Static();
+    new Eduki.Routers.Quizzes();
     Backbone.history.start()
   }
 };

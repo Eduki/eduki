@@ -235,7 +235,5 @@ form label {
 }
 
 #create-quiz-delete-error {
-  display: none;
   color: red;
-  text-transform: lowercase;
 }
