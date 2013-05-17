@@ -6,10 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 course = Course.create({:title => 'Example Course 1'})
-Lesson.create({:title => 'Example Lesson 1', :course => course, :body => "Example Body 1"})
-Lesson.create({:title => 'Example Lesson 2', :course => course, :body => "Example Body 2"})
-Course.create({:title => 'Example Course 2'})
+course_two = Course.create({:title => 'Example Course 2'})
 
+lesson_one = Lesson.create({:title => 'Example Lesson 1',
+                            :course => course,
+                            :body => "Example Body 1"})
+lesson_two = Lesson.create({:title => 'Example Lesson 2',
+                            :course => course,
+                            :body => "Example Body 2"})
+
+quiz_one = Quiz.create({:title => 'Example Quiz 1', :course => course,
+                        :problems => [Problem.new({:question => "Example Question 1",
+                                      :answer   => "Example Answer 1"}),
+                          Problem.new({:question => "Example Question 2",
+                                      :answer   => "Example Answer 2"})]})
+quiz_two = Quiz.create({:title => 'Example Quiz 2', :course => course_two,
+                        :problems => []})
 # User seeds
 User.create({:email => 'bingopoop'})
 User.create({:email => 'bingopooper'})
