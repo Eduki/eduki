@@ -1,0 +1,18 @@
+<fieldset class="create-quiz-problem">
+  <div class="control-group">
+    <label class="control-label">Problem:</label>
+    <div class="controls">
+      <input class="input-xlarge" type="text" class="create-quiz-problem" placeholder="Enter a quiz problem" required />
+      <button type="button" class="create-quiz-delete eduki-button-icon eduki-button-icon-small"></button>
+    </div>
+  </div>
+  <div class="control-group create-quiz-answer">
+    <label class="control-label">Correct Answer:</label>
+    <div class="controls">
+      <input type="radio" name="problem-<%= this.count %>" value = "a" /> <span>A</span>
+      <input type="radio" name="problem-<%= this.count %>" value = "b" /> <span>B</span>
+      <input type="radio" name="problem-<%= this.count %>" value = "c" /> <span>C</span>
+      <input type="radio" name="problem-<%= this.count %>" value = "d" /> <span>D</span>
+    </div>
+  </div>
+</fieldset>
