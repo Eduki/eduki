@@ -12,9 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree ./lib
+//= require underscore
 //= require backbone
 //= require eduki
+//= require_tree ./lib
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections
