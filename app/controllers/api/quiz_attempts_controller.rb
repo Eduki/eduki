@@ -40,25 +40,20 @@ class Api::QuizAttemptsController < Api::ApiController
   param :quiz_id, Fixnum, :required => true
   param :problem_attempts, Array, :required => true
   def create
-
-    # Prepare problem variables for parsing and attaching to the quiz attempt
-    problems = @quiz.problems.clone
-    problem_hash_data = params[:problem_attempts]
-    problem_attempt_hashes = JSON.parse(problem_hash_data)
+    problem_attempt_hashes = JSON.parse(params[:problem_attempts])
 
     # Return 400 if problem count mismatch
-    if problems.size != problem_attempt_hashes.size
+    if @quiz.problems.size != problem_attempt_hashes.size
       err = error_object
       err['message'] = ("There were #{problem_attempt_hashes.size} given"
-                        " answers to problems, but there were #{problems.size}"
+                        " answers to problems, but there were #{@quiz.problems.size}"
                         " many problems.")
       render :json => error_object, :status => 400
       return false
     end
 
     # Create the quiz attempt object
-    @quiz_attempt = QuizAttempt.create(@enrollment, @quiz,
-                                       problems, problem_attempt_hashes)
+    @quiz_attempt = QuizAttempt.construct(@enrollment, @quiz, problem_attempt_hashes)
 
     @quiz_attempt.save
     render :json => @quiz_attempt

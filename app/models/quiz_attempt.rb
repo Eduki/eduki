@@ -24,7 +24,8 @@ class QuizAttempt < ActiveRecord::Base
 
   # Creates and returns a new QuizAttempt Object
   # Returns nil in the case of failure, probably bad input
-  def self.create(enrollment, quiz, problems, problem_attempt_hashes)
+  def self.construct(enrollment, quiz, problem_attempt_hashes)
+    problems = quiz.problems.clone
     quiz_attempt = QuizAttempt.new({:enrollment => enrollment, :quiz => quiz})
 
     # Generate a ProblemAttempt object and attach it to
