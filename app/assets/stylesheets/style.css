@@ -1,10 +1,41 @@
 body {
-  font-size: 10pt;
-  font-family: 'Yanone Kaffeesatz';
+  color: #3d3d3d;
+  font-size: 12pt;
+  font-family: 'Yanone Kaffeesatz' !important;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: #878787;
+}
+
+input,
+label,
+button,
+select,
+textarea {
+  font-family: 'Yanone Kaffeesatz' !important;
+}
+
+input,
+label,
+select,
+textarea {
+  font-size: 16pt !important;
 }
 
 h1, h2, h3, h4, h5 {
   font-weight: 400;
+  color: #75ddf4
+}
+
+p {
+  font-family: 'Roboto Slab' !important;
+  font-size: 10pt;
+  font-weight: 300;
 }
 
 .navbar li a {
@@ -31,6 +62,71 @@ h1, h2, h3, h4, h5 {
   max-height: 100px;
 }
 
+button {
+  border: none;
+}
+
+.eduki-buttons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.eduki-button-block .row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.eduki-button-primary {
+  display: block;
+  box-shadow: 2px 2px 2px #999999;
+  color: white;
+  text-align: center;
+  font-size: 14pt;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  background-color: #75ddf4 !important;
+  background-image: linear-gradient(to bottom, #9be8f7, #75ddf4) !important;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.eduki-button-inline {
+  display: inline;
+  font-size: 12pt;
+  letter-spacing: 5px;
+  padding: 3px 5px;
+  margin-left: 5px;
+  position: relative;
+  bottom: 5px;
+}
+
+.eduki-button-primary:hover {
+  text-decoration: none;
+  color: white;
+  background-image: none !important;
+  cursor: pointer;
+}
+
+.eduki-button-primary span {
+  margin-left: 10px;
+}
+
+.eduki-button-inline span {
+  margin-left: 5px;
+}
+
+.eduki-button-new {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 20pt;
+}
+
+.success-message-text {
+  color: green;
+  font-size: 16pt;
+  font-weight: 400;
+}
+
 #welcome-content {
   text-align: center;
 }
@@ -40,27 +136,6 @@ h1, h2, h3, h4, h5 {
   letter-spacing: 5px;
   color: #555656;
   padding-left: 15px;
-}
-
-#welcome-content .row {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-#welcome-content .row a {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 10px;
-  background-color: #9FD7E4;
-  font-size: 14pt;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 10px;
-}
-
-
-#welcome-content .row a:hover {
-  text-decoration: none;
 }
 
 #welcome-controls {
@@ -78,4 +153,30 @@ ul li {
   margin-top: 5px;
   margin-bottom: 5px;
   letter-spacing: 1px;
+}
+
+.quiz li {
+  font-size: 18pt;
+  margin-bottom: 10px;
+}
+
+.quiz span {
+  margin-left: 5px;
+  font-size: 14pt;
+}
+
+.quiz input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#quiz-results-modal p {
+  font-size: 18pt;
+  color: green;
+}
+
+form label {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 18pt;
 }

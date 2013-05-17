@@ -40,6 +40,7 @@ GEM
       ejs
       jquery-rails
       rails (>= 3.1)
+    bcrypt-ruby (3.0.1)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -64,13 +65,12 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.7.7)
-    mail (2.5.3)
-      i18n (>= 0.4.0)
+    json (1.8.0)
+    mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.22)
-    multi_json (1.7.2)
+    mime-types (1.23)
+    multi_json (1.7.3)
     pg (0.15.1)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -109,7 +109,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
-    sass (3.2.7)
+    sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -121,12 +121,12 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
     thor (0.18.1)
-    tilt (1.3.7)
+    tilt (1.4.1)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
-    uglifier (2.0.1)
+    uglifier (2.1.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
 
@@ -136,8 +136,9 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.7.0)
   annotate
-  backbone-on-rails
   apipie-rails
+  backbone-on-rails
+  bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 3.2.1)
   jquery-rails
   pg
