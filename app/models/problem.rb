@@ -8,7 +8,10 @@
 #  quiz_id    :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#
+
+# A queston is a block of text that should be presented to a user
+# An answer is an exact string that needs to be sent for the problem
+# in order to be confirmed as a correct answer
 
 class Problem < ActiveRecord::Base
   attr_accessible :question, :answer, :quiz, :quiz_id
