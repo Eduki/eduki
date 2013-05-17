@@ -12,6 +12,11 @@ class Api::ProblemsController < Api::ApiController
     * quiz_id:integer
     * question:string
     * answer:string
+
+    A queston is a block of text that should be presented to a user
+
+    An answer is an exact string that needs to be sent for the problem
+    in order to be confirmed as a correct answer
     EOS
   end
 
