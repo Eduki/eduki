@@ -3,50 +3,62 @@
 # Edward Samson
 # sergal@cs.washington.edu
 #
+class Api::UsersController < Api::ApiController
 
-class Api::UsersController < ApplicationController
+  # @user is a bound variable in scope
+  before_filter :get_user_or_404, :only => [:show, :update]
+
+  resource_description do
+    description <<-EOS
+    A user has the following fields
+    * id:integer
+    * email:string
+    EOS
+  end
+
+  api :GET, '/users/:id', "Retrieve a user"
+  param :id, Fixnum, :required => true
+  def show
+    render :json => @user
+  end
+
+  api :GET, '/users', "Retrieve all users"
+  def index
+    render :json => User.all
+  end
+
+  api :POST, '/users', "Create a new user"
+  param :email, String, :required => true
   def create
     if params[:email].nil?
       render :json => error_object, :status => 400
     else
-      new_u = User.new
-      new_u.email = params[:email]
-      if new_u.save
-        render :json => new_u
+      @user = User.new
+      @user.email = params[:email]
+      if @user.save
+        render :json => @user
       else
-        render :json => error_object, :status => 400
+        render :json => error_object, :status => 500
       end
     end
   end
 
+  
+  api :PUT, '/users/:id', "Update a user's information"
+  param :id, Fixnum, :required => true
+  param :email, String
   def update
-    if params[:email].nil?
-      render :json => error_object, :status => 400
+    @user.email = params[:email] if not params[:email].nil?
+    if @user.save
+      render :json => @user
     else
-      u = User.find_by_id(params[:id])
-      if u.nil?
-        render :json => User.missing_user(params[:id]), :status => 404
-      else
-        u.email = params[:email].nil
-        if u.save
-          redner :json => u
-        else
-          render :json => error_object, :status => 400
-        end
-      end
+      render :json => error_object, :status => 500
     end
   end
 
-  def show
-    u = User.find_by_id(params[:id])
-    if u.nil?
-      render :json => User.missing_user(params[:id]), :status => 404
-    else
-      render :json => u
-    end
+private
+  def get_user_or_404
+    super(params[:id])
   end
 
-  def index
-    render :json => User.all
-  end
 end
