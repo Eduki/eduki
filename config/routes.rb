@@ -61,6 +61,15 @@ Eduki::Application.routes.draw do
   root :to => 'static#index'
   match 'api' => 'api/stub#index'
   namespace :api do
+
+    resources :users, :only => [] do
+      resources :enrollments, :only => [:create, :index]
+    end
+    resources :enrollments, :only => [:show] do
+      resources :quiz_attempts, :only => [:create, :index]
+    end
+    resources :quiz_attempts, :only => [:show]
+
     resources :courses, :only => [:show, :index, :create, :update] do
       # For now, (legacy from Alpha phase), lessons does not follow the
       # shallow routes convention. This should be updated when all
