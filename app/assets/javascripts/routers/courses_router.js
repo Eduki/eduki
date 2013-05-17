@@ -9,7 +9,7 @@ Eduki.Routers.Courses = Backbone.Router.extend({
     'courses(/)': 'index',
     'courses/new': 'create',
     'courses/:cid(/)': 'overview',
-    'courses/:cid/quiz-new(/)': 'new_quiz'
+    'courses/:cid/quizzes(/)': 'new_quiz'
   },
 
   index: function() {
