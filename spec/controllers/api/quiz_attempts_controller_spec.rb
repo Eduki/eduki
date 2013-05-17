@@ -110,7 +110,7 @@ describe Api::QuizAttemptsController do
         {
           :answer => "problem_two answer"
         },
-      ]
+      ].to_json
       assert_response :success
 
       # Response should have updated version
@@ -138,7 +138,7 @@ describe Api::QuizAttemptsController do
         :problem_attempts => [{
           :answer => "incorrect answer"
         }
-      ]
+      ].to_json
       check_failure(400)
     end
 
@@ -151,15 +151,15 @@ describe Api::QuizAttemptsController do
         },{
           :answer => "incorrect answer"
         }
-      ]
+      ].to_json
       check_failure(400)
     end
 
     it "returns 404 if quiz_id not found" do
       post :create, :enrollment_id => @enrollment.id, :quiz_id => -1,
-        :problem_attempts => {
+        :problem_attempts => [{
           :answer => "incorrect answer"
-        }
+        }].to_json
       check_failure(404)
     end
 

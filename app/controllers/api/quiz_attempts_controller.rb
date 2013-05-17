@@ -48,7 +48,8 @@ class Api::QuizAttemptsController < Api::ApiController
 
     # Generate a ProblemAttempt object and attach it to
     # @quiz_attempt for every entry in problem_attempts
-    problem_hashes = params[:problem_attempts]
+    problem_hash_data = params[:problem_attempts]
+    problem_hashes = JSON.parse(problem_hash_data)
     problem_hashes.each do |problem_hash|
       # Return 400 if problem count mismatch
       if problems.size == 0
