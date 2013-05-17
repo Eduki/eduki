@@ -33,4 +33,16 @@ protected
   def error_object
     {:error => "Error encountered"}
   end
+
+  # Finds a user with the specified id and assigns it to an instance
+  # variable.  Returns false and renders a 404 error if a user
+  # cannot be found with the specified id
+  def get_user_or_404(id)
+    @user = User.find_by_id(id)
+    if @user.nil?
+      render :json => User.missing_user(id), :status => 404
+      return false
+    end
+  end
+
 end
