@@ -1,10 +1,14 @@
-# A controller to handle Courses endpoints
+# A controller to handle Enrollments endpoints
 #
 # David Mah
 class Api::EnrollmentsController < Api::ApiController
 
   resource_description do
     description <<-EOS
+    An enrollment represents an association between a user and a course.
+    A student can only take quizzes for courses that the student is
+    enrolled in.
+
     An enrollment has the following fields
     * id:integer
     * user_id:integer

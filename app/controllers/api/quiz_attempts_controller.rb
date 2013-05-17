@@ -14,6 +14,12 @@ class Api::QuizAttemptsController < Api::ApiController
       * answer:string
       * correct:boolean
       }
+
+    When creating a new QuizAttempt, the amount of entries in problem_attempts
+    must be equivalent to the amount of problems on the quiz that is being
+    referenced. Take note that when creating a new QuizAttempt, problem_attempts
+    only need the "answer" field filled, and all others will be filled upon
+    generation.
     EOS
   end
 
@@ -29,7 +35,8 @@ class Api::QuizAttemptsController < Api::ApiController
     render :json => @quiz_attempt
   end
 
-  api :GET, '/enrollments/:enrollment_id/quiz_attempts', "Retrieve all Quiz Attempts for the given enrollment"
+  api :GET, '/enrollments/:enrollment_id/quiz_attempts',
+    "Retrieve all Quiz Attempts for the given enrollment"
   param :enrollment_id, Fixnum, :required => true
   def index
     render :json => @enrollment.quiz_attempts
