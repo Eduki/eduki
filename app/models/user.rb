@@ -2,11 +2,12 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  email      :string		not null, unique
-#  password   :string		only valid when user auth required
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :integer          not null, primary key
+#  email         :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  password_hash :string(255)
+#  password_salt :string(255)
 #
 
 class User < ActiveRecord::Base
