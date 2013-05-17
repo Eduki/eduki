@@ -22,3 +22,7 @@ quiz_one = Quiz.create({:title => 'Example Quiz 1', :course => course,
                                       :answer   => "Example Answer 2"})]})
 quiz_two = Quiz.create({:title => 'Example Quiz 2', :course => course_two,
                         :problems => []})
+
+# User seeds
+User.create({:email => 'bingopoop'})
+User.create({:email => 'bingopooper'})

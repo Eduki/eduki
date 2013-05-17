@@ -68,6 +68,7 @@ Eduki::Application.routes.draw do
       resources :lessons, :only => [:show, :index, :create, :update]
       resources :quizzes, :only => [:index, :create]
     end
+    resources :users, :only => [:show, :index, :create, :update]
     resources :lessons, :only => [:show, :update]
 
     resources :quizzes, :only => [:show, :update] do

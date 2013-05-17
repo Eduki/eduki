@@ -16,6 +16,10 @@ describe Api::LessonsController do
     @course_two.title = "course_two example"
     @course_two.save
 
+    @course_three = Course.new
+    @course_three.title = "course_three example"
+    @course_three.save
+
     @courses = [@course, @course_two]
 
     @lesson = Lesson.new
@@ -55,7 +59,15 @@ describe Api::LessonsController do
     end
   end
 
+
   describe "GET #index" do
+    it "retrieves no lessons of there are none" do
+      get :index, :course_id => @course_three.id
+      assert_response :success
+      body = JSON.parse(response.body)
+      body.size.should == 0
+    end
+
     it "retrieves all lessons for a course" do
       get :index, :course_id => @course.id
       assert_response :success
