@@ -16,6 +16,8 @@ gem 'pg', :group => :production
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', "~> 2.0"
+  gem "jasmine"
+  gem "jasmine-rails"
 end
 
 
@@ -34,7 +36,7 @@ end
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

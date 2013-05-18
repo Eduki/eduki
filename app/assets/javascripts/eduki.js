@@ -7,6 +7,7 @@ window.Eduki = {
     current_user = Eduki.Models.CurrentUser.create_from_cookie();
     new Eduki.Routers.Courses();
     new Eduki.Routers.Lessons();
+    new Eduki.Routers.Quizzes();
     new Eduki.Routers.Static();
     Backbone.history.start()
   }

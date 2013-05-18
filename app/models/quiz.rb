@@ -1,25 +1,23 @@
 # == Schema Information
 #
-# Table name: lessons
+# Table name: quizzes
 #
 #  id         :integer          not null, primary key
 #  title      :string(255)      not null
-#  body       :text(255)        not null
 #  course_id  :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# David Mah
 
-class Lesson < ActiveRecord::Base
-  attr_accessible :title, :body, :course, :course_id
+class Quiz < ActiveRecord::Base
+  attr_accessible :title, :course, :course_id, :problems
   belongs_to :course
+  has_many :problems
 
-  # An object to return in the case that the given lesson is not found
   def self.missing_instance(id)
     {
       :error => "Resource not found",
-      :message => "Could not find Lesson with ID=#{id}"
+      :message => "Could not find Quiz with ID=#{id}"
     }
   end
 end

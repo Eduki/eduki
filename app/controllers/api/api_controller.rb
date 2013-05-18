@@ -6,26 +6,27 @@ class Api::ApiController < ApplicationController
 
 protected
 
-  # Retrieves the course with the given id and assigns it to the
-  # instance variable @course. Returns false and renders 404 if not found
-  # Meant to be used in before_filters
-  def get_course_or_404(id)
-    @course = Course.find_by_id(id)
-    if @course.nil?
-      render :json => Course.missing_course(id), :status => 404
-      return false
-    end
+  # All of these getters retrieve their matching
+  # instance and assigns it to a instance variable
+  # of a corresponding name 
+  def get_user_or_404(id)
+    @user = get_or_404(User, id)
   end
 
-  # Retrieves the lesson with the given id and assigns it to the
-  # instance variable @lesson. Returns false and renders 404 if not found
-  # Meant to be used in before_filters
+  def get_course_or_404(id)
+    @course = get_or_404(Course, id)
+  end
+
   def get_lesson_or_404(id)
-    @lesson = Lesson.find_by_id(id)
-    if @lesson.nil?
-      render :json => Lesson.missing_lesson(id), :status => 404
-      return false
-    end
+    @lesson = get_or_404(Lesson, id)
+  end
+
+  def get_quiz_or_404(id)
+    @quiz = get_or_404(Quiz, id)
+  end
+
+  def get_problem_or_404(id)
+    @problem = get_or_404(Problem, id)
   end
 
   # A hash that is the base for any errors
@@ -33,4 +34,18 @@ protected
   def error_object
     {:error => "Error encountered"}
   end
+
+private
+  # Finds a member of `type` with the specified id returns it.
+  # Returns nil and renders a 404 error if one cannot be found with the specified id
+  # Meant to be used in before_filters
+  def get_or_404(type, id)
+    obj = type.find_by_id(id)
+    if obj.nil?
+      render :json => type.missing_instance(id), :status => 404
+      return nil
+    end
+    return obj
+  end
+
 end
