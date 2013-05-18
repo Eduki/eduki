@@ -6,6 +6,7 @@ window.Eduki = {
   initialize: function() {
     new Eduki.Routers.Courses();
     new Eduki.Routers.Lessons();
+    new Eduki.Routers.Quizzes();
     new Eduki.Routers.Static();
     new Eduki.Routers.Quizzes();
     Backbone.history.start()

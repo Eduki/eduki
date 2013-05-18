@@ -16,6 +16,8 @@ gem 'pg', :group => :production
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', "~> 2.0"
+  gem "jasmine"
+  gem "jasmine-rails"
 end
 
 
