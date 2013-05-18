@@ -1,0 +1,34 @@
+<h1><a href="/#/courses/<%= this.course.get('id') %>" title="<%= this.course.get('title') %>"><%= this.course.get('title') %></a></h1>
+<div class="row quiz" id="quiz-<%= this.quiz.get('id') %>">
+  <div class="span8">
+    <h2><%= this.quiz.get('title') %></h2>
+    <hr />
+    <form class="quiz">
+      <ol>
+        <% for (var i = 0; i < this.quiz.get('problems').length; i++) { %>
+          <li>
+            <fieldset>
+              <label><%= this.quiz.get('problems')[i].question %></label>
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "a" /> <span>A</span><br />
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "b" /> <span>B</span><br />
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "c" /> <span>C</span><br />
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "d" /> <span>D</span><br />
+            </fieldset>
+          </li>
+        <% } %>
+      </ol>
+      <button class="eduki-button-primary"><span>Submit Quiz</span></button>
+    </form>
+  </div>
+  <div id="course-lessons-list" class="span4">
+    <h2>Other Quizzes</h2>
+    <hr />
+    <ul>
+      <% for (var i = 0; i < this.quizzes.size(); i++) { %>
+        <li>
+          <a href="#/courses/<%= this.quizzes.models[i].get('course_id') %>/quizzes/<%= this.quizzes.models[i].get('id') %>" title="<%= this.quizzes.models[i].get('title') %>"><%= this.quizzes.models[i].get('title')%></a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</div>

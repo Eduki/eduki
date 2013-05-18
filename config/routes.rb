@@ -1,4 +1,5 @@
 Eduki::Application.routes.draw do
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -55,16 +56,25 @@ Eduki::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+  #   match 'products/:id' => 'catalog#view'
+  apipie
   root :to => 'static#index'
   match 'api' => 'api/stub#index'
-  match 'create_lesson' => 'static#create_lesson'
-  match 'lesson' => 'static#lesson'
   namespace :api do
-    resources :courses do
-      resources :lessons
+    resources :courses, :only => [:show, :index, :create, :update] do
+      # For now, (legacy from Alpha phase), lessons does not follow the
+      # shallow routes convention. This should be updated when all
+      # frontends have been changed to use the shallow routes
+      resources :lessons, :only => [:show, :index, :create, :update]
+      resources :quizzes, :only => [:index, :create]
     end
+    resources :users, :only => [:show, :index, :create, :update]
+    resources :lessons, :only => [:show, :update]
+    resources :quizzes, :only => [:show, :update] do
+      resources :problems, :only => [:index, :create]
+    end
+
+    resources :problems, :only => [:show, :update, :destroy]
   end
-
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
-
 end
