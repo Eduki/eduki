@@ -4,7 +4,7 @@ window.Eduki = {
   Views: {},
   Routers: {},
   initialize: function() {
-    current_user = Eduki.Models.CurrentUser.create_from_cookie();
+    currentUser = Eduki.Models.CurrentUser.create_from_cookie();
     new Eduki.Routers.Courses();
     new Eduki.Routers.Lessons();
     new Eduki.Routers.Quizzes();

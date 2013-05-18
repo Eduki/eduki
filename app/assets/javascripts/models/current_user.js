@@ -1,6 +1,6 @@
 Eduki.Models.CurrentUser = Backbone.Model.extend({
-  COOKIE_KEY: "current_user",
-  AUTHENTICATE_URL: "/api/authenticate",
+  COOKIE_KEY: "currentUser",
+  urlRoot: "/api/authenticate",
   email: "",
   password: "",
   initialize: function() {
@@ -37,7 +37,6 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
   set_credentials: function(email, password) {
     this.email = email;
     this.password = password;
-    this.save();
   },
 
   // Clears identifying user information from the machine
@@ -47,8 +46,20 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
     this.clear();
   },
 
-  authenticate: function() {
-    
+  // Sends an authentication request to the server
+  // If it succeeds, calls success_callback
+  // If it fails, calls error_callback
+  authenticate: function(success_callback, error_callback, callback_context) {
+    // console.log(Backbone.BasicAuth.encode(this.email, this.password));
+    $.ajax({
+      url: currentUser.urlRoot,
+      type: 'POST',
+      username: this.email,
+      password: this.password,
+      success: success_callback,
+      error: error_callback,
+      context: callback_context
+    });
   }
 
 });

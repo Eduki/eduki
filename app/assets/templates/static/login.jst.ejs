@@ -1,15 +1,18 @@
-<div id="user-login-form class="row">
+<div id="user-login-form" class="row">
   <fieldset>
     <form class="offset2 span8">
       <h1>Login</h1>
       <hr />
       <label>Email</label>
-      <input class="span4" type="text" id="login-field-email" placeholder="Email" required />
+      <input class="span4" id="login-field-email" type="text"  placeholder="Email" required />
       <br />
       <label>Password</label>
-      <input class="span4" type="password" id="login-field-password" placeholder="Password" required />
+      <input class="span4" id="login-field-password" type="password" placeholder="Password" required />
       <br />
-      <button class="eduki-button-primary">Signup</button>
+      <button class="eduki-button-primary" id="login-button">Signup</button>
     </form>
   </fieldset>
+  <div id="error-area" class="alert alert-error offset2 span8" >
+    Your email or password was incorrect. Could you try again?
+  </div>
 </div>
