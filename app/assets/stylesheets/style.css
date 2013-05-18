@@ -239,3 +239,12 @@ form label {
   color: red;
   text-transform: lowercase;
 }
+
+.quiz-answer span {
+  margin-right: 20px;
+}
+
+.quiz button {
+  display: inline;
+  margin-right: 10px;
+}
