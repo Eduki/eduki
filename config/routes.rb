@@ -62,8 +62,19 @@ Eduki::Application.routes.draw do
   match 'api' => 'api/stub#index'
   namespace :api do
     resources :courses, :only => [:show, :index, :create, :update] do
+      # For now, (legacy from Alpha phase), lessons does not follow the
+      # shallow routes convention. This should be updated when all
+      # frontends have been changed to use the shallow routes
       resources :lessons, :only => [:show, :index, :create, :update]
+      resources :quizzes, :only => [:index, :create]
     end
+    resources :users, :only => [:show, :index, :create, :update]
     resources :lessons, :only => [:show, :update]
+    resources :quizzes, :only => [:show, :update] do
+      resources :problems, :only => [:index, :create]
+    end
+
+    resources :problems, :only => [:show, :update, :destroy]
   end
+  mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 end

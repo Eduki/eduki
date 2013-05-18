@@ -20,17 +20,18 @@ Eduki.Views.SignupIndex = Backbone.View.extend({
 	 // handles the form submission, displays appropriate pages on success/error
   signup: function(e) {
     e.preventDefault();
-    this.user = new Eduki.Models.User({ username: $('#signup-field-username').val(), 
+    this.user = new Eduki.Models.User({ email: $('#signup-field-username').val(), 
                                             password: $('#signup-field-password').val() });
 
-    alert('New user: ' + $('#signup-field-username').val() + ' with password: ' 
-    			+ $('#signup-field-password').val());
+  //  alert('New user: ' + $('#signup-field-username').val() + ' with password: ' 
+    //			+ $('#signup-field-password').val());
 
-    this.render(this.successTemplate());
+		var self = this;
+
     // below code waiting on user api to be complete to test
-    /*$.when(this.user.save()).then(
+    $.when(this.user.save()).then(
             function() { self.render(self.successTemplate()); },
             function() { self.render(self.errorTemplate()); }
-          );*/
+          );
   }
 });
