@@ -6,41 +6,110 @@
 describe('Quiz', function() {
   describe("Show", function() {
     setupFakeServer();
-    it("renders course header", function() {
+    it("renders error page for when an error occurs", function() {
       var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
-      serverRespond(this.server, 200, fixtures['course']);
+      serverRespond(this.server, 301, fixtures['course']);
       serverRespond(this.server, 200, fixtures['quizzes']);
       serverRespond(this.server, 200, fixtures['quiz']);
+      expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
+    });
+
+    it("renders course header", function() {
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      successServerResponses(this.server);
       expect(view.$el.find('h1')).toHaveText('Bear Cooking');
+    });
+
+    it("renders course header link", function() {
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      successServerResponses(this.server);
+      expect(view.$el.find('h1 a').attr('href')).toEqual('/#/courses/1');
     });
 
     it("renders quiz title", function() {
       var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
-      serverRespond(this.server, 200, fixtures['course']);
-      serverRespond(this.server, 200, fixtures['quizzes']);
-      serverRespond(this.server, 200, fixtures['quiz']);
-      var h2_items = view.$el.find('h2');
-      expect(h2_items[0]).toHaveText('Quiz 1');
+      successServerResponses(this.server);
+      var h2Items= view.$el.find('h2');
+      expect(h2Items[0]).toHaveText('Quiz 1');
     });
 
-    it("renders other quizzes header", function() {
+    it("renders submit button", function() {
       var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
-      serverRespond(this.server, 200, fixtures['course']);
-      serverRespond(this.server, 200, fixtures['quizzes']);
-      serverRespond(this.server, 200, fixtures['quiz']);
-      var h2_items = view.$el.find('h2');
-      expect(h2_items[1]).toHaveText('Other Quizzes');
+      successServerResponses(this.server);
+      var buttons = view.$el.find('button');
+      expect(buttons[0]).toHaveText('Submit');
+    });
+
+    it("renders submit button", function() {
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      successServerResponses(this.server);
+      var buttons = view.$el.find('button');
+      expect(buttons[1]).toHaveText('Reset');
     });
 
     it("renders two problems", function() {
       var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
-      serverRespond(this.server, 200, fixtures['course']);
-      serverRespond(this.server, 200, fixtures['quizzes']);
-      serverRespond(this.server, 200, fixtures['quiz']);
-      var h2_items = view.$el.find('fieldset');
-      expect(h2_items.length).toBe(2);
+      successServerResponses(this.server);
+      var problems = view.$el.find('fieldset');
+      var possibleAnswers = view.$el.find('input');
+      expect(problems.length).toBe(2);
+      expect(possibleAnswers.length).toBe(8);
     });
 
+    describe("Other Quizzes", function() {
+      it("renders other quizzes header", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        var h2Items = view.$el.find('h2');
+        expect(h2Items[1]).toHaveText('Other Quizzes');
+      });
+
+      it("renders other quizzes", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        var otherQuizzes = view.$el.find('#course-quizzes-list li');
+        expect(otherQuizzes.length).toBe(3);
+      });
+
+      it("renders quiz title", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        var otherQuizzes = view.$el.find('#course-quizzes-list li');
+        expect(otherQuizzes[1]).toHaveText('Quiz 2');
+      });
+
+      it("renders quiz link", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        var otherQuizzesLinks = view.$el.find('#course-quizzes-list li a');
+        expect($(otherQuizzesLinks[1]).attr('href')).toEqual('/#/courses/1/quizzes/2');
+      });
+
+    });
+
+    describe("Problems", function() {
+      it("renders problem 1's question", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        var questions = view.$el.find('label');
+        expect(questions[0]).toHaveText("What is a corgi? A. Dog B. Cat C. Cow D. Derp");
+      });
+
+      it("renders problem 2's question", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        var questions = view.$el.find('label');
+        expect(questions[1]).toHaveText("what is 1+1? A. 1 B. 2 C. 3 D. 0");
+      });
+    });
   });
 });
+
+// Helper function to send back successful respones for all 3 api calls
+// necessary to render a quiz
+function successServerResponses(server) {
+  serverRespond(server, 200, fixtures['course']);
+  serverRespond(server, 200, fixtures['quizzes']);
+  serverRespond(server, 200, fixtures['quiz']);
+}
 
