@@ -1,15 +1,20 @@
 Eduki.Views.QuizNew = Backbone.View.extend({
 	
-	template: JST['quizzes/create_quiz'],
+	template: JST['quizzes/new'],
+  problemTemplate: JST['quizzes/problem'],
+  deleteErrorTemplate: JST['quizzes/delete_error'],
 	errorTemplate: JST['static/error'],
 
 	events: {
-		'click button#add': 'add',
+    'click #create-quiz-add' : 'add',
+    'click .create-quiz-delete' : 'deleteProblem',
 		'submit form': 'submit'
 	},
 
 	initialize: function(cid) {
+    this.count = 0;
     this.render(this.template());
+    this.$('#create-quiz-problems').append(this.problemTemplate());
   },
 
     // Renders the template
@@ -18,14 +23,25 @@ Eduki.Views.QuizNew = Backbone.View.extend({
     return this;
   },
 
-  add: function(e) {
-  	e.preventDefault();
-  	$('#questions').append($('#question').clone().removeClass('hidden'));
+  add: function() {
+    this.count++;
+    this.$('#create-quiz-problems').append(this.problemTemplate());
+  },
+
+  deleteProblem: function(e) {
+    if ($('.create-quiz-problem').length != 1) {
+      $(e.target).closest('.create-quiz-problem').remove();
+    } else if ($('.alert').length <= 0) {
+        $('.create-quiz-delete').after(this.deleteErrorTemplate());
+        $('#create-quiz-delete-error').delay(2000).fadeOut(function() {
+          $('#create-quiz-delete-error').remove();
+        });
+    }
   },
 
   submit: function(e) {
   	e.preventDefault();
   	alert('event fired!' + e.target);
-  } 
-
+  }
 });
+
