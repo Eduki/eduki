@@ -90,11 +90,14 @@ button {
   padding-bottom: 15px;
 }
 
-.eduki-button-inline {
-  display: inline;
-  font-size: 12pt;
+.eduki-button-small {
   letter-spacing: 5px;
   padding: 3px 5px;
+  font-size: 12pt;
+}
+
+.eduki-button-inline {
+  display: inline;
   margin-left: 5px;
   position: relative;
   bottom: 5px;
@@ -109,6 +112,10 @@ button {
 
 .eduki-button-primary span {
   margin-left: 10px;
+}
+
+.eduki-button-small span {
+  margin-left: 5px;
 }
 
 .eduki-button-inline span {
@@ -179,4 +186,54 @@ form label {
   padding-top: 5px;
   padding-bottom: 5px;
   font-size: 18pt;
+}
+
+#create-quiz-problems {
+  margin-top: 35px;
+}
+
+.create-quiz-problem {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#create-quiz-form .control-group {
+  margin-bottom: 0;
+}
+
+.create-quiz-answer span {
+  margin-left: 10px;
+  margin-right: 20px;
+  position: relative;
+  top: 3px;
+}
+
+.eduki-button-icon {
+  display: block;
+  overflow: hidden;
+  height: 0px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+}
+
+.eduki-button-icon-small {
+  background-size: 25px 25px;
+  padding-top: 25px;
+  width: 25px;
+}
+
+#create-quiz-add {
+  background-image: url('icons/add.jpg');
+  margin-bottom: 30px;
+}
+
+.create-quiz-delete {
+  display: inline;
+  margin-left: 10px;
+  background-image: url('icons/delete.jpg');
+}
+
+#create-quiz-delete-error {
+  color: red;
 }
