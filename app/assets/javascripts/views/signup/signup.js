@@ -11,7 +11,7 @@ Eduki.Views.SignupIndex = Backbone.View.extend({
 	
 	template: JST['users/signup'],
 	successTemplate: JST['users/signup_success'],
-	errorTemplate: JST['static/error'],
+	errorTemplate: JST['users/signup_error'],
 
 	events: {
 		'submit form' : 'signup'
@@ -37,8 +37,7 @@ Eduki.Views.SignupIndex = Backbone.View.extend({
     // performs basic email validation
     // will alert user if email improperly filled out
     if (!this.user.isValid()) {
-  		alert(this.user.validationError);
-  		this.render(this.errorTemplate());
+  		$('#user-signup-form').append(this.errorTemplate());
   		return;
 		}
 
