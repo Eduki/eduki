@@ -655,11 +655,11 @@ Backbone.View.prototype.showLoading = function() {
     // Remove dark background
     $('.modal-backdrop').removeClass('modal-backdrop');
     cl.show(); // Hidden by default
-    // This bit is only for positioning - not necessary
-    var loaderObj = document.getElementById("canvasLoader");
   }
 }
 
 Backbone.View.prototype.hideLoading = function() {
   this.$el.find('#loading-modal').remove();
+  // Remove extra div being appened when adding modal
+  $('body > .fade').remove();
 }
