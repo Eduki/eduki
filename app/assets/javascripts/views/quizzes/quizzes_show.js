@@ -37,8 +37,23 @@
   },
 
   submit: function(e) {
+    $('#quiz-results-modal').remove();
     e.preventDefault();
+    this.total = this.quiz.get('problems').length;
+    this.correct = this.grade();
     this.$el.append(this.resultsTemplate());
     $('#quiz-results-modal').modal();
-  }
- });
+  },
+
+  grade: function() {
+    var correct = 0;
+    for (var i = 0; i < this.quiz.get('problems').length; i++) {
+      var inputAnswer = $('input:radio[name=problem-' +
+                          this.quiz.get('problems')[i].id + ']:checked').val();
+      var answer = this.quiz.get('problems')[i].answer;
+      if (inputAnswer == answer)
+        correct++;
+    }
+    return correct;
+  },
+});
