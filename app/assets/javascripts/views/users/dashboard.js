@@ -1,6 +1,6 @@
-Eduki.Views.StaticIndex = Backbone.View.extend({
+Eduki.Views.Dashboard = Backbone.View.extend({
 
-  template: JST['static/index'],
+  template: JST['users/dashboard'],
 
   initialize: function() {
     // nothing to initialize
@@ -9,5 +9,5 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   render: function() {
     $(this.el).html(this.template());
     return this;
-  },
+  }
 });

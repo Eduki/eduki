@@ -23,15 +23,12 @@ Eduki.Views.Login = Backbone.View.extend({
 
   onAuthenticateSuccess: function(data) {
     this.hideLoading();
-
+    currentUser.save();
+    router.route("dashboard");
   },
 
   onAuthenticateFailure: function(data) {
     this.hideLoading();
-    window.data = data;
-    currentUser.save();
-    console.log(this.$el.html());
     this.$el.find("#error-area").show();
-    console.log(this.$el.html());
   }
 });
