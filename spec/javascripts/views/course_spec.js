@@ -11,13 +11,13 @@ describe('Course', function() {
 
     it("renders one course", function() {
       var view = new Eduki.Views.CoursesIndex();
-      serverRespond(this.server, 200, fixtures["course.json"])
+      serverRespond(this.server, 200, fixtures["course"]);
       expect(view.$el.find('li')).toHaveText("Bear Cooking");
     });
 
     it("renders many courses", function() {
       var view = new Eduki.Views.CoursesIndex();
-      serverRespond(this.server, 200, fixtures["courses.json"]);
+      serverRespond(this.server, 200, fixtures["courses"]);
       list_items = view.$el.find('li');
       expect(list_items[0]).toHaveText("Bear Cooking");
       expect(list_items[1]).toHaveText("Petting Zoos");

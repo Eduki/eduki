@@ -9,6 +9,7 @@ spec_files:
 spec_dir: spec/javascripts
 helpers:
   - helpers/*.js
+  - fixtures/json/*.js
 
 # src_files
 #

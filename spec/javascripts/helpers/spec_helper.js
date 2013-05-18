@@ -4,14 +4,8 @@
  */
 //= require application.js
 
-var fixtures;
-// Setup Fixture Data for tests to reference
-function setupFixtures() {
-  jasmine.getFixtures().fixturesPath = "assets/fixtures";
-  jasmine.getJSONFixtures().fixturesPath = "assets/fixtures/json";
-  fixtures = loadJSONFixtures("course.json", "courses.json");
-}
-setupFixtures();
+// Initialize fixture table. Fixtures are assigned in fixtures/json
+var fixtures = {};
 
 // Setup Fake Server to respond to AJAX requests
 // Should be called from the context of a test
