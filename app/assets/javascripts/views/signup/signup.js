@@ -1,3 +1,12 @@
+/*
+ * Signup Page View
+ *
+ * Takes new user information, validates it, and submits it to the server
+ * Displays appropriate success/error page on completion
+ *
+ * author: Michael
+ */
+
 Eduki.Views.SignupIndex = Backbone.View.extend({
 	
 	template: JST['users/signup'],
@@ -25,7 +34,13 @@ Eduki.Views.SignupIndex = Backbone.View.extend({
 
 		var self = this;
 
-    // password will be ignored for now
+    // performs basic email validation
+    if (!this.user.isValid()) {
+  		alert(this.user.validationError);
+  		this.render(this.errorTemplate());
+  		return;
+		}
+
     $.when(this.user.save()).then(
             function() { self.render(self.successTemplate()); },
             function() { self.render(self.errorTemplate()); }
