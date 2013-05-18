@@ -35,6 +35,7 @@ Eduki.Views.SignupIndex = Backbone.View.extend({
 		var self = this;
 
     // performs basic email validation
+    // will alert user if email improperly filled out
     if (!this.user.isValid()) {
   		alert(this.user.validationError);
   		this.render(this.errorTemplate());
