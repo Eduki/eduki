@@ -70,11 +70,11 @@ Eduki::Application.routes.draw do
     end
     resources :users, :only => [:show, :index, :create, :update]
     resources :lessons, :only => [:show, :update]
-
     resources :quizzes, :only => [:show, :update] do
       resources :problems, :only => [:index, :create]
     end
 
     resources :problems, :only => [:show, :update, :destroy]
   end
+  mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 end
