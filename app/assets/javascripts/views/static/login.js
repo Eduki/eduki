@@ -18,13 +18,16 @@ Eduki.Views.Login = Backbone.View.extend({
     currentUser.set_credentials(email, password);
     currentUser.authenticate(this.onAuthenticateSuccess,
                              this.onAuthenticateFailure, this);
+    this.showLoading();
   },
 
   onAuthenticateSuccess: function(data) {
+    this.hideLoading();
 
   },
 
   onAuthenticateFailure: function(data) {
+    this.hideLoading();
     window.data = data;
     currentUser.save();
     console.log(this.$el.html());
