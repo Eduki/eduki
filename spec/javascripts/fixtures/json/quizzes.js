@@ -1,8 +1,23 @@
-fixtures['quiz'] =
-  {"id":1,"course_id":1, "title":"Quiz 1",
+fixtures['quizzes'] =
+  [{"id":1,"course_id":1, "title":"Quiz 1 For Course 1",
    "problems":[{"id":5, "quiz_id":1,
                 "question":"What is a corgi? A. Dog B. Cat C. Cow D. Derp",
                 "answer":"A"},
                {"id":5, "quiz_id":1,
-                "question":"what is 1+1? A. 1 B. 2 C. 3 D. 0",
-                "answer":"B"}]};
+                "question":"What is 1+1? A. 1 B. 2 C. 3 D. 0",
+                "answer":"B"}]},
+    {"id":2,"course_id":1, "title":"Quiz 2 For Course 1",
+     "problems":[{"id":5, "quiz_id":2,
+                  "question":"What is a maltese? A. Dog B. Cat C. Cow D. Derp",
+                  "answer":"A"},
+                 {"id":5, "quiz_id":2,
+                  "question":"What is 1+2? A. 1 B. 2 C. 3 D. 0",
+                  "answer":"C"}]},
+    {"id":3,"course_id":2, "title":"Quiz 1 for Course 2",
+     "problems":[{"id":5, "quiz_id":3,
+                  "question":"What is a husky? A. Dog B. Cat C. Cow D. Derp",
+                  "answer":"A"},
+                 {"id":5, "quiz_id":3,
+                  "question":"What is 1+0? A. 1 B. 2 C. 3 D. 0",
+                  "answer":"A"}]},
+];
