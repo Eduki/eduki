@@ -9,7 +9,7 @@
    resultsTemplate: JST['quizzes/results'],
    errorTemplate: JST['static/error'],
    events: {
-     'submit form': 'submit',
+     'click button[type=button]': 'submit',
    },
 
   initialize: function() {
@@ -36,9 +36,8 @@
     return this;
   },
 
-  submit: function(e) {
+  submit: function() {
     $('#quiz-results-modal').remove();
-    e.preventDefault();
     this.total = this.quiz.get('problems').length;
     this.correct = this.grade();
     this.$el.append(this.resultsTemplate());
@@ -48,7 +47,7 @@
   grade: function() {
     var correct = 0;
     for (var i = 0; i < this.quiz.get('problems').length; i++) {
-      var inputAnswer = $('input:radio[name=problem-' +
+      var inputAnswer = this.$('input:radio[name=problem-' +
                           this.quiz.get('problems')[i].id + ']:checked').val();
       var answer = this.quiz.get('problems')[i].answer;
       if (inputAnswer == answer)
