@@ -32,7 +32,7 @@ Eduki.Views.Signup = Backbone.View.extend({
     }
 	},
 
-	 // handles the form submission, displays appropriate pages on success/error
+	// handles the form submission, displays appropriate pages on success/error
   signup: function(e) {
     e.preventDefault();
     this.user = new Eduki.Models.User({ email: $('#signup-field-email').val(),
