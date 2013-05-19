@@ -14,9 +14,7 @@
 //= require jquery_ujs
 //= require underscore
 //= require backbone
-//= require bootstrap
-//= require underscore
-//= require backbone
+//= require_tree ./lib
 //= require eduki
 //= require_tree ../templates
 //= require_tree ./models

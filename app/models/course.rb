@@ -7,12 +7,12 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# David Mah
 
 class Course < ActiveRecord::Base
   attr_accessible :title, :lessons, :quizzes
   has_many :lessons
   has_many :quizzes
+  has_many :enrollments
 
   # An object to return in the case that the given course is not found
   def self.missing_instance(id)

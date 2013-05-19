@@ -17,6 +17,10 @@ protected
     @course = get_or_404(Course, id)
   end
 
+  def get_enrollment_or_404(id)
+    @enrollment = get_or_404(Enrollment, id)
+  end
+
   def get_lesson_or_404(id)
     @lesson = get_or_404(Lesson, id)
   end
@@ -27,6 +31,10 @@ protected
 
   def get_problem_or_404(id)
     @problem = get_or_404(Problem, id)
+  end
+
+  def get_quiz_attempt_or_404(id)
+    @quiz_attempt = get_or_404(QuizAttempt, id)
   end
 
   # A hash that is the base for any errors
