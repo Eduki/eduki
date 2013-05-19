@@ -4,6 +4,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
   problemTemplate: JST['quizzes/problem'],
   deleteErrorTemplate: JST['quizzes/delete_error'],
 	errorTemplate: JST['static/error'],
+  createdTemplate: JST['quizzes/created'],
 
 	events: {
     'click #create-quiz-add' : 'add',
@@ -41,12 +42,9 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 
   submit: function(e) {
   	e.preventDefault();
-  	this.quiz = new Eduki.Models.Quiz({ course_id: this.attributes.course_id, 
-                                        title: $('#create-quiz-title').val() });
-    var problems = new Array();
+    var problemsArray = new Array();
     var submittedProblems = $('.create-quiz-question');
     for (var i = 0; i < submittedProblems.length; i++) {
-      console.log(submittedProblems[i].value);
       var problem = {
         question: submittedProblems[i].value,
         // the name being the submitted problems id is to handle the case where
@@ -55,9 +53,20 @@ Eduki.Views.QuizNew = Backbone.View.extend({
         // a set of radio buttons for that question, it lets everything stay grouped
         answer: $('input[name=' + submittedProblems[i].id + ']:checked', '#quiz').val()
       };
-      console.log(problem.answer);
+      problemsArray[i] = problem;
+      console.log(problemsArray.length);
     }
-    alert('quiz model created!' + this.attributes.course_id);
+
+    this.quiz = new Eduki.Models.Quiz({ course_id: this.attributes.course_id, 
+                                        title: $('#create-quiz-title').val(),
+                                        problems: problemsArray });
+    var self = this;
+
+    $.when(this.quiz.save()).then(
+             function() { self.render(self.createdTemplate()); },
+             function() { self.render(self.errorTemplate()); }
+           );
+
   }
 });
 
