@@ -30,10 +30,10 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
     this.course = new Eduki.Models.Course({ title: this.$('#create-course-name').val() });
     if (this.course.isValid()) {
       var self = this;
-      $.when(this.course.save()).then(
-               function() { self.render(self.createdTemplate()); },
-               function() { self.render(self.errorTemplate()); }
-             );
+      this.course.save({title: this.course.get('title')},
+                       {wait: true,
+                        success: function() { self.render(self.createdTemplate()); },
+                        error: function() { self.render(self.errorTemplate()); }});
     } else {
       this.$('input').after(this.invalidTemplate());
     }
