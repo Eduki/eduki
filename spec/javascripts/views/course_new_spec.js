@@ -62,5 +62,12 @@
        expect(view.$el.find('.alert')).toBeDefined();
      });
 
+     it('displays invalid error message', function() {
+       var view = new Eduki.Views.CoursesNew();
+       console.log(view.$('#create-course-name').val());
+       view.create();
+       expect(view.$el.find('.alert').html()).toMatch('A title cannot be empty');
+     });
+
    });
  });
