@@ -11,7 +11,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 		'submit form': 'submit'
 	},
 
-	initialize: function(cid) {
+	initialize: function() {
     this.count = 0;
     this.render(this.template());
     this.$('#create-quiz-problems').append(this.problemTemplate());
@@ -41,7 +41,19 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 
   submit: function(e) {
   	e.preventDefault();
-  	alert('event fired!' + e.target);
+  	this.quiz = new Eduki.Models.Quiz({ course_id: this.attributes.course_id, 
+                                        title: $('#create-quiz-title').val() });
+    var problems = new Array();
+    var submittedProblems = $('.create-quiz-question');
+    for (var i = 0; i < submittedProblems.length; i++) {
+      console.log(submittedProblems[i].value);
+      var problem = {
+        question: submittedProblems[i].value,
+        answer: $('input[name=problem-' + i + ']:checked', '#quiz').val()
+      };
+      console.log(problem.answer);
+    }
+    alert('quiz model created!' + this.attributes.course_id);
   }
 });
 

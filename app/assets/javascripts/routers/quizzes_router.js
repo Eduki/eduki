@@ -13,7 +13,7 @@ Eduki.Routers.Quizzes = Backbone.Router.extend({
 
   // Delegate to the Quiz Creation page and render the form inside the container
   create: function(cid) {
-    var view = new Eduki.Views.QuizzesNew({attributes:{course_id: cid}});
+    var view = new Eduki.Views.QuizNew({attributes:{course_id: cid}});
     $('#main-content').html(view.render().el);
   },
 
