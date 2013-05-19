@@ -70,7 +70,7 @@ describe Api::UsersController do
 
     it "enforces email uniqueness" do
       post :create, :email => "fake"
-      check_failure(500)
+      check_failure(409)
     end
   end
 
@@ -102,7 +102,7 @@ describe Api::UsersController do
 
     it "will not violate uniqueness" do
       put :update, :id => @user.id, :email => "wow"
-      check_failure(500)
+      check_failure(409)
     end
   end
 end

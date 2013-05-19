@@ -1,4 +1,4 @@
-Eduki.Views.StaticIndex= Backbone.View.extend({
+Eduki.Views.StaticIndex = Backbone.View.extend({
 
   template: JST['static/index'],
 

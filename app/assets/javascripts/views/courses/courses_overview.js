@@ -5,6 +5,8 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   initialize: function() {
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
+    this.quizzes = new Eduki.Collections.Quizzes();
+    this.quizzes.url = '/api/courses/' + this.course.get('id') + '/quizzes';
     this.lessons = new Eduki.Collections.Lessons(this.course.get('id'));
     this.lessons.url = '/api/courses/' + this.course.get('id') + '/lessons';
 
@@ -12,6 +14,7 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     // render through the callback to display them.
     var self = this;
     $.when(this.course.fetch(),
+           this.quizzes.fetch(),
            this.lessons.fetch()).then(
              function() { self.render(self.template()); },
              function() { self.render(self.errorTemplate()); }
