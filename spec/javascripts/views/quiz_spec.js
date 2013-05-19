@@ -56,6 +56,7 @@ describe('Quiz', function() {
       expect(possibleAnswers.length).toBe(8);
     });
 
+    // Tests the other quiz section
     describe("Other Quizzes", function() {
       it("renders other quizzes header", function() {
         var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
@@ -84,9 +85,10 @@ describe('Quiz', function() {
         var otherQuizzesLinks = view.$el.find('#course-quizzes-list li a');
         expect($(otherQuizzesLinks[1]).attr('href')).toEqual('/#/courses/1/quizzes/2');
       });
-
     });
 
+
+    // Tests problems individually
     describe("Problems", function() {
       it("renders problem 1's question", function() {
         var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
@@ -100,6 +102,37 @@ describe('Quiz', function() {
         successServerResponses(this.server);
         var questions = view.$el.find('label');
         expect(questions[1]).toHaveText("what is 1+1? A. 1 B. 2 C. 3 D. 0");
+      });
+    });
+
+    // Attempt to take a quiz
+    describe("Attempt", function() {
+      it("renders 0/0 correct answers for empty answers", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        view.submit();
+        var score = view.$el.find('#quiz-results p');
+        expect(score).toHaveText("You got 0/2 questions correct");
+      });
+
+      it("renders 2/2 correct answers for correct answers", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        view.$('input[name=problem-1][value=A]').prop('checked', true);
+        view.$('input[name=problem-2][value=B]').prop('checked', true);
+        view.submit();
+        var score = view.$el.find('#quiz-results p');
+        expect(score).toHaveText("You got 2/2 questions correct");
+      });
+
+      it("renders 1/2 correct answers for one correct and wrong answer", function() {
+        var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+        successServerResponses(this.server);
+        view.$('input[name=problem-1][value=A]').prop('checked', true);
+        view.$('input[name=problem-2][value=C]').prop('checked', true);
+        view.submit();
+        var score = view.$el.find('#quiz-results p');
+        expect(score).toHaveText("You got 1/2 questions correct");
       });
     });
   });
