@@ -103,13 +103,13 @@ describe('Course', function() {
       });
     });
   });
+
+  // Helper function to send back successful respones for all 3 api calls
+  // necessary to render a quiz
+  function successServerResponses(server) {
+    serverRespond(server, 200, fixtures['course']);
+    serverRespond(server, 200, fixtures['quizzes']);
+    serverRespond(server, 200, fixtures['lessons']);
+  }
+
 });
-
-// Helper function to send back successful respones for all 3 api calls
-// necessary to render a quiz
-function successServerResponses(server) {
-  serverRespond(server, 200, fixtures['course']);
-  serverRespond(server, 200, fixtures['quizzes']);
-  serverRespond(server, 200, fixtures['lessons']);
-}
-
