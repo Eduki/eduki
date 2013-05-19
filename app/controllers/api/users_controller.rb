@@ -38,7 +38,7 @@ class Api::UsersController < Api::ApiController
       if @user.save
         render :json => @user
       else
-        render :json => error_object, :status => 500
+        render :json => error_object, :status => 409
       end
     end
   end
@@ -52,7 +52,7 @@ class Api::UsersController < Api::ApiController
     if @user.save
       render :json => @user
     else
-      render :json => error_object, :status => 500
+      render :json => error_object, :status => 409
     end
   end
 
