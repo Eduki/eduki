@@ -1,4 +1,11 @@
 // A class to wrap routing for the entire application
+// It is meant to be used as a singleton that can be referenced by the world
+// variable **router**.
+//
+// From anywhere in the application, call router.route(_path_) to redirect the user
+// to another route.
+//
+// David Mah
 Eduki.Routers.Eduki = Backbone.Router.extend({
   routers: [],
   initialize: function() {

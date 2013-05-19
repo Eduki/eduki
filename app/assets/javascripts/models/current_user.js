@@ -4,6 +4,7 @@
 // A few fields to use:
 // currentUser.authenticated:boolean - True if logged in
 //
+// David Mah
 Eduki.Models.CurrentUser = Backbone.Model.extend({
   COOKIE_KEY: "currentUser",
   urlRoot: "/api/authenticate",

@@ -6,9 +6,14 @@ Eduki.Views.Login = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html(this.template());
-    this.$el.find("#error-area").hide();
-    return this;
+    if (currentUser.authenticated) {
+      router.route("/dashboard");
+      return false;
+    } else {
+      $(this.el).html(this.template());
+      this.$el.find("#error-area").hide();
+      return this;
+    }
   },
 
   authenticate: function(event) {
