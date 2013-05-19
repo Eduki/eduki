@@ -1,7 +1,8 @@
 Eduki.Routers.Static = Backbone.Router.extend({
   routes: {
     '': 'index',
-    'login(/)': 'login'
+    'login(/)': 'login',
+    'signup(/)': 'signup'
   },
 
   index: function() {
@@ -12,6 +13,11 @@ Eduki.Routers.Static = Backbone.Router.extend({
 
   login: function() {
     var view = new Eduki.Views.Login();
+    $('#main-content').html(view.render().el);
+  },
+
+  signup: function() {
+    var view = new Eduki.Views.Signup();
     $('#main-content').html(view.render().el);
   }
 });
