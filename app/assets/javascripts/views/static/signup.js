@@ -10,7 +10,6 @@
 Eduki.Views.Signup = Backbone.View.extend({
 	
 	template: JST['static/signup'],
-	successTemplate: JST['static/signup_success'],
 	invalidTemplate: JST['static/invalid_inline'],
 	errorTemplate: JST['static/error'],
 
@@ -48,7 +47,6 @@ Eduki.Views.Signup = Backbone.View.extend({
                      {wait: true,
                       success: function() {
                         self.login();
-                        self.render(self.successTemplate());
                       },
                       error: function(model, xhr, options) {
                         if (xhr.status == 409)
