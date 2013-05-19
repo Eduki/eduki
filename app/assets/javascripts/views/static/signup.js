@@ -46,7 +46,10 @@ Eduki.Views.Signup = Backbone.View.extend({
     if (this.user.isValid()) {
       this.user.save({email: this.user.get('email')},
                      {wait: true,
-                      success: function() { self.render(self.successTemplate()); },
+                      success: function() {
+                        self.login();
+                        self.render(self.successTemplate());
+                      },
                       error: function(model, xhr, options) {
                         if (xhr.status == 409)
                           self.invalid('Email already exists');
@@ -67,5 +70,23 @@ Eduki.Views.Signup = Backbone.View.extend({
         $('.alert').remove();
       });
     }
+  },
+
+  login: function() {
+    currentUser.set_credentials(this.user.get('email'),
+                                this.user.get('password'));
+    currentUser.authenticate(this.onAuthenticateSuccess,
+                             this.onAuthenticateFailure, this);
+  },
+
+  onAuthenticateSuccess: function(data) {
+    this.hideLoading();
+    currentUser.save();
+    router.route("/dashboard");
+  },
+
+  onAuthenticateFailure: function(data) {
+    this.hideLoading();
+    router.route("/login");
   }
 });
