@@ -1,5 +1,7 @@
-// Course_spec describes a test suite for Course related routes
-// David Mah
+/*
+ * Course_spec describes a test suite for Course related routes
+ * author: David Mah
+ */
 describe('Course', function() {
   describe("Index", function() {
     setupFakeServer();
@@ -13,6 +15,12 @@ describe('Course', function() {
       var view = new Eduki.Views.CoursesIndex();
       serverRespond(this.server, 200, fixtures["course"]);
       expect(view.$el.find('li')).toHaveText("Bear Cooking");
+    });
+
+    it("renders one course's link", function() {
+      var view = new Eduki.Views.CoursesIndex();
+      serverRespond(this.server, 200, fixtures["course"]);
+      expect(view.$el.find('li a').attr('href')).toEqual("/#/courses/1");
     });
 
     it("renders many courses", function() {
