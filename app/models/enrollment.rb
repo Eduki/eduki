@@ -9,6 +9,10 @@
 #  updated_at :datetime         not null
 #
 
+# An enrollment represents an association between a user and a course.
+# A student can only take quizzes for courses that the student is
+# enrolled in.
+
 class Enrollment < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
