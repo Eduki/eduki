@@ -49,7 +49,11 @@ Eduki.Views.QuizNew = Backbone.View.extend({
       console.log(submittedProblems[i].value);
       var problem = {
         question: submittedProblems[i].value,
-        answer: $('input[name=problem-' + i + ']:checked', '#quiz').val()
+        // the name being the submitted problems id is to handle the case where
+        // a user is creating a quiz and deletes problems that are in the middle
+        // by associating each question with its own 'problem-i' id, which corresponds
+        // a set of radio buttons for that question, it lets everything stay grouped
+        answer: $('input[name=' + submittedProblems[i].id + ']:checked', '#quiz').val()
       };
       console.log(problem.answer);
     }
