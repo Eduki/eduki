@@ -1,11 +1,11 @@
 // This describes a test suite for the Current User
 // David Mah
-var CURRENT_USER_COOKIE = "currentUser"
+var CURRENT_USER_COOKIE = "currentUser";
 describe("CurrentUser", function() {
-  describe("create_from_cookie", function() {
+  describe("createFromCookie", function() {
     it("Creates a blank user if there is no cookie", function() {
       spyOn(jQuery, 'cookie').andReturn(undefined);
-      currentUser = Eduki.Models.CurrentUser.create_from_cookie();
+      currentUser = Eduki.Models.CurrentUser.createFromCookie();
 
       expect(currentUser.email).toEqual("");
       expect(currentUser.password).toEqual("");
@@ -14,7 +14,7 @@ describe("CurrentUser", function() {
 
     it("Creates a blank user if the cookie is invalid", function() {
       spyOn(jQuery, 'cookie').andReturn("{derp}");
-      currentUser = Eduki.Models.CurrentUser.create_from_cookie();
+      currentUser = Eduki.Models.CurrentUser.createFromCookie();
 
       expect(currentUser.email).toEqual("");
       expect(currentUser.password).toEqual("");
@@ -24,11 +24,16 @@ describe("CurrentUser", function() {
     it("Creates a current user with information in the cookie", function() {
       // Stub out cookie
       spyOn(jQuery, 'cookie').andReturn(
-        "{\"email\":\"example_user\",\"password\":\"example_password\"}");
-      currentUser = Eduki.Models.CurrentUser.create_from_cookie();
+        "{\"id\":42,"
+        + "\"email\":\"example_user\","
+        + "\"password\":\"example_password\","
+        + "\"authenticated\":true}");
+      currentUser = Eduki.Models.CurrentUser.createFromCookie();
 
       expect(currentUser.email).toEqual("example_user");
       expect(currentUser.password).toEqual("example_password");
+      expect(currentUser.id).toEqual(42);
+      expect(currentUser.authenticated).toEqual(true);
       expect(jQuery.cookie).toHaveBeenCalledWith(CURRENT_USER_COOKIE);
     });
   });

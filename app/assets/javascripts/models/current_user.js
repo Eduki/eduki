@@ -1,16 +1,27 @@
+// This model represents the currently logged in user
+// It is meant to be used as a singleton that can be referenced by the world
+// variable **currentUser**.
+// A few fields to use:
+// currentUser.authenticated:boolean - True if logged in
+//
 Eduki.Models.CurrentUser = Backbone.Model.extend({
   COOKIE_KEY: "currentUser",
   urlRoot: "/api/authenticate",
+  id: -1,
   email: "",
   password: "",
+  authenticated: false,
+
   initialize: function() {
   },
 
   // Save to cookie, because there isn't anything server like about this
   save: function() {
     var user_data = {
+      id: this.id,
       email: this.email,
-      password: this.password
+      password: this.password,
+      authenticated: this.authenticated
     }
     var serialized_user_data = JSON.stringify(user_data);
     $.cookie(this.COOKIE_KEY, serialized_user_data);
@@ -49,31 +60,39 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
   // Sends an authentication request to the server
   // If it succeeds, calls success_callback
   // If it fails, calls error_callback
-  authenticate: function(success_callback, error_callback, callback_context) {
-    // console.log(Backbone.BasicAuth.encode(this.email, this.password));
-    $.ajax({
-      url: currentUser.urlRoot,
-      type: 'POST',
-      username: this.email,
-      password: this.password,
-      success: success_callback,
-      error: error_callback,
-      context: callback_context
-    });
+  authenticate: function(successCallback, errorCallback, callbackContext) {
+    // $.ajax({
+    //   url: currentUser.urlRoot,
+    //   type: 'POST',
+    //   username: this.email,
+    //   password: this.password,
+    //   success: function(data) {
+    //     currentUser.authenticated = true;
+    //     successCallback.call(callbackContext);
+    //   },
+    //   error: errorCallback,
+    //   context: callbackContext
+    // });
+
+    // TODO: Use actual AJAX request. Pending on API auth
+    currentUser.authenticated = true;
+    currentUser.id = 1;
+    successCallback.call(callbackContext);
   }
 
 });
 
   // Creates and returns a CurrentUser object from serialized CurrentUser
   // data in the COOKIE_KEY
-  // { email: ------, password: ------ }
-Eduki.Models.CurrentUser.create_from_cookie = function() {
-  var user = new Eduki.Models.CurrentUser();
+  // { email: ------, password: ------, authenticated: true/false, id: -- }
+Eduki.Models.CurrentUser.createFromCookie = function() {
+    var user = new Eduki.Models.CurrentUser();
     try {
-      serialized_user_data = $.cookie(user.COOKIE_KEY);
-      user_data = JSON.parse(serialized_user_data);
-      user.email = user_data.email;
-      user.password = user_data.password;
+      var serializedUserData = $.cookie(user.COOKIE_KEY);
+      var userData = JSON.parse(serializedUserData);
+      user.set_credentials(userData.email, userData.password);
+      user.id = userData.id;
+      user.authenticated = userData.authenticated;
       user.enable();
     } catch (exception) {
       // Probably there is no cookie, or the cookie is badly constructed

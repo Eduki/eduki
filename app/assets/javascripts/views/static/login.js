@@ -13,8 +13,8 @@ Eduki.Views.Login = Backbone.View.extend({
 
   authenticate: function(event) {
     event.preventDefault();
-    var email = this.$el.find("#login-field-email").val()
-    var password = this.$el.find("#login-field-password").val()
+    var email = this.$el.find("#login-field-email").val();
+    var password = this.$el.find("#login-field-password").val();
     currentUser.set_credentials(email, password);
     currentUser.authenticate(this.onAuthenticateSuccess,
                              this.onAuthenticateFailure, this);
@@ -24,7 +24,7 @@ Eduki.Views.Login = Backbone.View.extend({
   onAuthenticateSuccess: function(data) {
     this.hideLoading();
     currentUser.save();
-    router.route("dashboard");
+    router.route("/dashboard");
   },
 
   onAuthenticateFailure: function(data) {
