@@ -14,4 +14,3 @@ Eduki.Models.Enrollment = Backbone.Model.extend({
     }
   }
 });
-
