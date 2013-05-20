@@ -11,7 +11,7 @@
   <ul class="span4 offset2">
     <% for(var i = Math.floor(this.courses.size() / 2); i < this.courses.size(); i++) { %>
       <li>
-        <a href="/#/courses/<%= this.courses.models[i].get('id') %>/"><%= this.courses.models[i].get('title') %></a>
+        <a href="/#/courses/<%= this.courses.models[i].get('id') %>"><%= this.courses.models[i].get('title') %></a>
       </li>
     <% } %>
   </ul>
