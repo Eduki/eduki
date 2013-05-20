@@ -248,6 +248,15 @@ form label {
   margin-right: 10px;
 }
 
+.clicked-button {
+  box-shadow: 0 0 0 #FFFFFF !important;
+  background-image: none !important;
+}
+
+.clicked-button:hover {
+  cursor: auto !important;
+}
+
 .listing-block {
   display: inline;
   margin-bottom: 10px;

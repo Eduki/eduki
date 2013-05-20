@@ -11,4 +11,3 @@ Eduki.Collections.Enrollments = Backbone.Collection.extend({
   model: Eduki.Models.Enrollment,
   url: function() { return '/api/users/' + this.user_id + '/enrollments'; }
 });
-
