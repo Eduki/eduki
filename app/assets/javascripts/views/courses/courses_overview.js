@@ -2,10 +2,6 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
   errorTemplate: JST['static/error'],
-  events: {
-    'click #enroll': 'enroll'
-  },
-
   initialize: function() {
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.quizzes = new Eduki.Collections.Quizzes();
@@ -29,13 +25,4 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     $(this.el).html(template);
     return this;
   },
-
-  enroll: function() {
-    /*
-    this.enrollment = new Eduki.Models.Enrollment() {
-    }
-    localhost:3000/api/users/1/enrollments --request POST --data "course_id=11"
-    */
-
-  }
 });
