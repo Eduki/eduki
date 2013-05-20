@@ -15,7 +15,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 	events: {
     'click #create-quiz-add' : 'add',
     'click .create-quiz-delete' : 'deleteProblem',
-		'submit form': 'submit'
+		'click #submit': 'submit'
 	},
 
 	initialize: function() {
@@ -36,7 +36,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
     this.$('#create-quiz-problems').append(this.problemTemplate());
   },
 
-  deleteProblem: function(e) {
+  deleteProblem: function() {
     if ($('.create-quiz-problem').length != 1) {
       $(e.target).closest('.create-quiz-problem').remove();
     } else if ($('.alert').length <= 0) {
@@ -47,8 +47,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
     }
   },
 
-  submit: function(e) {
-  	e.preventDefault();
+  submit: function() {
     var problemsArray = new Array();
     var submittedProblems = $('.create-quiz-question');
     for (var i = 0; i < submittedProblems.length; i++) {
