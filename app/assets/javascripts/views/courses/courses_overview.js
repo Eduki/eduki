@@ -38,7 +38,6 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   // Enrolls a user in this course
   enroll: function() {
-    console.log('click');
     if (!this.enrolled) {
       this.enrollment = new Eduki.Models.Enrollment({user_id: currentUser.id, course_id: this.course.get('id')});
       this.enrollment.save({}, {wait:true});
