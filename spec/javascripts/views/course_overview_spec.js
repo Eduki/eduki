@@ -5,6 +5,9 @@
  */
 
 describe('Course', function() {
+  beforeEach(function() {
+    currentUser.id = 1;
+  });
   describe("Overview", function() {
     setupFakeServer();
 
@@ -20,13 +23,6 @@ describe('Course', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
       successServerResponses(this.server);
       expect(view.$el.find('h1').html()).toMatch('Bear Cooking');
-    });
-
-    it("renders enroll button", function() {
-      var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
-      successServerResponses(this.server);
-      var buttons = view.$el.find('.eduki-button-primary span');
-      expect(buttons[0]).toHaveText('enroll');
     });
 
     it("renders quiz create button", function() {
@@ -102,11 +98,36 @@ describe('Course', function() {
         expect($(quizzes[1]).attr('href')).toEqual('/#/courses/1/quizzes/2');
       });
     });
+
+    describe('Enrollments', function() {
+      it("renders enroll button", function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        successServerResponses(this.server);
+        expect(view.$('#enroll span')).toHaveText('enroll');
+      });
+
+      it("enrolled user", function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        successServerResponses(this.server);
+        expect(view.$('#enroll span')).toHaveText('enrolled');
+      });
+
+      it("enrolls user", function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        successServerResponses(this.server);
+        expect(view.$('#enroll span')).toHaveText('enroll');
+        view.$('#enroll').click();
+        serverRespond(this.server, 200, fixtures['enrollment']);
+        expect(view.$('#enroll span')).toHaveText('enrolled');
+      });
+
+    });
   });
 
   // Helper function to send back successful respones for all 3 api calls
   // necessary to render a course overview
   function successServerResponses(server) {
+    serverRespond(server, 200, fixtures['enrollment']);
     serverRespond(server, 200, fixtures['course']);
     serverRespond(server, 200, fixtures['quizzes']);
     serverRespond(server, 200, fixtures['lessons']);
