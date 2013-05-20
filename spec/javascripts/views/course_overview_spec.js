@@ -106,6 +106,15 @@ describe('Course', function() {
         expect(view.$('#enroll span')).toHaveText('enroll');
       });
 
+      it("doesn't render button for user not logged in", function() {
+        console.log(currentUser.id);
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        serverRespond(this.server, 200, fixtures['course']);
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, fixtures['lessons']);
+        expect(view.$('h1')).not.toContain('button');
+      });
+
       it("enrolled user", function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         successServerResponses(this.server);

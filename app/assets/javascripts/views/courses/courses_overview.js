@@ -6,13 +6,16 @@
 Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
+  enrollButtonTemplate: JST['courses/enroll_button'],
   errorTemplate: JST['static/error'],
   events: {
     'click #enroll': 'enroll'
   },
 
   initialize: function() {
-    this.setEnrolled();
+    // Only check for enrollments if a user is logged in
+    if (currentUser.id > -1)
+      this.setEnrolled();
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.quizzes = new Eduki.Collections.Quizzes();
     this.quizzes.url = '/api/courses/' + this.course.get('id') + '/quizzes';
@@ -25,7 +28,13 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     $.when(this.course.fetch(),
            this.quizzes.fetch(),
            this.lessons.fetch()).then(
-             function() { self.render(self.template()); },
+             function() {
+                          self.render(self.template());
+                          // Render button for logged in user
+                          if (currentUser.id > -1)
+                            self.$('h1').append(self.enrollButtonTemplate());
+
+                        },
              function() { self.render(self.errorTemplate()); }
            );
   },
