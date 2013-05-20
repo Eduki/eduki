@@ -36,6 +36,7 @@ p {
   font-family: 'Roboto Slab' !important;
   font-size: 10pt;
   font-weight: 300;
+  margin-bottom: 20px;
 }
 
 .navbar li a {

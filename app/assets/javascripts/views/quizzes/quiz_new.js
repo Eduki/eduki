@@ -10,7 +10,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
   problemTemplate: JST['quizzes/problem'],
   deleteErrorTemplate: JST['quizzes/delete_error'],
 	errorTemplate: JST['static/error'],
-  createdTemplate: JST['quizzes/created'],
+  createdTemplate: JST['quizzes/success'],
 
 	events: {
     'click #create-quiz-add' : 'add',
