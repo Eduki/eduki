@@ -8,7 +8,7 @@ Eduki.Routers.Courses = Backbone.Router.extend({
   routes: {
     'courses(/)': 'index',
     'courses/new': 'create',
-    'courses/:cid(/)': 'overview'
+    'courses/:cid(/)': 'overview',
   },
 
   index: function() {
@@ -27,6 +27,5 @@ Eduki.Routers.Courses = Backbone.Router.extend({
     // Delegate to the CoursesOverview View and render it inside of the container
     var view = new Eduki.Views.CoursesOverview({attributes:{course_id: cid}});
     $('#main-content').html(view.render().el);
-  }
-
+  },
 });

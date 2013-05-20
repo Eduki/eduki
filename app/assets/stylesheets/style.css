@@ -36,6 +36,7 @@ p {
   font-family: 'Roboto Slab' !important;
   font-size: 10pt;
   font-weight: 300;
+  margin-bottom: 20px;
 }
 
 .navbar li a {
@@ -235,9 +236,16 @@ form label {
 }
 
 #create-quiz-delete-error {
-  display: none;
   color: red;
-  text-transform: lowercase;
+}
+
+.quiz-answer span {
+  margin-right: 20px;
+}
+
+.quiz button {
+  display: inline;
+  margin-right: 10px;
 }
 
 .listing-block {
