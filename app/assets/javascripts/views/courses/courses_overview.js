@@ -2,7 +2,6 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
   errorTemplate: JST['static/error'],
-
   initialize: function() {
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.quizzes = new Eduki.Collections.Quizzes();
