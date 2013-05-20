@@ -247,3 +247,33 @@ form label {
   display: inline;
   margin-right: 10px;
 }
+
+.listing-block {
+  display: inline;
+  margin-bottom: 10px;
+}
+
+.listing-block a {
+  box-shadow: 2px 2px 2px #999999;
+  height: 155px;
+  overflow: hidden;
+  background-color: #75ddf4;
+  margin-bottom: 25px;
+}
+
+.listing-block h3 {
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 29px;
+  padding: 6px 10px;
+  color: white;
+  word-wrap:break-word;
+}
+
+.course-block a {
+  color: white;
+}
+
+#enrolled-courses > .row {
+  margin-bottom: 15px;
+}
