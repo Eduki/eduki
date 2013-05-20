@@ -1,3 +1,9 @@
+/*
+ * Renders the view for creating quizzes
+ *
+ * author: Michael
+ */
+
 Eduki.Views.QuizNew = Backbone.View.extend({
 	
 	template: JST['quizzes/new'],
@@ -24,6 +30,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
     return this;
   },
 
+  // adds a problem to the form
   add: function() {
     this.count++;
     this.$('#create-quiz-problems').append(this.problemTemplate());
@@ -53,8 +60,12 @@ Eduki.Views.QuizNew = Backbone.View.extend({
         // a set of radio buttons for that question, it lets everything stay grouped
         answer: $('input[name=' + submittedProblems[i].id + ']:checked', '#quiz').val()
       };
+
+      // needs to have an error template for when they don't select an answer
+      if (!problem.answer) {
+        return;
+      }
       problemsArray[i] = problem;
-      console.log(problemsArray.length);
     }
 
     this.quiz = new Eduki.Models.Quiz({ course_id: this.attributes.course_id, 
