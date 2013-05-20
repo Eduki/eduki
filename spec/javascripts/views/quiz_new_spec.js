@@ -4,7 +4,7 @@
  * author: Michael
  */
 
-describe('Quiz', function() {
+describe('Create Quiz', function() {
 
 	beforeEach(function() {
     setupFakeServer();
@@ -13,7 +13,7 @@ describe('Quiz', function() {
 	describe('Render', function() {
 		it('renders title', function() {
       var view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
-      expect(view.$el.find('h1').html()).toMatch('Create a Quiz');
+      expect(view.$el.find('h1').html()).toEqual('Create a Quiz');
     });
 
 		it('renders quiz title input', function() {
