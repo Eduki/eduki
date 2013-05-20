@@ -1,7 +1,9 @@
 /*
  * Course_spec describes a test suite for Course related routes
+
  * author: David Mah
  */
+ 
 describe('Course', function() {
   describe("Index", function() {
     setupFakeServer();

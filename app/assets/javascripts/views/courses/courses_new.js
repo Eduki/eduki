@@ -3,6 +3,7 @@
  *
  * author: Jolie
  */
+ 
 Eduki.Views.CoursesNew = Backbone.View.extend({
 
   template: JST['courses/new'],

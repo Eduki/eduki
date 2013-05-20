@@ -76,8 +76,8 @@ describe('Lesson', function() {
     });
   });
 
-  // Helper function to send back successful respones for all 3 api calls
-  // necessary to render a quiz
+  // Helper function to send back successful respones for the 2 api calls
+  // necessary to render a lesson
   function successServerResponses(server) {
     serverRespond(server, 200, fixtures['course']);
     serverRespond(server, 200, fixtures['lessons']);

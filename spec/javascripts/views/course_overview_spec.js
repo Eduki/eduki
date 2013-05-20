@@ -105,7 +105,7 @@ describe('Course', function() {
   });
 
   // Helper function to send back successful respones for all 3 api calls
-  // necessary to render a quiz
+  // necessary to render a course overview
   function successServerResponses(server) {
     serverRespond(server, 200, fixtures['course']);
     serverRespond(server, 200, fixtures['quizzes']);
