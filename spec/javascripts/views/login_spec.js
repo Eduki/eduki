@@ -1,5 +1,9 @@
-// This describes the behaviors of the login page
-// David Mah
+/* 
+ * This describes the behaviors of the login page
+ *
+ * author: David Mah
+ */
+ 
 describe("Login", function() {
   beforeEach(function() {
     setupFakeServer();

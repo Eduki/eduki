@@ -5,13 +5,13 @@
     <hr />
     <p><%= this.lesson.get('body') %></p>
   </div>
-  <div id="course-lessons-list" class="span4">
+  <div id="course-lessons" class="span4">
     <h2>Lessons</h2>
     <hr />
     <ul>
       <% for(var i = 0; i < this.lessons.size(); i++) { %>
         <li>
-          <a href="#/courses/<%= this.lessons.models[i].get('course_id') %>/lessons/<%= this.lessons.models[i].get('id') %>" title="<%= this.lessons.models[i].get('title') %>">Lesson: <%= this.lessons.models[i].get('title') %></a>
+          <a href="/#/courses/<%= this.lessons.models[i].get('course_id') %>/lessons/<%= this.lessons.models[i].get('id') %>" title="<%= this.lessons.models[i].get('title') %>"><%= this.lessons.models[i].get('title') %></a>
         </li>
       <% } %>
     </ul>
