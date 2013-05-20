@@ -1,3 +1,8 @@
+/*
+ * An overall view of a course and its lessons/quizzes
+ *
+ * author: Jolie Chen
+ */
 Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
@@ -7,7 +12,7 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
   },
 
   initialize: function() {
-    this.isEnrolled();
+    this.setEnrolled();
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.quizzes = new Eduki.Collections.Quizzes();
     this.quizzes.url = '/api/courses/' + this.course.get('id') + '/quizzes';
@@ -31,6 +36,7 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     return this;
   },
 
+  // Enrolls a user in this course
   enroll: function() {
     console.log('click');
     if (!this.enrolled) {
@@ -41,7 +47,9 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     }
   },
 
-  isEnrolled: function() {
+  // Grabs the enrollments of a user and sets this.enrollment
+  // if a user has an enrollment in this course
+  setEnrolled: function() {
     this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
     var self = this;
     $.when(this.enrollments.fetch()).then(
