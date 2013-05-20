@@ -4,11 +4,9 @@ window.Eduki = {
   Views: {},
   Routers: {},
   initialize: function() {
-    new Eduki.Routers.Courses();
-    new Eduki.Routers.Lessons();
-    new Eduki.Routers.Quizzes();
-    new Eduki.Routers.Static();
-    Backbone.history.start()
+    currentUser = Eduki.Models.CurrentUser.createFromCookie();
+    router = new Eduki.Routers.Eduki();
+    Backbone.history.start();
   }
 };
 
