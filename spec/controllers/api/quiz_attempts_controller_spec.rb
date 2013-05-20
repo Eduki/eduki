@@ -110,6 +110,39 @@ describe Api::QuizAttemptsController do
         {
           :answer => "problem_two answer"
         },
+      ]
+      assert_response :success
+
+      # Response should have updated version
+      body = JSON.parse(response.body)
+      body['quiz_id'].should == @quiz.id
+      body['enrollment_id'].should == @enrollment.id
+      # First problem
+      body['problem_attempts'][0]['answer'].should == "incorrect answer"
+      body['problem_attempts'][0]['correct'].should be_false
+      body['problem_attempts'][0]['problem_id'].should == @problem.id
+      body['problem_attempts'][0]['quiz_attempt_id'].should == body['id']
+      # Second problem
+      body['problem_attempts'][1]['answer'].should == "problem_two answer"
+      body['problem_attempts'][1]['correct'].should be_true
+      body['problem_attempts'][1]['problem_id'].should == @problem_two.id
+      body['problem_attempts'][1]['quiz_attempt_id'].should == body['id']
+
+      # DB should be updated
+      Quiz.count.should == (previous_size + 1)
+      ProblemAttempt.count.should == (previous_problem_attempt_count + 2)
+    end
+
+    it "creates 1 quiz attempt even if content type not labelled json" do
+      previous_size = QuizAttempt.count
+      previous_problem_attempt_count = ProblemAttempt.count
+      post :create, :enrollment_id => @enrollment.id, :quiz_id => @quiz.id,
+        :problem_attempts => [{
+          :answer => "incorrect answer"
+        },
+        {
+          :answer => "problem_two answer"
+        },
       ].to_json
       assert_response :success
 
@@ -131,6 +164,7 @@ describe Api::QuizAttemptsController do
       # DB should be updated
       Quiz.count.should == (previous_size + 1)
       ProblemAttempt.count.should == (previous_problem_attempt_count + 2)
+
     end
 
     it "returns 400 if too few questions have been answered" do

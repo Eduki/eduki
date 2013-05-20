@@ -106,7 +106,13 @@ private
   def create_new_problems_list(problem_hash_data)
     new_problems = []
     if not problem_hash_data.nil?
-      problem_hashes = JSON.parse(problem_hash_data)
+
+      # Parse the JSON if it has not already been parsed
+      if problem_hash_data.instance_of? String
+        problem_hashes = JSON.parse(problem_hash_data)
+      else
+        problem_hashes = problem_hash_data
+      end
       problem_hashes.each do |problem_hash|
         problem = Problem.create_from_hash(problem_hash)
         problem.quiz = @quiz
