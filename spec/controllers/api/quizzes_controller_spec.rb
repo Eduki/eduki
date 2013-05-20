@@ -126,6 +126,28 @@ describe Api::QuizzesController do
       post :create, :course_id => @course.id,
         :title => "quiz_four title",
         :problems => [{:question=>"question_one", :answer=>"answer_one"},
+                      {:question=>"question_two", :answer=>"answer_two"}]
+      assert_response :success
+      body = JSON.parse(response.body)
+
+      # Response should have updated version
+      body['problems'][0]['question'].should == "question_one"
+      body['problems'][1]['question'].should == "question_two"
+      body['problems'][0]['answer'].should   == "answer_one"
+      body['problems'][1]['answer'].should   == "answer_two"
+
+      # DB should be updated
+      Quiz.last.problems.size.should == 2
+      Quiz.last.problems[0].question.should == "question_one"
+      Quiz.last.problems[1].question.should == "question_two"
+      Quiz.last.problems[0].answer.should == "answer_one"
+      Quiz.last.problems[1].answer.should == "answer_two"
+    end
+
+    it "creates problems correctly if the content type isn't declared json" do
+      post :create, :course_id => @course.id,
+        :title => "quiz_four title",
+        :problems => [{:question=>"question_one", :answer=>"answer_one"},
                       {:question=>"question_two", :answer=>"answer_two"}].to_json
       assert_response :success
       body = JSON.parse(response.body)

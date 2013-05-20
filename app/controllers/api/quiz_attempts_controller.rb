@@ -47,7 +47,11 @@ class Api::QuizAttemptsController < Api::ApiController
   param :quiz_id, Fixnum, :required => true
   param :problem_attempts, Array, :required => true
   def create
-    problem_attempt_hashes = JSON.parse(params[:problem_attempts])
+    if params[:problem_attempts].instance_of? String
+      problem_attempt_hashes = JSON.parse(params[:problem_attempts])
+    else
+      problem_attempt_hashes = params[:problem_attempts]
+    end
 
     # Return 400 if problem count mismatch
     if @quiz.problems.size != problem_attempt_hashes.size
