@@ -16,7 +16,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
 
   // Fetch all enrollments for a user
   fetchEnrollments: function() {
-    this.enrollments = new Eduki.Collections.Enrollments();
+    this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
     this.courses = new Eduki.Collections.Courses();
     var self = this;
 
