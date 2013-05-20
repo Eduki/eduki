@@ -7,26 +7,27 @@
       <ol>
         <% for (var i = 0; i < this.quiz.get('problems').length; i++) { %>
           <li>
-            <fieldset>
+            <fieldset class="quiz-answer">
               <label><%= this.quiz.get('problems')[i].question %></label>
-              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "a" /> <span>A</span><br />
-              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "b" /> <span>B</span><br />
-              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "c" /> <span>C</span><br />
-              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "d" /> <span>D</span><br />
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "a" /> <span>A</span>
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "b" /> <span>B</span>
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "c" /> <span>C</span>
+              <input type="radio" name="problem-<%= this.quiz.get('problems')[i].id %>" value = "d" /> <span>D</span>
             </fieldset>
           </li>
         <% } %>
       </ol>
-      <button class="eduki-button-primary"><span>Submit Quiz</span></button>
+      <button type="button" class="eduki-button-primary"><span>Submit</span></button>
+      <button type="reset" class="eduki-button-primary"><span>Reset</span></button>
     </form>
   </div>
-  <div id="course-lessons-list" class="span4">
+  <div id="course-quizzes-list" class="span4">
     <h2>Other Quizzes</h2>
     <hr />
     <ul>
       <% for (var i = 0; i < this.quizzes.size(); i++) { %>
         <li>
-          <a href="#/courses/<%= this.quizzes.models[i].get('course_id') %>/quizzes/<%= this.quizzes.models[i].get('id') %>" title="<%= this.quizzes.models[i].get('title') %>"><%= this.quizzes.models[i].get('title')%></a>
+          <a href="/#/courses/<%= this.quizzes.models[i].get('course_id') %>/quizzes/<%= this.quizzes.models[i].get('id') %>" title="<%= this.quizzes.models[i].get('title') %>"><%= this.quizzes.models[i].get('title')%></a>
         </li>
       <% } %>
     </ul>
