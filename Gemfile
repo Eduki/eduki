@@ -19,6 +19,7 @@ group :development, :test do
   gem "jasmine"
   gem "jasmine-rails"
   gem 'debugger'
+  gem 'simplecov', :require => false
 end
 
 

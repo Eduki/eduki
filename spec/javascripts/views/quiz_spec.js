@@ -3,8 +3,9 @@
  * 
  * author: Jolie Chen
  */
-describe('Quiz', function() {
-  describe("Show", function() {
+ 
+describe('View Quiz', function() {
+  describe("Render", function() {
     setupFakeServer();
     it("renders error page for when an error occurs", function() {
       var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
