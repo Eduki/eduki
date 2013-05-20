@@ -11,7 +11,7 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
   createdTemplate: JST['courses/created'],
 
   events: {
-    "click button" : "create"
+    'submit form' : 'create'
   },
 
   initialize: function() {

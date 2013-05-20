@@ -2,17 +2,17 @@
   <div class="control-group">
     <label class="control-label">Problem:</label>
     <div class="controls">
-      <input class="input-xlarge" type="text" class="create-quiz-problem" placeholder="Enter a quiz problem" required />
+      <input class="input-xlarge create-quiz-question" id="problem-<%= this.count %>" type="text" placeholder="Enter a quiz problem" required />
       <button type="button" class="create-quiz-delete eduki-button-icon eduki-button-icon-small"></button>
     </div>
   </div>
   <div class="control-group create-quiz-answer">
     <label class="control-label">Correct Answer:</label>
     <div class="controls">
-      <input type="radio" name="problem-<%= this.count %>" value = "a" /> <span>A</span>
-      <input type="radio" name="problem-<%= this.count %>" value = "b" /> <span>B</span>
-      <input type="radio" name="problem-<%= this.count %>" value = "c" /> <span>C</span>
-      <input type="radio" name="problem-<%= this.count %>" value = "d" /> <span>D</span>
+      <input type="radio" name="problem-<%= this.count %>" value = "A" /> <span>A</span>
+      <input type="radio" name="problem-<%= this.count %>" value = "B" /> <span>B</span>
+      <input type="radio" name="problem-<%= this.count %>" value = "C" /> <span>C</span>
+      <input type="radio" name="problem-<%= this.count %>" value = "D" /> <span>D</span>
     </div>
   </div>
 </fieldset>
