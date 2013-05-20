@@ -237,3 +237,12 @@ form label {
 #create-quiz-delete-error {
   color: red;
 }
+
+.quiz-answer span {
+  margin-right: 20px;
+}
+
+.quiz button {
+  display: inline;
+  margin-right: 10px;
+}
