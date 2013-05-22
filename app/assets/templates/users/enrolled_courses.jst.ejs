@@ -1,10 +1,9 @@
 <div id="enrolled-courses">
   <div class="row">
-    <% if (this.enrollments.size() > 0) { %>
-      <h2 class="span12">Enrolled Courses</h2>
-    <% } else { %>
+    <% if (this.enrollments.size() <= 0) { %>
       <h2 class="span12">You are currently not enrolled in any courses.</h2>
-    <% } %>
+    <% } else { %>
+      <h2 class="span12">Enrolled Courses</h2>
   </div>
   <div id="enrolled-courses-list">
     <div class="row">
@@ -18,5 +17,6 @@
       <% } %>
     <% } %>
     </div>
+    <% } %>
   </div>
 </div>
