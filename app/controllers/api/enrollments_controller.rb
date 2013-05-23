@@ -45,7 +45,7 @@ class Api::EnrollmentsController < Api::ApiController
     render :json => @enrollment
   end
 
-  api :DELETE, '/enrollment/:id', "Delete a enrollment"
+  api :DELETE, '/enrollments/:id', "Delete a enrollment"
   param :id,    Fixnum, :required => true
   def destroy
     @enrollment.destroy

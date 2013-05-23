@@ -62,7 +62,7 @@ class Api::LessonsController < Api::ApiController
     render :json => @lesson
   end
 
-  api :DELETE, '/lesson/:id', "Delete a lesson"
+  api :DELETE, '/lessons/:id', "Delete a lesson"
   param :id,    Fixnum, :required => true
   def destroy
     @lesson.destroy
