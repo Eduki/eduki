@@ -15,10 +15,10 @@ class Api::LessonsController < Api::ApiController
     * course_id:integer
     * title:string
     * body:string
-    * body_markdown:string - The body, formatted into html using markdown
+    * body_markdown:string - The body formatted into html using markdown
 
-    Bnot directly able. It gets generated based on the setting
-    of body upon a save operation.
+    not directly writeable. It gets generated based on the of body upon a save
+    operation.
 
     body and body_markdown are not distributed in #index
     EOS
