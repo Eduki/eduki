@@ -5,7 +5,7 @@ class Api::CoursesController < Api::ApiController
 
   # For all methods, assume that
   # @course and has been retrieved if applicable
-  before_filter :get_course_or_404, :only => [:show, :update]
+  before_filter :get_course_or_404, :only => [:show, :update, :destroy]
 
   resource_description do
     description <<-EOS
@@ -46,6 +46,13 @@ class Api::CoursesController < Api::ApiController
     @course.title = params[:title] if not params[:title].nil?
     @course.save
     render :json => @course
+  end
+
+  api :DELETE, '/courses/:id', "Delete a course"
+  param :id,    Fixnum, :required => true
+  def destroy
+    @course.destroy
+    render :json => success_object
   end
 
 private

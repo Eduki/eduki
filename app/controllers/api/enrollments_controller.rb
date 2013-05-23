@@ -18,7 +18,7 @@ class Api::EnrollmentsController < Api::ApiController
 
   # For all methods, assume that
   # @enrollment has been retrieved if applicable
-  before_filter :get_enrollment_or_404, :only => [:show]
+  before_filter :get_enrollment_or_404, :only => [:show, :destroy]
   before_filter :get_user_or_404, :only => [:index, :create]
   before_filter :get_course_or_404, :only => [:create]
 
@@ -43,6 +43,13 @@ class Api::EnrollmentsController < Api::ApiController
     @enrollment.course = @course
     @enrollment.save
     render :json => @enrollment
+  end
+
+  api :DELETE, '/enrollment/:id', "Delete a enrollment"
+  param :id,    Fixnum, :required => true
+  def destroy
+    @enrollment.destroy
+    render :json => success_object
   end
 
 private

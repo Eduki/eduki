@@ -234,6 +234,24 @@ describe Api::QuizzesController do
       put :update, :id => -1, :title => "course title change"
       check_failure(404)
     end
+  end
 
+  describe "DELETE #destroy" do
+    it "deletes 1 quiz" do
+      delete :destroy, :id => @quiz.id
+      assert_response :success
+      JSON.parse(response.body)['success'].should be_true
+      Quiz.find_by_id(@quiz.id).should be_nil
+    end
+
+    it "deletes problems along with a quiz" do
+      delete :destroy, :id => @quiz.id
+      assert_response :success
+    end
+
+    it "returns 404 if quiz not found" do
+      delete :destroy, :id => -1
+      check_failure(404)
+    end
   end
 end
