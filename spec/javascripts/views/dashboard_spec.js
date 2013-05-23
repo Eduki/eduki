@@ -25,6 +25,13 @@ describe('Dashboard', function() {
       expect(view.$el.find('#enrolled-courses-list .row')).toContain('div');
     });
 
+    it('renders no enrollments', function() {
+      var view = new Eduki.Views.Dashboard();
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, []);
+      expect(view.$el.find('#enrolled-courses h2')).toHaveText('You are currently not enrolled in any courses.');
+    });
+
     it('renders two course', function() {
       var view = new Eduki.Views.Dashboard();
       successServerResponses(this.server);
