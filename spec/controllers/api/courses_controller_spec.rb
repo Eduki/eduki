@@ -6,15 +6,7 @@ require 'spec_helper'
 
 describe Api::CoursesController do
   before(:each) do
-    @course = Course.new
-    @course.title = "course example"
-    @course.save
-
-    @course_two = Course.new
-    @course_two.title = "course_two example"
-    @course_two.save
-
-    @courses = [@course, @course_two]
+    add_fixtures()
   end
 
   describe "GET #show" do

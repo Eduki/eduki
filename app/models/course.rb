@@ -13,6 +13,7 @@ class Course < ActiveRecord::Base
   has_many :lessons
   has_many :quizzes
   has_many :enrollments
+  belongs_to :user
 
   # An object to return in the case that the given course is not found
   def self.missing_instance(id)

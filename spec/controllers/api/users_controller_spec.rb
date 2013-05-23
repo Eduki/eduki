@@ -27,7 +27,6 @@ describe Api::UsersController do
   end
 
   describe "GET #show" do
-    
     it "returns 1 User with http success" do
       get :show, :id => @user.id
       assert_response :success

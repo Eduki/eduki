@@ -16,18 +16,14 @@ require 'spec_helper'
 
 describe Quiz do
   before(:each) do
-    # Create a course to host this quiz
-    @course = Course.new
-    @course.title = 'course title'
-    @course.save
+    add_fixtures()
+  end
 
-    # Create a quiz that tests can use
-    @quiz = Quiz.new
-    @quiz.title = "quiz title"
-    @quiz.course = @course
+  it "should have all fields persist after saving" do
+    # Make some problems to be hosted by the quiz
+    @quiz.problems.each { |problem| problem.destroy }
     @quiz.save
 
-    # Make some problems to be hosted by the quiz
     @problems = []
     5.times do |t|
       @problem = Problem.new
@@ -37,19 +33,17 @@ describe Quiz do
       @problem.save
       @problems << @problem
     end
-  end
 
-  it "should have all fields persist after saving" do
     id = @quiz.id
     @quiz = Quiz.find_by_id(id)
-    @quiz.title.should == "quiz title"
+    @quiz.title.should == "quiz_one title"
     @quiz.course.should == @course
     @quiz.problems.should == @problems
   end
 
   it "should disallow saving a quiz with no title" do
     @new_quiz = Quiz.new
-    # @new_quiz.title = "new quiz title"
+    # @new_quiz.title = "new quiz title" Omitted
     @new_quiz.course = @course
     expect { @new_quiz.save }.to raise_error
   end
@@ -57,7 +51,7 @@ describe Quiz do
   it "should disallow saving a quiz with no course" do
     @new_quiz = Quiz.new
     @new_quiz.title = "new quiz title"
-    # @new_quiz.course = @course
+    # @new_quiz.course = @course Omitted
     expect { @new_quiz.save }.to raise_error
   end
 end
