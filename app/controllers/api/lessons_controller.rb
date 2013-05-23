@@ -15,6 +15,12 @@ class Api::LessonsController < Api::ApiController
     * course_id:integer
     * title:string
     * body:string
+    * body_markdown:string - The body, formatted into html using markdown
+
+    Bnot directly able. It gets generated based on the setting
+    of body upon a save operation.
+
+    body and body_markdown are not distributed in #index
     EOS
   end
 
@@ -28,7 +34,7 @@ class Api::LessonsController < Api::ApiController
   api :GET, '/courses/:course_id/lessons', "Retrieve a list of lessons"
   param :course_id, Fixnum, :required => true
   def index
-    render :json => Lesson.find_all_by_course_id(@course.id)
+    render :json => Lesson.find_all_by_course_id(@course.id), :each_serializer => LessonListingSerializer
   end
 
   api :POST, '/courses/:course_id/lessons', "Create a lesson"

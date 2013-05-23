@@ -2,12 +2,13 @@
 #
 # Table name: lessons
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)      not null
-#  body       :text(255)        not null
-#  course_id  :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :integer          not null, primary key
+#  title         :string(255)      not null
+#  body          :text(255)        not null
+#  course_id     :integer          not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  body_markdown :text             not null
 #
 
 class Lesson < ActiveRecord::Base
@@ -25,9 +26,15 @@ class Lesson < ActiveRecord::Base
   end
 
   def write_markdown
-    markdown_formatter = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-                                                 :autolink => true,
-                                                 :space_after_headers => true)
+    markdown_configuration = {
+      :autolink => true,
+      :space_after_headers => true,
+      :filter_html => true,
+      :no_styles => true,
+      :safe_links_only => true,
+      :prettify => true
+    }
+    markdown_formatter = Redcarpet::Markdown.new(Redcarpet::Render::XHTML, markdown_configuration)
     formatted_body = markdown_formatter.render(self.body)
     self.body_markdown = formatted_body
   end
