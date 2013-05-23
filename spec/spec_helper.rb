@@ -58,10 +58,13 @@ end
 #   @enrollment(@course)
 #     @quiz_attempt(@quiz)
 #       @problem_attempt
+# @user_two
+#   @course_three
 def add_fixtures
     @user = User.new
     @user.email = "user email"
     @user.save
+
 
     @course = Course.new
     @course.title = "course example"
@@ -113,8 +116,6 @@ def add_fixtures
     @problem_attempt.correct = true
     @problem_attempt.save
 
-    #########
-
     @lesson = Lesson.new
     @lesson.title = "lesson_one title"
     @lesson.body = "lesson_one body"
@@ -127,9 +128,17 @@ def add_fixtures
     @lesson_two.course = @course
     @lesson_two.save
 
-    ########
     @course_two = Course.new
     @course_two.title = "course_two example"
     @course_two.user = @user
     @course_two.save
+
+    @user_two = User.new
+    @user_two.email = "user_two email"
+    @user_two.save
+
+    @course_three = Course.new
+    @course_three.title = "course_three example"
+    @course_three.user = @user_two
+    @course_three.save
 end

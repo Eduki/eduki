@@ -32,28 +32,55 @@ describe Api::CoursesController do
 
       # Response should have proper version
       body = JSON.parse(response.body)
+      body.size.should == 3
       body[0]['title'].should == "course example"
       body[1]['title'].should == "course_two example"
+      body[2]['title'].should == "course_three example"
+    end
+  end
+
+  describe "GET #index_by_user" do
+    it "shows all courses owned by a specific user" do
+      get :index_by_user, :user_id => @user_two.id
+      assert_response :success
+
+      # Response should have proper version
+      body = JSON.parse(response.body)
+      body[0]['title'].should == "course_three example"
+      body.size.should == 1
+    end
+    it "returns 404 if user_id invalid" do
+      get :index_by_user, :user_id => -1
+      check_failure(404)
     end
   end
 
   describe "POST #create" do
     it "creates 1 Course" do
       previous_size = Course.count
-      post :create, :title => "course_three example"
+      post :create, :user_id => @user.id, :title => "new_course example"
       assert_response :success
 
       # Response should have proper version
       body = JSON.parse(response.body)
-      @course.id.should_not == body['id']
-      @course_two.id.should_not == body['id']
+      body['id'].should_not == @course.id
+      body['id'].should_not == @course_two.id
+      body['user_id'].should == @user.id
 
       # DB should be updated
       Course.count.should == (previous_size + 1)
     end
 
+    it "returns 404 if user_id invalid" do
+      post :create, :user_id => -1, :title => "new_course example"
+      check_failure(404)
+    end
+
+    # It's not possible to have a user_id_missing because it is constrained
+    # by the URL, thus a test for that case isn't necessary
+
     it "returns 400 if title missing" do
-      post :create
+      post :create, :user_id => @user.id
       check_failure(400)
     end
   end
