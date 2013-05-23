@@ -60,4 +60,20 @@ describe Quiz do
     # @new_quiz.course = @course
     expect { @new_quiz.save }.to raise_error
   end
+
+  it "should delete all problem instance upon quiz delete" do
+    @quiz.destroy
+    Quiz.find_by_id(@quiz.id).should be_nil
+    @problems.each do |problem|
+      Problem.find_by_id(problem.id).should be_nil
+    end
+  end
+
+  it "should delete the quiz instance upon course delete" do
+    @course.destroy
+    Quiz.find_by_id(@quiz.id).should be_nil
+    @problems.each do |problem|
+      Problem.find_by_id(problem.id).should be_nil
+    end
+  end
 end
