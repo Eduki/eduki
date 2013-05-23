@@ -28,6 +28,7 @@ class Api::CoursesController < Api::ApiController
   end
 
   api :GET, '/users/:user_id/courses', "Retrieve a list of courses owned by the given user"
+  param :user_id, Fixnum, :required => true
   def index_by_user
     render :json => Course.find_all_by_user_id(@user.id)
   end
