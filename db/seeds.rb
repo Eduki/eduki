@@ -5,8 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-course = Course.create({:title => 'Example Course 1'})
-course_two = Course.create({:title => 'Example Course 2'})
+user_one = User.create({:email => "bingopoop #{rand}"})
+user_two = User.create({:email => "bingopooper #{rand}"})
+course = Course.create({:title => 'Example Course 1', :user => user_one})
+course_two = Course.create({:title => 'Example Course 2', :user => user_two})
+course_three = Course.create({:title => 'Example Course 3', :user => user_one})
 
 lesson_one = Lesson.create({:title => 'Example Lesson 1',
                             :course => course,
@@ -22,10 +25,6 @@ quiz_one = Quiz.create({:title => 'Example Quiz 1', :course => course,
                                       :answer   => "D"})]})
 quiz_two = Quiz.create({:title => 'Example Quiz 2', :course => course_two,
                         :problems => []})
-# User seeds
-user_one = User.create({:email => "bingopoop #{rand}"})
-user_two = User.create({:email => "bingopooper #{rand}"})
-
 enrollment_one = Enrollment.create({:user => user_one, :course => course})
 enrollment_two = Enrollment.create({:user => user_two, :course => course})
 

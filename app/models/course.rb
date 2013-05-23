@@ -10,7 +10,7 @@
 #
 
 class Course < ActiveRecord::Base
-  attr_accessible :title, :lessons, :quizzes
+  attr_accessible :title, :lessons, :quizzes, :user, :user_id
   has_many :lessons
   has_many :quizzes
   has_many :enrollments
