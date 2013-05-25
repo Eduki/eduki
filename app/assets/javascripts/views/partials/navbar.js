@@ -4,5 +4,10 @@ Eduki.Views.Navbar = Backbone.View.extend({
   render: function() {
     $(this.el).html(this.template());
     return this;
+  },
+
+  logout: function() {
+    currentUser.flush_credentials();
+    router.redirect("/");
   }
 });

@@ -7,6 +7,7 @@
 //
 // David Mah
 Eduki.Routers.Eduki = Backbone.Router.extend({
+  masterView: undefined,
   routers: [],
   initialize: function() {
     // Render Master View regardless of the URL
@@ -23,8 +24,13 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
     Backbone.history.navigate(url, true)
   },
 
+  // Redirects the user to another route, refreshing the application
+  redirect: function(url) {
+    window.location.replace(url);
+  },
+
   renderMasterView: function() {
-    var view = new Eduki.Views.Master();
-    $('body').html(view.render().el);
+    this.masterView = new Eduki.Views.Master();
+    $('body').html(this.masterView.render().el);
   }
 });
