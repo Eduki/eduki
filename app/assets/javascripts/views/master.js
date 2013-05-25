@@ -1,15 +1,19 @@
 Eduki.Views.Master = Backbone.View.extend({
   masterTemplate: JST['meta/application'],
-  navbar: JST['partials/navbar'],
 
   initialize: function() {
     $(this.el).html("");
+  },
+
+  render: function() {
     this.renderNavBar();
     this.renderMasterTemplate();
+    return this;
   },
 
   renderNavBar: function() {
-    $(this.el).append(this.navbar());
+    this.navbar = new Eduki.Views.Navbar();
+    $(this.el).append(this.navbar.render().el);
     return this;
   },
 
