@@ -9,6 +9,8 @@
 Eduki.Routers.Eduki = Backbone.Router.extend({
   routers: [],
   initialize: function() {
+    // Render Master View regardless of the URL
+    this.renderMasterView();
     this.routers.push(new Eduki.Routers.Courses());
     this.routers.push(new Eduki.Routers.Lessons());
     this.routers.push(new Eduki.Routers.Quizzes());
@@ -19,5 +21,10 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
   // Redirects the user to another route.
   route: function(url) {
     Backbone.history.navigate(url, true)
+  },
+
+  renderMasterView: function() {
+    var view = new Eduki.Views.Master();
+    $('body').html(view.render().el);
   }
 });
