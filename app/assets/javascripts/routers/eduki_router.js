@@ -29,6 +29,8 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
     window.location.replace(url);
   },
 
+  // This rendering happens on every page, displaying page features that
+  // are common to every page
   renderMasterView: function() {
     this.masterView = new Eduki.Views.Master();
     $('body').html(this.masterView.render().el);

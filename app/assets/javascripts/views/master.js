@@ -1,3 +1,7 @@
+/* This master view will render for every page.
+ *
+ * David Mah
+ */
 Eduki.Views.Master = Backbone.View.extend({
   masterTemplate: JST['meta/application'],
 

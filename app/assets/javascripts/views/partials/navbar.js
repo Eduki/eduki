@@ -1,3 +1,7 @@
+/* This view encapsulates logic for the navbar partial
+ *
+ * David Mah
+ */
 Eduki.Views.Navbar = Backbone.View.extend({
   template: JST['partials/navbar'],
 
