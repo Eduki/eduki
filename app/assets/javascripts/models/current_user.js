@@ -23,14 +23,9 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
       email: this.email,
       password: this.password,
       authenticated: this.authenticated
-    }
+    };
     var serialized_user_data = JSON.stringify(user_data);
     $.cookie(this.COOKIE_KEY, serialized_user_data);
-  },
-
-  // Flush cookie, removing state that the web browser was logged in
-  clear: function() {
-    $.removeCookie(this.COOKIE_KEY);
   },
 
   // Sets it such that all backbone retrievals use the current user's
@@ -53,9 +48,12 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
 
   // Clears identifying user information from the machine
   flush_credentials: function() {
+    this.id = -1;
     this.email = "";
     this.password = "";
+    this.authenticated = false,
     this.clear();
+    $.removeCookie(this.COOKIE_KEY);
   },
 
   // Sends an authentication request to the server
