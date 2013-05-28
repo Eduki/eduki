@@ -2,10 +2,10 @@
   <div class="offset2 span8">
     <h1>Create a Course</h1>
     <hr />
-    <p class="success-message-text">Course <strong><%= this.course.get('title') %></strong> succesfully created!</p>
+    <p class="success-message-text">Course <strong><%- this.course.get('title') %></strong> succesfully created!</p>
   </div>
 </div>
 <div class="eduki-buttons row">
-    <a class="offset2 span4 eduki-button-primary" href="/#/courses/<%= this.course.get('id') %>"><span>View Course</span></a>
-    <a class="span4 eduki-button-primary" href="/#/courses/<%= this.course.get('id') %>/lessons/new"><span>Create Lesson</span></a>
+    <a class="offset2 span4 eduki-button-primary" href="/#/courses/<%- this.course.get('id') %>"><span>View Course</span></a>
+    <a class="span4 eduki-button-primary" href="/#/courses/<%- this.course.get('id') %>/lessons/new"><span>Create Lesson</span></a>
 </div>
