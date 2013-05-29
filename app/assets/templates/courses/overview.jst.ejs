@@ -1,32 +1,32 @@
-<h1>
-  <%- this.course.get('title') %>
-</h1>
-<hr />
-<div class="row">
-  <div id="course-lessons" class="span6">
-    <h2>
-      Lessons
-      <a href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson" class="eduki-button-primary eduki-button-small eduki-button-inline"><span>create</span></a>
-    </h2>
-    <ul>
-    <% for(var i = 0; i < this.lessons.size(); i++) { %>
-      <li>
-        <a href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>" title="<%- this.lessons.models[i].get('title') %>"><%- this.lessons.models[i].get('title') %></a>
-      </li>
-    <% } %>
-    </ul>
-  </div>
-  <div id="course-quizzes" class="span6">
-    <h2>
-      Quizzes
-      <a href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson" class="eduki-button-primary eduki-button-small eduki-button-inline"><span>create</span></a>
-    </h2>
-    <ul>
-      <% for(var i = 0; i < this.quizzes.size(); i++) { %>
+<div class="container">
+  <h1><%- this.course.get('title') %></h1>
+  <hr />
+  <div class="row">
+    <div id="course-lessons" class="span6">
+      <h2>
+        Lessons
+        <a href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson" class="eduki-button-primary eduki-button-small eduki-button-inline"><span>create</span></a>
+      </h2>
+      <ul>
+      <% for(var i = 0; i < this.lessons.size(); i++) { %>
         <li>
-          <a href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>" title="<%- this.quizzes.models[i].get('title') %>"><%- this.quizzes.models[i].get('title') %></a>
+          <a href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>" title="<%- this.lessons.models[i].get('title') %>"><%- this.lessons.models[i].get('title') %></a>
         </li>
       <% } %>
-    </ul>
+      </ul>
+    </div>
+    <div id="course-quizzes" class="span6">
+      <h2>
+        Quizzes
+        <a href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson" class="eduki-button-primary eduki-button-small eduki-button-inline"><span>create</span></a>
+      </h2>
+      <ul>
+        <% for(var i = 0; i < this.quizzes.size(); i++) { %>
+          <li>
+            <a href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>" title="<%- this.quizzes.models[i].get('title') %>"><%- this.quizzes.models[i].get('title') %></a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
   </div>
 </div>
