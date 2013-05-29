@@ -82,10 +82,77 @@ p {
   margin-bottom: 20px;
 }
 
-.navbar li a {
-  text-transform: uppercase;
-  letter-spacing: 1pt;
-  font-size: 18pt;
+#navbar {
+  height: 115px;
+  background-color: #3f3f3f;
+}
+
+#nav-icons {
+  float: right;
+  height: 115px;
+}
+
+.eduki-button-icon {
+  display: block;
+  overflow: hidden;
+  height: 0px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+}
+
+#nav-icons .eduki-button-icon {
+  display: inline-block;
+}
+
+#nav-icons a {
+  background-size: 52px 52px;
+  padding-top: 52px;
+  width: 52px;
+  margin-left: 10px;
+}
+
+#nav-icons > div {
+  position: relative;
+  top: 39px;
+  float: right;
+}
+
+#nav-icons > div > div{
+  width: 260px;
+  display: inline-block;
+}
+
+#navbar-courses {
+  background-image: url('icons/navbar_courses.png');
+}
+
+#navbar-create {
+  background-image: url('icons/navbar_create.png');
+}
+
+#navbar-dashboard {
+  background-image: url('icons/navbar_dashboard.png');
+}
+
+#navbar-husky {
+  background-image: url('icons/navbar_husky.png');
+}
+
+#navbar-logout {
+  width: 41px;
+  padding-top: 35px;
+  background-image: url('icons/navbar_logout.png');
+  margin-left: 5px;
+  vertical-align: text-bottom;
+}
+
+#logo a {
+  background-size: 212px 115px;
+  padding-top: 115px;
+  width: 212px;
+  background-image: url('logo.png');
+  background-repeat: no-repeat;
 }
 
 #footer {
@@ -250,15 +317,6 @@ form label {
   margin-right: 20px;
   position: relative;
   top: 3px;
-}
-
-.eduki-button-icon {
-  display: block;
-  overflow: hidden;
-  height: 0px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: 0;
 }
 
 .eduki-button-icon-small {
