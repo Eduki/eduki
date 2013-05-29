@@ -1,23 +1,66 @@
+@font-face {
+  font-family: "Liberation Serif";
+  src: url("LiberationSerif-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Liberation Serif";
+  src: url("LiberationSerif-Italic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Liberation Serif";
+  src: url("LiberationSerif-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Liberation Serif";
+  src: url("LiberationSerif-BoldItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("SourceSansPro-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("SourceSansPro-RegularItalic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("SourceSansPro-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("SourceSansPro-BoldItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
 body {
   color: #3d3d3d;
+  background-color: #dbdbd9;
   font-size: 12pt;
-  font-family: 'Yanone Kaffeesatz' !important;
+  font-family: 'Source Sans Pro' !important;
 }
 
 a:hover {
   text-decoration: none;
 }
 
-a {
-  color: #878787;
-}
-
-input,
-label,
-button,
-select,
-textarea {
-  font-family: 'Yanone Kaffeesatz' !important;
+input, label, button, select, textarea,
+h1, h2, h3, h4, h5 {
+  color: #6d6e70 !important;
+  font-family: 'Source Sans Pro' !important;
 }
 
 input,
@@ -28,14 +71,14 @@ textarea {
 }
 
 h1, h2, h3, h4, h5 {
-  font-weight: 400;
-  color: #75ddf4
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 p {
-  font-family: 'Roboto Slab' !important;
+  font-family: 'Liberation Serif';
+  color: #3f3f3f;
   font-size: 10pt;
-  font-weight: 300;
   margin-bottom: 20px;
 }
 
