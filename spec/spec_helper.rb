@@ -44,3 +44,101 @@ def check_failure(code)
   body = JSON.parse(response.body)
   body['error'].should_not == nil
 end
+
+# @user
+#   @course
+#     @quiz
+#       @problem
+#       @problem_two
+#     @quiz_two
+#       @problem_three
+#     @lesson
+#     @lesson_two
+#   @course_two
+#   @enrollment(@course)
+#     @quiz_attempt(@quiz)
+#       @problem_attempt
+# @user_two
+#   @course_three
+def add_fixtures
+    @user = User.new
+    @user.email = "user email"
+    @user.save
+
+
+    @course = Course.new
+    @course.title = "course example"
+    @course.user  = @user
+    @course.save
+
+    @quiz = Quiz.new
+    @quiz.title = "quiz_one title"
+    @quiz.course = @course
+    @quiz.save
+
+    @quiz_two = Quiz.new
+    @quiz_two.title = "quiz_two title"
+    @quiz_two.course = @course
+    @quiz_two.save
+
+    @problem = Problem.new
+    @problem.question = "problem_one question"
+    @problem.answer = "problem_one answer"
+    @problem.quiz = @quiz
+    @problem.save
+
+    @problem_two = Problem.new
+    @problem_two.question = "problem_two question"
+    @problem_two.answer = "problem_two answer"
+    @problem_two.quiz = @quiz
+    @problem_two.save
+
+    @problem_three = Problem.new
+    @problem_three.question = "problem_three question"
+    @problem_three.answer = "problem_three answer"
+    @problem_three.quiz = @quiz_two
+    @problem_three.save
+
+    @enrollment = Enrollment.new
+    @enrollment.user = @user
+    @enrollment.course = @course
+    @enrollment.save
+
+    @quiz_attempt = QuizAttempt.new
+    @quiz_attempt.quiz = @quiz
+    @quiz_attempt.enrollment = @enrollment
+    @quiz_attempt.save
+
+    @problem_attempt = ProblemAttempt.new
+    @problem_attempt.quiz_attempt = @quiz_attempt
+    @problem_attempt.problem = @problem
+    @problem_attempt.answer = "problem_one answer"
+    @problem_attempt.correct = true
+    @problem_attempt.save
+
+    @lesson = Lesson.new
+    @lesson.title = "lesson_one title"
+    @lesson.body = "lesson_one body"
+    @lesson.course = @course
+    @lesson.save
+
+    @lesson_two = Lesson.new
+    @lesson_two.title = "lesson_two title"
+    @lesson_two.body = "lesson_two body"
+    @lesson_two.course = @course
+    @lesson_two.save
+
+    @course_two = Course.new
+    @course_two.title = "course_two example"
+    @course_two.user = @user
+    @course_two.save
+
+    @user_two = User.new
+    @user_two.email = "user_two email"
+    @user_two.save
+
+    @course_three = Course.new
+    @course_three.title = "course_three example"
+    @course_three.user = @user_two
+    @course_three.save
+end

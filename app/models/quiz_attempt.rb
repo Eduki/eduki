@@ -2,10 +2,11 @@
 #
 # Table name: quiz_attempts
 #
-#  id         :integer          not null, primary key
-#  quiz_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :integer          not null, primary key
+#  quiz_id       :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  enrollment_id :integer          not null
 #
 
 class QuizAttempt < ActiveRecord::Base

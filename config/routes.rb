@@ -64,13 +64,15 @@ Eduki::Application.routes.draw do
 
     resources :users, :only => [] do
       resources :enrollments, :only => [:create, :index]
+      resources :courses, :only => [:create]
+      match "courses" => 'courses#index_by_user', :via => :get
     end
     resources :enrollments, :only => [:show] do
       resources :quiz_attempts, :only => [:create, :index]
     end
     resources :quiz_attempts, :only => [:show]
 
-    resources :courses, :only => [:show, :index, :create, :update] do
+    resources :courses, :only => [:show, :index, :update] do
       # For now, (legacy from Alpha phase), lessons does not follow the
       # shallow routes convention. This should be updated when all
       # frontends have been changed to use the shallow routes
