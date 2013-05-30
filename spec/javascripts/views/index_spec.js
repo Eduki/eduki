@@ -29,7 +29,7 @@ describe("Static Index", function() {
     });
 
     it("has a signup header", function() {
-      expect(view.$el).toContain('#signup');
+      expect(view.$el.find('h1')).toHaveText('signup');
     });
 
     it("has a signup form", function() {
@@ -62,6 +62,10 @@ describe("Static Index", function() {
         expect(view.$el).toContain('#login');
       });
 
+      it("has a login header", function() {
+        expect(view.$el.find('h1')).toHaveText('login');
+      });
+
       it("has a login toggle", function() {
         expect(view.$el).toContain('#toggle-login');
       });
@@ -77,6 +81,11 @@ describe("Static Index", function() {
 
       it("has a password field that hides text", function(){
         expect(view.$el.find("#password")).toHaveAttr("type", "password");
+      });
+
+      it("toggles back to signup", function(){
+        view.$('#toggle-login').click(); // toggle the login form
+        expect(view.$el).toContain('#signup');
       });
     });
   });
@@ -158,6 +167,22 @@ describe("Static Index", function() {
         view.$el.find("#email").val("derp@derpette.com");
         view.$el.find("#password").val("test password");
       });
+      it("redirects you to the dashboard upon successful login", function() {
+        spyOn(router, 'route');
+        spyOn(currentUser, "authenticate").andCallFake(function() {
+          view.onAuthenticateSuccess();
+        });
+        view.$("#submit-credentials").click();
+        expect(router.route).toHaveBeenCalledWith('/dashboard');
+      });
+
+      it("display an error message ", function() {
+        spyOn(currentUser, "authenticate").andCallFake(function() {
+          view.onAuthenticateFailure();
+        });
+        view.$("#submit-credentials").click();
+        expect(view.$el).toContain('.popover');
+      });
 
       // TODO: Auth should Use actual AJAX request. Pending on API auth
       // it("should send a authentication request to the server with basic auth", function() {
@@ -176,22 +201,9 @@ describe("Static Index", function() {
       //   expect(view.$el).not.toContain("#loading-modal");
       // });
 
-      it("redirects you to the dashboard upon successful login", function() {
-        spyOn(router, 'route');
-        view.$("#submit-credentials").click();
-        // serverRespond(this.server, 200, fixtures["user"]);
-        //expect(router.route).toHaveBeenCalledWith("/dashboard");
-        expect(router.route).toHaveBeenCalledWith('/dashboard');
-      });
-
-      // it("should dump an error message on failure", function () {
-      //   view.$el.find("#login-button").click();
-      //   serverRespond(this.server, 403, fixtures["error"]);
-      //   expect(view.$el.find("#error-area")).toHaveCss({display: "block"});
-      // });
     });
 
-    describe("Already logged in", function() {
+    describe("already logged in", function() {
       it("redirects you to the dashboard immediately", function() {
         spyOn(router, 'route');
         currentUser.authenticated = true;

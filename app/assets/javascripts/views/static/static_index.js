@@ -30,7 +30,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
       type = 'signup'
 
     this.$('form').attr('id', type);
-    this.$('form h1').html(type);
+    this.$('#form-title').html(type);
     this.$('button span').html(type);
     this.$('.toggle').attr('id', 'toggle-' + type);
   },
@@ -96,6 +96,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
 
   onAuthenticateFailure: function(data) {
     this.hideLoading();
-    router.route("/");
+    this.$('#submit-credentials').attr('data-content', 'Incorrect Username/Password');
+    this.$('#submit-credentials').popover('show');
   }
 });
