@@ -12,8 +12,15 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html(this.template());
-    return this;
+    if (currentUser.authenticated) {
+      router.route("/dashboard");
+      console.log('called route');
+      return false;
+    } else {
+      $(this.el).html(this.template());
+      this.$el.find("#error-area").hide();
+      return this;
+    }
   },
 
   // Toggles the form between signup and login view
