@@ -10,8 +10,8 @@ Eduki.Views.Dashboard = Backbone.View.extend({
   errorTemplate: JST['static/error'],
 
   initialize: function() {
-    this.render(this.template());
-    this.fetchEnrollments();
+    if (currentUser.authenticated) // Fetch if a user is authenticated
+      this.fetchEnrollments();
   },
 
   // Fetch all enrollments for a user
@@ -31,9 +31,9 @@ Eduki.Views.Dashboard = Backbone.View.extend({
     });
   },
 
-  render: function(template) {
+  render: function() {
     if (currentUser.authenticated) {
-      $(this.el).html(template);
+      $(this.el).html(this.template());
       return this;
     } else {
       router.route("/");
@@ -53,7 +53,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
           return jQuery.inArray(course.get('id'), enrollments) >= 0;
         });
         self.courses = new Eduki.Collections.Courses(self.courses);
-        self.$('#dashboard').append(self.enrolledCoursesTemplate()); // Render
+        self.render();
       },
       // If there is an error in fetching courses, display the error page
       error: function() { self.render(self.errorTemplate()); }
