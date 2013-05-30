@@ -3,7 +3,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   template: JST['static/index'],
   events: {
     'click .toggle': 'toggleForm',
-    'submit form': 'submit',
+    'click #submit-credentials': 'submit',
     'click input': 'hideInvalid',
   },
 
@@ -14,7 +14,6 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   render: function() {
     if (currentUser.authenticated) {
       router.route("/dashboard");
-      console.log('called route');
       return false;
     } else {
       $(this.el).html(this.template());
@@ -26,7 +25,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   // Toggles the form between signup and login view
   toggleForm: function() {
     var type = 'login';
-    if ($('form').attr('id') == 'login')
+    if (this.$('form').attr('id') == 'login')
       type = 'signup'
 
     this.$('form').attr('id', type);
@@ -39,14 +38,14 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   // Validate user's credentials for valid email and non-empty password
   submit: function(e) {
     e.preventDefault();
-    this.user = new Eduki.Models.User({ email: $('#email').val(),
-                                        password: $('#password').val() });
+    this.user = new Eduki.Models.User({ email: this.$('#email').val(),
+                                        password: this.$('#password').val() });
 
     // See if proper-formed credentials
     if (!this.user.isValid()) {
       this.showInvalid(this.user.validationError[0],
                        this.user.validationError[1]);
-    } else if ($('form').attr('id') == 'signup') {
+    } else if (this.$('form').attr('id') == 'signup') {
       this.signup();
     } else {
       this.login();
@@ -74,12 +73,12 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
 
   // Hide validation error when input is clicked upon
   hideInvalid: function() {
-    $('input').popover('hide');
+    this.$('input').popover('hide');
   },
 
   showInvalid: function(input, message) {
-    $('#' + input).attr('data-content', message);
-    $('#' + input).popover('show');
+    this.$('#' + input).attr('data-content', message);
+    this.$('#' + input).popover('show');
   },
 
   login: function() {
