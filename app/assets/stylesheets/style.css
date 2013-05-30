@@ -90,14 +90,8 @@ p {
   margin-bottom: 20px;
 }
 
-#navbar {
-  height: 115px;
-  background-color: #3f3f3f;
-}
-
-#nav-icons {
-  float: right;
-  height: 115px;
+#main-content > div > .container {
+  margin-top: 30px;
 }
 
 .eduki-button-icon {
@@ -107,6 +101,17 @@ p {
   background-color: transparent;
   background-repeat: no-repeat;
   border: 0;
+}
+
+#navbar {
+  height: 115px;
+  background-color: #3f3f3f;
+  border-bottom: #1b1b1b 5px solid;
+}
+
+#nav-icons {
+  float: right;
+  height: 115px;
 }
 
 #nav-icons .eduki-button-icon {
@@ -169,7 +174,6 @@ p {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  border-top: #1b1b1b 5px solid;
   border-bottom: #1b1b1b 5px solid;
 }
 
@@ -215,20 +219,59 @@ p {
   margin-top: 10px;
 }
 
-#login-button {
+#toggle-signup {
   background-size: 55px 40px;
   padding-top: 40px;
   width: 55px;
+  margin-right: 7px;
   background-image: url('icons/login.png');
   float: right;
 }
 
-#signup-button {
-  background-size: 55px 40px;
+#toggle-login {
+  background-size: 70px 40px;
   padding-top: 40px;
-  width: 55px;
+  width: 70px;
   background-image: url('icons/signup.png');
   float: right;
+}
+
+#info h2 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+#info hr {
+  margin-top: 0;
+}
+
+.info-icon {
+  height: 90px;
+  background-repeat: no-repeat;
+  margin: 30px auto;
+}
+
+#info-courses-icon {
+  width: 76px;
+  background-image: url('icons/info_courses.png');
+}
+
+#info-create-icon {
+  width: 85px;
+  background-image: url('icons/info_create.png');
+}
+
+#info-dashboard-icon {
+  width: 96px;
+  background-image: url('icons/info_dashboard.png');
+}
+
+.info-description {
+  line-height: 18pt;
+  text-align: center;
+  font-size: 18pt;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .form-actions {
