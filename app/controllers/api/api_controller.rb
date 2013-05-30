@@ -40,7 +40,13 @@ protected
   # A hash that is the base for any errors
   # All errors should have the :error key
   def error_object
-    {:error => "Error encountered"}
+    {:success => false, :error => "Error encountered"}
+  end
+
+  # A hash that is the base for any successes that have no alternative object
+  # Use this when there isn't anything else particularly nice to return.
+  def success_object
+    {:success => true}
   end
 
 private

@@ -10,9 +10,9 @@
 
 class Course < ActiveRecord::Base
   attr_accessible :title, :lessons, :quizzes
-  has_many :lessons
-  has_many :quizzes
-  has_many :enrollments
+  has_many :lessons, :dependent => :destroy
+  has_many :quizzes, :dependent => :destroy
+  has_many :enrollments, :dependent => :destroy
 
   # An object to return in the case that the given course is not found
   def self.missing_instance(id)

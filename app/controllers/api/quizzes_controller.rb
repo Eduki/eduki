@@ -3,7 +3,7 @@ class Api::QuizzesController < Api::ApiController
   # For all methods, assume that
   # @course and @quiz have been retrieved if applicable
   before_filter :get_course_or_404, :only => [:index, :create]
-  before_filter :get_quiz_or_404,   :only => [:show, :update]
+  before_filter :get_quiz_or_404,   :only => [:show, :update, :destroy]
 
   resource_description do
     description <<-EOS
@@ -87,6 +87,13 @@ class Api::QuizzesController < Api::ApiController
     end
     @quiz.save
     render :json => @quiz
+  end
+
+  api :DELETE, '/quizzes/:id', "Delete a quiz"
+  param :id,    Fixnum, :required => true
+  def destroy
+    @quiz.destroy
+    render :json => success_object
   end
 
 private

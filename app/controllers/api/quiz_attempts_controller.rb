@@ -70,13 +70,11 @@ class Api::QuizAttemptsController < Api::ApiController
     render :json => @quiz_attempt
   end
 
-
 private
   def get_quiz_attempt_or_404
     super(params[:id])
   end
-
-  def get_enrollment_or_404
+def get_enrollment_or_404
     super(params[:enrollment_id])
   end
 

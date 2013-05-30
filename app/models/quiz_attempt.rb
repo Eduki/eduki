@@ -10,7 +10,7 @@
 
 class QuizAttempt < ActiveRecord::Base
   attr_accessible :quiz_id, :quiz, :enrollment_id, :enrollment
-  has_many :problem_attempts
+  has_many :problem_attempts, :dependent => :destroy
   belongs_to :quiz
   belongs_to :enrollment
 

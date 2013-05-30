@@ -105,4 +105,18 @@ describe Api::UsersController do
       check_failure(409)
     end
   end
+
+  describe "DELETE #destroy" do
+    it "deletes 1 user" do
+      delete :destroy, :id => @user.id
+      assert_response :success
+      JSON.parse(response.body)['success'].should be_true
+      User.find_by_id(@user.id).should be_nil
+    end
+
+    it "returns 404 if user not found" do
+      delete :destroy, :id => -1
+      check_failure(404)
+    end
+  end
 end

@@ -156,4 +156,18 @@ describe Api::ProblemsController do
       check_failure(404)
     end
   end
+
+  describe "DELETE #destroy" do
+    it "deletes 1 problem" do
+      delete :destroy, :id => @problem.id
+      assert_response :success
+      JSON.parse(response.body)['success'].should be_true
+      Problem.find_by_id(@problem.id).should be_nil
+    end
+
+    it "returns 404 if problem not found" do
+      delete :destroy, :id => -1
+      check_failure(404)
+    end
+  end
 end
