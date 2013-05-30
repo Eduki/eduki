@@ -8,12 +8,15 @@
 #  updated_at    :datetime         not null
 #  password_hash :string(255)
 #  password_salt :string(255)
+#  first_name    :string(255)
+#  last_name     :string(255)
+#  background    :text
 #
 
 class User < ActiveRecord::Base
   has_many :enrollments
 
-  attr_accessible :email
+  attr_accessible :email, :first_name, :last_name, :background
 
   validates_presence_of :email
   validates_uniqueness_of :email
