@@ -30,3 +30,8 @@ function serverRespond(server, code, data) {
   );
   server.answeredIndex += 1;
 }
+
+// Ensure that master view does not get rendered on the jasmine spec web
+// page
+var oldRenderMasterView = Eduki.Routers.Eduki.prototype.renderMasterView;
+Eduki.Routers.Eduki.prototype.renderMasterView = function() {}
