@@ -16,16 +16,17 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
     return this;
   },
 
+  // Toggles the form between signup and login view
   toggleForm: function() {
     var type = 'login';
     if ($('form').attr('id') == 'login')
       type = 'signup'
 
-    $('form').attr('id', type);
-    $('form h1').html(type);
-    $('button span').html(type);
-    $('.toggle').attr('id', 'toggle-' + type);
-    $('button[type=submit]').attr('id', 'button-' + type);
+    this.$('form').attr('id', type);
+    this.$('form h1').html(type);
+    this.$('button span').html(type);
+    this.$('.toggle').attr('id', 'toggle-' + type);
+    this.$('button[type=submit]').attr('id', 'button-' + type);
   },
 
   // Validate user's credentials for valid email and non-empty password
@@ -64,6 +65,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
 
   },
 
+  // Hide validation error when input is clicked upon
   hideInvalid: function() {
     $('input').popover('hide');
   },
