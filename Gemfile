@@ -12,6 +12,7 @@ gem "backbone-on-rails"
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg', :group => :production
+gem "redcarpet"
 
 group :development, :test do
   gem 'sqlite3'

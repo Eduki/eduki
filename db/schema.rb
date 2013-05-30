@@ -28,11 +28,12 @@ ActiveRecord::Schema.define(:version => 20130528172249) do
   end
 
   create_table "lessons", :force => true do |t|
-    t.string   "title",                     :null => false
-    t.text     "body",       :limit => 255, :null => false
-    t.integer  "course_id",                 :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.string   "title",                        :null => false
+    t.text     "body",          :limit => 255, :null => false
+    t.integer  "course_id",                    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.text     "body_markdown",                :null => false
   end
 
   create_table "problem_attempts", :force => true do |t|

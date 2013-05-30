@@ -5,15 +5,16 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-course = Course.create({:title => 'Example Course 1'})
+course = Course.create({:title => 'Introduction to Competitive Security Competitions'})
 course_two = Course.create({:title => 'Example Course 2'})
 
-lesson_one = Lesson.create({:title => 'Example Lesson 1',
+lesson_one = Lesson.create({:title => 'PoliCTF Bin 200 - An Example of an Exploitation Problem',
                             :course => course,
-                            :body => "Example Body 1"})
-lesson_two = Lesson.create({:title => 'Example Lesson 2',
+                            :body => File.read("db/seed_data/polictf_bin200.md")})
+
+lesson_two = Lesson.create({:title => 'PHDays Quals Pwn 400 - An Example of a High Level Language Exploitation Problem',
                             :course => course,
-                            :body => "Example Body 2"})
+                            :body => File.read("db/seed_data/phdays_pwn400.md")})
 
 quiz_one = Quiz.create({:title => 'Example Quiz 1', :course => course,
                         :problems => [Problem.new({:question => "Example Question 1",

@@ -50,6 +50,9 @@ describe Api::LessonsController do
       body['id'].should        == @lesson.id
       body['title'].should     == @lesson.title
       body['body'].should      == @lesson.body
+      # Exact processed body might vary on markdown config. It is enough
+      # here to ensure that the value is set
+      body['body_markdown'].should_not be_nil
       body['course_id'].should == @lesson.course_id
     end
 
@@ -74,6 +77,8 @@ describe Api::LessonsController do
       body = JSON.parse(response.body)
       body[0]['title'].should == "lesson_one title"
       body[1]['title'].should == "lesson_two title"
+      # Body should not appear
+      body[0]['body'].should be_nil
       body.size.should == 2
     end
 
