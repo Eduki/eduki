@@ -14,16 +14,7 @@
 require 'spec_helper'
 describe Lesson do
   before(:each) do
-    # add_fixtures()
-    @course = Course.new
-    @course.title = "course example"
-    @course.save
-
-    @lesson = Lesson.new
-    @lesson.title = "lesson_one title"
-    @lesson.body = "lesson_one body"
-    @lesson.course = @course
-    @lesson.save
+    add_fixtures()
   end
 
   it "should write markdown before being created" do

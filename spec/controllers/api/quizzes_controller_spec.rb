@@ -7,48 +7,9 @@ describe Api::QuizzesController do
 
   # Set up some quiz examples to be used by the tests
   before(:each) do
-    @course = Course.new
-    @course.title = "course example"
-    @course.save
-
-    @course_two = Course.new
-    @course_two.title = "course_two example"
-    @course_two.save
+    add_fixtures()
 
     @courses = [@course, @course_two]
-
-    @quiz = Quiz.new
-    @quiz.title = "quiz_one title"
-    @quiz.course = @course
-    @quiz.save
-
-    @quiz_two = Quiz.new
-    @quiz_two.title = "quiz_two title"
-    @quiz_two.course = @course
-    @quiz_two.save
-
-    @quiz_three = Quiz.new
-    @quiz_three.title = "quiz_three title"
-    @quiz_three.course = @course_two
-    @quiz_three.save
-
-    @problem = Problem.new
-    @problem.question = "problem_one question"
-    @problem.answer = "problem_one answer"
-    @problem.quiz = @quiz
-    @problem.save
-
-    @problem_two = Problem.new
-    @problem_two.question = "problem_two question"
-    @problem_two.answer = "problem_two answer"
-    @problem_two.quiz = @quiz
-    @problem_two.save
-
-    @problem_three = Problem.new
-    @problem_three.question = "problem_three question"
-    @problem_three.answer = "problem_three answer"
-    @problem_three.quiz = @quiz_two
-    @problem_three.save
   end
 
   describe "GET #show" do
@@ -113,7 +74,6 @@ describe Api::QuizzesController do
       body = JSON.parse(response.body)
       body['id'].should_not == @quiz.id
       body['id'].should_not == @quiz_two.id
-      body['id'].should_not == @quiz_three.id
       body['title'].should    == "quiz_four title"
       body['problems'].should == []
 

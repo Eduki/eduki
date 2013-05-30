@@ -7,37 +7,7 @@ describe Api::ProblemsController do
 
   # Set up some problem examples to be used by the tests
   before(:each) do
-    @course = Course.new
-    @course.title = "course example"
-    @course.save
-
-    @quiz = Quiz.new
-    @quiz.title = "quiz example"
-    @quiz.course = @course
-    @quiz.save
-
-    @quiz_two = Quiz.new
-    @quiz_two.title = "quiz_two example"
-    @quiz_two.course = @course
-    @quiz_two.save
-
-    @problem = Problem.new
-    @problem.question = "problem_one question"
-    @problem.answer = "problem_one answer"
-    @problem.quiz = @quiz
-    @problem.save
-
-    @problem_two = Problem.new
-    @problem_two.question = "problem_two question"
-    @problem_two.answer = "problem_two answer"
-    @problem_two.quiz = @quiz
-    @problem_two.save
-
-    @problem_three = Problem.new
-    @problem_three.question = "problem_three question"
-    @problem_three.answer = "problem_three answer"
-    @problem_three.quiz = @quiz_two
-    @problem_three.save
+    add_fixtures()
   end
 
   describe "GET #show" do

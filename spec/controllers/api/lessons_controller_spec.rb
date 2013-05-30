@@ -8,37 +8,7 @@ describe Api::LessonsController do
 
   # Set up some lesson examples to be used by the tests
   before(:each) do
-    @course = Course.new
-    @course.title = "course example"
-    @course.save
-
-    @course_two = Course.new
-    @course_two.title = "course_two example"
-    @course_two.save
-
-    @course_three = Course.new
-    @course_three.title = "course_three example"
-    @course_three.save
-
-    @courses = [@course, @course_two]
-
-    @lesson = Lesson.new
-    @lesson.title = "lesson_one title"
-    @lesson.body = "lesson_one body"
-    @lesson.course = @course
-    @lesson.save
-
-    @lesson_two = Lesson.new
-    @lesson_two.title = "lesson_two title"
-    @lesson_two.body = "lesson_two body"
-    @lesson_two.course = @course
-    @lesson_two.save
-
-    @lesson_three = Lesson.new
-    @lesson_three.title = "lesson_three title"
-    @lesson_three.body = "lesson_three body"
-    @lesson_three.course = @course_two
-    @lesson_three.save
+    add_fixtures()
   end
 
   describe "GET #show" do

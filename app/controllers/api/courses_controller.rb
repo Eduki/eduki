@@ -6,6 +6,7 @@ class Api::CoursesController < Api::ApiController
   # For all methods, assume that
   # @course and has been retrieved if applicable
   before_filter :get_course_or_404, :only => [:show, :update]
+  before_filter :get_user_or_404, :only => [:index_by_user, :create]
 
   resource_description do
     description <<-EOS
@@ -27,7 +28,14 @@ class Api::CoursesController < Api::ApiController
     render :json => Course.all
   end
 
-  api :POST, '/courses', "Create a course"
+  api :GET, '/users/:user_id/courses', "Retrieve a list of courses owned by the given user"
+  param :user_id, Fixnum, :required => true
+  def index_by_user
+    render :json => Course.find_all_by_user_id(@user.id)
+  end
+
+  api :POST, '/api/users/:user_id/courses', "Create a course"
+  param :user_id, Fixnum, :required => true
   param :title, String, :required => true
   param :description, String
   def create
@@ -37,6 +45,7 @@ class Api::CoursesController < Api::ApiController
       @course = Course.new
       @course.title = params[:title]
       @course.description = params[:description]
+      @course.user = @user
       @course.save
       render :json => @course
     end
@@ -56,6 +65,10 @@ class Api::CoursesController < Api::ApiController
 private
   def get_course_or_404
     super(params[:id])
+  end
+
+  def get_user_or_404
+    super(params[:user_id])
   end
 
 end

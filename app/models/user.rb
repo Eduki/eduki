@@ -15,6 +15,7 @@
 
 class User < ActiveRecord::Base
   has_many :enrollments
+  has_many :courses, :dependent => :destroy
 
   attr_accessible :email, :first_name, :last_name, :background
 
