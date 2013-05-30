@@ -34,4 +34,9 @@ describe Lesson do
     # can vary depending on configuration
     Lesson.find_by_id(@lesson.id).body_markdown.should_not == body_markdown
   end
+
+  it "should delete the lesson instance upon course delete" do
+    @course.destroy
+    Lesson.find_by_id(@lesson.id).should be_nil
+  end
 end

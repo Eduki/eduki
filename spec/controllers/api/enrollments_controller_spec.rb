@@ -64,4 +64,18 @@ describe Api::EnrollmentsController do
       check_failure(404)
     end
   end
+
+  describe "DELETE #destroy" do
+    it "deletes 1 enrollment" do
+      delete :destroy, :id => @enrollment.id
+      assert_response :success
+      JSON.parse(response.body)['success'].should be_true
+      Enrollment.find_by_id(@enrollment.id).should be_nil
+    end
+
+    it "returns 404 if enrollment not found" do
+      delete :destroy, :id => -1
+      check_failure(404)
+    end
+  end
 end

@@ -6,7 +6,7 @@
 class Api::UsersController < Api::ApiController
 
   # @user is a bound variable in scope
-  before_filter :get_user_or_404, :only => [:show, :update]
+  before_filter :get_user_or_404, :only => [:show, :update, :destroy]
 
   resource_description do
     description <<-EOS
@@ -69,6 +69,13 @@ class Api::UsersController < Api::ApiController
     else
       render :json => error_object, :status => 409
     end
+  end
+
+  api :DELETE, '/users/:id', "Delete a user"
+  param :id,    Fixnum, :required => true
+  def destroy
+    @user.destroy
+    render :json => success_object
   end
 
 private

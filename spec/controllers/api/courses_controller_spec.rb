@@ -123,7 +123,20 @@ describe Api::CoursesController do
       put :update, :id => -1, :title => "course title change"
       check_failure(404)
     end
+  end
 
+  describe "DELETE #destroy" do
+    it "deletes 1 course" do
+      delete :destroy, :id => @course.id
+      assert_response :success
+      JSON.parse(response.body)['success'].should be_true
+      Course.find_by_id(@course.id).should be_nil
+    end
+
+    it "returns 404 if course not found" do
+      delete :destroy, :id => -1
+      check_failure(404)
+    end
   end
 end
 
