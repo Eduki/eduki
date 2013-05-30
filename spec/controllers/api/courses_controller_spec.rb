@@ -8,6 +8,7 @@ describe Api::CoursesController do
   before(:each) do
     @course = Course.new
     @course.title = "course example"
+    @course.description = "course description"
     @course.save
 
     @course_two = Course.new
@@ -23,8 +24,9 @@ describe Api::CoursesController do
       get :show, :id => @course.id
       assert_response :success
       body = JSON.parse(response.body)
-      @course.id.should ==  body['id']
-      @course.title.should ==  body['title']
+      @course.id.should == body['id']
+      @course.title.should == body['title']
+      @course.description.should == body['description']
     end
 
     it "returns 404 if id not found" do
@@ -48,11 +50,15 @@ describe Api::CoursesController do
   describe "POST #create" do
     it "creates 1 Course" do
       previous_size = Course.count
-      post :create, :title => "course_three example"
+      post :create, :title => "course_three example",
+        :description => "new description"
       assert_response :success
 
       # Response should have proper version
       body = JSON.parse(response.body)
+      body['title'].should == "course_three example"
+      body['description'].should == "new description"
+
       @course.id.should_not == body['id']
       @course_two.id.should_not == body['id']
 
@@ -69,16 +75,19 @@ describe Api::CoursesController do
   describe "PUT #update" do
 
     it "updates 1 Course" do
-      put :update, :id => @course.id, :title => "course title change"
+      put :update, :id => @course.id, :title => "course title change",
+        :description => "new description"
       assert_response :success
 
       # Response should have proper version
       body = JSON.parse(response.body)
       @course.id.should == body['id']
       body['title'].should == "course title change"
+      body['description'].should == "new description"
 
       # DB should be updated
       Course.find(@course.id).title.should == "course title change"
+      Course.find(@course.id).description.should == "new description"
     end
 
     it "updates nothing if nothing included" do

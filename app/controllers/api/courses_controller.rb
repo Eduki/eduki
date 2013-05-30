@@ -12,6 +12,7 @@ class Api::CoursesController < Api::ApiController
     A course has the following fields
     * id:integer
     * title:string
+    * description:string
     EOS
   end
 
@@ -28,12 +29,14 @@ class Api::CoursesController < Api::ApiController
 
   api :POST, '/courses', "Create a course"
   param :title, String, :required => true
+  param :description, String
   def create
     if params[:title].nil?
       render :json => error_object, :status => 400
     else
       @course = Course.new
       @course.title = params[:title]
+      @course.description = params[:description]
       @course.save
       render :json => @course
     end
@@ -42,8 +45,10 @@ class Api::CoursesController < Api::ApiController
   api :PUT, '/courses/:id', "Update a course"
   param :id,    Fixnum, :required => true
   param :title, String
+  param :description, String
   def update
     @course.title = params[:title] if not params[:title].nil?
+    @course.description = params[:description] if not params[:description].nil?
     @course.save
     render :json => @course
   end

@@ -2,14 +2,15 @@
 #
 # Table name: courses
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)      not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  title       :string(255)      not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  description :text
 #
 
 class Course < ActiveRecord::Base
-  attr_accessible :title, :lessons, :quizzes
+  attr_accessible :title, :description, :lessons, :quizzes
   has_many :lessons
   has_many :quizzes
   has_many :enrollments
