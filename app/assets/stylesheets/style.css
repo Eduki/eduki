@@ -205,7 +205,7 @@ p {
   height: 400px;
 }
 
-#splash-form-container form > div {
+#splash-form-container > div {
   padding: 70px 40px 0 40px;
 }
 

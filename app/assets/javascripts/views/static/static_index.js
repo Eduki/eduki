@@ -4,6 +4,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   events: {
     'click .toggle': 'toggleForm',
     'click #submit-credentials': 'submit',
+    'submit form': 'submit',
     'click input': 'hideInvalid',
   },
 
@@ -32,7 +33,6 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
     this.$('form h1').html(type);
     this.$('button span').html(type);
     this.$('.toggle').attr('id', 'toggle-' + type);
-    this.$('button[type=submit]').attr('id', 'button-' + type);
   },
 
   // Validate user's credentials for valid email and non-empty password
