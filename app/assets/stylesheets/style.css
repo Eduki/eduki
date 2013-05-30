@@ -274,6 +274,10 @@ p {
   padding-right: 20px;
 }
 
+.popover {
+  color: #a74738;
+}
+
 .form-actions {
   background: none !important;
 }
