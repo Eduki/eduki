@@ -53,7 +53,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
           return jQuery.inArray(course.get('id'), enrollments) >= 0;
         });
         self.courses = new Eduki.Collections.Courses(self.courses);
-        $('#main-content .container').append(self.enrolledCoursesTemplate()); // Render
+        self.$('#dashboard').append(self.enrolledCoursesTemplate()); // Render
       },
       // If there is an error in fetching courses, display the error page
       error: function() { self.render(self.errorTemplate()); }
