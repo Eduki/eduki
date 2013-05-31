@@ -28,15 +28,13 @@ describe('Course', function() {
     it('renders quiz create button', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
       successServerResponses(this.server);
-      var buttons = view.$el.find('.eduki-button-primary span');
-      expect(buttons[1]).toHaveText('create');
+      expect(view.$el).toContain('#quiz-create');
     });
 
     it('renders lesson create button', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
       successServerResponses(this.server);
-      var buttons = view.$el.find('.eduki-button-primary span');
-      expect(buttons[2]).toHaveText('create');
+      expect(view.$el).toContain('#lesson-create');
     });
 
     // Tests for lessons
