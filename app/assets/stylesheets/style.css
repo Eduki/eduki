@@ -484,7 +484,13 @@ form label {
   margin-bottom: 20px;
 }
 
-.listing-line a, .listing-square a {
+.listing-line {
+  overflow: hidden;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.listing-line > a, .listing-square a {
   color: white;
   overflow: hidden;
 }
@@ -496,7 +502,7 @@ form label {
   margin-bottom: 20px;
 }
 
-.listing-line a {
+.listing-line > a {
   display: block;
   border-radius: 2px;
   padding: 10px;
@@ -519,15 +525,13 @@ form label {
   text-transform: uppercase;
 }
 
-.listing-course a { background-color: #87a8b1; }
-.listing-course a:hover { background-color: #35849a; }
-.listing-lesson a { background-color: #be9790; }
-.listing-lesson a:hover { background-color: #a74738; }
-.listing-quiz a { background-color: #bfb191; }
-.listing-quiz a:hover { background-color: #a56f37; }
+.listing-course > a { background-color: #87a8b1; }
+.listing-course > a:hover { background-color: #35849a; }
+.listing-lesson > a { background-color: #be9790; }
+.listing-lesson > a:hover { background-color: #a74738; }
+.listing-quiz > a { background-color: #bfb191; }
+.listing-quiz > a:hover { background-color: #a56f37; }
 
-#course-lessons .listing-line,
-#course-quizzes .listing-line,
 #course-lessons .h2,
 #course-quizzes .h2 {
   width: 410px;
@@ -539,6 +543,12 @@ form label {
   top: 1px;
   height: 13pt;
   overflow: hidden;
+}
+
+#course-lessons .listing-line > a,
+#course-quizzes .listing-line > a {
+  float: left;
+  width: 390px;
 }
 
 #lesson-create, #quiz-create {
@@ -555,18 +565,14 @@ form label {
 #lesson-create:hover { background-image: url('icons/lesson_create_hover.png'); }
 #quiz-create:hover { background-image: url('icons/quiz_create_hover.png'); }
 
-.listing-line, .ownership-actions {
+.ownership-actions {
+  display:none;
+  margin-left: 10px;
   float: left;
 }
 
-.ownership-actions {
-  display: none;
-  margin-left: 10px;
-}
-
 .ownership-edit, .owernship-delete {
-  margin-top: 6px;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .ownership-edit {

@@ -19,17 +19,15 @@
       </h2>
       <ul>
       <% for(var i = 0; i < this.lessons.size(); i++) { %>
-        <div>
-          <li class="listing-line listing-lesson">
+        <li class="listing-line listing-lesson">
           <a href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>" title="<%- this.lessons.models[i].get('title') %>"><span><%- this.lessons.models[i].get('title') %></span></a>
-          </li>
           <% if (this.ownership) { %>
           <div class="ownership-actions">
             <a class="eduki-button-icon ownership-edit" href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>/edit" title="edit"></a>
             <button title="delete" class="ownership-delete eduki-button-icon"></button>
           </div>
           <% } %>
-        </div>
+        </li>
       <% } %>
       </ul>
     </div>
@@ -40,17 +38,15 @@
       </h2>
       <ul>
         <% for(var i = 0; i < this.quizzes.size(); i++) { %>
-          <div>
-            <li class="listing-line listing-quiz">
-            <a href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>" title="<%- this.quizzes.models[i].get('title') %>"><span><%- this.quizzes.models[i].get('title') %></span></a>
-            </li>
+          <li class="listing-line listing-quiz">
+          <a href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>" title="<%- this.quizzes.models[i].get('title') %>"><span><%- this.quizzes.models[i].get('title') %></span></a>
           <% if (this.ownership) { %>
             <div class="ownership-actions">
               <a class="eduki-button-icon ownership-edit" href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>/edit" title="edit"></a>
               <button title="delete" class="ownership-delete eduki-button-icon"></button>
             </div>
           <% } %>
-          </div>
+          </li>
         <% } %>
       </ul>
     </div>
