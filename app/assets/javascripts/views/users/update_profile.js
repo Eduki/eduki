@@ -2,9 +2,10 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
 
   template: JST['users/update'],
   errorTemplate: JST['static/error'],
+  successTemplate: JST['users/update_success'],
 
   events: {
-    'click button' : 'update'
+    'submit form' : 'update'
   },
 
   initialize: function() {
@@ -29,8 +30,14 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     });
   },
 
+
+  // COMMMENT FOR CR.
+  // would it be better to put this in the template? or leave it here?
   updateFields: function() {
-    
+    this.$('#first-name').val(this.user.attributes.first_name);
+    this.$('#last-name').val(this.user.attributes.last_name);
+    this.$('#email').val(this.user.attributes.email);
+    this.$('#background').val(this.user.attributes.background);
   },
 
   // Renders the template only if user is logged in
@@ -47,7 +54,16 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
 
   update: function(e) {
     e.preventDefault();
-    console.log(currentUser.id);
-    alert('put this shit');
+    this.user = new Eduki.Models.User({ id: currentUser.id,
+                                        first_name: this.$('#first-name').val(),
+                                        last_name: this.$('#last-name').val(),
+                                        email: this.$('#email').val(),
+                                        background: this.$('#background').val() });
+    
+    var self = this;
+    this.user.save({id: this.user.get('id')},
+                     {wait: true,
+                      success: function() { self.render(self.successTemplate()); },
+                      error: function() { self.render(self.errorTemplate()); }});
   }
 });
