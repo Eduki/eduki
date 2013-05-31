@@ -3,13 +3,12 @@
  *
  * author: Jolie
  */
- 
+
 Eduki.Views.CoursesNew = Backbone.View.extend({
 
   template: JST['courses/new'],
   errorTemplate: JST['static/error'],
-  invalidTemplate: JST['courses/error'],
-  createdTemplate: JST['courses/created'],
+  successTemplate: JST['courses/success'],
 
   events: {
     'click button' : 'create',
@@ -41,7 +40,7 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
       var self = this;
       this.course.save({title: this.course.get('title')},
                        {wait: true,
-                        success: function() { self.render(self.createdTemplate()); },
+                        success: function() { router.route("/courses/" + self.course.get('id')); },
                         error: function() { self.render(self.errorTemplate()); }});
     } else {
       this.showInvalid(this.course.validationError[0], this.course.validationError[1]);

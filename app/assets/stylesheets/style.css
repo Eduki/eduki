@@ -151,9 +151,10 @@ ul li {
 }
 
 .success-message-text {
+  text-transform: uppercase;
+  margin: 10px 0 10px 0;
   color: green;
-  font-size: 16pt;
-  font-weight: 400;
+  font-size: 24pt;
 }
 
 /* NAVBAR */
