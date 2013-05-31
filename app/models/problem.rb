@@ -16,6 +16,7 @@
 class Problem < ActiveRecord::Base
   attr_accessible :question, :answer, :quiz, :quiz_id
   belongs_to :quiz
+  has_many :problem_attempts, :dependent => :destroy
 
   # Given a HashWithIndifferentAccess containing :question and :answer
   # Return a Problem object. Does not save the record to the database

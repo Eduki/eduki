@@ -2,15 +2,16 @@
 #
 # Table name: quiz_attempts
 #
-#  id         :integer          not null, primary key
-#  quiz_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :integer          not null, primary key
+#  quiz_id       :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  enrollment_id :integer          not null
 #
 
 class QuizAttempt < ActiveRecord::Base
   attr_accessible :quiz_id, :quiz, :enrollment_id, :enrollment
-  has_many :problem_attempts
+  has_many :problem_attempts, :dependent => :destroy
   belongs_to :quiz
   belongs_to :enrollment
 

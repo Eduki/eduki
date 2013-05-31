@@ -17,30 +17,14 @@ require 'spec_helper'
 
 describe Problem do
   before(:each) do
-    # Create a course to host this quiz
-    @course = Course.new
-    @course.title = 'course title'
-    @course.save
-
-    # Make a quiz to host this problem
-    @quiz = Quiz.new
-    @quiz.title = "quiz title"
-    @quiz.course = @course
-    @quiz.save
-
-    # Create a problem that tests can use
-    @problem = Problem.new
-    @problem.question = "problem question"
-    @problem.answer = "problem answer"
-    @problem.quiz = @quiz
-    @problem.save
+    add_fixtures()
   end
 
   it "should have all fields persist after saving" do
     id = @problem.id
     @problem = Problem.find_by_id(id)
-    @problem.question.should == "problem question"
-    @problem.answer.should == "problem answer"
+    @problem.question.should == "problem_one question"
+    @problem.answer.should == "problem_one answer"
     @problem.quiz.should == @quiz
   end
 
