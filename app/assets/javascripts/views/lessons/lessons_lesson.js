@@ -38,7 +38,7 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
         self.renderLessonsList();
       },
       error: function(model, xhr, options) {
-        self.reder(self.errorTemplate)
+        self.render(self.errorTemplate)
       }
     });
   },
@@ -51,7 +51,7 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
         self.render(self.template());
       },
       error: function(model, xhr, options) {
-        self.reder(self.errorTemplate)
+        self.render(self.errorTemplate)
       }
     });
   },
