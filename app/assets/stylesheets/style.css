@@ -1,23 +1,66 @@
+@font-face {
+  font-family: "Liberation Serif";
+  src: url("LiberationSerif-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Liberation Serif";
+  src: url("LiberationSerif-Italic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Liberation Serif";
+  src: url("LiberationSerif-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Liberation Serif";
+  src: url("LiberationSerif-BoldItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("SourceSansPro-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("SourceSansPro-RegularItalic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("SourceSansPro-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("SourceSansPro-BoldItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
 body {
   color: #3d3d3d;
+  background-color: #dbdbd9;
   font-size: 12pt;
-  font-family: 'Yanone Kaffeesatz' !important;
+  font-family: 'Source Sans Pro' !important;
 }
 
 a:hover {
   text-decoration: none;
 }
 
-a {
-  color: #878787;
-}
-
-input,
-label,
-button,
-select,
-textarea {
-  font-family: 'Yanone Kaffeesatz' !important;
+input, label, button, select, textarea,
+h1, h2, h3, h4, h5 {
+  color: #6d6e70 !important;
+  font-family: 'Source Sans Pro' !important;
 }
 
 input,
@@ -28,39 +71,215 @@ textarea {
 }
 
 h1, h2, h3, h4, h5 {
-  font-weight: 400;
-  color: #75ddf4
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+input {
+  border-radius: 2px !important;
+}
+
+hr {
+  border-color: #bbbdc0 !important;
 }
 
 p {
-  font-family: 'Roboto Slab' !important;
+  font-family: 'Liberation Serif';
+  color: #3f3f3f;
   font-size: 10pt;
-  font-weight: 300;
   margin-bottom: 20px;
 }
 
-.navbar li a {
-  text-transform: uppercase;
-  letter-spacing: 1pt;
-  font-size: 18pt;
+#main-content > div > .container {
+  margin-top: 30px;
 }
 
-#footer {
-  background-color: #d3d3d3;
-  width: 100%;
-  margin-top: 50px;
-  height: 200px;
-  padding: 10px 10px;
+.eduki-button-icon {
+  display: block;
+  overflow: hidden;
+  height: 0px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+}
+
+#navbar {
+  height: 115px;
+  background-color: #3f3f3f;
+  border-bottom: #1b1b1b 5px solid;
+}
+
+#nav-icons {
+  float: right;
+  height: 115px;
+}
+
+#nav-icons .eduki-button-icon {
+  display: inline-block;
+}
+
+#nav-icons a {
+  background-size: 52px 52px;
+  padding-top: 52px;
+  width: 52px;
+  margin-left: 10px;
+}
+
+#nav-icons > div {
+  position: relative;
+  top: 39px;
+  float: right;
+}
+
+#nav-icons > div > div{
+  width: 260px;
+  display: inline-block;
+}
+
+#navbar-courses {
+  background-image: url('icons/navbar_courses.png');
+}
+
+#navbar-create {
+  background-image: url('icons/navbar_create.png');
+}
+
+#navbar-dashboard {
+  background-image: url('icons/navbar_dashboard.png');
+}
+
+#navbar-husky {
+  background-image: url('icons/navbar_husky.png');
+}
+
+#navbar-logout {
+  width: 41px;
+  padding-top: 35px;
+  background-image: url('icons/navbar_logout.png');
+  margin-left: 5px;
+  vertical-align: text-bottom;
+}
+
+#logo a {
+  background-size: 212px 115px;
+  padding-top: 115px;
+  width: 212px;
+  background-image: url('logo.png');
+  background-repeat: no-repeat;
+}
+
+#splash-image {
+  height: 400px;
+  background-image: url('study.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  border-bottom: #1b1b1b 5px solid;
+}
+
+#splash-message {
+  color: #a3dced !important;
+  text-transform: lowercase;
   text-align: center;
+  line-height: 400px;
+  font-size: 48pt;
+}
+
+#splash-form-container h1 {
+  float: left;
+  font-size: 40pt;
+  position: relative;
+  top: 17px;
+  text-transform: lowercase;
+  color: #a3dced !important;
+  margin: 0;
+}
+
+#splash-form-container form hr {
+  clear: both;
+  margin: 0 0 20px 0;
+}
+
+#splash-form-container {
+  background-image: url('signup_bg.png');
+  height: 400px;
+}
+
+#splash-form-container > div {
+  padding: 70px 40px 0 40px;
+}
+
+#splash-form-container input {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 95%;
+}
+
+#splash-form-container button {
+  margin-top: 10px;
+}
+
+#toggle-signup {
+  background-size: 55px 40px;
+  padding-top: 40px;
+  width: 55px;
+  margin-right: 7px;
+  background-image: url('icons/login.png');
+  float: right;
+}
+
+#toggle-login {
+  background-size: 70px 40px;
+  padding-top: 40px;
+  width: 70px;
+  background-image: url('icons/signup.png');
+  float: right;
+}
+
+#info h2 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+#info hr {
+  margin-top: 0;
+}
+
+.info-icon {
+  height: 90px;
+  background-repeat: no-repeat;
+  margin: 30px auto;
+}
+
+#info-courses-icon {
+  width: 76px;
+  background-image: url('icons/info_courses.png');
+}
+
+#info-create-icon {
+  width: 85px;
+  background-image: url('icons/info_create.png');
+}
+
+#info-dashboard-icon {
+  width: 96px;
+  background-image: url('icons/info_dashboard.png');
+}
+
+.info-description {
+  line-height: 18pt;
+  text-align: center;
+  font-size: 18pt;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.popover {
+  color: #a74738;
 }
 
 .form-actions {
   background: none !important;
-}
-
-#huskysoftlogo img {
-  margin-top: 50px;
-  max-height: 100px;
 }
 
 button {
@@ -79,16 +298,16 @@ button {
 
 .eduki-button-primary {
   display: block;
-  box-shadow: 2px 2px 2px #999999;
-  color: white;
+  border-radius: 1px;
+  color: white !important;
   text-align: center;
   font-size: 14pt;
   text-transform: uppercase;
-  letter-spacing: 10px;
+  letter-spacing: 6px;
   background-color: #75ddf4 !important;
   background-image: linear-gradient(to bottom, #9be8f7, #75ddf4) !important;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 8px;
+  padding-bottom: 5px;
 }
 
 .eduki-button-small {
@@ -112,7 +331,7 @@ button {
 }
 
 .eduki-button-primary span {
-  margin-left: 10px;
+  margin-left: 6px;
 }
 
 .eduki-button-small span {
@@ -133,21 +352,6 @@ button {
   color: green;
   font-size: 16pt;
   font-weight: 400;
-}
-
-#welcome-content {
-  text-align: center;
-}
-
-#welcome-content h1 {
-  text-transform: lowercase;
-  letter-spacing: 5px;
-  color: #555656;
-  padding-left: 15px;
-}
-
-#welcome-controls {
-  margin-top: 40px;
 }
 
 ul {
@@ -207,15 +411,6 @@ form label {
   margin-right: 20px;
   position: relative;
   top: 3px;
-}
-
-.eduki-button-icon {
-  display: block;
-  overflow: hidden;
-  height: 0px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: 0;
 }
 
 .eduki-button-icon-small {

@@ -1,7 +1,31 @@
-<div class="row">
-  <div class="span12">
-    <h1>Your Dashboard</h1>
-    <a href="/#/user/update" title="Update Profile" class="eduki-button-primary eduki-button-small eduki-button-inline pull-right"><span>Update Profile</span></a>
-    <hr />
+<div id="dashboard" class="container">
+  <div class="row">
+    <div class="span12">
+      <h1>Your Dashboard</h1>
+        <a href="/#/user/update" title="Update Profile" class="eduki-button-primary eduki-button-small eduki-button-inline pull-right"><span>Update Profile</span></a>
+      <hr />
+    </div>
+  </div>
+  <div id="enrolled-courses">
+    <div class="row">
+      <% if (this.enrollments.size() <= 0) { %>
+        <h2 class="span12">You are currently not enrolled in any courses.</h2>
+      <% } else { %>
+        <h2 class="span12">Enrolled Courses</h2>
+    </div>
+    <div id="enrolled-courses-list">
+      <div class="row">
+      <% for (var i = 0; i < this.courses.size(); i++) { %>
+          <div class="listing-block course-block">
+            <a class="span2" href="/#/courses/<%- this.courses.models[i].get('id') %>"><h3><%- this.courses.models[i].get('title') %></h3></a>
+          </div>
+        <% if ((i+1) % 6 == 0 && (i+1) < this.courses.size()) { %>
+      </div>
+      <div class="row">
+        <% } %>
+      <% } %>
+      </div>
+      <% } %>
+    </div>
   </div>
 </div>
