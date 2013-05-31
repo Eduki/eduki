@@ -1,3 +1,9 @@
+/*
+ * Update User Profile View
+ *
+ * Author: Michael Abboud
+ */
+
 Eduki.Views.UpdateProfile = Backbone.View.extend({
 
   template: JST['users/update'],
@@ -9,17 +15,19 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
   },
 
   initialize: function() {
-    // Fetch all courses. Once retrieved, execute
-    // render through the callback to display them.
+    // renders form, then updates all existing fields with the current profile values
+    // if they exist
     this.render(this.template());
     this.fetchUserInfo();
   },
 
+  // grabs current user info from database and displays in the form
+  // if it exists
   fetchUserInfo: function() {
     this.user = new Eduki.Models.User({ id: currentUser.id });
 
     var self = this;
-        // Get enrollments from database
+    // grab user from database
     this.user.fetch({
       success: function() {
         self.updateFields();
@@ -33,6 +41,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
 
   // COMMMENT FOR CR.
   // would it be better to put this in the template? or leave it here?
+  // updates form fields
   updateFields: function() {
     this.$('#first-name').val(this.user.attributes.first_name);
     this.$('#last-name').val(this.user.attributes.last_name);
