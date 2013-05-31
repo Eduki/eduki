@@ -14,23 +14,29 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   initialize: function() {
     // Only check for enrollments if a user is logged in
+    var self = this;
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
-    this.quizzes = new Eduki.Collections.Quizzes();
-    this.quizzes.url = '/api/courses/' + this.course.get('id') + '/quizzes';
-    this.lessons = new Eduki.Collections.Lessons(this.course.get('id'));
-    this.lessons.url = '/api/courses/' + this.course.get('id') + '/lessons';
+    this.course.fetch({
+      success: function() {self.renderOverview();},
+      failure: function() {self.render(self.errorTemplate());}
+    });
+
+  },
+
+  renderOverview: function() {
+    console.log(this.course);
+    this.quizzes = new Eduki.Collections.Quizzes({course_id: this.course.get('id')});
+    this.lessons = new Eduki.Collections.Lessons({course_id: this.course.get('id')});
 
     // Fetch course and all its lessons. Once retrieved, execute
     // render through the callback to display them.
     var self = this;
-    $.when(this.course.fetch(),
-           this.quizzes.fetch(),
+    $.when(this.quizzes.fetch(),
            this.lessons.fetch()).then(
              function() {self.render(self.template());
                          self.getEnrollments();},
              function() {self.render(self.errorTemplate());}
            );
-
   },
 
   // Renders a course's lesson
@@ -40,8 +46,8 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
   },
 
   getEnrollments: function() {
-    var self = this;
     if (currentUser.authenticated) {
+      var self = this;
       this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
       this.enrollments.fetch({
         success: function() {self.setEnrolled();},
