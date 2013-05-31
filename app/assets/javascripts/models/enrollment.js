@@ -12,5 +12,13 @@ Eduki.Models.Enrollment = Backbone.Model.extend({
     } else {
       return '/api/enrollments/' + this.get('id');
     }
-  }
+  },
+
+  deleteUrl: function() { return '/api/enrollments/' + this.get('id'); },
+
+  sync: function(method, model, options) {
+    if (method == 'delete')
+      options.url = model.deleteUrl();
+    Backbone.sync(method, model, options);
+  },
 });

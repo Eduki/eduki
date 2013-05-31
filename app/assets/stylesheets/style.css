@@ -105,7 +105,10 @@ h1, h2, h3, h4, h5 {
 
 a:hover { text-decoration: none; }
 
-hr { margin: 10px 0 20px 0; }
+hr {
+  clear:both;
+  margin: 10px 0 20px 0;
+}
 
 input, label, button, select, textarea,
 h1, h2, h3, h4, h5 {
@@ -471,6 +474,11 @@ form label {
 
 /* COURSES */
 
+#course h1 {
+  width: 95%;
+  float:left;
+}
+
 .listing-square {
   display: inline;
   margin-bottom: 20px;
@@ -535,6 +543,27 @@ form label {
 
 #lesson-create { background-image: url('icons/lesson_create.png'); }
 #quiz-create{ background-image: url('icons/quiz_create.png'); }
+
+#enroll, #enrolled {
+  float: left;
+  margin-right: 10px;
+  margin-top: 5px;
+  width: 18px;
+  padding-top: 44px;
+}
+
+#enroll {
+  background-image: url('icons/enroll.png');
+}
+
+#enrolled {
+  background-image: url('icons/enrolled.png');
+}
+
+#enroll:hover {
+  background-image: url('icons/enroll_hover.png');
+}
+
 
 /* DASHBOARD */
 #enrolled-courses > .row { margin-bottom: 15px; }
