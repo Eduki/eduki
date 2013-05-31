@@ -13,16 +13,15 @@ describe('Course', function() {
   describe('Overview', function() {
     setupFakeServer();
     it('renders error page', function() {
-      spyOn(router, 'route');
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
-      serverRespond(this.server, 200, fixtures['course']);
-      serverRespond(this.server, 404, fixtures['quizzes']);
-      serverRespond(this.server, 200, fixtures['lessons']);
+      serverRespond(this.server, 404, fixtures['course']);
+      console.log(view.$el.html());
       expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
     });
 
     it('renders course title', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+      view.render();
       successServerResponses(this.server);
       expect(view.$el.find('h1').html()).toMatch('Bear Cooking');
     });
@@ -151,6 +150,7 @@ describe('Course', function() {
     serverRespond(server, 200, fixtures['course']);
     serverRespond(server, 200, fixtures['quizzes']);
     serverRespond(server, 200, fixtures['lessons']);
+    serverRespond(server, 200, fixtures['user_courses']);
     serverRespond(server, 200, fixtures['enrollments']);
   }
 

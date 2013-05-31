@@ -37,7 +37,7 @@ describe('Dashboard', function() {
       var view = new Eduki.Views.Dashboard();
       successServerResponses(this.server);
       var courses = view.$el.find('.listing-block');
-      expect(courses.length).toBe(2);
+      expect(courses.length).toBe(1);
     });
 
     it('renders course titles', function() {
@@ -45,7 +45,6 @@ describe('Dashboard', function() {
       successServerResponses(this.server);
       var courseTitles = view.$el.find('.listing-block h3');
       expect(courseTitles[0]).toHaveText('Bear Cooking');
-      expect(courseTitles[1]).toHaveText('Petting Zoos');
     });
 
     it('renders first course link', function() {
