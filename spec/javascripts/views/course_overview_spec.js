@@ -6,15 +6,17 @@
 
 describe('Course', function() {
   beforeEach(function() {
+    currentUser.flush_credentials();
     currentUser.id = 1;
+    currentUser.authenticated = true;
   });
   describe('Overview', function() {
     setupFakeServer();
-
     it('renders error page', function() {
+      spyOn(router, 'route');
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
-      serverRespond(this.server, 301, fixtures['course']);
-      serverRespond(this.server, 200, fixtures['quizzes']);
+      serverRespond(this.server, 200, fixtures['course']);
+      serverRespond(this.server, 404, fixtures['quizzes']);
       serverRespond(this.server, 200, fixtures['lessons']);
       expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
     });
@@ -100,11 +102,21 @@ describe('Course', function() {
     describe('Enrollments', function() {
       it('renders enroll button', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        serverRespond(this.server, 200, {"id":2, "title":"Bear Cooking"});
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, fixtures['lessons']);
+        serverRespond(this.server, 200, fixtures['enrollments']);
+        expect(view.$el).toContain('#enroll');
+      });
+
+      it('renders enrolled button', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         successServerResponses(this.server);
-        expect(view.$('#enroll span')).toHaveText('enroll');
+        expect(view.$el).toContain('#enrolled');
       });
 
       it('doesn\'t render button for user not logged in', function() {
+        currentUser.authenticated = false;
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
         serverRespond(this.server, 200, fixtures['course']);
         serverRespond(this.server, 200, fixtures['quizzes']);
@@ -112,31 +124,34 @@ describe('Course', function() {
         expect(view.$('h1')).not.toContain('button');
       });
 
-      it('enrolled user', function() {
-        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
-        successServerResponses(this.server);
-        expect(view.$('#enroll span')).toHaveText('enrolled');
-      });
-
       it('enrolls user', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
-        successServerResponses(this.server);
-        expect(view.$('#enroll span')).toHaveText('enroll');
+        serverRespond(this.server, 200, {"id":2, "title":"Bear Cooking"});
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, fixtures['lessons']);
+        serverRespond(this.server, 200, fixtures['enrollments']);
         view.$('#enroll').click();
         serverRespond(this.server, 200, fixtures['enrollment']);
-        expect(view.$('#enroll span')).toHaveText('enrolled');
+        expect(view.$el).toContain('#enrolled');
       });
 
+      it('unenrolls user', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        successServerResponses(this.server);
+        view.$('#enrolled').click();
+        serverRespond(this.server, 200, []);
+        expect(view.$el).toContain('#enroll');
+      });
     });
   });
 
   // Helper function to send back successful respones for all 3 api calls
   // necessary to render a course overview
   function successServerResponses(server) {
-    serverRespond(server, 200, fixtures['enrollment']);
     serverRespond(server, 200, fixtures['course']);
     serverRespond(server, 200, fixtures['quizzes']);
     serverRespond(server, 200, fixtures['lessons']);
+    serverRespond(server, 200, fixtures['enrollments']);
   }
 
 });

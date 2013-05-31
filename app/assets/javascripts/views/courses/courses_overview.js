@@ -6,7 +6,6 @@
 Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
-  enrollButtonTemplate: JST['courses/enroll_button'],
   errorTemplate: JST['static/error'],
   events: {
     'click #enroll': 'enroll',
@@ -20,19 +19,18 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     this.quizzes.url = '/api/courses/' + this.course.get('id') + '/quizzes';
     this.lessons = new Eduki.Collections.Lessons(this.course.get('id'));
     this.lessons.url = '/api/courses/' + this.course.get('id') + '/lessons';
-    this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
 
     // Fetch course and all its lessons. Once retrieved, execute
     // render through the callback to display them.
     var self = this;
     $.when(this.course.fetch(),
            this.quizzes.fetch(),
-           this.enrollments.fetch(),
            this.lessons.fetch()).then(
              function() {self.render(self.template());
-                         self.setEnrolled();},
+                         self.getEnrollments();},
              function() {self.render(self.errorTemplate());}
            );
+
   },
 
   // Renders a course's lesson
@@ -41,13 +39,14 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     return this;
   },
 
-  // Enrolls a user in this course
-  enroll: function() {
-    if (!this.enrollment && currentUser.authenticated) {
-      this.enrollment = new Eduki.Models.Enrollment({user_id: currentUser.id,
-                                                     course_id: this.course.get('id')});
-      this.enrollment.save({}, {wait:true});
-      this.$('#enroll').attr('id', 'enrolled');
+  getEnrollments: function() {
+    var self = this;
+    if (currentUser.authenticated) {
+      this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
+      this.enrollments.fetch({
+        success: function() {self.setEnrolled();},
+        error: function() {self.render(self.errorTemplate());}
+      });
     }
   },
 
@@ -56,6 +55,16 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     // See if a user is enrolled in this particular course
     this.enrollment = this.enrollments.findWhere({course_id: parseInt(this.course.get('id'))});
     if (this.enrollment) {
+      this.$('#enroll').attr('id', 'enrolled');
+    }
+  },
+
+  // Enrolls a user in this course
+  enroll: function() {
+    if (!this.enrollment && currentUser.authenticated) {
+      this.enrollment = new Eduki.Models.Enrollment({user_id: currentUser.id,
+                                                     course_id: this.course.get('id')});
+      this.enrollment.save({}, {wait:true});
       this.$('#enroll').attr('id', 'enrolled');
     }
   },
