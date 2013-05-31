@@ -15,6 +15,11 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
     'click button' : 'create',
     'click textarea' : 'hideInvalid',
     'click input' : 'hideInvalid',
+    'keyup textarea' : 'updateRemaining',
+  },
+
+  updateRemaining: function() {
+    this.$('#remaining').html(500-this.$('#create-course-description').val().length);
   },
 
   initialize: function() {
