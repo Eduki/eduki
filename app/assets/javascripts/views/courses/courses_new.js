@@ -1,4 +1,4 @@
-/* 
+/*
  * Renders and controls course creation page
  *
  * author: Jolie
@@ -12,7 +12,9 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
   createdTemplate: JST['courses/created'],
 
   events: {
-    'click button' : 'create'
+    'click button' : 'create',
+    'click textarea' : 'hideInvalid',
+    'click input' : 'hideInvalid',
   },
 
   initialize: function() {
@@ -28,7 +30,8 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
   },
 
   create: function() {
-    this.course = new Eduki.Models.Course({ title: this.$('#create-course-name').val() });
+    this.course = new Eduki.Models.Course({title: this.$('#create-course-title').val(),
+                                           description:  this.$('#create-course-description').val()});
     if (this.course.isValid()) {
       var self = this;
       this.course.save({title: this.course.get('title')},
@@ -36,8 +39,18 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
                         success: function() { self.render(self.createdTemplate()); },
                         error: function() { self.render(self.errorTemplate()); }});
     } else {
-      this.$('input').after(this.invalidTemplate());
+      this.showInvalid(this.course.validationError[0], this.course.validationError[1]);
     }
+  },
 
-  }
+  // Hide validation error when input is clicked upon
+  hideInvalid: function() {
+    this.$('input').popover('hide');
+    this.$('textarea').popover('hide');
+  },
+
+  showInvalid: function(input, message) {
+    this.$('#' + input).attr('data-content', message);
+    this.$('#' + input).popover('show');
+  },
 });

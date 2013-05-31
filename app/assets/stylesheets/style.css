@@ -97,6 +97,12 @@ body {
   font-family: 'SourceSansPro' !important;
 }
 
+h1, h2, h3, h4, h5 {
+  word-wrap:break-word;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
 a:hover { text-decoration: none; }
 
 hr { margin: 10px 0 20px 0; }
@@ -107,15 +113,9 @@ h1, h2, h3, h4, h5 {
   font-family: 'SourceSansPro' !important;
 }
 
-input, label, select, textarea { font-size: 16pt !important; }
-
-h1, h2, h3, h4, h5 {
-  font-weight: normal;
-  text-transform: uppercase;
-}
-
+label, select { font-size: 16pt !important; }
+label { text-transform: lowercase; :}
 input { border-radius: 2px !important; }
-
 hr { border-color: #bbbdc0 !important; }
 
 p {
@@ -131,6 +131,11 @@ p strong em, p em strong { font-family: 'LiberationSerifBoldItalic'; }
 #main-content > div > .container { margin-top: 30px; }
 .popover { color: #a74738; }
 .form-actions { background: none !important; }
+
+small {
+  font-size: 10pt;
+  line-height: 5px;
+}
 
 ul {
   list-style: none;
@@ -517,6 +522,8 @@ form label {
 }
 
 #lesson-create, #quiz-create {
+  position: relative;
+  bottom: 5px;
   float: right;
   margin-right: 50px;
   width: 41px;
