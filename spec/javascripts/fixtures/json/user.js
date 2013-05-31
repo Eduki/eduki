@@ -1,3 +1,3 @@
 fixtures["user"] = {
-  email: "test user",
+  email: "derp@derpette.com",
 }

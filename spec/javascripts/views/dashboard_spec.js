@@ -5,11 +5,12 @@
  */
 
 describe('Dashboard', function() {
-  beforeEach(function() {
-    currentUser.id = 1;
-  });
-
   describe('Overview', function() {
+    beforeEach(function() {
+      currentUser.id = 1;
+      currentUser.authenticated = true;
+    });
+
     setupFakeServer();
 
     it('renders header', function() {
@@ -52,6 +53,17 @@ describe('Dashboard', function() {
       successServerResponses(this.server);
       var courseLinks = view.$el.find('.listing-block a');
       expect($(courseLinks[0]).attr('href')).toEqual('/#/courses/1');
+    });
+  });
+
+  describe("Not Logged in", function() {
+    it("redirects you to the front page immediately", function() {
+      currentUser.id = -1;
+      currentUser.authenticated = false;
+      spyOn(router, 'route');
+      view = new Eduki.Views.Dashboard();
+      view.render();
+      expect(router.route).toHaveBeenCalledWith("/");
     });
   });
 
