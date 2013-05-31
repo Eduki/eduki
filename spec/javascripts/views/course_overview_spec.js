@@ -6,7 +6,6 @@
 
 describe('Course', function() {
   beforeEach(function() {
-    currentUser.flush_credentials();
     currentUser.id = 1;
     currentUser.authenticated = true;
   });
