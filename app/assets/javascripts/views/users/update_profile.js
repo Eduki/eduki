@@ -10,7 +10,8 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
   errorTemplate: JST['static/error'],
 
   events: {
-    'click button' : 'update'
+    'click button' : 'update',
+    'click #email': 'hideInvalid',
   },
 
   initialize: function() {
@@ -37,15 +38,12 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     });
   },
 
-
-  // COMMMENT FOR CR.
-  // would it be better to put this in the template? or leave it here?
   // updates form fields
   updateFields: function() {
-    this.$('#first-name').val(this.user.attributes.first_name);
-    this.$('#last-name').val(this.user.attributes.last_name);
-    this.$('#email').val(this.user.attributes.email);
-    this.$('#background').val(this.user.attributes.background);
+    this.$('#first-name').val(this.user.get('first_name'));
+    this.$('#last-name').val(this.user.get('last_name'));
+    this.$('#email').val(this.user.get('email'));
+    this.$('#background').val(this.user.get('background'));
   },
 
   // Renders the template only if user is logged in
@@ -60,20 +58,39 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     }
   },
 
+  // Update user's information in the database
   update: function() {
+    console.log('click');
     this.user = new Eduki.Models.User({ id: currentUser.id,
                                         first_name: this.$('#first-name').val(),
                                         last_name: this.$('#last-name').val(),
                                         email: this.$('#email').val(),
                                         background: this.$('#background').val() });
-    
+
     // updates user info
     // routes to dashboard on success
     // renders error page on error
     var self = this;
-    this.user.save({id: this.user.get('id')},
-                     {wait: true,
-                      success: function() { router.route('/dashboard') },
-                      error: function() { self.render(self.errorTemplate()); }});
-  }
+    console.log('before call');
+    if (this.user.isValid()) {
+      this.user.save({id: this.user.get('id')},
+                       {wait: true,
+                        success: function() { router.route('/dashboard') },
+                        error: function() { self.render(self.errorTemplate()); }});
+    } else {
+      this.showInvalid(this.user.validationError[0],
+                       this.user.validationError[1]);
+    }
+  },
+
+  // Hide validation error when input is clicked upon
+  hideInvalid: function() {
+    this.$('input').popover('hide');
+  },
+
+  // Make the popoever appear with an error message
+  showInvalid: function(input, message) {
+    this.$('#' + input).attr('data-content', message);
+    this.$('#' + input).popover('show');
+  },
 });
