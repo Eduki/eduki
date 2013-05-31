@@ -40,7 +40,7 @@ describe('Lesson', function() {
       expect(view.$el.find('.lesson p')).toHaveText('Derp');
     });
 
-    it("redners other lessons header", function() {
+    it("renders other lessons header", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
       var h2s = view.$el.find('h2');
