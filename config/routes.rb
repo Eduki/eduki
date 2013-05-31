@@ -62,6 +62,8 @@ Eduki::Application.routes.draw do
   match 'api' => 'api/stub#index'
   namespace :api do
 
+    match "utility/preview" => 'utility#preview', :via => :post
+
     resources :users, :only => [:show, :index, :create, :update, :destroy] do
       resources :enrollments, :only => [:create, :index]
       resources :courses, :only => [:create]
