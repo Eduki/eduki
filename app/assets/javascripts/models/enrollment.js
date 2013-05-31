@@ -19,6 +19,6 @@ Eduki.Models.Enrollment = Backbone.Model.extend({
   sync: function(method, model, options) {
     if (method == 'delete')
       options.url = model.deleteUrl();
-    Backbone.sync(method, model, options);
+    return Backbone.sync.apply(this, arguments);
   },
 });
