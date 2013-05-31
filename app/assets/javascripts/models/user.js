@@ -14,7 +14,7 @@ Eduki.Models.User = Backbone.Model.extend({
     var pattern = /.+@{1}.+\..+/;
 		if (!pattern.test(attrs.email)) {
 			return new Array('email', 'Please provide a valid email address');
-		} else if (attrs.password == "") {
+		} else if (!attrs.password) {
 			return new Array('password', 'Please provide a password');
     }
 	}

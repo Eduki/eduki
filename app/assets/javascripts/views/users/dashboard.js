@@ -36,7 +36,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
       $(this.el).html(this.template());
       return this;
     } else {
-      router.route("/");
+      router.route('/');
       return false;
     }
   },
