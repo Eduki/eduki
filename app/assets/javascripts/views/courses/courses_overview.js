@@ -29,7 +29,6 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
            },
            function() {self.render(self.errorTemplate());}
            );
-
   },
 
   // Renders a course's lesson

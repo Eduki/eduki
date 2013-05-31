@@ -126,6 +126,7 @@ describe('Course', function() {
         serverRespond(this.server, 200, {"id":2, "title":"Bear Cooking"});
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
+        serverRespond(this.server, 200, fixtures['user_courses']);
         serverRespond(this.server, 200, fixtures['enrollments']);
         view.$('#enroll').click();
         serverRespond(this.server, 200, fixtures['enrollment']);
