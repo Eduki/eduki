@@ -64,10 +64,10 @@ class Api::ProblemsController < Api::ApiController
   end
 
   api :DELETE, '/problems/:id', "Delete a problem"
-  param :id, Fixnum, :required => true
+  param :id,    Fixnum, :required => true
   def destroy
     @problem.destroy
-    render :json => {:success => true}
+    render :json => success_object
   end
 
 private

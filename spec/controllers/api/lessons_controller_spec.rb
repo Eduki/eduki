@@ -8,37 +8,7 @@ describe Api::LessonsController do
 
   # Set up some lesson examples to be used by the tests
   before(:each) do
-    @course = Course.new
-    @course.title = "course example"
-    @course.save
-
-    @course_two = Course.new
-    @course_two.title = "course_two example"
-    @course_two.save
-
-    @course_three = Course.new
-    @course_three.title = "course_three example"
-    @course_three.save
-
-    @courses = [@course, @course_two]
-
-    @lesson = Lesson.new
-    @lesson.title = "lesson_one title"
-    @lesson.body = "lesson_one body"
-    @lesson.course = @course
-    @lesson.save
-
-    @lesson_two = Lesson.new
-    @lesson_two.title = "lesson_two title"
-    @lesson_two.body = "lesson_two body"
-    @lesson_two.course = @course
-    @lesson_two.save
-
-    @lesson_three = Lesson.new
-    @lesson_three.title = "lesson_three title"
-    @lesson_three.body = "lesson_three body"
-    @lesson_three.course = @course_two
-    @lesson_three.save
+    add_fixtures()
   end
 
   describe "GET #show" do
@@ -50,6 +20,9 @@ describe Api::LessonsController do
       body['id'].should        == @lesson.id
       body['title'].should     == @lesson.title
       body['body'].should      == @lesson.body
+      # Exact processed body might vary on markdown config. It is enough
+      # here to ensure that the value is set
+      body['body_markdown'].should_not be_nil
       body['course_id'].should == @lesson.course_id
     end
 
@@ -74,6 +47,8 @@ describe Api::LessonsController do
       body = JSON.parse(response.body)
       body[0]['title'].should == "lesson_one title"
       body[1]['title'].should == "lesson_two title"
+      # Body should not appear
+      body[0]['body'].should be_nil
       body.size.should == 2
     end
 
@@ -155,7 +130,20 @@ describe Api::LessonsController do
       put :update, :id => -1, :title => "course title change"
       check_failure(404)
     end
+  end
 
+  describe "DELETE #destroy" do
+    it "deletes 1 lesson" do
+      delete :destroy, :id => @lesson.id
+      assert_response :success
+      JSON.parse(response.body)['success'].should be_true
+      Lesson.find_by_id(@lesson.id).should be_nil
+    end
+
+    it "returns 404 if lesson not found" do
+      delete :destroy, :id => -1
+      check_failure(404)
+    end
   end
 end
 

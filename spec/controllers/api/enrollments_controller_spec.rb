@@ -6,18 +6,7 @@ require 'spec_helper'
 
 describe Api::EnrollmentsController do
   before(:each) do
-    @user = User.new
-    @user.email = "user email"
-    @user.save
-
-    @course = Course.new
-    @course.title = "course example"
-    @course.save
-
-    @enrollment = Enrollment.new
-    @enrollment.user = @user
-    @enrollment.course = @course
-    @enrollment.save
+    add_fixtures()
   end
 
   describe "GET #show" do
@@ -72,6 +61,20 @@ describe Api::EnrollmentsController do
 
     it "returns 404 if course_id missing" do
       post :create, :user_id => @user.id, :course_id => -1
+      check_failure(404)
+    end
+  end
+
+  describe "DELETE #destroy" do
+    it "deletes 1 enrollment" do
+      delete :destroy, :id => @enrollment.id
+      assert_response :success
+      JSON.parse(response.body)['success'].should be_true
+      Enrollment.find_by_id(@enrollment.id).should be_nil
+    end
+
+    it "returns 404 if enrollment not found" do
+      delete :destroy, :id => -1
       check_failure(404)
     end
   end

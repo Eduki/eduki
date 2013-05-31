@@ -13,6 +13,9 @@ describe Api::UsersController do
   before(:each) do
     @user = User.new
     @user.email = "fake"
+    @user.first_name = "first name"
+    @user.last_name  = "last name"
+    @user.background = "background"
     @user.save
 
     @user_2 = User.new
@@ -27,13 +30,15 @@ describe Api::UsersController do
   end
 
   describe "GET #show" do
-    
     it "returns 1 User with http success" do
       get :show, :id => @user.id
       assert_response :success
       body = JSON.parse(response.body)
-      @user.id.should == body['id']
+      @user.id.should    == body['id']
       @user.email.should == body['email']
+      @user.first_name.should == body['first_name']
+      @user.last_name.should  == body['last_name']
+      @user.background.should == body['background']
     end
 
     it "returns 404 if id not found" do
@@ -56,11 +61,22 @@ describe Api::UsersController do
   describe "POST #create" do
     it "creates 1 user" do
       size = User.count
-      post :create, :email => "valid"
+      post :create, :email => "valid",
+           :first_name => "new first name", :last_name => "new last name",
+           :background => "I like turtles"
       assert_response :success
       body = JSON.parse(response.body)
       body['id'].should == (size+1)
+      body['email'].should == "valid"
+      body['first_name'].should == "new first name"
+      body['last_name'].should  == "new last name"
+      body['background'].should == "I like turtles"
+
       User.count.should == (size+1)
+      User.last.email.should == "valid"
+      User.last.first_name.should == "new first name"
+      User.last.last_name.should == "new last name"
+      User.last.background.should == "I like turtles"
     end
 
     it "requires email" do
@@ -76,13 +92,21 @@ describe Api::UsersController do
 
   describe "PUT #update" do
     it "updates 1 user" do
-      put :update, :id => @user_2.id, :email => "supernotfake"
+      put :update, :id => @user_2.id, :email => "supernotfake",
+           :first_name => "new first name", :last_name => "new last name",
+           :background => "I like turtles"
       assert_response :success
       body = JSON.parse(response.body)
       @user_2.id.should == body['id']
       body['email'].should == "supernotfake"
+      body['first_name'].should == "new first name"
+      body['last_name'].should  == "new last name"
+      body['background'].should == "I like turtles"
 
       User.find(@user_2.id).email.should == "supernotfake"
+      User.find(@user_2.id).first_name.should == "new first name"
+      User.find(@user_2.id).last_name.should == "new last name"
+      User.find(@user_2.id).background.should == "I like turtles"
     end
 
     it "returns 404 if id not found" do
@@ -103,6 +127,20 @@ describe Api::UsersController do
     it "will not violate uniqueness" do
       put :update, :id => @user.id, :email => "wow"
       check_failure(409)
+    end
+  end
+
+  describe "DELETE #destroy" do
+    it "deletes 1 user" do
+      delete :destroy, :id => @user.id
+      assert_response :success
+      JSON.parse(response.body)['success'].should be_true
+      User.find_by_id(@user.id).should be_nil
+    end
+
+    it "returns 404 if user not found" do
+      delete :destroy, :id => -1
+      check_failure(404)
     end
   end
 end

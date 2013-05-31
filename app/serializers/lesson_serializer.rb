@@ -3,4 +3,5 @@ class LessonSerializer < ActiveModel::Serializer
   attributes :title
   attributes :course_id
   attributes :body
+  attributes :body_markdown
 end
