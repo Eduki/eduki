@@ -15,7 +15,6 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
   },
 
   showActions: function(e) {
-    console.log($(e.target).html());
     $(e.target).parent().siblings().css('display', 'block');
   },
 
@@ -64,6 +63,7 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     this.courses.fetch({
       success: function() {
         self.ownership = self.courses.findWhere({user_id: parseInt(self.course.get('id'))});
+        self.render(self.template());
       },
       error: function() {self.render(self.errorTemplate());}
     });
