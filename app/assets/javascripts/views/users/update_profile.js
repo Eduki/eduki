@@ -10,7 +10,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
   errorTemplate: JST['static/error'],
 
   events: {
-    'submit form' : 'update'
+    'click button' : 'update'
   },
 
   initialize: function() {
@@ -60,8 +60,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     }
   },
 
-  update: function(e) {
-    e.preventDefault();
+  update: function() {
     this.user = new Eduki.Models.User({ id: currentUser.id,
                                         first_name: this.$('#first-name').val(),
                                         last_name: this.$('#last-name').val(),
