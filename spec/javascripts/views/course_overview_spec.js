@@ -142,6 +142,41 @@ describe('Course', function() {
         expect(view.$el).toContain('#enroll');
       });
     });
+
+    describe('Ownership', function() {
+      it('shows course action icons for a course owner', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        successServerResponses(this.server);
+        expect(view.$el).toContain('#course-ownership-delete');
+        expect(view.$el).toContain('#course-ownership-edit');
+      });
+
+      it('shows lesson action icons for a course owner', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        successServerResponses(this.server);
+        expect(view.$el).toContain('.listing-lesson .ownership-delete');
+        expect(view.$el).toContain('.listing-lesson .ownership-edit');
+      });
+
+      it('shows quiz action icons for a course owner', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        successServerResponses(this.server);
+        expect(view.$el).toContain('.listing-quiz .ownership-delete');
+        expect(view.$el).toContain('.listing-quiz .ownership-edit');
+      });
+
+      it('does not show action buttons for non-owner', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        console.log(view.course.get('id'));
+        serverRespond(this.server, 200, {"id":2, "title":"Bear Tendons"})
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, fixtures['lessons']);
+        serverRespond(this.server, 200, fixtures['user_courses']);
+        serverRespond(this.server, 200, fixtures['enrollments']);
+        expect(view.$el).not.toContain('#course-ownership-actions');
+        expect(view.$el).not.toContain('.ownership-actions');
+      });
+    });
   });
 
   // Helper function to send back successful respones for all 3 api calls
