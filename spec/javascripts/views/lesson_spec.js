@@ -33,14 +33,14 @@ describe('Lesson', function() {
       expect(h2s[0]).toHaveText('Chopping Liver');
     });
 
-    it("renders other lessons header", function() {
+    it("renders lesson body", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
       var h2s = view.$el.find('.lesson p');
       expect(view.$el.find('.lesson p')).toHaveText('Derp');
     });
 
-    it("renders lesson body", function() {
+    it("redners other lessons header", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
       var h2s = view.$el.find('h2');
