@@ -35,6 +35,7 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
 
   create: function() {
     this.course = new Eduki.Models.Course({title: this.$('#create-course-title').val(),
+                                           user_id: currentUser.id,
                                            description:  this.$('#create-course-description').val()});
     if (this.course.isValid()) {
       var self = this;

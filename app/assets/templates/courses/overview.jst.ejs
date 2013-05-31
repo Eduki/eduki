@@ -1,5 +1,8 @@
 <div class="container">
   <h1><%- this.course.get('title') %></h1>
+  <% if (this.course.get('description') != null) { %>
+    <p id="course-description"><%- this.course.get('description') %></p>
+  <% } %>
   <hr />
   <div class="row">
     <div id="course-lessons" class="span6">

@@ -116,6 +116,7 @@ h1, h2, h3, h4, h5 {
 label, select { font-size: 16pt !important; }
 label { text-transform: lowercase; :}
 input { border-radius: 2px !important; }
+
 hr { border-color: #bbbdc0 !important; }
 
 p {
@@ -128,6 +129,7 @@ p {
 p strong { font-family: 'LiberationSerifBold'; }
 p em { font-family: 'LiberationSerifItalic'; }
 p strong em, p em strong { font-family: 'LiberationSerifBoldItalic'; }
+
 #main-content > div > .container { margin-top: 30px; }
 .popover { color: #a74738; }
 .form-actions { background: none !important; }
