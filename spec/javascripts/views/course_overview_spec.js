@@ -107,7 +107,6 @@ describe('Course', function() {
       });
 
       it('doesn\'t render button for user not logged in', function() {
-        console.log(currentUser.id);
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
         serverRespond(this.server, 200, fixtures['course']);
         serverRespond(this.server, 200, fixtures['quizzes']);
