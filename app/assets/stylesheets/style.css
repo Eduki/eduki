@@ -555,6 +555,32 @@ form label {
 #lesson-create:hover { background-image: url('icons/lesson_create_hover.png'); }
 #quiz-create:hover { background-image: url('icons/quiz_create_hover.png'); }
 
+.listing-line, .ownership-actions {
+  float: left;
+}
+
+.ownership-actions {
+  display: none;
+  margin-left: 10px;
+}
+
+.ownership-edit, .owernship-delete {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.ownership-edit {
+  width: 17px;
+  padding-top: 16px;
+  background-image: url('icons/edit_pink.png');
+}
+
+.ownership-delete {
+  width: 18px;
+  padding-top: 19px;
+  background-image: url('icons/delete_pink.png');
+}
+
 #enroll, #enrolled {
   float: left;
   margin-right: 10px;
