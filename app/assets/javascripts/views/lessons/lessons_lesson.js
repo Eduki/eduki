@@ -13,8 +13,7 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.lesson = new Eduki.Models.Lesson({ course_id: this.attributes.course_id,
                                             id: this.attributes.lesson_id });
-    this.lessons = new Eduki.Collections.Lessons(this.lesson.get('course_id'));
-    this.lessons.url = '/api/courses/' + this.lesson.get('course_id') + '/lessons';
+    this.lessons = new Eduki.Collections.Lessons({course_id: this.lesson.get('course_id')});
 
     // Fetch course and lessons. Once retrieved, execute
     // render through the callback to display them.

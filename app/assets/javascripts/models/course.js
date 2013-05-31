@@ -5,7 +5,7 @@ Eduki.Models.Course = Backbone.Model.extend({
   sync: function(method, model, options) {
     if (method == 'create')
       options.url = model.createUrl();
-    Backbone.sync(method, model, options);
+    return Backbone.sync.apply(this, arguments);
   },
 
 	validate : function (attrs, options) {

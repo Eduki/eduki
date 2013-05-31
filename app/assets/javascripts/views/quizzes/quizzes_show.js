@@ -16,8 +16,7 @@
     // Initialize models
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.quiz = new Eduki.Models.Quiz({id: this.attributes.quiz_id});
-    this.quizzes = new Eduki.Collections.Quizzes();
-    this.quizzes.url = '/api/courses/' + this.course.get('id') + '/quizzes';
+    this.quizzes = new Eduki.Collections.Quizzes({course_id: this.course.get('id')});
 
     // Fetch course and lessons. Once retrieved, execute
     // render through the callback to display them.
