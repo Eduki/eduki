@@ -6,6 +6,7 @@
 Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
+  courseActionTemplate: JST['courses/course_action'],
   errorTemplate: JST['static/error'],
   events: {
     'click #enroll': 'enroll',
@@ -52,8 +53,11 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     this.courses = new Eduki.Collections.Courses({user_id: currentUser.id});
     this.courses.fetch({
       success: function() {
-        self.ownership = self.courses.findWhere({user_id: parseInt(self.course.get('id'))});
-        self.render(self.template());
+        self.ownership = self.courses.findWhere({id: parseInt(self.course.get('id'))});
+        if (self.ownership) {
+          self.render(self.template());
+          self.$('#course hr').before(self.courseActionTemplate());
+        }
       },
       error: function() {self.render(self.errorTemplate());}
     });

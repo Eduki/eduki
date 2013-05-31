@@ -475,8 +475,12 @@ form label {
 /* COURSES */
 
 #course h1 {
-  width: 95%;
+  width: 85%;
   float:left;
+}
+
+#course p {
+  clear: both;
 }
 
 .listing-square {
@@ -565,7 +569,29 @@ form label {
 #lesson-create:hover { background-image: url('icons/lesson_create_hover.png'); }
 #quiz-create:hover { background-image: url('icons/quiz_create_hover.png'); }
 
-.ownership-actions {
+#course-ownership-actions {
+  margin-top: 10px;
+
+}
+
+#course-ownership-edit, #course-ownership-delete {
+  float: right;
+  margin-left: 10px;
+}
+
+#course-ownership-edit {
+  width: 31px;
+  padding-top: 31px;
+  background-image: url('icons/edit_big.png');
+}
+
+#course-ownership-delete {
+  width: 30px;
+  padding-top: 31px;
+  background-image: url('icons/delete_big.png');
+}
+
+.ownership-actions, .ownership-actions {
   margin-left: 10px;
   float: left;
 }

@@ -1,15 +1,15 @@
 <div id="course" class="container">
   <div class="row">
-    <div class="span12">
-    <% if (currentUser.authenticated) { %>
-      <button class="eduki-button-icon" id="enroll"></button>
-    <% } %>
-    <h1><%- this.course.get('title') %></h1>
-    <% if (this.course.get('description') != null) { %>
-      <p id="course-description"><%- this.course.get('description') %></p>
-    <% } %>
-    <hr />
+    <div class="span10">
+      <% if (currentUser.authenticated) { %>
+        <button class="eduki-button-icon" id="enroll"></button>
+      <% } %>
+      <h1><%- this.course.get('title') %></h1>
+      <% if (this.course.get('description') != null) { %>
+        <p id="course-description"><%- this.course.get('description') %></p>
+      <% } %>
     </div>
+    <hr />
   </div>
   <div class="row">
     <div id="course-lessons" class="span6">

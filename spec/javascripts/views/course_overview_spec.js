@@ -49,21 +49,21 @@ describe('Course', function() {
       it('renders all lessons for that course', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         successServerResponses(this.server);
-        var lessons = view.$el.find('#course-lessons li a');
+        var lessons = view.$el.find('.listing-lesson > a');
         expect(lessons.length).toBe(3);
       });
 
       it('renders lessons title', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         successServerResponses(this.server);
-        var lessons = view.$el.find('#course-lessons li a');
+        var lessons = view.$el.find('.listing-lesson > a');
         expect(lessons[1]).toHaveText('Chopping Tongue');
       });
 
       it('renders lessons link', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         successServerResponses(this.server);
-        var lessons = view.$el.find('#course-lessons li a');
+        var lessons = view.$el.find('.listing-lesson > a');
         expect($(lessons[1]).attr('href')).toEqual('/#/courses/1/lessons/2');
       });
     });
@@ -79,21 +79,21 @@ describe('Course', function() {
       it('renders all quizzes for that course', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         successServerResponses(this.server);
-        var quizzes = view.$el.find('#course-quizzes li a');
+        var quizzes = view.$el.find('.listing-quiz > a');
         expect(quizzes.length).toBe(3);
       });
 
       it('renders quiz title', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         successServerResponses(this.server);
-        var quizzes = view.$el.find('#course-quizzes li a');
+        var quizzes = view.$el.find('.listing-quiz > a');
         expect(quizzes[1]).toHaveText('Quiz 2');
       });
 
       it('renders quiz link', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         successServerResponses(this.server);
-        var quizzes = view.$el.find('#course-quizzes li a');
+        var quizzes = view.$el.find('.listing-quiz > a');
         expect($(quizzes[1]).attr('href')).toEqual('/#/courses/1/quizzes/2');
       });
     });
