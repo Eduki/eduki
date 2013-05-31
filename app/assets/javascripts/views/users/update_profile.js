@@ -8,7 +8,6 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
 
   template: JST['users/update'],
   errorTemplate: JST['static/error'],
-  successTemplate: JST['users/update_success'],
 
   events: {
     'submit form' : 'update'
@@ -56,7 +55,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
       $(this.el).html(template);
       return this;
     } else {
-      router.route("/login");
+      router.route('/login');
       return false;
     }
   },
@@ -69,10 +68,13 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
                                         email: this.$('#email').val(),
                                         background: this.$('#background').val() });
     
+    // updates user info
+    // routes to dashboard on success
+    // renders error page on error
     var self = this;
     this.user.save({id: this.user.get('id')},
                      {wait: true,
-                      success: function() { self.render(self.successTemplate()); },
+                      success: function() { router.route('/dashboard') },
                       error: function() { self.render(self.errorTemplate()); }});
   }
 });
