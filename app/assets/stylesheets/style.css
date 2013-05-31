@@ -571,7 +571,6 @@ form label {
 
 #course-ownership-actions {
   margin-top: 10px;
-
 }
 
 #course-ownership-edit, #course-ownership-delete {
@@ -631,7 +630,6 @@ form label {
 #enroll:hover {
   background-image: url('icons/enroll_hover.png');
 }
-
 
 /* DASHBOARD */
 #enrolled-courses > .row { margin-bottom: 15px; }

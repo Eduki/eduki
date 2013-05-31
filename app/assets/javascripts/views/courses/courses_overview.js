@@ -16,30 +16,20 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
   initialize: function() {
     var self = this;
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
-    this.course.fetch({
-      success: function() {self.renderOverview();},
-      error: function() {self.render(self.errorTemplate());}
-    });
-
-  },
-
-  // Render all the other course information such as quizzes and lessons
-  renderOverview: function() {
     this.quizzes = new Eduki.Collections.Quizzes({course_id: this.course.get('id')});
     this.lessons = new Eduki.Collections.Lessons({course_id: this.course.get('id')});
-
-    // Fetches quizzes and lessons then renders
-    var self = this;
-    $.when(this.quizzes.fetch(),
+    $.when(this.course.fetch(),
+           this.quizzes.fetch(),
            this.lessons.fetch()).then(
-             function() {self.render(self.template());
-                         if (currentUser.authenticated) {
-                           self.getOwnership();
-                           self.getEnrollment();
-                         }
-                        },
-             function() {self.render(self.errorTemplate());}
+           function() {
+             self.render(self.template());
+             if (currentUser.authenticated) {
+               self.getUserInfo();
+             }
+           },
+           function() {self.render(self.errorTemplate());}
            );
+
   },
 
   // Renders a course's lesson
@@ -48,28 +38,27 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     return this;
   },
 
-  getOwnership: function() {
+  getUserInfo: function() {
     var self = this;
     this.courses = new Eduki.Collections.Courses({user_id: currentUser.id});
-    this.courses.fetch({
-      success: function() {
-        self.ownership = self.courses.findWhere({id: parseInt(self.course.get('id'))});
-        if (self.ownership) {
-          self.render(self.template());
-          self.$('#course hr').before(self.courseActionTemplate());
-        }
-      },
-      error: function() {self.render(self.errorTemplate());}
-    });
+    this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
+    $.when(this.courses.fetch(),
+           this.enrollments.fetch()).then(
+           function() {
+             self.render(self.template());
+             self.setOwnership();
+             self.setEnrolled();
+           },
+           function() {self.render(self.errorTemplate());}
+           );
   },
 
-  getEnrollment: function() {
-    var self = this;
-    this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
-    this.enrollments.fetch({
-      success: function() {self.setEnrolled();},
-      error: function() {self.render(self.errorTemplate());}
-    });
+  setOwnership: function() {
+    this.ownership = this.courses.findWhere({id: parseInt(this.course.get('id'))});
+    if (this.ownership) {
+      this.render(this.template());
+      this.$('#course hr').before(this.courseActionTemplate());
+    }
   },
 
   // Indicates user is enrolled
