@@ -491,6 +491,7 @@ form label {
 
 .listing-square a {
   padding: 10px 0 10px 0;
+  border-radius: 2px;
   height: 120px;
   margin-bottom: 20px;
 }
@@ -532,6 +533,14 @@ form label {
   width: 410px;
 }
 
+#course-lessons .listing-line span,
+#course-quizzes .listing-line span {
+  position: relative;
+  top: 1px;
+  height: 13pt;
+  overflow: hidden;
+}
+
 #lesson-create, #quiz-create {
   position: relative;
   bottom: 5px;
@@ -543,6 +552,8 @@ form label {
 
 #lesson-create { background-image: url('icons/lesson_create.png'); }
 #quiz-create{ background-image: url('icons/quiz_create.png'); }
+#lesson-create:hover { background-image: url('icons/lesson_create_hover.png'); }
+#quiz-create:hover { background-image: url('icons/quiz_create_hover.png'); }
 
 #enroll, #enrolled {
   float: left;
