@@ -15,7 +15,6 @@ describe('Course', function() {
     it('renders error page', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
       serverRespond(this.server, 404, fixtures['course']);
-      console.log(view.$el.html());
       expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
     });
 
@@ -167,7 +166,6 @@ describe('Course', function() {
 
       it('does not show action buttons for non-owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
-        console.log(view.course.get('id'));
         serverRespond(this.server, 200, {"id":2, "title":"Bear Tendons"})
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
