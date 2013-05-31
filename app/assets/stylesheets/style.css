@@ -566,7 +566,6 @@ form label {
 #quiz-create:hover { background-image: url('icons/quiz_create_hover.png'); }
 
 .ownership-actions {
-  display:none;
   margin-left: 10px;
   float: left;
 }
@@ -578,17 +577,14 @@ form label {
 .ownership-edit {
   width: 17px;
   padding-top: 16px;
+  background-image: url('icons/edit_small.png');
 }
 
 .ownership-delete {
   width: 18px;
   padding-top: 19px;
+  background-image: url('icons/delete_small.png');
 }
-
-#course-lessons .ownership-edit { background-image: url('icons/edit_pink.png'); }
-#course-lessons .ownership-delete { background-image: url('icons/delete_pink.png'); }
-#course-quizzes .ownership-edit { background-image: url('icons/edit_tan.png'); }
-#course-quizzes .ownership-delete { background-image: url('icons/delete_tan.png'); }
 
 #enroll, #enrolled {
   float: left;

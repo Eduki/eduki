@@ -8,18 +8,8 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
   template: JST['courses/overview'],
   errorTemplate: JST['static/error'],
   events: {
-    'mouseenter .listing-line > a': 'showActions',
-    'mouseleave .listing-line': 'hideActions',
     'click #enroll': 'enroll',
     'click #enrolled': 'unenroll'
-  },
-
-  showActions: function(e) {
-    $(e.target).siblings().css('display', 'block');
-  },
-
-  hideActions: function(e) {
-    $('.ownership-actions').css('display', 'none');
   },
 
   initialize: function() {
