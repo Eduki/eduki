@@ -18,12 +18,40 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
     // Fetch course and lessons. Once retrieved, execute
     // render through the callback to display them.
     var self = this;
-    $.when(this.course.fetch(),
-           this.lessons.fetch()).then(
-             function() { self.lesson = self.lessons.get(self.lesson.get('id'));
-                          self.render(self.template()); },
-             function() { self.render(self.errorTemplate()); }
-           );
+    this.course.fetch({
+      success: function() {
+        self.renderLesson();
+      },
+      error: function(model, xhr, options) {
+        self.render(self.errorTemplate());
+      }
+    });
+  },
+
+  // renders lesson body, upon success, renders the lesson list
+  renderLesson: function() {
+    var self = this;
+    this.lesson.fetch({
+      success: function() {
+        self.renderLessonsList();
+      },
+      error: function(model, xhr, options) {
+        self.render(self.errorTemplate)
+      }
+    });
+  },
+
+  // renders the lesson list in the sidebar
+  renderLessonsList: function() {
+    var self = this;
+    this.lessons.fetch({
+      success: function() {
+        self.render(self.template());
+      },
+      error: function(model, xhr, options) {
+        self.render(self.errorTemplate)
+      }
+    });
   },
 
   // Renders an individual lesson
