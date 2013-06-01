@@ -21,13 +21,15 @@ describe("Profile Update", function () {
 			expect(view.$el).toContain('#last-name');
 			expect(view.$el).toContain('#email');
 			expect(view.$el).toContain('#background');
+			expect(view.$el).toContain('#submit-update');
 		});
 
 		it("loads user info that is present", function() {
 			serverRespond(this.server, 200, fixtures["user"]);
-			expect(view.$el.find('#email').val()).toContain('derp@derpette.com');
-			expect(view.$el.find('#first-name').val()).toContain('derp');
-			expect(view.$el.find('#last-name').val()).toContain('derpette');
+			expect(view.$el.find('#email').val()).toEqual('derp@derpette.com');
+			expect(view.$el.find('#first-name').val()).toEqual('derp');
+			expect(view.$el.find('#last-name').val()).toEqual('derpette');
+			expect(view.$el.find('#background').val()).toEqual('I like corgis.');
 		});
 
 		it("displays error page", function() {

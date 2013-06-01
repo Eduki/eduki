@@ -72,9 +72,9 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     var self = this;
     if (this.user.isValid()) {
       this.user.save({id: this.user.get('id')},
-                       {wait: true,
-                        success: function() { router.route('/dashboard') },
-                        error: function() { self.render(self.errorTemplate()); }});
+                     {wait: true,
+                      success: function() { router.route('/dashboard') },
+                      error: function() { self.render(self.errorTemplate()); }});
     } else {
       this.showInvalid(this.user.validationError[0],
                        this.user.validationError[1]);
