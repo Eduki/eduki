@@ -14,63 +14,54 @@ describe('Lesson', function() {
       expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
     });
 
-    it("renders course title", function() {
+    it("renders course home link", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      expect(view.$el.find('h1').html()).toMatch('Bear Cooking');
+      expect(view.$el).toContain('#course-home');
     });
 
     it("renders course link", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      expect(view.$el.find('h1 a').attr('href')).toEqual('/#/courses/1');
+      expect(view.$el.find('#course-home a').attr('href')).toEqual('/#/courses/1');
     });
 
     it("renders lesson title", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      var h2s = view.$el.find('h2');
-      expect(h2s[0]).toHaveText('Chopping Liver');
+      expect(view.$el.find('h1')).toHaveText('Chopping Liver');
     });
 
     it("renders lesson body", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      var h2s = view.$el.find('.lesson p');
-      expect(view.$el.find('.lesson p')).toHaveText('Derp');
-    });
-
-    it("renders other lessons header", function() {
-      var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
-      successServerResponses(this.server);
-      var h2s = view.$el.find('h2');
-      expect(h2s[1]).toHaveText('Lessons');
+      expect(view.$el.find('#lesson p')).toHaveText('Derp');
     });
 
     it("renders lessons list", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      expect(view.$el.find('#course-lessons')).toContain('li');
+      expect(view.$el.find('#lessons')).toContain('.listing-line');
     });
 
     it("renders all lessons for that course", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      var lessons = view.$el.find('#course-lessons li a');
+      var lessons = view.$el.find('#lessons .listing-lesson');
       expect(lessons.length).toBe(3);
     });
 
     it("renders lessons title", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      var lessons = view.$el.find('#course-lessons li a');
+      var lessons = view.$el.find('#lessons .listing-lesson > a');
       expect(lessons[1]).toHaveText('Chopping Tongue');
     });
 
     it("renders lessons link", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      var lessons = view.$el.find('#course-lessons li a');
+      var lessons = view.$el.find('#lessons .listing-lesson > a');
       expect($(lessons[1]).attr('href')).toEqual('/#/courses/1/lessons/2');
     });
   });
