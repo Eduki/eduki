@@ -40,7 +40,8 @@ describe("Profile Update", function () {
 		it("displays popover with invalid email", function() {
 			serverRespond(this.server, 200, fixtures["user"]);
 			view.$('#email').val('askhj');
-			
+			view.$('#submit-update').click();
+			expect(view.$('.popover')).toHaveText('Please provide a valid email address');
 		});
 	});
 
