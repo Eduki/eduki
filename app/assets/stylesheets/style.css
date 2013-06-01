@@ -413,8 +413,13 @@ form label {
   font-size: 18pt;
 }
 
+#create-quiz-form input[type="text"],
+#create-quiz-form textarea {
+  width: 380px;
+}
+
 #create-quiz-problems {
-  margin-top: 35px;
+  margin-top: 25px;
 }
 
 .create-quiz-problem {
@@ -426,8 +431,16 @@ form label {
   margin-bottom: 0;
 }
 
+.create-quiz-answer {
+  margin-top: 10px;
+}
+
+.create-quiz-answer .controls {
+  margin-top: 3px;
+}
+
 .create-quiz-answer span {
-  margin-left: 10px;
+  margin-left: 7px;
   margin-right: 20px;
   position: relative;
   top: 3px;

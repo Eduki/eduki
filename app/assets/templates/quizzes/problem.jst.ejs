@@ -1,13 +1,13 @@
 <fieldset class="create-quiz-problem">
   <div class="control-group">
-    <label class="control-label">Problem:</label>
+    <label class="control-label">Problem</label>
     <div class="controls">
-      <input class="input-xlarge create-quiz-question" id="problem-<%- this.count %>" type="text" placeholder="Enter a quiz problem" required />
+      <textarea class="create-quiz-question" id="problem-<%- this.count %>" type="text" placeholder="Enter a quiz problem" data-placement="left" data-trigger="manual" data-toggle="popover" />
       <button type="button" class="create-quiz-delete eduki-button-icon eduki-button-icon-small"></button>
     </div>
   </div>
   <div class="control-group create-quiz-answer">
-    <label class="control-label">Correct Answer:</label>
+    <label class="control-label">Answer</label>
     <div class="controls">
       <input type="radio" name="problem-<%- this.count %>" value = "A" /> <span>A</span>
       <input type="radio" name="problem-<%- this.count %>" value = "B" /> <span>B</span>

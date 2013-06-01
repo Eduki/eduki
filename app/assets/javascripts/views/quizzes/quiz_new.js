@@ -36,7 +36,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
     this.$('#create-quiz-problems').append(this.problemTemplate());
   },
 
-  deleteProblem: function() {
+  deleteProblem: function(e) {
     if ($('.create-quiz-problem').length != 1) {
       $(e.target).closest('.create-quiz-problem').remove();
     } else if ($('.alert').length <= 0) {
