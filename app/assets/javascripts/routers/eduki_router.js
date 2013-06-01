@@ -20,13 +20,19 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
   },
 
   // Redirects the user to another route.
-  route: function(url) {
-    Backbone.history.navigate(url, true)
+  // Params is a javascript object that will be encoded into
+  // a querystring for the other route
+  route: function(url, params) {
+    params = this.encodeParamsAsQueryString(params);
+    Backbone.history.navigate(url + params, true);
   },
 
   // Redirects the user to another route, refreshing the application
-  redirect: function(url) {
-    window.location.replace(url);
+  // Params is a javascript object that will be encoded into
+  // a querystring for the other route
+  redirect: function(url, params) {
+    params = this.encodeParamsAsQueryString(params);
+    window.location.replace(url + params);
   },
 
   // This rendering happens on every page, displaying page features that
@@ -34,5 +40,10 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
   renderMasterView: function() {
     this.masterView = new Eduki.Views.Master();
     $('body').html(this.masterView.render().el);
+  },
+
+  // Params is a javascript object that will be encoded into a querystring
+  encodeParamsAsQueryString: function(params) {
+    return (params === undefined ? "" : "?" + jQuery.param(params));
   }
 });
