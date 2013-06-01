@@ -1,14 +1,32 @@
 <div class="container">
-  <div id="create-course-form" class="row">
-    <fieldset>
-      <form class="offset2 span8">
-        <h1>Create a Course</h1>
-        <hr />
-        <label>Name</label>
-        <input class="span4" type="text" id="create-course-name" placeholder="Enter a course name" required />
-        <br />
-        <button type="button" class="eduki-button-primary"><span>Create Course</span></button>
-      </form>
-    </fieldset>
+  <div class="row">
+    <div class="offset2 span8">
+      <h1>Create Course</h1>
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <form class="form-horizontal offset2 span8" id="create-course-form">
+      <div class="control-group">
+        <label class="control-label">Title:</label>
+          <div class="controls">
+            <input data-placement="right" data-trigger="manual" data-toggle="popover" class="span5" type="text" id="create-course-title" placeholder="Enter a course title" required />
+          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Short Description:<br />
+          <small>characters remaining: <span id="remaining">500</span></small>
+        </label>
+          <div class="controls">
+            <textarea data-placement="right" data-trigger="manual" data-toggle="popover" class="span5" type="text" id="create-course-description" maxlength="500" placeholder="Enter a short description" required></textarea>
+          </div>
+      </div>
+      <div class="control-group">
+        <div class="controls span5">
+          <button type="button" class="eduki-button-primary pull-right" id="publish"><span>Publish</span></button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
+

@@ -6,36 +6,27 @@
 Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
-  enrollButtonTemplate: JST['courses/enroll_button'],
   errorTemplate: JST['static/error'],
   events: {
-    'click #enroll': 'enroll'
+    'click #enroll': 'enroll',
+    'click #enrolled': 'unenroll'
   },
 
   initialize: function() {
-    // Only check for enrollments if a user is logged in
-    if (currentUser.id > -1)
-      this.setEnrolled();
-    this.course = new Eduki.Models.Course({id: this.attributes.course_id});
-    this.quizzes = new Eduki.Collections.Quizzes();
-    this.quizzes.url = '/api/courses/' + this.course.get('id') + '/quizzes';
-    this.lessons = new Eduki.Collections.Lessons(this.course.get('id'));
-    this.lessons.url = '/api/courses/' + this.course.get('id') + '/lessons';
-
-    // Fetch course and all its lessons. Once retrieved, execute
-    // render through the callback to display them.
     var self = this;
+    this.course = new Eduki.Models.Course({id: this.attributes.course_id});
+    this.quizzes = new Eduki.Collections.Quizzes({course_id: this.course.get('id')});
+    this.lessons = new Eduki.Collections.Lessons({course_id: this.course.get('id')});
     $.when(this.course.fetch(),
            this.quizzes.fetch(),
            this.lessons.fetch()).then(
-             function() {
-                          self.render(self.template());
-                          // Render button for logged in user
-                          if (currentUser.id > -1)
-                            self.$('h1').append(self.enrollButtonTemplate());
-
-                        },
-             function() { self.render(self.errorTemplate()); }
+           function() {
+             self.render(self.template());
+             if (currentUser.authenticated) {
+               self.getUserInfo();
+             }
+           },
+           function() {self.render(self.errorTemplate());}
            );
   },
 
@@ -45,24 +36,56 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     return this;
   },
 
-  // Enrolls a user in this course
-  enroll: function() {
-    if (!this.enrolled) {
-      this.enrollment = new Eduki.Models.Enrollment({user_id: currentUser.id, course_id: this.course.get('id')});
-      this.enrollment.save({}, {wait:true});
-      this.$('#enroll span').html('enrolled');
-      this.$('#enroll').addClass('clicked-button')
+  getUserInfo: function() {
+    var self = this;
+    this.courses = new Eduki.Collections.Courses({user_id: currentUser.id});
+    this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
+    $.when(this.courses.fetch(),
+           this.enrollments.fetch()).then(
+           function() {
+             self.render(self.template());
+             self.setOwnership();
+             self.setEnrolled();
+           },
+           function() {self.render(self.errorTemplate());}
+           );
+  },
+
+  setOwnership: function() {
+    this.ownership = this.courses.findWhere({id: parseInt(this.course.get('id'))});
+    if (this.ownership) {
+      this.render(this.template());
     }
   },
 
-  // Grabs the enrollments of a user and sets this.enrollment
-  // if a user has an enrollment in this course
+  // Indicates user is enrolled
   setEnrolled: function() {
-    this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
+    // See if a user is enrolled in this particular course
+    this.enrollment = this.enrollments.findWhere({course_id: parseInt(this.course.get('id'))});
+    if (this.enrollment) {
+      this.$('#enroll').attr('id', 'enrolled');
+    }
+  },
+
+  // Enrolls a user in this course
+  enroll: function() {
+    if (!this.enrollment && currentUser.authenticated) {
+      this.enrollment = new Eduki.Models.Enrollment({user_id: currentUser.id,
+                                                     course_id: this.course.get('id')});
+      this.enrollment.save({}, {wait:true});
+      this.$('#enroll').attr('id', 'enrolled');
+    }
+  },
+
+  // Unenrolls a user
+  unenroll: function() {
     var self = this;
-    $.when(this.enrollments.fetch()).then(
-      function() { self.enrolled = self.enrollments.findWhere({course_id: parseInt(self.course.get('id'))}); },
-      function() { self.render(self.errorTemplate()); }
-    );
+    this.enrollment.destroy({
+      success: function() {
+        self.$('#enrolled').attr('id', 'enroll');
+        self.enrollment = undefined;
+      },
+      error: function() {self.render(self.errorTemplate());}
+    });
   },
 });

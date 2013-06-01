@@ -1,20 +1,17 @@
 <div class="container">
   <h1>Courses</h1>
   <hr />
-  <div class="row">
-    <ul class="span4">
-      <% for(var i = 0; i < Math.floor(this.courses.size() / 2); i++) { %>
-        <li>
-          <a href="/#/courses/<%- this.courses.models[i].get('id') %>/"><%- this.courses.models[i].get('title') %></a>
-        </li>
+  <div id="courses">
+    <div class="row">
+    <% for (var i = 0; i < this.courses.size(); i++) { %>
+        <div class="listing-square listing-course">
+          <a class="span2" href="/#/courses/<%- this.courses.models[i].get('id') %>"><span><%- this.courses.models[i].get('title') %></span></a>
+        </div>
+      <% if ((i+1) % 6 == 0 && (i+1) < this.courses.size()) { %>
+    </div>
+    <div class="row">
       <% } %>
-    </ul>
-    <ul class="span4 offset2">
-      <% for(var i = Math.floor(this.courses.size() / 2); i < this.courses.size(); i++) { %>
-        <li>
-          <a href="/#/courses/<%- this.courses.models[i].get('id') %>"><%- this.courses.models[i].get('title') %></a>
-        </li>
-      <% } %>
-    </ul>
+    <% } %>
+    </div>
   </div>
 </div>

@@ -1,16 +1,38 @@
-<div class="container">
-  <h1><%- this.course.get('title') %></h1>
-  <hr />
+<div id="course" class="container">
+  <div class="row">
+    <div class="span10">
+      <% if (currentUser.authenticated) { %>
+        <button class="eduki-button-icon" id="enroll"></button>
+      <% } %>
+      <h1><%- this.course.get('title') %></h1>
+      <% if (this.course.get('description') != null) { %>
+        <p id="course-description"><%- this.course.get('description') %></p>
+      <% } %>
+    </div>
+    <% if (this.ownership) { %>
+      <div class="span2" id="course-ownership-actions">
+        <button id="course-ownership-delete" title="delete" class="eduki-button-icon"></button>
+        <a id="course-ownership-edit" class="eduki-button-icon" href="/#/courses/<%- this.course.get('id') %>/edit" title="edit"></a>
+      </div>
+    <% } %>
+    <hr class="span12" />
+  </div>
   <div class="row">
     <div id="course-lessons" class="span6">
       <h2>
         Lessons
-        <a href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson" class="eduki-button-primary eduki-button-small eduki-button-inline"><span>create</span></a>
+        <a class="eduki-button-icon" id="lesson-create" href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson"></a>
       </h2>
       <ul>
       <% for(var i = 0; i < this.lessons.size(); i++) { %>
-        <li>
-          <a href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>" title="<%- this.lessons.models[i].get('title') %>"><%- this.lessons.models[i].get('title') %></a>
+        <li class="listing-line listing-lesson">
+          <a href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>" title="<%- this.lessons.models[i].get('title') %>"><span><%- this.lessons.models[i].get('title') %></span></a>
+          <% if (this.ownership) { %>
+          <div class="ownership-actions">
+            <a class="eduki-button-icon ownership-edit" href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>/edit" title="edit"></a>
+            <button title="delete" class="ownership-delete eduki-button-icon"></button>
+          </div>
+          <% } %>
         </li>
       <% } %>
       </ul>
@@ -18,12 +40,18 @@
     <div id="course-quizzes" class="span6">
       <h2>
         Quizzes
-        <a href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson" class="eduki-button-primary eduki-button-small eduki-button-inline"><span>create</span></a>
+        <a class="eduki-button-icon" id="quiz-create" href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson"></a>
       </h2>
       <ul>
         <% for(var i = 0; i < this.quizzes.size(); i++) { %>
-          <li>
-            <a href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>" title="<%- this.quizzes.models[i].get('title') %>"><%- this.quizzes.models[i].get('title') %></a>
+          <li class="listing-line listing-quiz">
+          <a href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>" title="<%- this.quizzes.models[i].get('title') %>"><span><%- this.quizzes.models[i].get('title') %></span></a>
+          <% if (this.ownership) { %>
+            <div class="ownership-actions">
+              <a class="eduki-button-icon ownership-edit" href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>/edit" title="edit"></a>
+              <button title="delete" class="ownership-delete eduki-button-icon"></button>
+            </div>
+          <% } %>
           </li>
         <% } %>
       </ul>

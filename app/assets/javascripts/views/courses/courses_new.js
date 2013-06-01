@@ -1,18 +1,24 @@
-/* 
+/*
  * Renders and controls course creation page
  *
  * author: Jolie
  */
- 
+
 Eduki.Views.CoursesNew = Backbone.View.extend({
 
   template: JST['courses/new'],
   errorTemplate: JST['static/error'],
-  invalidTemplate: JST['courses/error'],
-  createdTemplate: JST['courses/created'],
+  successTemplate: JST['courses/success'],
 
   events: {
-    'click button' : 'create'
+    'click button' : 'create',
+    'click textarea' : 'hideInvalid',
+    'click input' : 'hideInvalid',
+    'keyup textarea' : 'updateRemaining',
+  },
+
+  updateRemaining: function() {
+    this.$('#remaining').html(500-this.$('#create-course-description').val().length);
   },
 
   initialize: function() {
@@ -28,16 +34,28 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
   },
 
   create: function() {
-    this.course = new Eduki.Models.Course({ title: this.$('#create-course-name').val() });
+    this.course = new Eduki.Models.Course({title: this.$('#create-course-title').val(),
+                                           user_id: currentUser.id,
+                                           description:  this.$('#create-course-description').val()});
     if (this.course.isValid()) {
       var self = this;
       this.course.save({title: this.course.get('title')},
                        {wait: true,
-                        success: function() { self.render(self.createdTemplate()); },
+                        success: function() { router.route("/courses/" + self.course.get('id')); },
                         error: function() { self.render(self.errorTemplate()); }});
     } else {
-      this.$('input').after(this.invalidTemplate());
+      this.showInvalid(this.course.validationError[0], this.course.validationError[1]);
     }
+  },
 
-  }
+  // Hide validation error when input is clicked upon
+  hideInvalid: function() {
+    this.$('input').popover('hide');
+    this.$('textarea').popover('hide');
+  },
+
+  showInvalid: function(input, message) {
+    this.$('#' + input).attr('data-content', message);
+    this.$('#' + input).popover('show');
+  },
 });
