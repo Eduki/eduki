@@ -17,7 +17,6 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 		'submit form': 'validateQuiz',
     'click #create-quiz-title': 'hideInvalid',
     'click .create-quiz-question': 'hideInvalid',
-    'click .create-quiz-answer': 'hideInvalid',
 	},
 
 	initialize: function() {
@@ -49,8 +48,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 
   // Validate all fields are passed before submitting
   validateQuiz: function(e) {
-    e.preventDefault();
-    if (!this.$('#create-quiz-title').val()) {
+    this.$('.popover').remove(); e.preventDefault(); if (!this.$('#create-quiz-title').val()) {
       this.showInvalid(this.$('form .control-label').first(), 'Please provide a title');
     }
 
@@ -77,11 +75,11 @@ Eduki.Views.QuizNew = Backbone.View.extend({
         }
       }
 
-    if (!this.$('create-quiz-title').val() &&
-        submittedProblems.length == problems.length) {
+    if (this.$('#create-quiz-title').val() &&
+        (submittedProblems.length == problems.length)) {
       this.submit(problems);
     } else {
-      this.showInvalid(this.$('#publish'), "There are a few errors with your quiz");
+      this.showInvalid(this.$('#publish'), "There are errors with your quiz");
       this.$('#publish').siblings('.popover').delay(2000).fadeOut();
     }
   },

@@ -103,16 +103,11 @@ describe('Create Quiz', function() {
 			view.$('.controls input[type=radio]:first-child').attr('checked', true);
 		});
 
-		it('saves a quiz and renders the button', function() {
+		it('saves a quiz and routes to quiz', function() {
+      spyOn(router, 'route');
 			view.submit();
 			serverRespond(this.server, 200, fixtures['quiz']);
-			expect(view.$el.find('.eduki-button-primary')).toHaveText('View Quiz');
-		});
-
-		it('saves a quiz and button has correct path', function() {
-			view.submit();
-			serverRespond(this.server, 200, fixtures['quiz']);
-			expect(view.$el.find('.eduki-button-primary').attr('href')).toEqual('/#/courses/1/quizzes/1');
+      expect(router.route).toHaveBeenCalledWith('/courses/1/quizzes/1');
 		});
 
 		it('fails to save a quiz and displays error message', function() {
@@ -120,6 +115,30 @@ describe('Create Quiz', function() {
 			serverRespond(this.server, 404, fixtures['quiz']);
 			expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
 		});
+
+    it('displays error if no title', function() {
+			view.$('#create-quiz-title').val('');
+			view.$('#publish').click();
+      var popovers = view.$el.find('.popover-content');
+      expect($(popovers[0]).html()).toEqual('Please provide a title');
+      expect($(popovers[1]).html()).toEqual('There are errors with your quiz');
+    });
+
+    it('displays error if no question', function() {
+			view.$('#problem-0').val('');
+			view.$('#publish').click();
+      var popovers = view.$el.find('.popover-content');
+      expect($(popovers[0]).html()).toEqual('Please provide a question and correct answer');
+      expect($(popovers[1]).html()).toEqual('There are errors with your quiz');
+    });
+
+    it('displays error if no answer', function() {
+			view.$('.controls input[type=radio]:first-child').attr('checked', false);
+			view.$('#publish').click();
+      var popovers = view.$el.find('.popover-content');
+      expect($(popovers[0]).html()).toEqual('Please provide a question and correct answer');
+      expect($(popovers[1]).html()).toEqual('There are errors with your quiz');
+    });
 
 	});
 });
