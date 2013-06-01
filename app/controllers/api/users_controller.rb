@@ -8,8 +8,7 @@ class Api::UsersController < Api::ApiController
   # @user is a bound variable in scope
   before_filter :get_user_or_404, :only => [:show, :update, :destroy]
 
-  devise :database_authenticatable
-  attr_accessible :email, :password, :password_confirmation
+  # devise :database_authenticatable
 
   resource_description do
     description <<-EOS
@@ -56,7 +55,10 @@ class Api::UsersController < Api::ApiController
   end
 
   def authenticate
-
+    authenticate_or_request_with_http_basic do |email, password|
+      user = User.where(email: email)
+      !user.nil? && user.valid_password?(password)
+    end
   end
   
   api :PUT, '/users/:id', "Update a user's information"

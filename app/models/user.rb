@@ -14,6 +14,8 @@
 #
 
 class User < ActiveRecord::Base
+  devise :database_authenticatable
+
   has_many :courses, :dependent => :destroy
   has_many :enrollments, :dependent => :destroy
 

@@ -58,17 +58,18 @@ Eduki::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
   #   match 'products/:id' => 'catalog#views
 
-  devise_for :users
-
   apipie
   root :to => 'static#index'
   match 'api' => 'api/stub#index'
   namespace :api do
+    devise_for :users
+
     resources :users, :only => [:show, :index, :create, :update, :destroy] do
       resources :enrollments, :only => [:create, :index]
       resources :courses, :only => [:create]
       match "courses" => 'courses#index_by_user', :via => :get
     end
+
 
     match "authenticate" => 'users#authenticate'
 
