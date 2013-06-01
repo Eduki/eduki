@@ -14,12 +14,14 @@
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable
+  devise :database_authenticatable, :registerable, :rememberable,
+  :trackable, :validatable
 
   has_many :courses, :dependent => :destroy
   has_many :enrollments, :dependent => :destroy
 
   attr_accessible :email, :first_name, :last_name, :background
+  attr_accessible :password, :password_confirmation, :remember_me
 
   validates_presence_of :email
   validates_uniqueness_of :email
