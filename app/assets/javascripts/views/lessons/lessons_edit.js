@@ -11,8 +11,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
 
   events: {
   	'click button' : 'update',
-    'click #edit-lesson-title': 'hideInvalid',
-    'click #edit-lesson-body': 'hideInvalid'
+    'click input' : 'hideInvalid'
   },
 
   initialize: function() {
@@ -47,21 +46,21 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
       $(this.el).html(template);
       return this;
     } else {
-      router.route('/login');
+      router.route('/');
       return false;
     }
   },
 
   updateFields: function() {
-  	$('#edit-lesson-title').val(this.lesson.get('title'));
-    $('#edit-lesson-body').val(this.lesson.get('body'));
+  	$('#form-lesson-title').val(this.lesson.get('title'));
+    $('#form-lesson-body').val(this.lesson.get('body'));
   },
 
   update: function() {
   	this.lesson = new Eduki.Models.Lesson({ id: this.lesson.get('id'),
   																					course_id: this.lesson.get('course_id'),
-                                            title: $('#edit-lesson-title').val(),
-                                            body: $('#edit-lesson-body'). val() });
+                                            title: $('#form-lesson-title').val(),
+                                            body: $('#form-lesson-body'). val() });
 
     // updates user info
     // routes to dashboard on success

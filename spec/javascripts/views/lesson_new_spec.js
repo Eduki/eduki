@@ -17,11 +17,11 @@ describe('Lesson', function() {
     });
 
     it('renders title input', function() {
-      expect(view.$el).toContain('#create-lesson-title');
+      expect(view.$el).toContain('#form-lesson-title');
     });
 
     it('renders body input', function() {
-      expect(view.$el).toContain('#create-lesson-body');
+      expect(view.$el).toContain('#form-lesson-body');
     });
 
     it('renders publish button', function() {
@@ -35,22 +35,22 @@ describe('Lesson', function() {
     });
 
     it('displays error when empty title', function() {
-      view.$('#create-lesson-body').val('derp');
+      view.$('#form-lesson-body').val('derp');
       view.$('#publish').click();
       expect(view.$el).toContain('.popover');
       expect(view.$('.popover')).toHaveText('Please provide a title');
     });
 
     it('displays error when empty body', function() {
-      view.$('#create-lesson-title').val('derp');
+      view.$('#form-lesson-title').val('derp');
       view.$('#publish').click();
       expect(view.$el).toContain('.popover');
       expect(view.$('.popover')).toHaveText('Please provide lesson content');
     });
 
     it('displays error when server responds with error', function() {
-      view.$('#create-lesson-title').val('derp');
-      view.$('#create-lesson-body').val('derp');
+      view.$('#form-lesson-title').val('derp');
+      view.$('#form-lesson-body').val('derp');
       view.$('#publish').click();
       serverRespond(this.server, 404, fixtures['lesson']);
       expect(view.$('h1')).toHaveText('Woops! Something went wrong.');
@@ -58,8 +58,8 @@ describe('Lesson', function() {
 
     it('redirects when lesson successful', function() {
       spyOn(router, 'route');
-      view.$('#create-lesson-title').val('derp');
-      view.$('#create-lesson-body').val('derp');
+      view.$('#form-lesson-title').val('derp');
+      view.$('#form-lesson-body').val('derp');
       view.$('#publish').click();
       serverRespond(this.server, 200, fixtures['lesson']);
       expect(router.route).toHaveBeenCalledWith('/courses/1/lessons/1');
