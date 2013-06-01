@@ -1,7 +1,8 @@
-/*
- * Static View/Controller for Main Page
+/* 
+ * View that represents front page of eduki
+ * Includes sign up and login form
  *
- * Author: Jolie Chen
+ * author: Jolie Chen
  */
 
 Eduki.Views.StaticIndex = Backbone.View.extend({
