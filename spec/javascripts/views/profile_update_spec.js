@@ -43,9 +43,15 @@ describe("Profile Update", function () {
 			view.$('#submit-update').click();
 			expect(view.$('.popover')).toHaveText('Please provide a valid email address');
 		});
+
+		it("routes user to dashboard on success", function() {
+			spyOn(router, 'route');
+			serverRespond(this.server, 200, fixtures["user"]);
+			view.$('#first-name').val('derpina');
+			view.$('#submit-update').click();
+			serverRespond(this.server, 200, fixtures["user"]);
+			expect(router.route).toHaveBeenCalled();
+		});
 	});
 
-	// describe("Handles usage", function() {
-	// 	it("")
-	// });
 });
