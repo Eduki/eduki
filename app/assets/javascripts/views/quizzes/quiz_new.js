@@ -15,7 +15,9 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 	events: {
     'click #create-quiz-add' : 'add',
     'click .create-quiz-delete' : 'deleteProblem',
-		'click #submit': 'submit'
+		'click #submit': 'submit',
+    'click .create-quiz-question': 'hideInvalid',
+    'click .create-quiz-answer': 'hideInvalid',
 	},
 
 	initialize: function() {
@@ -37,13 +39,10 @@ Eduki.Views.QuizNew = Backbone.View.extend({
   },
 
   deleteProblem: function(e) {
-    if ($('.create-quiz-problem').length != 1) {
+    if ($('.create-quiz-problem').length >= 1) {
       $(e.target).closest('.create-quiz-problem').remove();
     } else if ($('.alert').length <= 0) {
-        $('.create-quiz-delete').after(this.deleteErrorTemplate());
-        $('#create-quiz-delete-error').delay(2000).fadeOut(function() {
-          $('#create-quiz-delete-error').remove();
-        });
+      this.showInvalid('.create-quiz-delete', 'A quiz must have at least one problem');
     }
   },
 
@@ -77,6 +76,18 @@ Eduki.Views.QuizNew = Backbone.View.extend({
              function() { self.render(self.errorTemplate()); }
            );
 
-  }
+  },
+
+  // Show an invalid message on error
+  showInvalid: function(input, message) {
+    this.$(input).attr('data-content', message);
+    this.$(input).popover('show');
+    this.$('.create-quiz-delete').siblings('.popover').delay(3000).fadeOut();
+  },
+
+  // Hide validation error when input is clicked upon
+  hideInvalid: function(e) {
+    this.$(e.target).parent().siblings().popover('hide');
+  },
 });
 

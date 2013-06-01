@@ -431,6 +431,10 @@ form label {
   margin-bottom: 0;
 }
 
+.create-quiz-question {
+  height: 50px;
+}
+
 .create-quiz-answer {
   margin-top: 10px;
 }
@@ -458,9 +462,16 @@ form label {
 }
 
 .create-quiz-delete {
-  display: inline;
+  float:left;
   margin-left: 10px;
   background-image: url('icons/delete.jpg');
+  position: relative;
+  left: 180px;
+  bottom: 45px;
+}
+
+.create-quiz-problem .control-group {
+  float: left;
 }
 
 #create-quiz-delete-error {
