@@ -164,6 +164,16 @@ ul li {
   letter-spacing: 1px;
 }
 
+#course-description,
+#lesson-body,
+#quiz form li,
+#quiz fieldset label,
+#quiz fieldset input,
+#quiz fieldset span {
+  color: #3f3f3f !important;
+  font-family: 'LiberationSerif' !important;
+}
+
 .success-message-text {
   text-transform: uppercase;
   margin: 10px 0 10px 0;
@@ -406,14 +416,16 @@ button {
 #quiz fieldset label,
 #quiz fieldset input,
 #quiz fieldset span {
-  color: #3f3f3f !important;
   text-transform: none;
-  font-family: "LiberationSerf" !important;
-  font-size: 18pt;
+  font-size: 14pt;
 }
 
 #quiz form li {
   margin-bottom: 10px;
+}
+
+#quiz fieldset label {
+  line-height: 22px;
 }
 
 #quiz form span {
@@ -679,11 +691,6 @@ button {
 }
 
 /* LESSONS */
-
-#lesson-body {
-  font-family: "LiberationSerf";
-  color: #3f3f3f;
-}
 
 #lessons .listing-line > a,
 #quizzes .listing-line > a {
