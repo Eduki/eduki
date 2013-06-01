@@ -14,8 +14,7 @@
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable, :rememberable,
-  :trackable, :validatable
+  devise :database_authenticatable, :registerable
 
   has_many :courses, :dependent => :destroy
   has_many :enrollments, :dependent => :destroy
