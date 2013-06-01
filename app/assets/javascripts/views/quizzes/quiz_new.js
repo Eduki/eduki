@@ -39,8 +39,8 @@ Eduki.Views.QuizNew = Backbone.View.extend({
   },
 
   deleteProblem: function(e) {
-    if ($('.create-quiz-problem').length > 1) {
-      $(e.target).closest('.create-quiz-problem').remove();
+    if (this.$('.create-quiz-problem').length > 1) {
+      this.$(e.target).parent().remove();
     } else {
       this.showInvalid('.create-quiz-delete', 'A quiz must have at least one problem');
     }
