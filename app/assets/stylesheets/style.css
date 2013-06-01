@@ -120,6 +120,12 @@ label, select { font-size: 16pt !important; }
 label { text-transform: lowercase; :}
 input { border-radius: 2px !important; }
 
+.form-horizontal input,
+.form-horizontal textarea,
+.form-horizontal .uneditable-input {
+  width: 426px;
+}
+
 hr { border-color: #bbbdc0 !important; }
 
 p {
