@@ -1,0 +1,29 @@
+// helper to create proper asset paths if an asset host is configured
+// https://gist.github.com/codebrew/1406349
+// In the eduki application, call Eduki.Assets to access this object.
+// For example:
+//   > Eduki.Assets.imageUrl('navbar_create.png')
+//   "/assets/navbar_create.png"
+window.Assets = {
+  assets : {
+    <% AssetsUtil.images.each do |img| %>
+      "<%= img %>" : "<%= asset_path(img) %>",
+    <% end %>
+  },
+
+  // Helper functions to retrieve urls
+  url : function(path) {
+    return window.ASSETS_URL ? window.ASSETS_URL + path : path;
+  },
+
+  asset_path : function(source) {
+    return this.url("/assets/"+source);
+  },
+
+  imageUrl : function(imageName) {
+    if(this.assets && this.assets[imageName]) return this.assets[imageName];
+
+    return this.asset_path(imageName);
+  },
+
+}
