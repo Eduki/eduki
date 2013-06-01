@@ -10,7 +10,8 @@ Eduki.Views.CoursesSearch = Backbone.View.extend({
 
   events: {
     'submit form'  : 'search',
-    'click button' : 'search'
+    'click button' : 'search',
+    'click input' : 'hideInvalid'
   },
 
   initialize: function() {
@@ -26,7 +27,23 @@ Eduki.Views.CoursesSearch = Backbone.View.extend({
   // request parameters
   search: function(event) {
     event.preventDefault();
-    query = {query: this.$el.find("#search-query").val()}
-    router.route("/courses", query);
+    if (this.$el.find("#search-query").val()) {
+      query = {query: this.$el.find("#search-query").val()}
+      router.route("/courses", query);
+    } else {
+      this.showInvalid("search-query", "Please provide a query");
+    }
+  },
+
+  // Show an error message
+  showInvalid: function(input, message) {
+      this.$('#' + input).attr('data-content', message);
+      this.$('#' + input).popover('show');
+  },
+
+  // Hide validation error when input is clicked upon
+  hideInvalid: function() {
+    this.$('input').popover('hide');
+    this.$('textarea').popover('hide');
   },
 });
