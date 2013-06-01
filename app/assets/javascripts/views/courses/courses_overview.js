@@ -6,7 +6,6 @@
 Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
-  courseActionTemplate: JST['courses/course_action'],
   errorTemplate: JST['static/error'],
   events: {
     'click #enroll': 'enroll',
@@ -56,7 +55,6 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     this.ownership = this.courses.findWhere({id: parseInt(this.course.get('id'))});
     if (this.ownership) {
       this.render(this.template());
-      this.$('#course hr').before(this.courseActionTemplate());
     }
   },
 

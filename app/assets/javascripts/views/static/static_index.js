@@ -1,3 +1,10 @@
+/* 
+ * View that represents front page of eduki
+ * Includes sign up and login form
+ *
+ * author: Jolie Chen
+ */
+
 Eduki.Views.StaticIndex = Backbone.View.extend({
 
   template: JST['static/index'],
@@ -14,11 +21,11 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
 
   render: function() {
     if (currentUser.authenticated) {
-      router.route("/dashboard");
+      router.route('/dashboard');
       return false;
     } else {
       $(this.el).html(this.template());
-      this.$el.find("#error-area").hide();
+      this.$el.find('#error-area').hide();
       return this;
     }
   },
@@ -91,7 +98,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   onAuthenticateSuccess: function(data) {
     this.hideLoading();
     currentUser.save();
-    router.route("/dashboard");
+    router.route('/dashboard');
   },
 
   onAuthenticateFailure: function(data) {

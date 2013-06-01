@@ -174,6 +174,19 @@ describe('Course', function() {
         expect(view.$el).not.toContain('#course-ownership-actions');
         expect(view.$el).not.toContain('.ownership-actions');
       });
+
+      it('renders course edit link', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        successServerResponses(this.server);
+        expect(view.$el.find('#course-ownership-edit').attr('href')).toEqual('/#/courses/1/edit');
+      });
+
+      it('renders lesson edit link', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        successServerResponses(this.server);
+        var edits = view.$el.find('.ownership-edit');
+        expect($(edits[0]).attr('href')).toEqual('/#/courses/1/lessons/1/edit');
+      });
     });
   });
 
