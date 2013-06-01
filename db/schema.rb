@@ -69,14 +69,15 @@ ActiveRecord::Schema.define(:version => 20130601054132) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",              :default => "", :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.string   "email",                :default => "", :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "first_name"
     t.string   "last_name"
     t.text     "background"
-    t.string   "encrypted_password", :default => "", :null => false
+    t.string   "encrypted_password",   :default => "", :null => false
     t.string   "password_salt"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -38,7 +38,7 @@ class Api::UsersController < Api::ApiController
   param :last_name, String
   param :background, String
   def create
-    if params[:email].nil?
+    if params[:email].nil? || params[:password].nil?
       render :json => error_object, :status => 400
     else
       @user = User.new
@@ -46,6 +46,7 @@ class Api::UsersController < Api::ApiController
       @user.first_name = params[:first_name]
       @user.last_name  = params[:last_name]
       @user.background = params[:background]
+      @user.password = params[:password]
       if @user.save
         render :json => @user
       else
@@ -56,8 +57,13 @@ class Api::UsersController < Api::ApiController
 
   def authenticate
     authenticate_or_request_with_http_basic do |email, password|
-      user = User.where(email: email)
-      !user.nil? && user.valid_password?(password)
+      fnd_user = User.find_by_email(email)
+      if !fnd_user.nil? && fnd_user.valid_password?(password)
+        render :json => fnd_user
+	true
+      else
+        render :json => error_object, :status => 401
+      end
     end
   end
   
@@ -72,6 +78,7 @@ class Api::UsersController < Api::ApiController
     @user.first_name = params[:first_name] if not params[:first_name].nil?
     @user.last_name  = params[:last_name] if not params[:last_name].nil?
     @user.background = params[:background] if not params[:background].nil?
+    @user.password = params[:password] if not params[:password].nil?
     if @user.save
       render :json => @user
     else
