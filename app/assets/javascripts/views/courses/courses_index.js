@@ -5,13 +5,23 @@ Eduki.Views.CoursesIndex = Backbone.View.extend({
 
   // Fetch all courses. Once retrieved, execute
   // render through the callback to display them.
-  initialize: function() {
+  initialize: function(query) {
     this.courses = new Eduki.Collections.Courses();
     var self = this;
-    $.when(this.courses.fetch()).then(
-             function() { self.render(self.template()); },
-             function() { self.render(self.errorTemplate()); }
-           );
+    var retrievalFunction = this.courses.fetch;
+    var courses = this.courses
+
+    // If there is a search query param, use that
+    if (query !== undefined) {
+      retrievalFunction = function() { return courses.search(query) };
+    } else {
+      retrievalFunction = function() { return courses.fetch() };
+    }
+
+    $.when(retrievalFunction()).then(
+      function() { self.render(self.template()); },
+      function() { self.render(self.errorTemplate()); }
+    );
   },
 
   // Renders the course
