@@ -336,6 +336,7 @@ button {
   border: 0;
 }
 
+
 .eduki-button-block .row {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -350,9 +351,15 @@ button {
   text-transform: uppercase;
   letter-spacing: 6px;
   background-color: #75ddf4 !important;
-  background-image: linear-gradient(to bottom, #9be8f7, #75ddf4) !important;
   padding-top: 8px;
   padding-bottom: 5px;
+}
+
+.eduki-button-primary:hover {
+  background-color: #35849a !important;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
 }
 
 .eduki-button-small {
@@ -368,14 +375,11 @@ button {
   bottom: 5px;
 }
 
-.eduki-button-primary:hover {
-  text-decoration: none;
-  color: white;
-  background-image: none !important;
-  cursor: pointer;
-}
 
-.eduki-button-primary span { margin-left: 6px; }
+.eduki-button-primary span {
+  font-family: "SourceSansProBold";
+  margin-left: 6px;
+}
 .eduki-button-small span { margin-left: 5px; }
 .eduki-button-inline span { margin-left: 5px; }
 
@@ -450,21 +454,26 @@ form label {
   top: 3px;
 }
 
-.eduki-button-icon-small {
-  background-size: 25px 25px;
-  padding-top: 25px;
-  width: 25px;
+.create-quiz-delete, #create-quiz-add {
+  background-size: 30px 30px;
+  padding-top: 30px;
+  width: 30px;
+  background-color: #75ddf4 !important;
+}
+
+.create-quiz-delete:hover, #create-quiz-add:hover {
+  background-color: #35849a !important;
 }
 
 #create-quiz-add {
-  background-image: url('icons/add.jpg');
+  background-image: url('icons/quiz_add.png');
   margin-bottom: 30px;
 }
 
 .create-quiz-delete {
+  background-image: url('icons/quiz_delete.png');
   float:left;
   margin-left: 10px;
-  background-image: url('icons/delete.jpg');
   position: relative;
   left: 180px;
   bottom: 45px;
