@@ -8,6 +8,9 @@ class Api::UsersController < Api::ApiController
   # @user is a bound variable in scope
   before_filter :get_user_or_404, :only => [:show, :update, :destroy]
 
+  devise :database_authenticatable
+  attr_accessible :email, :password, :password_confirmation
+
   resource_description do
     description <<-EOS
     A user has the following fields
@@ -52,6 +55,9 @@ class Api::UsersController < Api::ApiController
     end
   end
 
+  def authenticate
+
+  end
   
   api :PUT, '/users/:id', "Update a user's information"
   param :id, Fixnum, :required => true
