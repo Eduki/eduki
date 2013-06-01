@@ -60,7 +60,6 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
 
   // Update user's information in the database
   update: function() {
-    console.log('click');
     this.user = new Eduki.Models.User({ id: currentUser.id,
                                         first_name: this.$('#first-name').val(),
                                         last_name: this.$('#last-name').val(),
@@ -71,7 +70,6 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     // routes to dashboard on success
     // renders error page on error
     var self = this;
-    console.log('before call');
     if (this.user.isValid()) {
       this.user.save({id: this.user.get('id')},
                        {wait: true,
