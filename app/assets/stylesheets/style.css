@@ -120,9 +120,12 @@ label, select { font-size: 16pt !important; }
 label { text-transform: lowercase; :}
 input { border-radius: 2px !important; }
 
-.form-horizontal input,
-.form-horizontal textarea,
-.form-horizontal .uneditable-input {
+#create-course-form input,
+#create-course-form textarea,
+#create-course-form .uneditable-input,
+#create-lesson-form input,
+#create-lesson-form textarea,
+#create-lesson-form .uneditable-input {
   width: 426px;
 }
 
