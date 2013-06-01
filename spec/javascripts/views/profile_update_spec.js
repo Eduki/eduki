@@ -5,16 +5,22 @@
  */
 
 describe("Profile Update", function () {
-	var view;
+
 	setupFakeServer();
+	var view;
+
 	beforeEach(function() {
-		view = new Eduki.Views.UpdateProfile();
-		view.initialize();
+		currentUser.id = 1;
+    currentUser.authenticated = true;
+    view = new Eduki.Views.UpdateProfile();
 	});
 
 	describe("Renders Form", function () {
 		it("has user info form", function() {
 			expect(view.$el).toContain('#first-name');
+			expect(view.$el).toContain('#last-name');
+			expect(view.$el).toContain('#email');
+			expect(view.$el).toContain('#background');
 		});
 	});
 });
