@@ -5,10 +5,10 @@ window.Eduki = {
   Views: {},
   Routers: {},
   initialize: function() {
+    this.Assets = window.Assets;
     currentUser = Eduki.Models.CurrentUser.createFromCookie();
     router = new Eduki.Routers.Eduki();
     Backbone.history.start();
-    this.Assets = window.Assets;
   }
 };
 
