@@ -497,7 +497,7 @@ form label {
 .listing-line {
   overflow: hidden;
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .listing-line > a, .listing-square a {
@@ -635,6 +635,28 @@ form label {
 
 #enroll:hover {
   background-image: url('icons/enroll_hover.png');
+}
+
+/* LESSONS */
+
+#lessons .listing-line > a,
+#quizzes .listing-line > a {
+  float: left;
+  width: 280px;
+}
+
+#lessons .listing-line span,
+#quizzes .listing-line span {
+  height: 13pt;
+  overflow: hidden;
+}
+
+#current-lesson > a{
+  background-color: #a74738;
+}
+
+#course-home {
+  text-align: right;
 }
 
 /* DASHBOARD */

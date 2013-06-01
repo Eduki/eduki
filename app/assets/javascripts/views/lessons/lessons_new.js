@@ -41,7 +41,6 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
               function() { self.render(self.errorTemplate()); }
             );
     } else {
-      console.log(this.lesson.get('title'));
       this.showInvalid(this.lesson.validationError[0], this.lesson.validationError[1]);
     }
   },
