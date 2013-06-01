@@ -10,6 +10,7 @@ Eduki.Routers.Courses = Backbone.Router.extend({
     'courses/new': 'create',
     'courses/search(/)': 'search',
     'courses/:cid(/)': 'overview',
+    'courses/:cid/edit(/)': 'edit'
   },
 
   index: function(query) {
@@ -34,4 +35,9 @@ Eduki.Routers.Courses = Backbone.Router.extend({
     var view = new Eduki.Views.CoursesOverview({attributes:{course_id: cid}});
     $('#main-content').html(view.render().el);
   },
+
+  edit: function(cid) {
+    var view = new Eduki.Views.CoursesEdit({attributes:{course_id: cid}});
+    $('#main-content').html(view.render().el);
+  }
 });

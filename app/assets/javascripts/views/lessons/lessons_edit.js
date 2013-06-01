@@ -11,7 +11,8 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
 
   events: {
   	'click button' : 'update',
-    'click input' : 'hideInvalid'
+    'click input' : 'hideInvalid',
+    'click textarea' : 'hideInvalid'
   },
 
   initialize: function() {
@@ -81,6 +82,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
   // Hide validation error when input is clicked upon
   hideInvalid: function() {
     this.$('input').popover('hide');
+    this.$('textarea').popover('hide');
   },
 
   // Make the popoever appear with an error message
