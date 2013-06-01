@@ -8,8 +8,6 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
 
 	template: JST['lessons/new'],
   errorTemplate: JST['static/error'],
-  createdTemplate: JST['lessons/created'],
-
   events: {
     'submit form' : 'create',
     'click #publish' : 'create',
