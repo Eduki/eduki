@@ -1,7 +1,5 @@
 /*
- * Collections model for enrollments
- *
- * author: Jolie Chen
+ * Enrollment collection
  */
 
 Eduki.Collections.Enrollments = Backbone.Collection.extend({

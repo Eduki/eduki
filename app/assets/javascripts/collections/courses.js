@@ -1,3 +1,6 @@
+/*
+ * Course collection
+ */
 Eduki.Collections.Courses = Backbone.Collection.extend({
   initialize: function(options) {
     if (options)
