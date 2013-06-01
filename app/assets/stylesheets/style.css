@@ -400,17 +400,28 @@ button {
 
 /* QUIZ */
 
-.quiz li {
+#current-quiz > a{ background-color: #a56f37; }
+
+#quiz form li,
+#quiz fieldset label,
+#quiz fieldset input,
+#quiz fieldset span {
+  color: #3f3f3f !important;
+  text-transform: none;
+  font-family: "LiberationSerf" !important;
   font-size: 18pt;
+}
+
+#quiz form li {
   margin-bottom: 10px;
 }
 
-.quiz span {
+#quiz form span {
   margin-left: 5px;
   font-size: 14pt;
 }
 
-.quiz input {
+#quiz form input {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -418,12 +429,6 @@ button {
 #quiz-results-modal p {
   font-size: 18pt;
   color: green;
-}
-
-form label {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 18pt;
 }
 
 #create-quiz-form input[type="text"],
@@ -674,6 +679,11 @@ form label {
 }
 
 /* LESSONS */
+
+#lesson-body {
+  font-family: "LiberationSerf";
+  color: #3f3f3f;
+}
 
 #lessons .listing-line > a,
 #quizzes .listing-line > a {
