@@ -1,3 +1,8 @@
+/*
+ * View for search
+ *
+ * author: David Mah
+ */
 Eduki.Views.CoursesSearch = Backbone.View.extend({
   template: JST['courses/search'],
   resultsTemplate: JST['courses/index'],
