@@ -9,6 +9,12 @@
         <p id="course-description"><%- this.course.get('description') %></p>
       <% } %>
     </div>
+    <% if (this.ownership) { %>
+      <div class="span2" id="course-ownership-actions">
+        <button id="course-ownership-delete" title="delete" class="eduki-button-icon"></button>
+        <a id="course-ownership-edit" class="eduki-button-icon" href="/#/courses/<%- this.course.get('id') %>/edit" title="edit"></a>
+      </div>
+    <% } %>
     <hr class="span12" />
   </div>
   <div class="row">

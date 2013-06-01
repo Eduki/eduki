@@ -10,8 +10,7 @@ describe('Lesson', function() {
 
     it("renders error page", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
-      serverRespond(this.server, 301, fixtures['course']);
-      serverRespond(this.server, 200, fixtures['lessons']);
+      serverRespond(this.server, 401, fixtures['course']);
       expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
     });
 
@@ -71,6 +70,7 @@ describe('Lesson', function() {
   // necessary to render a lesson
   function successServerResponses(server) {
     serverRespond(server, 200, fixtures['course']);
+    serverRespond(server, 200, fixtures['lesson']);
     serverRespond(server, 200, fixtures['lessons']);
   }
 

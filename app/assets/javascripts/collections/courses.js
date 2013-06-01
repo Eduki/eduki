@@ -1,3 +1,6 @@
+/*
+ * Course collection
+ */
 Eduki.Collections.Courses = Backbone.Collection.extend({
   initialize: function(options) {
     if (options)
@@ -9,6 +12,12 @@ Eduki.Collections.Courses = Backbone.Collection.extend({
       return '/api/users/' + this.user_id + '/courses';
     else
       return '/api/courses';
-  }
+  },
 
+  // TODO: When search API is implemented, use whatever endpoint that gets
+  searchUrl: '/api/courses',
+
+  search: function(query) {
+    return this.fetch({data: query});
+  }
 });
