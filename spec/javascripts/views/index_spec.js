@@ -97,6 +97,7 @@ describe("Static Index", function() {
         view.$el.find("#password").val("test password");
         view.$('#submit-credentials').click();
         serverRespond(this.server, 200, fixtures['user']);
+        serverRespond(this.server, 200, fixtures['user']);
         expect(router.route).toHaveBeenCalled();
     });
 

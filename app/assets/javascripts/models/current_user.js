@@ -21,7 +21,6 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
     var user_data = {
       id: this.id,
       email: this.email,
-      password: this.password,
       authenticated: this.authenticated
     };
     var serialized_user_data = JSON.stringify(user_data);
@@ -60,23 +59,21 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
   // If it succeeds, calls success_callback
   // If it fails, calls error_callback
   authenticate: function(successCallback, errorCallback, callbackContext) {
-    // $.ajax({
-    //   url: currentUser.urlRoot,
-    //   type: 'POST',
-    //   username: this.email,
-    //   password: this.password,
-    //   success: function(data) {
-    //     currentUser.authenticated = true;
-    //     successCallback.call(callbackContext);
-    //   },
-    //   error: errorCallback,
-    //   context: callbackContext
-    // });
-
-    // TODO: Use actual AJAX request. Pending on API auth
-    currentUser.authenticated = true;
-    currentUser.id = 1;
-    successCallback.call(callbackContext);
+    $.ajax({
+      url: currentUser.urlRoot,
+      type: 'GET',
+      username: this.email,
+      password: this.password,
+      success: function(data) {
+        currentUser.authenticated = true;
+        console.log(data);
+        currentUser.id = data.id;
+        successCallback.call(callbackContext);
+      },
+      error: errorCallback,
+      context: callbackContext
+    });
+    this.password = "";
   }
 
 });
