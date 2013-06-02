@@ -10,13 +10,15 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
   errorTemplate: JST['static/error'],
 
   initialize: function() {
-    var self = this;
-    this.enrollment = new Eduki.Models.Enrollment({id: this.attributes.enrollment_id});
-    this.enrollment.fetch({
-      success: function() {self.renderQuizAttempts()},
-      error: function() {
-        self.render(self.errorTemplate())}
-    });
+    if (currentUser.authenticated) {
+      var self = this;
+      this.enrollment = new Eduki.Models.Enrollment({id: this.attributes.enrollment_id});
+      this.enrollment.fetch({
+        success: function() {self.renderQuizAttempts()},
+        error: function() {
+          self.render(self.errorTemplate())}
+      });
+    }
   },
 
   render: function(template) {
