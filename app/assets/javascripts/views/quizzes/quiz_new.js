@@ -77,7 +77,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
           // a set of radio buttons for that question, it lets everything stay grouped
           answer: answer.val()
         }
-        problems[i] = problem;
+        problems.push(problem);
         }
       }
 
