@@ -1,6 +1,11 @@
 <div class="container">
   <div class="row">
     <div id="quiz" class="span8">
+      <% if (!this.isEnrolled()) { %>
+        <div class="alert">
+          Please enroll in the course to take the quiz.
+        </div>
+      <% } %>
       <h1><%- this.quiz.get('title') %></h1>
       <hr />
       <form>
@@ -17,7 +22,7 @@
           </li>
           <% } %>
         </ol>
-        <button type="button" id="submit-quiz" class="eduki-button-primary pull-right"><span>Submit</span></button>
+        <button type="button" id="submit-quiz" class="eduki-button-primary pull-right" data-placement="left" data-trigger="manual" data-toggle="popover"><span>Submit</span></button>
       </form>
     </div>
     <ul id="quizzes" class="span4">

@@ -170,6 +170,12 @@ ul li {
   letter-spacing: 1px;
 }
 
+.alert {
+  color: #3f3f3f;
+  background-color: #f9b6ac;
+  border-color: #be9790;
+}
+
 #course-description,
 #lesson-body,
 #quiz form li,

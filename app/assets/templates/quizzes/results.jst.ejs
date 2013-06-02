@@ -3,7 +3,7 @@
     <h3 id="myModalLabel">Quiz Results</h3>
   </div>
   <div id="quiz-results" class="modal-body">
-    <big>You got <strong><%- this.correct %>/<%- this.total %></strong> questions correct</big>
+    <big>You got <strong><%- this.correct %>/<%- this.quiz.get('problems').length %></strong> questions correct</big>
   </div>
   <div class="eduki-buttons modal-footer">
     <button class="eduki-button-primary" data-dismiss="modal" aria-hidden="true"><span>Close</span></button>
