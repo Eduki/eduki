@@ -3,6 +3,7 @@ Eduki.Routers.Users = Backbone.Router.extend({
     'dashboard(/)': 'dashboard',
     'user/update(/)': 'update',
     'user/premium(/)': 'premium',
+    'user/enrollment/:eid/quizzes(/)': 'quizzes',
   },
 
   dashboard: function() {
@@ -17,6 +18,11 @@ Eduki.Routers.Users = Backbone.Router.extend({
 
   premium: function() {
   	var view = new Eduki.Views.Premium;
+  	$('#main-content').html(view.render().el);
+  },
+
+  quizzes: function(eid) {
+  	var view = new Eduki.Views.QuizAttempts({attributes:{enrollment_id: eid}});
   	$('#main-content').html(view.render().el);
   }
 });

@@ -111,7 +111,7 @@ hr {
 }
 
 input, label, button, select, textarea,
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, th, td {
   color: #6d6e70 !important;
   font-family: 'SourceSansPro' !important;
 }
@@ -724,4 +724,11 @@ form label {
 }
 .course-home {
   background-image: url('icons/course_home.png');
+}
+
+#quiz-attempts h2,
+#quiz-attempts h3,
+#quiz-attempts table th,
+#quiz-attempts table td {
+  text-align: center !important;
 }
