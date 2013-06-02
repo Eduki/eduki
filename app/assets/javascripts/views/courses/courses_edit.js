@@ -58,7 +58,7 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
   																					title: $('#form-course-title').val(),
                                             description: $('#form-course-description').val() });
 
-    // updates user info
+    // updates course info
     // routes to dashboard on success
     // renders error page on error
     var self = this;

@@ -16,14 +16,14 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
   },
 
   initialize: function() {
-    // renders form, then updates all existing fields with the current profile values
+    // renders form, then updates all existing fields with the current lesson values
     // if they exist
     this.lesson = new Eduki.Models.Lesson({ course_id: this.attributes.course_id,
                                             id: this.attributes.lesson_id });
     this.fetchLessonInfo();
   },
 
-  // grabs current user info from database and displays in the form
+  // grabs current lesson info from database and displays in the form
   // if it exists
   fetchLessonInfo: function() {
   	var self = this;
@@ -63,7 +63,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
                                             title: $('#form-lesson-title').val(),
                                             body: $('#form-lesson-body'). val() });
 
-    // updates user info
+    // updates lesson info
     // routes to dashboard on success
     // renders error page on error
     var self = this;
