@@ -90,7 +90,7 @@ describe('Quiz', function() {
         var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
         successServerResponses(this.server);
         view.submit();
-        var score = view.$el.find('#quiz-results p');
+        var score = view.$el.find('#quiz-results big');
         expect(score).toHaveText("You got 0/2 questions correct");
       });
 
@@ -100,7 +100,7 @@ describe('Quiz', function() {
         view.$('input[name=problem-1][value=A]').prop('checked', true);
         view.$('input[name=problem-2][value=B]').prop('checked', true);
         view.submit();
-        var score = view.$el.find('#quiz-results p');
+        var score = view.$el.find('#quiz-results big');
         expect(score).toHaveText("You got 2/2 questions correct");
       });
 
@@ -110,7 +110,7 @@ describe('Quiz', function() {
         view.$('input[name=problem-1][value=A]').prop('checked', true);
         view.$('input[name=problem-2][value=C]').prop('checked', true);
         view.submit();
-        var score = view.$el.find('#quiz-results p');
+        var score = view.$el.find('#quiz-results big');
         expect(score).toHaveText("You got 1/2 questions correct");
       });
     });
