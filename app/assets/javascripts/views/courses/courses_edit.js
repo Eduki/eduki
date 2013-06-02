@@ -33,7 +33,7 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
           self.render(self.errorTemplate());
         }
       },
-      error: function(model, xhr, options) {
+      error: function() {
         self.render(self.errorTemplate)
       }
     });

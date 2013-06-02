@@ -37,24 +37,24 @@
       serverRespond(this.server, 200, fixtures["course"]);
       view.$('#form-course-title').val('');
       view.$('#publish').click();
-      expect(view.$el.find('.popover').html()).toMatch('Please provide a title');
+      expect(view.$el.find('.popover-content').html()).toEqual('Please provide a title');
     });
 
     it('displays popover for no description', function() {
       serverRespond(this.server, 200, fixtures["course"]);
       view.$('#form-course-description').val('');
       view.$('#publish').click();
-      expect(view.$el.find('.popover').html()).toMatch('Please provide a valid description');
+      expect(view.$el.find('.popover-content').html()).toEqual('Please provide a valid description');
     });
 
-    it('routes to dashboard on success', function() {
+    it('routes to course on success', function() {
     	spyOn(router, 'route');
 			serverRespond(this.server, 200, fixtures["course"]);
 			view.$('#form-course-title').val('edited course title');
 			view.$('#form-course-description').val('course description hooray');
 			view.$('#publish').click();
 			serverRespond(this.server, 200, fixtures["course"]);
-			expect(router.route).toHaveBeenCalled();
+			expect(router.route).toHaveBeenCalledWith('/courses/1');
     });
 
     it('displays error page on save success', function() {

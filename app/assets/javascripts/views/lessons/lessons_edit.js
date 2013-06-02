@@ -34,7 +34,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
         	self.updateFields();
         }
       },
-      error: function(model, xhr, options) {
+      error: function() {
         self.render(self.errorTemplate)
       }
     });

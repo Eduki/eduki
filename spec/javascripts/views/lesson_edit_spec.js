@@ -37,24 +37,24 @@
       serverRespond(this.server, 200, fixtures["lesson"]);
       view.$('#form-lesson-title').val('');
       view.$('#update').click();
-      expect(view.$el.find('.popover').html()).toMatch('Please provide a title');
+      expect(view.$el.find('.popover-content').html()).toEqual('Please provide a title');
     });
 
     it('displays popover for no body', function() {
       serverRespond(this.server, 200, fixtures["lesson"]);
       view.$('#form-lesson-body').val('');
       view.$('#update').click();
-      expect(view.$el.find('.popover').html()).toMatch('Please provide lesson content');
+      expect(view.$el.find('.popover-content').html()).toEqual('Please provide lesson content');
     });
 
-    it('redirects to dashboard on success', function() {
+    it('redirects to lesson on success', function() {
     	spyOn(router, 'route');
 			serverRespond(this.server, 200, fixtures["lesson"]);
 			view.$('#form-lesson-title').val('edited lesson title');
 			view.$('#form-lesson-body').val('lessons yyeayeayea');
 			view.$('#update').click();
 			serverRespond(this.server, 200, fixtures["lesson"]);
-			expect(router.route).toHaveBeenCalled();
+			expect(router.route).toHaveBeenCalledWith('/courses/1/lessons/1');
     });
 
     it('displays error on lesson save error', function() {
