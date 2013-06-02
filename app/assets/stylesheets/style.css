@@ -78,7 +78,7 @@
 }
 
 @font-face {
-  font-family: 'SourceSansProSemiBoldItalic';
+  font-family: 'SourceSansProBoldItalic';
   src: url('SourceSansPro-SemiboldIt-webfont.eot');
   src: url('SourceSansPro-SemiboldIt-webfont.eot?#iefix') format('embedded-opentype'),
        url('SourceSansPro-SemiboldIt-webfont.woff') format('woff'),
@@ -87,6 +87,16 @@
   font-weight: normal;
   font-style: normal;
 }
+
+strong {
+  font-family: "SourceSansProBold";
+  font-weight: normal;
+}
+em { font-family: "SourceSansProItalic"; }
+strong em, em strong { font-family: "SourceSansProBoldItalic"; }
+p strong { font-family: 'LiberationSerifBold'; }
+p em { font-family: 'LiberationSerifItalic'; }
+p strong em, p em strong { font-family: 'LiberationSerifBoldItalic'; }
 
 /* GENERAL */
 
@@ -137,10 +147,6 @@ p {
   font-size: 10pt;
   margin-bottom: 20px;
 }
-
-p strong { font-family: 'LiberationSerifBold'; }
-p em { font-family: 'LiberationSerifItalic'; }
-p strong em, p em strong { font-family: 'LiberationSerifBoldItalic'; }
 
 #main-content > div > .container { margin-top: 30px; }
 .popover { color: #a74738; }
@@ -431,9 +437,9 @@ button {
   margin-bottom: 10px;
 }
 
-#quiz-results-modal p {
+#quiz-results-modal big {
   font-size: 18pt;
-  color: green;
+  color: #3f3f3f;
 }
 
 #create-quiz-form input[type="text"],
