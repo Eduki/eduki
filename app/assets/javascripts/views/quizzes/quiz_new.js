@@ -37,10 +37,12 @@ Eduki.Views.QuizNew = Backbone.View.extend({
     this.$('#create-quiz-problems').append(this.problemTemplate());
   },
 
+  // Deletes a problem from the form.
   deleteProblem: function(e) {
     if (this.$('.create-quiz-problem').length > 1) {
       this.$(e.target).parent().remove();
     } else {
+      // A quiz must always have at least one problem
       this.showInvalid('.create-quiz-delete', 'A quiz must have at least one problem');
       this.$('.create-quiz-delete').siblings('.popover').delay(2000).fadeOut();
     }
@@ -48,17 +50,21 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 
   // Validate all fields are passed before submitting
   validateQuiz: function(e) {
-    this.$('.popover').remove(); e.preventDefault(); if (!this.$('#create-quiz-title').val()) {
+    this.$('.popover').remove(); e.preventDefault();
+
+    // Do not allow empty quiz title
+    if (!this.$('#create-quiz-title').val()) {
       this.showInvalid(this.$('form .control-label').first(), 'Please provide a title');
     }
 
     var submittedProblems = this.$('.create-quiz-problem');
-    var problems = new Array();
+    var problems = new Array(); // Array for database submission
     for (var i = 0; i < submittedProblems.length; i++) {
       var questionLabel = $(submittedProblems[i]).find('.control-label').first();
       var question = $(submittedProblems[i]).find('textarea');
       var answer = this.$('input[name=' + $(question).attr('id') + ']:checked', '#quiz');
 
+      // Questions must have a problem and correct answer
       if (!(question.val() && answer.val())) {
         this.showInvalid(questionLabel, 'Please provide a question and correct answer');
       } else {
@@ -75,6 +81,7 @@ Eduki.Views.QuizNew = Backbone.View.extend({
         }
       }
 
+    // Submit the quiz if all the data is valid
     if (this.$('#create-quiz-title').val() &&
         (submittedProblems.length == problems.length)) {
       this.submit(problems);
