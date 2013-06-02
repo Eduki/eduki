@@ -582,12 +582,15 @@ form label {
   margin-top: 10px;
 }
 
-#course-ownership-edit, #course-ownership-delete {
+#course-ownership-edit,
+#course-ownership-delete,
+#update-profile {
   float: right;
   margin-left: 10px;
 }
 
-#course-ownership-edit {
+#course-ownership-edit,
+#update-profile {
   width: 31px;
   padding-top: 31px;
   background-image: url('icons/edit_big.png');
@@ -664,3 +667,7 @@ form label {
 
 /* DASHBOARD */
 #enrolled-courses > .row { margin-bottom: 15px; }
+#dashboard h1 { float: left; }
+#update-profile {
+  margin-top: 12px;
+}
