@@ -12,21 +12,23 @@ Eduki.Views.Dashboard = Backbone.View.extend({
 
   initialize: function() {
     this.render(this.template());
-    this.courses = new Eduki.Collections.Courses();
-    this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
-    this.ownedCourses = new Eduki.Collections.Courses({user_id: currentUser.id});
-    var self = this;
+    if (currentUser.authenticated) {
+      this.courses = new Eduki.Collections.Courses();
+      this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
+      this.ownedCourses = new Eduki.Collections.Courses({user_id: currentUser.id});
 
-    // Get enrollments from database
-    $.when(this.enrollments.fetch(),
-           this.ownedCourses.fetch()).then(
-             function() {
-               self.renderUserInfo();
-             },
-             function() {
-               self.render(self.errorTemplate());
-             }
-    );
+      var self = this;
+      // Get enrollments from database
+      $.when(this.enrollments.fetch(),
+             this.ownedCourses.fetch()).then(
+               function() {
+                 self.renderUserInfo();
+               },
+               function() {
+                 self.render(self.errorTemplate());
+               }
+      );
+    }
   },
 
   render: function(template) {

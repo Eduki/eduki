@@ -540,8 +540,8 @@ form label {
 
 .listing-course > a { background-color: #87a8b1; }
 .listing-course > a:hover { background-color: #35849a; }
-.listing-lesson > a, .listing-user-course > a { background-color: #be9790; }
-.listing-lesson > a:hover, .listing-user-course:hover > a { background-color: #a74738; }
+.listing-lesson > a, .listing-owned-course > a { background-color: #be9790; }
+.listing-lesson > a:hover, .listing-owned-course:hover > a { background-color: #a74738; }
 .listing-quiz > a { background-color: #bfb191; }
 .listing-quiz > a:hover { background-color: #a56f37; }
 
