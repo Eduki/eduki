@@ -7,24 +7,24 @@
       <p>Select the correct answer (A, B, C, D) from the <strong>radio buttons</strong></p>
     </div>
   </div>
-  <div id="create-quiz-form" class="row">
-    <form class="form-horizontal offset2 span8" id="quiz">
+  <div class="row">
+    <form id="create-quiz-form"class="form-horizontal offset2 span8" id="quiz">
       <div class="control-group">
-        <label class="control-label">Title:</label>
-          <div class="controls">
-            <input class="input-xlarge" type="text" id="create-quiz-title" placeholder="Enter a quiz title" required />
-          </div>
+        <label class="control-label" data-placement="left" data-trigger="manual" data-toggle="popover">Title</label>
+        <div class="controls">
+          <input type="text" id="create-quiz-title" placeholder="Enter a quiz title" />
+        </div>
       </div>
       <div id="create-quiz-problems">
       </div>
       <div class="control-group">
         <div class="controls">
-          <button type="button" id="create-quiz-add" class="eduki-button-icon eduki-button-icon-small"></button>
+          <button type="button" id="create-quiz-add" class="eduki-button-icon"></button>
         </div>
       </div>
       <div class="control-group">
         <div class="controls">
-          <button type="button" class="eduki-button-primary" id="submit"><span>Create Quiz</span></button>
+          <button type="button" class="pull-right eduki-button-primary" id="publish" data-placement="left" data-trigger="manual" data-toggle="popover"><span>Publish</span></button>
         </div>
       </div>
     </form>
