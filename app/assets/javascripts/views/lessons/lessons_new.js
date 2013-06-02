@@ -28,8 +28,8 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
   // handles the form submission, displays appropriate pages on success/error
   create: function(e) {
     e.preventDefault();
-    this.lesson = new Eduki.Models.Lesson({ title: this.$('#create-lesson-title').val(),
-                                            body: this.$('#create-lesson-body').val(),
+    this.lesson = new Eduki.Models.Lesson({ title: this.$('#form-lesson-title').val(),
+                                            body: this.$('#form-lesson-body').val(),
                                             course_id: this.cid });
     if (this.lesson.isValid()) {
       var self = this;

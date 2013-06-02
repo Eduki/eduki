@@ -8,7 +8,8 @@
 Eduki.Routers.Lessons = Backbone.Router.extend({
   routes: {
     'courses/:cid/lessons/new(/)': 'create',
-    'courses/:cid/lessons/:id(/)': 'lesson'
+    'courses/:cid/lessons/:id(/)': 'lesson',
+    'courses/:cid/lessons/:id/edit(/)': 'edit'
   },
 
   // Delegate to the Lesson View and render it inside of the container
@@ -21,6 +22,11 @@ Eduki.Routers.Lessons = Backbone.Router.extend({
   create: function(cid) {
   	var view = new Eduki.Views.LessonsCreate({attributes:{course_id: cid}});
   	$('#main-content').html(view.render().el);
+  },
+
+  edit: function(cid, id) {
+    var view = new Eduki.Views.LessonsEdit({attributes: {course_id: cid, lesson_id: id}});
+    $('#main-content').html(view.render().el);
   }
 
 });

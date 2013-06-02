@@ -17,6 +17,7 @@ describe("Profile Update", function () {
 
 	describe("Renders Form", function () {
 		it("has user info form", function() {
+			serverRespond(this.server, 200, fixtures["user"]);
 			expect(view.$el).toContain('#first-name');
 			expect(view.$el).toContain('#last-name');
 			expect(view.$el).toContain('#email');
