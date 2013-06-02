@@ -1,0 +1,20 @@
+<div id="owned-courses">
+  <% if (this.enrollments.size() <= 0) { %>
+    <h2>You have not created any courses.</h2>
+  <% } else { %>
+    <h2>Your Courses</h2>
+  <div id="owned-courses-list">
+    <div class="row">
+    <% for (var i = 0; i < this.ownedCourses.size(); i++) { %>
+        <div class="listing-square listing-lesson">
+          <a class="span2" href="/#/courses/<%- this.ownedCourses.models[i].get('id') %>"><span><%- this.ownedCourses.models[i].get('title') %></span></a>
+        </div>
+      <% if ((i+1) % 6 == 0 && (i+1) < this.ownedCourses.size()) { %>
+    </div>
+    <div class="row">
+      <% } %>
+    <% } %>
+  </div>
+    <% } %>
+</div>
+

@@ -1,0 +1,21 @@
+<div id="enrolled-courses">
+  <% if (this.enrollments.size() <= 0) { %>
+    <h2>You are currently not enrolled in any courses.</h2>
+  <% } else { %>
+    <h2>Enrolled Courses</h2>
+    <div id="enrolled-courses-list">
+      <div class="row">
+      <% for (var i = 0; i < this.courses.size(); i++) { %>
+          <div class="listing-square listing-course">
+            <a class="span2" href="/#/courses/<%- this.courses.models[i].get('id') %>"><span><%- this.courses.models[i].get('title') %></span></a>
+          </div>
+        <% if ((i+1) % 6 == 0 && (i+1) < this.courses.size()) { %>
+      </div>
+      <div class="row">
+        <% } %>
+      <% } %>
+    </div>
+    <% } %>
+</div>
+
+
