@@ -20,9 +20,19 @@ describe('Dashboard', function() {
       expect(view.$el.find('h1')).toHaveText("derp\'s Dashboard");
     });
 
-    it('renders header for user without first name', function() {
+    it('renders header for user where first name is empty string', function() {
       var view = new Eduki.Views.Dashboard();
       serverRespond(this.server, 200, {id:1, first_name: '', last_name: '',
+                                       email: '', background: ''});
+      serverRespond(this.server, 200, ['enrollments']);
+      serverRespond(this.server, 200, ['user_courses']);
+      serverRespond(this.server, 200, ['courses']);
+      expect(view.$el.find('h1')).toHaveText("Your Dashboard");
+    });
+
+    it('renders header for user where first name is null', function() {
+      var view = new Eduki.Views.Dashboard();
+      serverRespond(this.server, 200, {id:1, first_name: null, last_name: '',
                                        email: '', background: ''});
       serverRespond(this.server, 200, ['enrollments']);
       serverRespond(this.server, 200, ['user_courses']);

@@ -47,6 +47,13 @@ Eduki.Views.Dashboard = Backbone.View.extend({
 
   // Renders all the courses a user is in
   renderUserInfo: function() {
+    // The user's dashboard header to their name if it exists
+    this.firstName = this.user.get('first_name');
+    if (!this.firstName)
+      this.firstName = 'Your'
+    else
+      this.firstName += '\'s';
+
     this.render(this.template());
     var self = this;
     // Grab all the courses in the database
