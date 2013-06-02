@@ -26,8 +26,10 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
   	this.course.fetch({
       success: function() {
       	// only updates fields if template is rendered correctly
-        if (self.render(self.template)) {
+        if (self.render(self.template())) {
         	self.updateFields();
+        } else {
+          self.render(self.errorTemplate());
         }
       },
       error: function(model, xhr, options) {
@@ -49,8 +51,8 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
   },
 
   updateFields: function() {
-    $('#form-course-title').val(this.course.get('title'));
-    $('#form-course-description').val(this.course.get('description'));
+    this.$('#form-course-title').val(this.course.get('title'));
+    this.$('#form-course-description').val(this.course.get('description'));
   },
 
   update: function() {

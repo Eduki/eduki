@@ -53,15 +53,15 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
   },
 
   updateFields: function() {
-  	$('#form-lesson-title').val(this.lesson.get('title'));
-    $('#form-lesson-body').val(this.lesson.get('body'));
+  	this.$('#form-lesson-title').val(this.lesson.get('title'));
+    this.$('#form-lesson-body').val(this.lesson.get('body'));
   },
 
   update: function() {
   	this.lesson = new Eduki.Models.Lesson({ id: this.lesson.get('id'),
   																					course_id: this.lesson.get('course_id'),
-                                            title: $('#form-lesson-title').val(),
-                                            body: $('#form-lesson-body'). val() });
+                                            title: this.$('#form-lesson-title').val(),
+                                            body: this.$('#form-lesson-body').val() });
 
     // updates lesson info
     // routes to dashboard on success
