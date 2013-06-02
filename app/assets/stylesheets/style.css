@@ -561,12 +561,15 @@ button {
   margin-bottom: 10px;
 }
 
-.listing-line > a, .listing-square > a {
+.listing-line > a,
+.listing-square > a,
+.listing-enrolled-course > div{
   color: white;
   overflow: hidden;
 }
 
-.listing-square > a {
+.listing-square > a,
+.listing-enrolled-course > div{
   padding: 10px;
   border-radius: 2px;
   height: 120px;
@@ -596,7 +599,7 @@ button {
   text-transform: uppercase;
 }
 
-.listing-course > a, .listing-enrolled-course > a { background-color: #87a8b1; }
+.listing-course > a, .listing-enrolled-course > div { background-color: #87a8b1; }
 .listing-course > a:hover { background-color: #35849a; }
 .listing-lesson > a, .listing-owned-course > a { background-color: #be9790; }
 .listing-lesson > a:hover, .listing-owned-course:hover > a { background-color: #a74738; }

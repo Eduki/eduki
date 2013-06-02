@@ -59,5 +59,3 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
     return correct;
   }
 });
-
-

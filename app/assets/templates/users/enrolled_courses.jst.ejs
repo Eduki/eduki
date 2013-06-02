@@ -7,7 +7,7 @@
       <div class="row">
       <% for (var i = 0; i < this.courses.size(); i++) { %>
           <div class="listing-square listing-enrolled-course">
-            <a id="listing-<%- i % 6 %>"class="span2" href="/#/courses/<%- this.courses.models[i].get('id') %>" title="<%- this.courses.models[i].get('title') %>"><span><%- this.courses.models[i].get('title') %></span></a>
+            <div id="listing-<%- i % 6 %>" class="span2" title="<%- this.courses.models[i].get('title') %>"><span><%- this.courses.models[i].get('title') %></span></div>
             <div class="enrolled-course-overlay">
               <div class="icon-container">
                 <a class="eduki-button-icon course-home" href="/#/courses/<%- this.courses.models[i].get('id') %>"></a>
