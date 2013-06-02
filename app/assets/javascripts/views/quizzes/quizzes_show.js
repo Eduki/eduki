@@ -67,22 +67,27 @@
   // Calculate the total questions correct
   // Create the problem attempts array to send to database
   grade: function() {
+    // Remove old modal
+    self.$('#quiz-results-modal').remove();
+
+    // Enrolled users can submit quiz attempts
     if (this.isEnrolled()) {
       var problemAttempts = new Array();
-      var correct = 0;
+      this.correct = 0;
       for (var i = 0; i < this.quiz.get('problems').length; i++) {
+        //Grab user's input answer
         var inputAnswer = this.$('input:radio[name=problem-' +
                           this.quiz.get('problems')[i].id + ']:checked').val();
         var answer = this.quiz.get('problems')[i].answer;
         if (inputAnswer == answer)
-          correct++;
+          this.correct++;
 
         // Empty string or user's answer is pushed onto problemAttempts
         problemAttempts.push({answer: (inputAnswer ? inputAnswer : '')});
       }
-      this.correct = correct;
       this.saveAttempt(problemAttempts);
     } else {
+      // Show an error message if user is unable to submit
       this.$('#submit-quiz').attr('data-content', 'Please enroll in course to take this quiz');
       this.$('#submit-quiz').popover('show');
     }
