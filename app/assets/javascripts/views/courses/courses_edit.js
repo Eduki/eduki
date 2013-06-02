@@ -50,7 +50,7 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
 
   updateFields: function() {
     $('#form-course-title').val(this.course.get('title'));
-    $('#form-course-background').val(this.course.get('background'));
+    $('#form-course-description').val(this.course.get('description'));
   },
 
   update: function() {
