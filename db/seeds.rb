@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+user_one = User.create({:email => "seed user #{rand}", :password => "bananaphone"})
+user_two = User.create({:email => "seed user #{rand}", :password => "bananaphone"})
 course = Course.create({:title => 'Introduction to Competitive Security Competitions', 
                         :user => user_one})
 course_two = Course.create({:title => 'Example Course 2', 

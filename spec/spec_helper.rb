@@ -64,6 +64,7 @@ end
 def add_fixtures
     @user = User.new
     @user.email = "user email"
+    @user.password = "user password"
     @user.save
 
     @course = Course.new
@@ -142,6 +143,7 @@ def add_fixtures
 
     @user_two = User.new
     @user_two.email = "user_two email"
+    @user_two.password = "user_two password"
     @user_two.save
 
     @course_three = Course.new

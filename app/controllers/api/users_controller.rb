@@ -17,6 +17,7 @@ class Api::UsersController < Api::ApiController
     * email:string
     * first_name:string
     * last_name:string
+    * password:string -- only used in creation, editing, and authentication
     * background:string - a body of text that the user can use to describe themselves with.
     EOS
   end
@@ -55,18 +56,20 @@ class Api::UsersController < Api::ApiController
     end
   end
 
+  api :GET, '/authenticate', 'Authenticate a user'
+  param :email, String, :required => true
+  param :password, String, :required => true
   def authenticate
     authenticate_or_request_with_http_basic do |email, password|
       fnd_user = User.find_by_email(email)
       if !fnd_user.nil? && fnd_user.valid_password?(password)
         render :json => fnd_user
-	true
       else
         render :json => error_object, :status => 401
       end
     end
   end
-  
+
   api :PUT, '/users/:id', "Update a user's information"
   param :id, Fixnum, :required => true
   param :email, String
