@@ -34,7 +34,7 @@ describe('Dashboard', function() {
       var view = new Eduki.Views.Dashboard();
       successServerResponses(this.server);
       expect(view.$el.find('#enrolled-courses h2')).toHaveText('Enrolled Courses');
-      expect(view.$el).toContain('.listing-course');
+      expect(view.$el).toContain('.listing-enrolled-course');
     });
 
     it('renders owned courses', function() {
@@ -65,7 +65,7 @@ describe('Dashboard', function() {
     it('renders one enrollments', function() {
       var view = new Eduki.Views.Dashboard();
       successServerResponses(this.server);
-      var courses = view.$el.find('.listing-course');
+      var courses = view.$el.find('.listing-enrolled-course');
       expect(courses.length).toBe(2);
     });
 

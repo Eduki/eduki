@@ -506,15 +506,16 @@ form label {
   margin-bottom: 10px;
 }
 
-.listing-line > a, .listing-square a {
+.listing-line > a, .listing-square > a {
   color: white;
   overflow: hidden;
 }
 
-.listing-square a {
-  padding: 10px 0 10px 0;
+.listing-square > a {
+  padding: 10px;
   border-radius: 2px;
   height: 120px;
+  width: 120px;
   margin-bottom: 20px;
 }
 
@@ -527,7 +528,6 @@ form label {
 }
 
 .listing-square span {
-  padding: 0 10px 0 10px;
   height: 120px;
   line-height: 16px;
 }
@@ -541,7 +541,7 @@ form label {
   text-transform: uppercase;
 }
 
-.listing-course > a { background-color: #87a8b1; }
+.listing-course > a, .listing-enrolled-course > a { background-color: #87a8b1; }
 .listing-course > a:hover { background-color: #35849a; }
 .listing-lesson > a, .listing-owned-course > a { background-color: #be9790; }
 .listing-lesson > a:hover, .listing-owned-course:hover > a { background-color: #a74738; }
@@ -688,4 +688,40 @@ form label {
 
 #premium-features li {
   font-size: 18pt;
+}
+
+.enrolled-course-overlay {
+  background-image: url('signup_bg.png');
+  padding: 10px;
+  border-radius: 2px;
+  height: 120px;
+  width: 120px;
+  margin-bottom: 20px;
+  position: absolute;
+  z-index: 1020;
+  display: none;
+}
+
+.enrolled-course-overlay:hover {
+}
+
+.enrolled-course-overlay .eduki-button-icon {
+  margin-top: 32px;
+  display: inline-block;
+  width: 46px;
+  padding-top: 44px;
+  position: relative;
+  z-index: 1021;
+}
+
+.icon-container {
+  text-align: center;
+  width: 120px;
+}
+
+.quiz-attempts {
+  background-image: url('icons/quiz_attempts.png');
+}
+.course-home {
+  background-image: url('icons/course_home.png');
 }

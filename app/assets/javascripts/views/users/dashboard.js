@@ -9,6 +9,10 @@ Eduki.Views.Dashboard = Backbone.View.extend({
   enrolledCoursesTemplate: JST['users/enrolled_courses'],
   ownedCoursesTemplate: JST['users/owned_courses'],
   errorTemplate: JST['static/error'],
+  events: {
+    'mouseenter .listing-enrolled-course > a': 'showOverlay',
+    'mouseleave .listing-enrolled-course': 'hideOverlay',
+  },
 
   initialize: function() {
     if (currentUser.authenticated) {
@@ -56,6 +60,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
         });
         self.courses = new Eduki.Collections.Courses(courses);
         self.$('#dashboard').append(self.enrolledCoursesTemplate());
+        self.calculateOverlays();
         self.$('#dashboard').append(self.ownedCoursesTemplate());
       },
       // If there is an error in fetching courses, display the error page
@@ -63,11 +68,24 @@ Eduki.Views.Dashboard = Backbone.View.extend({
     });
   },
 
-  renderQuizAttempts: function() {
-    this.quizAttempts = new Eduki.Collections.QuizAttempts({enrollment_id: currentUser.id});
+  // Show enrolled course overlay
+  showOverlay: function() {
+    $(this).siblings().slideDown(300);
   },
 
-  renderOwnedCourses: function() {
-    
+  // Hide enrolled course overlay
+  hideOverlay: function(e) {
+    this.$('.enrolled-course-overlay').slideUp(300);
+  },
+
+  // Calculate the positions of the overlays
+  calculateOverlays: function() {
+    var listings = this.$('.listing-enrolled-course > a');
+    var overlays = this.$('.enrolled-course-overlay');
+    for (var i = 0; i < listings.length; i++) {
+      $(listings[i]).hover(this.showOverlay);
+      var offset = parseInt($(listings[i]).attr('id').slice(-1));
+      $(overlays[i]).css('margin-left', 20 + (offset * 160) + 'px');
+    }
   },
 });
