@@ -78,7 +78,7 @@
 }
 
 @font-face {
-  font-family: 'SourceSansProSemiBoldItalic';
+  font-family: 'SourceSansProBoldItalic';
   src: url('SourceSansPro-SemiboldIt-webfont.eot');
   src: url('SourceSansPro-SemiboldIt-webfont.eot?#iefix') format('embedded-opentype'),
        url('SourceSansPro-SemiboldIt-webfont.woff') format('woff'),
@@ -87,6 +87,16 @@
   font-weight: normal;
   font-style: normal;
 }
+
+strong {
+  font-family: "SourceSansProBold";
+  font-weight: normal;
+}
+em { font-family: "SourceSansProItalic"; }
+strong em, em strong { font-family: "SourceSansProBoldItalic"; }
+p strong { font-family: 'LiberationSerifBold'; }
+p em { font-family: 'LiberationSerifItalic'; }
+p strong em, p em strong { font-family: 'LiberationSerifBoldItalic'; }
 
 /* GENERAL */
 
@@ -138,10 +148,6 @@ p {
   margin-bottom: 20px;
 }
 
-p strong { font-family: 'LiberationSerifBold'; }
-p em { font-family: 'LiberationSerifItalic'; }
-p strong em, p em strong { font-family: 'LiberationSerifBoldItalic'; }
-
 #main-content > div > .container { margin-top: 30px; }
 .popover { color: #a74738; }
 .form-actions { background: none !important; }
@@ -164,11 +170,20 @@ ul li {
   letter-spacing: 1px;
 }
 
-.success-message-text {
-  text-transform: uppercase;
-  margin: 10px 0 10px 0;
-  color: green;
-  font-size: 24pt;
+.alert {
+  color: #3f3f3f;
+  background-color: #f9b6ac;
+  border-color: #be9790;
+}
+
+#course-description,
+#lesson-body,
+#quiz form li,
+#quiz fieldset label,
+#quiz fieldset input,
+#quiz fieldset span {
+  color: #3f3f3f !important;
+  font-family: 'LiberationSerif' !important;
 }
 
 /* NAVBAR */
@@ -345,6 +360,7 @@ button {
   border: 0;
 }
 
+
 .eduki-button-block .row {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -359,9 +375,15 @@ button {
   text-transform: uppercase;
   letter-spacing: 6px;
   background-color: #75ddf4 !important;
-  background-image: linear-gradient(to bottom, #9be8f7, #75ddf4) !important;
   padding-top: 8px;
   padding-bottom: 5px;
+}
+
+.eduki-button-primary:hover {
+  background-color: #35849a !important;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
 }
 
 .eduki-button-small {
@@ -377,14 +399,11 @@ button {
   bottom: 5px;
 }
 
-.eduki-button-primary:hover {
-  text-decoration: none;
-  color: white;
-  background-image: none !important;
-  cursor: pointer;
-}
 
-.eduki-button-primary span { margin-left: 6px; }
+.eduki-button-primary span {
+  font-family: "SourceSansProBold";
+  margin-left: 6px;
+}
 .eduki-button-small span { margin-left: 5px; }
 .eduki-button-inline span { margin-left: 5px; }
 
@@ -396,34 +415,46 @@ button {
 
 /* QUIZ */
 
-.quiz li {
-  font-size: 18pt;
+#current-quiz > a{ background-color: #a56f37; }
+
+#quiz form li,
+#quiz fieldset label,
+#quiz fieldset input,
+#quiz fieldset span {
+  text-transform: none;
+  font-size: 14pt;
+}
+
+#quiz form li {
   margin-bottom: 10px;
 }
 
-.quiz span {
+#quiz fieldset label {
+  line-height: 22px;
+}
+
+#quiz form span {
   margin-left: 5px;
   font-size: 14pt;
 }
 
-.quiz input {
+#quiz form input {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-#quiz-results-modal p {
+#quiz-results-modal big {
   font-size: 18pt;
-  color: green;
+  color: #3f3f3f;
 }
 
-form label {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 18pt;
+#create-quiz-form input[type="text"],
+#create-quiz-form textarea {
+  width: 380px;
 }
 
 #create-quiz-problems {
-  margin-top: 35px;
+  margin-top: 25px;
 }
 
 .create-quiz-problem {
@@ -435,28 +466,52 @@ form label {
   margin-bottom: 0;
 }
 
+.create-quiz-question {
+  height: 50px;
+}
+
+.create-quiz-answer {
+  margin-top: 10px;
+}
+
+.create-quiz-answer .controls {
+  margin-top: 3px;
+}
+
 .create-quiz-answer span {
-  margin-left: 10px;
+  margin-left: 7px;
   margin-right: 20px;
   position: relative;
   top: 3px;
 }
 
-.eduki-button-icon-small {
-  background-size: 25px 25px;
-  padding-top: 25px;
-  width: 25px;
+.create-quiz-delete, #create-quiz-add {
+  background-size: 30px 30px;
+  padding-top: 30px;
+  width: 30px;
+  background-color: #75ddf4 !important;
+}
+
+.create-quiz-delete:hover, #create-quiz-add:hover {
+  background-color: #35849a !important;
 }
 
 #create-quiz-add {
-  background-image: url('icons/add.jpg');
+  background-image: url('icons/quiz_add.png');
   margin-bottom: 30px;
 }
 
 .create-quiz-delete {
-  display: inline;
+  background-image: url('icons/quiz_delete.png');
+  float:left;
   margin-left: 10px;
-  background-image: url('icons/delete.jpg');
+  position: relative;
+  left: 180px;
+  bottom: 45px;
+}
+
+.create-quiz-problem .control-group {
+  float: left;
 }
 
 #create-quiz-delete-error {
