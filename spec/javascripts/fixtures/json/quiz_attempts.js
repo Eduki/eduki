@@ -1,6 +1,6 @@
-fixtures['quiz_attempt'] =
+fixtures['quiz_attempts'] =
   [{"id":1,"quiz_id":1, "enrollment_id":1,
-   "problems":[{"id":1, "quiz_attempt_id":1,
+   "problem_attempts":[{"id":1, "quiz_attempt_id":1,
                 "problem_id":1,
                 "answer":"A",
                 "correct":true},
@@ -9,7 +9,7 @@ fixtures['quiz_attempt'] =
                 "answer":"B",
                 "correct":false}]},
     {"id":1,"quiz_id":1, "enrollment_id":1,
-     "problems":[{"id":1, "quiz_attempt_id":1,
+     "problem_attempts":[{"id":1, "quiz_attempt_id":1,
                   "problem_id":1,
                   "answer":"A",
                   "correct":true},

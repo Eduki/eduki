@@ -86,7 +86,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
 
   // Calculate the positions of the overlays
   calculateOverlays: function() {
-    var listings = this.$('.listing-enrolled-course > a');
+    var listings = this.$('.listing-enrolled-course > div.span2');
     var overlays = this.$('.enrolled-course-overlay');
     for (var i = 0; i < listings.length; i++) {
       $(listings[i]).hover(this.showOverlay);

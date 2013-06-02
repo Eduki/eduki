@@ -7,13 +7,15 @@
 Eduki.Views.QuizAttempts = Backbone.View.extend({
 
   template: JST['users/quiz_attempts'],
+  errorTemplate: JST['static/error'],
 
   initialize: function() {
     var self = this;
     this.enrollment = new Eduki.Models.Enrollment({id: this.attributes.enrollment_id});
     this.enrollment.fetch({
       success: function() {self.renderQuizAttempts()},
-      error: function() {self.render(self.errorTemplate())}
+      error: function() {
+        self.render(self.errorTemplate())}
     });
   },
 
@@ -45,12 +47,14 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
              }
              self.render(self.template());
            },
-           function() {self.render(self.errortemplate());}
+           function() {
+             self.render(self.errorTemplate());}
            );
   },
 
   // Calculates the number correct for a given attempt
   calculatescore: function(attempt) {
+    console.log(attempt);
     var correct = 0;
     for (var i = 0; i < attempt.length; i++) {
       if (attempt[i]['correct'])
