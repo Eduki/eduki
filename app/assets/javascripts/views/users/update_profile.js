@@ -17,7 +17,6 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
   initialize: function() {
     // renders form, then updates all existing fields with the current profile values
     // if they exist
-    this.render(this.template());
     this.fetchUserInfo();
   },
 
@@ -30,7 +29,11 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     // grab user from database
     this.user.fetch({
       success: function() {
-        self.updateFields();
+        if (self.render(self.template())) {
+          self.updateFields();
+        } else {
+          self.render(self.errorTemplate());
+        }
       },
       error: function(model, xhr, options) {
         self.render(self.errorTemplate());
