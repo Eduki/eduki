@@ -27,15 +27,15 @@
         </thead>
         <tbody>
         <% for (var i = 0; i < this.quizAttempts.size(); i++) { %>
-          <% if (this.quizAttempts.models[i].get('percent') <= .5) { %>
+          <% if (this.quizAttempts.models[i].get('percent') <= 50) { %>
           <tr class="error">
           <% } else { %>
           <tr class="success">
           <% } %>
-          <td><a href="/#/courses/<%- this.enrollment.get('course_id') %>/quizzes/<%- this.quizAttempts.models[i].get('quiz_id') %>"><%- this.quizzes.get(this.quizAttempts.models[i].get('quiz_id')).get('title') %></a></td>
-          <td><%- this.quizAttempts.models[i].get('score') %></td>
-          <td><%- this.quizAttempts.models[i].get('problem_attempts').length %></td>
-          <td><%- this.quizAttempts.models[i].get('percent') %></td>
+          <td class="title"><a href="/#/courses/<%- this.enrollment.get('course_id') %>/quizzes/<%- this.quizAttempts.models[i].get('quiz_id') %>"><%- this.quizzes.get(this.quizAttempts.models[i].get('quiz_id')).get('title') %></a></td>
+          <td class="correct-score"><%- this.quizAttempts.models[i].get('score') %></td>
+          <td class="total-problems"><%- this.quizAttempts.models[i].get('problem_attempts').length %></td>
+          <td class="percent-score"><%- this.quizAttempts.models[i].get('percent') %></td>
         </tr>
         <% } %>
         </tbody>

@@ -43,7 +43,7 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
                var attempt = self.quizAttempts.models[i].get('problem_attempts');
                var score = self.calculatescore(attempt);
                self.quizAttempts.models[i].set('score', score);
-               self.quizAttempts.models[i].set('percent', score/attempt.length);
+               self.quizAttempts.models[i].set('percent', (score/attempt.length) * 100);
              }
              self.render(self.template());
            },
@@ -54,7 +54,6 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
 
   // Calculates the number correct for a given attempt
   calculatescore: function(attempt) {
-    console.log(attempt);
     var correct = 0;
     for (var i = 0; i < attempt.length; i++) {
       if (attempt[i]['correct'])
