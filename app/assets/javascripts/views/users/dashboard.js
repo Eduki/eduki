@@ -11,15 +11,16 @@ Eduki.Views.Dashboard = Backbone.View.extend({
   errorTemplate: JST['static/error'],
 
   initialize: function() {
-    this.render(this.template());
     if (currentUser.authenticated) {
+      this.user = new Eduki.Models.User({id: currentUser.id});
       this.courses = new Eduki.Collections.Courses();
       this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
       this.ownedCourses = new Eduki.Collections.Courses({user_id: currentUser.id});
 
       var self = this;
       // Get enrollments from database
-      $.when(this.enrollments.fetch(),
+      $.when(this.user.fetch(),
+             this.enrollments.fetch(),
              this.ownedCourses.fetch()).then(
                function() {
                  self.renderUserInfo();
@@ -43,6 +44,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
 
   // Renders all the courses a user is in
   renderUserInfo: function() {
+    this.render(this.template());
     var self = this;
     // Grab all the courses in the database
     this.courses.fetch({

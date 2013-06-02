@@ -668,6 +668,4 @@ form label {
 /* DASHBOARD */
 #enrolled-courses > .row { margin-bottom: 15px; }
 #dashboard h1 { float: left; }
-#update-profile {
-  margin-top: 12px;
-}
+#update-profile { margin-top: 12px; }

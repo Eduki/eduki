@@ -7,7 +7,7 @@
       <div class="row">
       <% for (var i = 0; i < this.courses.size(); i++) { %>
           <div class="listing-square listing-course">
-            <a class="span2" href="/#/courses/<%- this.courses.models[i].get('id') %>"><span><%- this.courses.models[i].get('title') %></span></a>
+            <a class="span2" href="/#/courses/<%- this.courses.models[i].get('id') %>" title="<%- this.courses.models[i].get('title') %>"><span><%- this.courses.models[i].get('title') %></span></a>
           </div>
         <% if ((i+1) % 6 == 0 && (i+1) < this.courses.size()) { %>
       </div>

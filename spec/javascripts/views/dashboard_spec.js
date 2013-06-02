@@ -14,10 +14,20 @@ describe('Dashboard', function() {
 
     setupFakeServer();
 
-    it('renders header', function() {
+    it('renders header for user with first name', function() {
       var view = new Eduki.Views.Dashboard();
       successServerResponses(this.server);
-      expect(view.$el.find('h1')).toHaveText('Your Dashboard');
+      expect(view.$el.find('h1')).toHaveText("derp\'s Dashboard");
+    });
+
+    it('renders header for user without first name', function() {
+      var view = new Eduki.Views.Dashboard();
+      serverRespond(this.server, 200, {id:1, first_name: '', last_name: '',
+                                       email: '', background: ''});
+      serverRespond(this.server, 200, ['enrollments']);
+      serverRespond(this.server, 200, ['user_courses']);
+      serverRespond(this.server, 200, ['courses']);
+      expect(view.$el.find('h1')).toHaveText("Your Dashboard");
     });
 
     it('renders course enrollments', function() {
@@ -39,11 +49,13 @@ describe('Dashboard', function() {
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, []);
       expect(view.$el.find('#enrolled-courses h2')).toHaveText('You are currently not enrolled in any courses.');
     });
 
     it('renders no owned courses', function() {
       var view = new Eduki.Views.Dashboard();
+      serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
@@ -100,6 +112,7 @@ describe('Dashboard', function() {
   // Helper function to send back successful respones for all 3 api calls
   // necessary to render a course overview
   function successServerResponses(server) {
+    serverRespond(server, 200, fixtures['user']);
     serverRespond(server, 200, fixtures['enrollments']);
     serverRespond(server, 200, fixtures['user_courses']);
     serverRespond(server, 200, fixtures['courses']);
