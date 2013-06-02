@@ -1,18 +1,37 @@
 <div id="update" class="container">
-  <div id="update-profile-form" class="row">
-    <form class="offset2 span8">
-      <fieldset>
-        <h1>Update Profile</h1>
-        <label>First Name</label>
-        <input class="span8" type="text" id="first-name" placeholder="First Name" />
-        <label>Last Name</label>
-        <input data-placement="right" data-trigger="manual" data-toggle="popover" class="span8" type="text" id="last-name" placeholder="Last Name" />
-        <label>Email</label>
-        <input class="span8" type="text" id="email" placeholder="Email" required />
-        <label>Background</label>
-        <textarea class="span8" id="background" rows="10" cols="80" placeholder="Enter a little bit about yourself!"></textarea>
-        <button type="button" class="eduki-button-primary" id="submit-update"><span>Update Profile</span></button>
-      </fieldset>
+  <div class="row">
+    <div class="offset2 span8">
+      <h1>Update Profile</h1>
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <form id="update-profile-form" class="form-horizontal offset2 span8">
+      <div class="control-group">
+        <label class="control-label">First Name</label>
+        <div class="controls">
+          <input type="text" id="first-name" placeholder="First Name" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Last Name</label>
+        <div class="controls">
+          <input data-placement="right" data-trigger="manual" data-toggle="popover" type="text" id="last-name" placeholder="Last Name" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Email</label>
+        <div class="controls">
+          <input type="text" id="email" placeholder="Email" required />
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Background</label>
+        <div class="controls">
+          <textarea id="background" rows="10" cols="80" placeholder="Enter a little bit about yourself!"></textarea>
+        </div>
+      </div>
+      <button type="button" class="eduki-button-primary pull-right" id="submit-update"><span>Update Profile</span></button>
     </form>
   </div>
 </div>

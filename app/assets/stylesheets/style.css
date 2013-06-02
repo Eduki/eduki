@@ -120,6 +120,9 @@ label, select { font-size: 16pt !important; }
 label { text-transform: lowercase; :}
 input { border-radius: 2px !important; }
 
+#update-profile-form input,
+#update-profile-form textarea,
+#update-profile-form .uneditable-input,
 #create-course-form input,
 #create-course-form textarea,
 #create-course-form .uneditable-input,
