@@ -66,7 +66,6 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
       password: this.password,
       success: function(data) {
         currentUser.authenticated = true;
-        console.log(data);
         currentUser.id = data.id;
         successCallback.call(callbackContext);
       },
