@@ -21,7 +21,9 @@
     <div id="course-lessons" class="span6">
       <h2>
         Lessons
+        <% if (this.ownership) { %>
         <a class="eduki-button-icon" id="lesson-create" href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson"></a>
+        <% } %>
       </h2>
       <ul>
       <% for(var i = 0; i < this.lessons.size(); i++) { %>
@@ -40,7 +42,9 @@
     <div id="course-quizzes" class="span6">
       <h2>
         Quizzes
+        <% if (this.ownership) { %>
         <a class="eduki-button-icon" id="quiz-create" href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson"></a>
+        <% } %>
       </h2>
       <ul>
         <% for(var i = 0; i < this.quizzes.size(); i++) { %>

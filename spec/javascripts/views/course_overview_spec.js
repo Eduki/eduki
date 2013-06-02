@@ -155,6 +155,7 @@ describe('Course', function() {
         successServerResponses(this.server);
         expect(view.$el).toContain('.listing-lesson .ownership-delete');
         expect(view.$el).toContain('.listing-lesson .ownership-edit');
+        expect(view.$el).toContain('#lesson-create');
       });
 
       it('shows quiz action icons for a course owner', function() {
@@ -162,6 +163,7 @@ describe('Course', function() {
         successServerResponses(this.server);
         expect(view.$el).toContain('.listing-quiz .ownership-delete');
         expect(view.$el).toContain('.listing-quiz .ownership-edit');
+        expect(view.$el).toContain('#quiz-create');
       });
 
       it('does not show action buttons for non-owner', function() {
@@ -173,6 +175,8 @@ describe('Course', function() {
         serverRespond(this.server, 200, fixtures['enrollments']);
         expect(view.$el).not.toContain('#course-ownership-actions');
         expect(view.$el).not.toContain('.ownership-actions');
+        expect(view.$el).not.toContain('#lesson-create');
+        expect(view.$el).not.toContain('#quiz-create');
       });
 
       it('renders course edit link', function() {
