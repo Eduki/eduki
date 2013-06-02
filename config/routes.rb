@@ -57,16 +57,18 @@ Eduki::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   #   match 'products/:id' => 'catalog#view'
+
   apipie
   root :to => 'static#index'
   match 'api' => 'api/stub#index'
   namespace :api do
-
     resources :users, :only => [:show, :index, :create, :update, :destroy] do
       resources :enrollments, :only => [:create, :index]
       resources :courses, :only => [:create]
       match "courses" => 'courses#index_by_user', :via => :get
     end
+
+    match "authenticate" => 'users#authenticate'
 
     resources :enrollments, :only => [:show, :destroy] do
       resources :quiz_attempts, :only => [:create, :index]
