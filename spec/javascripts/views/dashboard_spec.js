@@ -65,10 +65,10 @@ describe('Dashboard', function() {
 
     it('renders no owned courses', function() {
       var view = new Eduki.Views.Dashboard();
+      serverRespond(this.server, 200, fixtures['user']);
+      serverRespond(this.server, 200, fixtures['enrollments']);
       serverRespond(this.server, 200, []);
-      serverRespond(this.server, 200, []);
-      serverRespond(this.server, 200, []);
-      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, fixtures['courses']);
       expect(view.$el.find('#owned-courses h2')).toHaveText('You have not created any courses.');
     });
 
