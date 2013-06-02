@@ -1,5 +1,5 @@
 /*
- *  * Quiz attempt model
+ * Quiz attempt model
  */
 
 Eduki.Models.QuizAttempt = Backbone.Model.extend({

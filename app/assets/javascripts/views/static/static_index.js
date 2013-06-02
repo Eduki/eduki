@@ -59,22 +59,24 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
     }
   },
 
-	// handles the form submission, displays appropriate pages on success/error
+  // handles the form submission, displays appropriate pages on success/error
   signup: function() {
-		var self = this;
+    var self = this;
 
     // Saves user to database
     this.user.save({email: this.user.get('email')},
-                   {wait: true,
-                    success: function() {
-                      self.login();
-                    },
-                    error: function(model, xhr, options) {
-                      if (xhr.status == 409)
-                        self.showInvalid('email', 'Email already exists');
-                      else
-                        self.render(self.errorTemplate());
-                    }});
+                   {
+                     wait: true,
+                     success: function() {
+                       self.login();
+                     },
+                     error: function(model, xhr, options) {
+                       if (xhr.status == 409)
+                         self.showInvalid('email', 'Email already exists');
+                       else
+                         self.render(self.errorTemplate());
+                     }
+                   });
 
   },
 

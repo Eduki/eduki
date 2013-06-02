@@ -16,14 +16,17 @@ describe Api::UsersController do
     @user.first_name = "first name"
     @user.last_name  = "last name"
     @user.background = "background"
+    @user.password = "user_one password"
     @user.save
 
     @user_2 = User.new
     @user_2.email = "notfake"
+    @user_2.password = "user_two password"
     @user_2.save
 
     @user_3 = User.new
     @user_3.email = "wow"
+    @user_3.password = "user_three password"
     @user_3.save
 
     @users = [@user, @user_2, @user_3]
@@ -63,7 +66,7 @@ describe Api::UsersController do
       size = User.count
       post :create, :email => "valid",
            :first_name => "new first name", :last_name => "new last name",
-           :background => "I like turtles"
+           :background => "I like turtles", :password => "new example password"
       assert_response :success
       body = JSON.parse(response.body)
       body['id'].should == (size+1)
@@ -85,7 +88,7 @@ describe Api::UsersController do
     end
 
     it "enforces email uniqueness" do
-      post :create, :email => "fake"
+      post :create, :email => "fake", :password => "derp"
       check_failure(409)
     end
   end
@@ -141,6 +144,22 @@ describe Api::UsersController do
     it "returns 404 if user not found" do
       delete :destroy, :id => -1
       check_failure(404)
+    end
+  end
+
+  describe "#authenticate" do
+    it "gives a 200 code if basic auth credentials are correct" do
+      encoded_credentials = ActionController::HttpAuthentication::Basic.encode_credentials('fake', 'user_one password')
+      request.env['HTTP_AUTHORIZATION'] = encoded_credentials
+      get :authenticate
+      assert_response :success
+    end
+
+    it "gives a 400 code if basic auth credentials are correct" do
+      encoded_credentials = ActionController::HttpAuthentication::Basic.encode_credentials('fake', 'incorrect password')
+      request.env['HTTP_AUTHORIZATION'] = encoded_credentials
+      get :authenticate
+      check_failure(401)
     end
   end
 end

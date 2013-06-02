@@ -8,7 +8,6 @@ describe("CurrentUser", function() {
       currentUser = Eduki.Models.CurrentUser.createFromCookie();
 
       expect(currentUser.email).toEqual("");
-      expect(currentUser.password).toEqual("");
       expect(jQuery.cookie).toHaveBeenCalledWith(CURRENT_USER_COOKIE);
     });
 
@@ -17,7 +16,6 @@ describe("CurrentUser", function() {
       currentUser = Eduki.Models.CurrentUser.createFromCookie();
 
       expect(currentUser.email).toEqual("");
-      expect(currentUser.password).toEqual("");
       expect(jQuery.cookie).toHaveBeenCalledWith(CURRENT_USER_COOKIE);
     });
 
@@ -26,12 +24,10 @@ describe("CurrentUser", function() {
       spyOn(jQuery, 'cookie').andReturn(
         "{\"id\":42,"
         + "\"email\":\"example_user\","
-        + "\"password\":\"example_password\","
         + "\"authenticated\":true}");
       currentUser = Eduki.Models.CurrentUser.createFromCookie();
 
       expect(currentUser.email).toEqual("example_user");
-      expect(currentUser.password).toEqual("example_password");
       expect(currentUser.id).toEqual(42);
       expect(currentUser.authenticated).toEqual(true);
       expect(jQuery.cookie).toHaveBeenCalledWith(CURRENT_USER_COOKIE);
@@ -40,7 +36,7 @@ describe("CurrentUser", function() {
 
   var currentUser;
   beforeEach(function() {
-    currentUser = new Eduki.Models.CurrentUser()
+    currentUser = new Eduki.Models.CurrentUser();
     currentUser.email    = "test_user";
     currentUser.password = "test_password";
   });

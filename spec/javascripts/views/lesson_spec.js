@@ -35,7 +35,7 @@ describe('Lesson', function() {
     it("renders lesson body", function() {
       var view = new Eduki.Views.LessonsLesson({attributes:{course_id: 1, lesson_id: 1}});
       successServerResponses(this.server);
-      expect(view.$el.find('#lesson p')).toHaveText('Derp');
+      expect(view.$el).toContain('#lesson-body');
     });
 
     it("renders lessons list", function() {
