@@ -53,7 +53,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
       $(this.el).html(template);
       return this;
     } else {
-      router.route('/login');
+      router.route('/');
       return false;
     }
   },

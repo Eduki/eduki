@@ -16,6 +16,14 @@ describe("Profile Update", function () {
 	});
 
 	describe("Renders Form", function () {
+		it("redirects if user isn't logged in", function() {
+      spyOn(router, 'route');
+      currentUser.id = -1;
+      currentUser.authenticated = false;
+      view = new Eduki.Views.UpdateProfile();
+      expect(router.route).toHaveBeenCalledWith('/');
+		});
+
 		it("has user info form", function() {
 			expect(view.$el).toContain('#first-name');
 			expect(view.$el).toContain('#last-name');
