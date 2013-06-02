@@ -9,7 +9,8 @@
    resultsTemplate: JST['quizzes/results'],
    errorTemplate: JST['static/error'],
    events: {
-     'click button[type=button]': 'submit',
+     'click #submit-quiz': 'submit',
+     'submit form': 'submit',
    },
 
   initialize: function() {

@@ -174,13 +174,6 @@ ul li {
   font-family: 'LiberationSerif' !important;
 }
 
-.success-message-text {
-  text-transform: uppercase;
-  margin: 10px 0 10px 0;
-  color: green;
-  font-size: 24pt;
-}
-
 /* NAVBAR */
 
 #navbar {
