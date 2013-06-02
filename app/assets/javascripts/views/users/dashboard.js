@@ -10,7 +10,6 @@ Eduki.Views.Dashboard = Backbone.View.extend({
   ownedCoursesTemplate: JST['users/owned_courses'],
   errorTemplate: JST['static/error'],
   events: {
-    'mouseenter .listing-enrolled-course > a': 'showOverlay',
     'mouseleave .listing-enrolled-course': 'hideOverlay',
   },
 
