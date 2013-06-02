@@ -11,7 +11,8 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
 
   events: {
   	'click button' : 'update',
-    'click input' : 'hideInvalid'
+    'click input' : 'hideInvalid',
+    'keyup textarea' : 'updateRemaining'
   },
 
   initialize: function() {
@@ -53,12 +54,13 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
   updateFields: function() {
     this.$('#form-course-title').val(this.course.get('title'));
     this.$('#form-course-description').val(this.course.get('description'));
+    this.updateRemaining();
   },
 
   update: function() {
   	this.course = new Eduki.Models.Course({ id: this.course.get('id'),
-  																					title: $('#form-course-title').val(),
-                                            description: $('#form-course-description').val() });
+  																					title: this.$('#form-course-title').val(),
+                                            description: this.$('#form-course-description').val() });
 
     // updates course info
     // routes to dashboard on success
@@ -84,5 +86,9 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
   showInvalid: function(input, message) {
     this.$('#' + input).attr('data-content', message);
     this.$('#' + input).popover('show');
+  },
+
+  updateRemaining: function() {
+    this.$('#remaining').html(500-this.$('#form-course-description').val().length);
   },
 });

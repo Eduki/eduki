@@ -33,5 +33,37 @@
 			expect(view.$el.find('#form-course-description').val()).toEqual('How to properly cook bears');
 		});
 
+    it('displays popover for no title', function() {
+      serverRespond(this.server, 200, fixtures["course"]);
+      view.$('#form-course-title').val('');
+      view.$('#publish').click();
+      expect(view.$el.find('.popover').html()).toMatch('Please provide a title');
+    });
+
+    it('displays popover for no description', function() {
+      serverRespond(this.server, 200, fixtures["course"]);
+      view.$('#form-course-description').val('');
+      view.$('#publish').click();
+      expect(view.$el.find('.popover').html()).toMatch('Please provide a valid description');
+    });
+
+    it('routes to dashboard on success', function() {
+    	spyOn(router, 'route');
+			serverRespond(this.server, 200, fixtures["course"]);
+			view.$('#form-course-title').val('edited course title');
+			view.$('#form-course-description').val('course description hooray');
+			view.$('#publish').click();
+			serverRespond(this.server, 200, fixtures["course"]);
+			expect(router.route).toHaveBeenCalled();
+    });
+
+    it('displays error page on save success', function() {
+			serverRespond(this.server, 200, fixtures["course"]);
+			view.$('#form-course-title').val('edited course title');
+			view.$('#form-course-description').val('course description hooray');
+			view.$('#publish').click();
+			serverRespond(this.server, 400, fixtures["course"]);
+			expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
+    });
 	});
 });
