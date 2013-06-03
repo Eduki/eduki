@@ -9,7 +9,7 @@
           <div class="listing-square listing-enrolled-course">
             <div id="listing-<%- i % 6 %>" class="span2" title="<%- this.courses.models[i].get('title') %>"><span><%- this.courses.models[i].get('title') %></span></div>
             <div class="enrolled-course-overlay">
-              <div class="icon-container">
+              <div class="enrolled-icons">
                 <a class="eduki-button-icon course-home" href="/#/courses/<%- this.courses.models[i].get('id') %>"></a>
                 <a class="eduki-button-icon quiz-attempts" href="/#/user/enrollment/<%- this.enrollments.models[i].get('id') %>/quizzes/"></a>
               </div>
