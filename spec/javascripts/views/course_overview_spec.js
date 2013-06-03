@@ -36,6 +36,26 @@ describe('Course', function() {
       expect(view.$el).toContain('#lesson-create');
     });
 
+    it('renders message if there are no lessons', function() {
+      var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+      serverRespond(this.server, 200, fixtures['course']);
+      serverRespond(this.server, 200, fixtures['quizzes']);
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, fixtures['user_courses']);
+      serverRespond(this.server, 200, fixtures['enrollments']);
+      expect(view.$('#course-lessons p').html()).toMatch('Looks like there aren\'t any lessons yet!');
+    });
+
+    it('renders message if there are no quizzes', function() {
+      var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+      serverRespond(this.server, 200, fixtures['course']);
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, fixtures['lessons']);
+      serverRespond(this.server, 200, fixtures['user_courses']);
+      serverRespond(this.server, 200, fixtures['enrollments']);
+      expect(view.$('#course-quizzes p').html()).toMatch('Looks like there aren\'t any quizzes yet!');
+    });
+
     // Tests for lessons
     describe('Lessons', function() {
       it("renders lessons list", function() {
@@ -63,6 +83,15 @@ describe('Course', function() {
         successServerResponses(this.server);
         var lessons = view.$el.find('.listing-lesson > a');
         expect($(lessons[1]).attr('href')).toEqual('/#/courses/1/lessons/2');
+      });
+
+      it('renders message if there are no lessons for a non-logged in user', function() {
+        currentUser.authenticated = false;
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        serverRespond(this.server, 200, fixtures['course']);
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, []);
+        expect(view.$('#course-lessons p').html()).toMatch('Looks like there aren\'t any lessons yet!');
       });
     });
 
@@ -93,6 +122,15 @@ describe('Course', function() {
         successServerResponses(this.server);
         var quizzes = view.$el.find('.listing-quiz > a');
         expect($(quizzes[1]).attr('href')).toEqual('/#/courses/1/quizzes/2');
+      });
+
+      it('renders message for user to log in to take quizzes', function() {
+        currentUser.authenticated = false;
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        serverRespond(this.server, 200, fixtures['course']);
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, []);
+        expect(view.$('#course-quizzes p').html()).toMatch('Please <a href="/" alt="Home">log in</a> to view quizzes');
       });
     });
 
@@ -191,10 +229,50 @@ describe('Course', function() {
         var edits = view.$el.find('.ownership-edit');
         expect($(edits[0]).attr('href')).toEqual('/#/courses/1/lessons/1/edit');
       });
+
+      it('renders create message if there are no lessons', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        serverRespond(this.server, 200, fixtures['course']);
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, []);
+        serverRespond(this.server, 200, fixtures['user_courses']);
+        serverRespond(this.server, 200, fixtures['enrollments']);
+        expect(view.$('#course-lessons p a').html()).toMatch('Create one now.');
+      });
+
+      it('renders message if there are no quizzes', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        serverRespond(this.server, 200, fixtures['course']);
+        serverRespond(this.server, 200, []);
+        serverRespond(this.server, 200, fixtures['lessons']);
+        serverRespond(this.server, 200, fixtures['user_courses']);
+        serverRespond(this.server, 200, fixtures['enrollments']);
+        expect(view.$('#course-quizzes p a').html()).toEqual('Create one now.');
+      });
+
+      it('does not renders create lesson message for non-owner', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        serverRespond(this.server, 200, {"id":2, "title":"Bear Tendons"})
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, []);
+        serverRespond(this.server, 200, fixtures['user_courses']);
+        serverRespond(this.server, 200, fixtures['enrollments']);
+        expect(view.$('#course-lessons')).not.toContain('p a');
+      });
+
+      it('does not renders create quiz message for non-owner', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        serverRespond(this.server, 200, {"id":2, "title":"Bear Tendons"})
+        serverRespond(this.server, 200, []);
+        serverRespond(this.server, 200, fixtures['lessons']);
+        serverRespond(this.server, 200, fixtures['user_courses']);
+        serverRespond(this.server, 200, fixtures['enrollments']);
+        expect(view.$('#course-quizzes')).not.toContain('p a');
+      });
     });
   });
 
-  // Helper function to send back successful respones for all 3 api calls
+  // Helper function to send back successful respones for all api calls
   // necessary to render a course overview
   function successServerResponses(server) {
     serverRespond(server, 200, fixtures['course']);
