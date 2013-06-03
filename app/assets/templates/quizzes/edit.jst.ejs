@@ -6,23 +6,27 @@
           Please enroll in the course to take the quiz.
         </div>
       <% } %>
-      <h1><%- this.quiz.get('title') %></h1>
+      <h1>Edit Quiz</h1>
       <hr />
-      <form>
-        <ol>
-          <% for (var i = 0; i < this.quiz.get('problems').length; i++) { %>
-          <li>
-            <fieldset class="quiz-answer">
-              <label><%- this.quiz.get('problems')[i].question %></label>
-              <input type="radio" name="problem-<%- this.quiz.get('problems')[i].id %>" value = "A" /> <span>A</span>
-              <input type="radio" name="problem-<%- this.quiz.get('problems')[i].id %>" value = "B" /> <span>B</span>
-              <input type="radio" name="problem-<%- this.quiz.get('problems')[i].id %>" value = "C" /> <span>C</span>
-              <input type="radio" name="problem-<%- this.quiz.get('problems')[i].id %>" value = "D" /> <span>D</span>
-            </fieldset>
-          </li>
-          <% } %>
-        </ol>
-        <button type="button" id="submit-quiz" class="eduki-button-primary pull-right" data-placement="left" data-trigger="manual" data-toggle="popover"><span>Submit</span></button>
+      <form id="create-quiz-form"class="form-horizontal span8" id="quiz">
+        <div class="control-group">
+          <label class="control-label" data-placement="left" data-trigger="manual" data-toggle="popover">Title</label>
+          <div class="controls">
+            <input type="text" id="create-quiz-title" placeholder="Enter a quiz title" />
+          </div>
+        </div>
+        <div id="create-quiz-problems">
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="button" id="create-quiz-add" class="eduki-button-icon"></button>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="button" class="pull-right eduki-button-primary" id="update" data-placement="left" data-trigger="manual" data-toggle="popover"><span>Update</span></button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
