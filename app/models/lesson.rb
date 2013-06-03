@@ -25,17 +25,9 @@ class Lesson < ActiveRecord::Base
     }
   end
 
+  # Parses body as markdown text and stores outputted html into
+  # self.body_markdown
   def write_markdown
-    markdown_configuration = {
-      :autolink => true,
-      :space_after_headers => true,
-      :filter_html => true,
-      :no_styles => true,
-      :safe_links_only => true,
-      :prettify => true
-    }
-    markdown_formatter = Redcarpet::Markdown.new(Redcarpet::Render::XHTML, markdown_configuration)
-    formatted_body = markdown_formatter.render(self.body)
-    self.body_markdown = formatted_body
+    self.body_markdown = MarkdownWriter.format_as_markdown(self.body)
   end
 end

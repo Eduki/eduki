@@ -5,7 +5,6 @@
 class Api::ApiController < ApplicationController
 
 protected
-
   # All of these getters retrieve their matching
   # instance and assigns it to a instance variable
   # of a corresponding name 
