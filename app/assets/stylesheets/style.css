@@ -136,10 +136,9 @@ input { border-radius: 2px !important; }
 #create-course-form input,
 #create-course-form textarea,
 #create-course-form .uneditable-input,
-#create-course-form input,
-#create-course-form textarea,
-#create-course-form .uneditable-input,
-
+#create-lesson-form input,
+#create-lesson-form textarea,
+#create-lesson-form .uneditable-input,
 #edit-course-form input,
 #edit-course-form textarea,
 #edit-course-form .uneditable-input,
