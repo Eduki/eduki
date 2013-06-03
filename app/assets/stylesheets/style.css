@@ -151,7 +151,7 @@ hr { border-color: #bbbdc0 !important; }
 p {
   font-family: 'LiberationSerif';
   color: #3f3f3f;
-  font-size: 10pt;
+  font-size: 12pt;
   margin-bottom: 20px;
 }
 
@@ -722,6 +722,26 @@ button {
 
 #course-home {
   text-align: right;
+}
+
+#lesson-body p,
+#lesson-body ul li,
+#lesson-body ol li {
+  font-size: 12pt;
+}
+
+#lesson-body p {
+  margin-bottom: 13px;
+}
+
+#lesson-body ul,
+#lesson-body ol {
+  margin: 10px 0 20px 0;
+  padding-left: 40px;
+}
+
+#lesson-body ul li {
+  list-style: square;
 }
 
 /* DASHBOARD */

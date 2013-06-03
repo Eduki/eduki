@@ -3,7 +3,7 @@
     <div id="lesson" class="span8">
       <h1><%- this.lesson.get('title') %></h1>
       <hr />
-      <div id="lesson-body"><%- this.lesson.get('body') %></div>
+      <div id="lesson-body"><%= this.lesson.get('body_markdown') %></div>
     </div>
     <ul id="lessons" class="span4">
       <li id="course-home" class="listing-line listing-course">
