@@ -71,7 +71,7 @@
 
   // Deletes a problem from the form.
   deleteProblem: function(e) {
-    if (this.$('.form-quiz-problem').length > 1) {
+    if (this.$('.create-quiz-problem').length > 1) {
       this.$(e.target).parent().remove();
     } else {
       // A quiz must always have at least one problem
