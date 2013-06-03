@@ -8,10 +8,13 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
 
 	template: JST['lessons/new'],
   errorTemplate: JST['static/error'],
+  previewTemplate: JST['lessons/preview'],
+
   events: {
     'submit form' : 'create',
     'click #publish' : 'create',
-    'click input' : 'hideInvalid'
+    'click input' : 'hideInvalid',
+    'click #preview' : 'preview'
   },
 
   initialize: function() {
@@ -56,4 +59,13 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
     this.$('input').popover('hide');
     this.$('textarea').popover('hide');
   },
+
+  preview: function() {
+    var self = this;
+    self.$('#preview-modal').remove();
+
+    // Show preview modal
+    self.$el.append(self.previewTemplate());
+    self.$('#preview-modal').modal();
+  }
 });
