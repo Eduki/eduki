@@ -130,7 +130,7 @@ describe('Course', function() {
         serverRespond(this.server, 200, fixtures['course']);
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, []);
-        expect(view.$('#course-quizzes p').html()).toMatch('Please <a href="/" alt="Home">log in</a> to view quizzes');
+        expect(view.$('#course-quizzes p').html()).toEqual('Please <a href="/" alt="Home">log in</a> to view quizzes');
       });
     });
 
@@ -237,7 +237,7 @@ describe('Course', function() {
         serverRespond(this.server, 200, []);
         serverRespond(this.server, 200, fixtures['user_courses']);
         serverRespond(this.server, 200, fixtures['enrollments']);
-        expect(view.$('#course-lessons p a').html()).toMatch('Create one now.');
+        expect(view.$('#course-lessons p a').html()).toEqual('Create one now.');
       });
 
       it('renders message if there are no quizzes', function() {
