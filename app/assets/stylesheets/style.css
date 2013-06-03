@@ -332,19 +332,25 @@ ul li {
 
 #toggle-signup {
   background-size: 55px 40px;
-  padding-top: 40px;
   width: 55px;
   margin-right: 7px;
   background-image: url('icons/login.png');
-  float: right;
 }
 
 #toggle-login {
   background-size: 70px 40px;
-  padding-top: 40px;
   width: 70px;
   background-image: url('icons/signup.png');
+}
+
+#toggle-signup, #toggle-login {
+  padding-top: 40px;
   float: right;
+  opacity: .7;
+}
+#toggle-signup:hover,
+#toggle-login:hover {
+  opacity: 1;
 }
 
 #info h2 {
