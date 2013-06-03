@@ -11,11 +11,7 @@
 #  body_markdown :text             not null
 #
 
-require 'MarkdownWriter'
-
 class Lesson < ActiveRecord::Base
-  include MarkdownWriter
-
   attr_accessible :title, :body, :course, :course_id
   belongs_to :course
 

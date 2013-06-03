@@ -2,10 +2,7 @@
 # related to any particular model
 # David Mah
 
-require 'MarkdownWriter'
-
 class Api::UtilityController < Api::ApiController
-  include MarkdownWriter
 
   api :POST, '/utility/preview', "Preview some markdown"
   param :body, String, :required => true
