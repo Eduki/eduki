@@ -21,7 +21,6 @@
     // Initialize models
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.quiz = new Eduki.Models.Quiz({id: this.attributes.quiz_id});
-    this.quizzes = new Eduki.Collections.Quizzes({course_id: this.course.get('id')});
     this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
 
     this.answerArray = {
@@ -37,7 +36,6 @@
     // render through the callback to display them.
     var self = this;
     $.when(this.course.fetch(),
-           this.quizzes.fetch(),
            this.quiz.fetch(),
            this.enrollments.fetch()).then(
              function() {
@@ -65,19 +63,13 @@
     }
   },
 
-  // See if a user is enrolled
-  isEnrolled: function() {
-    this.enrollment = this.enrollments.findWhere({course_id: parseInt(this.course.get('id'))});
-    return this.enrollment;
-  },
-
-    // adds a problem to the form
+  // adds a problem to the form
   add: function() {
     this.$('#create-quiz-problems').append(this.problemTemplate());
     this.count++;
   },
 
-    // Deletes a problem from the form.
+  // Deletes a problem from the form.
   deleteProblem: function(e) {
     if (this.$('.form-quiz-problem').length > 1) {
       this.$(e.target).parent().remove();
@@ -88,7 +80,7 @@
     }
   },
 
-    // Validate all fields are passed before submitting
+  // Validate all fields are passed before submitting
   validateQuiz: function(e) {
     this.$('.popover').remove(); e.preventDefault();
 
