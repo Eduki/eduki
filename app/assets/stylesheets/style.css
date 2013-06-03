@@ -193,6 +193,45 @@ ul li {
   font-family: 'LiberationSerif' !important;
 }
 
+/* Blue Highlighting */
+.listing-course > a,
+#navbar-courses {
+  background-color: #87a8b1;
+}
+.listing-course > a:hover,
+#navbar-courses:hover {
+  background-color: #35849a;
+}
+
+/* Pink Highlighting */
+.listing-lesson > a,
+#navbar-create {
+  background-color: #be9790;
+}
+.listing-lesson > a:hover,
+#navbar-create:hover {
+  background-color: #a74738;
+}
+
+/* Tan Highlighting */
+.listing-quiz > a,
+#navbar-dashboard {
+  background-color: #bfb191;
+}
+.listing-quiz > a:hover,
+#navbar-dashboard:hover {
+  background-color: #a56f37;
+}
+
+/* Grey Highlighting */
+#navbar-husky {
+  background-color: #6d6e70;
+}
+
+#navbar-husky:hover {
+  background-color: #595959;
+}
+
 /* NAVBAR */
 
 #navbar {
@@ -209,6 +248,7 @@ ul li {
 #nav-icons .eduki-button-icon { display: inline-block; }
 
 #nav-icons a {
+  border-radius: 2px;
   background-size: 52px 52px;
   padding-top: 52px;
   width: 52px;
@@ -599,13 +639,6 @@ button {
   overflow: hidden;
   text-transform: uppercase;
 }
-
-.listing-course > a { background-color: #87a8b1; }
-.listing-course > a:hover { background-color: #35849a; }
-.listing-lesson > a { background-color: #be9790; }
-.listing-lesson > a:hover { background-color: #a74738; }
-.listing-quiz > a { background-color: #bfb191; }
-.listing-quiz > a:hover { background-color: #a56f37; }
 
 #course-lessons .h2,
 #course-quizzes .h2 {
