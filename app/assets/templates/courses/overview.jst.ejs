@@ -21,8 +21,17 @@
     <div id="course-lessons" class="span6">
       <h2>
         Lessons
+        <% if (this.ownership) { %>
         <a class="eduki-button-icon" id="lesson-create" href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson"></a>
+        <% } %>
       </h2>
+      <% if (this.lessons.size() == 0) { %>
+      <p>Looks like there aren't any lessons yet!
+        <% if (this.ownership) { %>
+        <a href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson">Create one now.</a>
+        <% } %>
+      </p>
+      <% } else { %>
       <ul>
       <% for(var i = 0; i < this.lessons.size(); i++) { %>
         <li class="listing-line listing-lesson">
@@ -36,12 +45,24 @@
         </li>
       <% } %>
       </ul>
+      <% } %>
     </div>
     <div id="course-quizzes" class="span6">
       <h2>
         Quizzes
+        <% if (this.ownership) { %>
         <a class="eduki-button-icon" id="quiz-create" href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson"></a>
+        <% } %>
       </h2>
+      <% if (currentUser.authenticated && this.quizzes.size() == 0) { %>
+      <p>Looks like there aren't any quizzes yet!
+        <% if (this.ownership) { %>
+        <a href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Quiz">Create one now.</a>
+        <% } %>
+      </p>
+      <% } else if (!currentUser.authenticated) { %>
+      <p>Please <a href="/" alt="Home">log in</a> to view quizzes</p>
+      <% } else { %>
       <ul>
         <% for(var i = 0; i < this.quizzes.size(); i++) { %>
           <li class="listing-line listing-quiz">
@@ -55,6 +76,7 @@
           </li>
         <% } %>
       </ul>
+      <% } %>
     </div>
   </div>
 </div>
