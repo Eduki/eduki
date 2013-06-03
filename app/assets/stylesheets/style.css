@@ -738,9 +738,5 @@ button {
   background-color: #a74738;
 }
 
-#course-home {
-  text-align: right;
-}
-
 /* DASHBOARD */
 #enrolled-courses > .row { margin-bottom: 15px; }
