@@ -7,6 +7,29 @@
 describe('Course', function() {
   describe("Index", function() {
     setupFakeServer();
+    it("search", function() {
+      var view = new Eduki.Views.CoursesIndex();
+      serverRespond(this.server, 200, []);
+      expect(view.$el).toContain("#search");
+      expect(view.$el).toContain("#search button");
+    });
+
+    it("routes to courses", function() {
+      var view = new Eduki.Views.CoursesIndex();
+      spyOn(router, 'route');
+      serverRespond(this.server, 200, []);
+      view.$('#search input').val('derp');
+      view.$('#search button').click();
+      expect(router.route).toHaveBeenCalledWith('/courses', { query : 'derp' } );
+    });
+
+    it("error if empty query", function() {
+      var view = new Eduki.Views.CoursesIndex();
+      serverRespond(this.server, 200, []);
+      view.$('#search button').click();
+      expect(view.$('.popover-content').html()).toEqual('Please provide a query');
+    });
+
     it("renders zero courses", function() {
       var view = new Eduki.Views.CoursesIndex();
       serverRespond(this.server, 200, []);

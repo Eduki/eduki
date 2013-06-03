@@ -553,6 +553,35 @@ button {
 
 /* COURSES */
 
+#courses-index h1 {
+  float: left;
+}
+
+#search {
+  float: right;
+}
+
+#search button {
+  border-radius: 2px;
+  display: inline-block;
+  background-image: url('icons/search.png');
+  background-color: #87a8b1;
+  background-position: center; center;
+  width: 30px;
+  padding-top: 30px;
+}
+
+#search input {
+  position: relative;
+  top: 5px;
+}
+
+#search button:hover { background-color: #35849a; }
+
+#courses-index hr {
+  clear: both;
+}
+
 #course h1 {
   width: 85%;
   float:left;
