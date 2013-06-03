@@ -161,7 +161,7 @@ describe('Course', function() {
 
       it('enrolls user', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
-        serverRespond(this.server, 200, {"id":2, "title":"Bear Cooking"});
+        serverRespond(this.server, 200, {"id":3, "title":"Bear Cooking"});
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
         serverRespond(this.server, 200, fixtures['user_courses']);
@@ -206,7 +206,7 @@ describe('Course', function() {
 
       it('does not show action buttons for non-owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
-        serverRespond(this.server, 200, {"id":2, "title":"Bear Tendons"})
+        serverRespond(this.server, 200, {"id":3, "title":"Bear Tendons"})
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
         serverRespond(this.server, 200, fixtures['user_courses']);
