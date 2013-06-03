@@ -270,6 +270,136 @@ describe('Course', function() {
         expect(view.$('#course-quizzes')).not.toContain('p a');
       });
     });
+
+    describe('Delete', function() {
+      describe('Course', function() {
+        it('shows modal when course delete is clicked', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          view.$('#course-ownership-delete').click();
+          expect(view.$el).toContain('#delete-confirmation-modal');
+          expect(view.$el).toContain('#confirm');
+          expect(view.$el).toContain('#cancel');
+        });
+
+        it('shows course title in modal', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          view.$('#course-ownership-delete').click();
+          expect(view.$('#confirmation-message big').html()).toEqual('Are you sure you want to delete <strong>Bear Cooking</strong>?');
+        });
+
+        it('correct url to delete course', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          spyOn($, 'ajax').andCallThrough();
+          successServerResponses(this.server);
+          view.$('#course-ownership-delete').click();
+          view.$('#confirm').click();
+          expect($.ajax.mostRecentCall.args[0]['url']).toEqual('/api/courses/1');
+          expect($.ajax.mostRecentCall.args[0]['type']).toEqual('DELETE');
+        });
+
+        it('redirects to courses index after deletion', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          spyOn(router, 'route');
+          successServerResponses(this.server);
+          view.$('#course-ownership-delete').click();
+          view.$('#confirm').click();
+          serverRespond(this.server, 200, []);
+          expect(router.route).toHaveBeenCalledWith('/courses');
+        });
+      });
+
+      describe('Lesson', function() {
+        it('shows modal when lesson delete button is clicked', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('.ownership-delete');
+          $(deleteButtons[0]).click();
+          expect(view.$el).toContain('#delete-confirmation-modal');
+          expect(view.$el).toContain('#confirm');
+          expect(view.$el).toContain('#cancel');
+        });
+
+        it('shows lesson title in modal', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('.ownership-delete');
+          $(deleteButtons[0]).click();
+          expect(view.$('#confirmation-message big').html()).toEqual('Are you sure you want to delete <strong>Chopping Liver</strong>?');
+        });
+
+        it('correct url to delete lesson', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          spyOn($, 'ajax').andCallThrough();
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('.ownership-delete');
+          $(deleteButtons[0]).click();
+          view.$('#confirm').click();
+          expect($.ajax.mostRecentCall.args[0]['url']).toEqual('/api/lessons/1');
+          expect($.ajax.mostRecentCall.args[0]['type']).toEqual('DELETE');
+        });
+
+        it('removes lesson', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('.ownership-delete');
+          var lessons = view.$el.find('.listing-lesson');
+          expect(view.$el).toContain(deleteButtons[0]);
+          expect(view.$el).toContain(lessons[0]);
+          $(deleteButtons[0]).click();
+          view.$('#confirm').click();
+          serverRespond(this.server, 200, []);
+          expect(view.$el).not.toContain(deleteButtons[0]);
+          expect(view.$el).not.toContain(lessons[0]);
+        });
+      });
+
+      describe('Quiz', function() {
+        it('shows modal when quiz delete button is clicked', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('.ownership-delete');
+          $(deleteButtons[3]).click();
+          expect(view.$el).toContain('#delete-confirmation-modal');
+          expect(view.$el).toContain('#confirm');
+          expect(view.$el).toContain('#cancel');
+        });
+
+        it('shows quiz title in modal', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('.ownership-delete');
+          $(deleteButtons[3]).click();
+          expect(view.$('#confirmation-message big').html()).toEqual('Are you sure you want to delete <strong>Quiz 1</strong>?');
+        });
+
+        it('correct url to delete quiz', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          spyOn($, 'ajax').andCallThrough();
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('.ownership-delete');
+          $(deleteButtons[3]).click();
+          view.$('#confirm').click();
+          expect($.ajax.mostRecentCall.args[0]['url']).toEqual('/api/quizzes/1');
+          expect($.ajax.mostRecentCall.args[0]['type']).toEqual('DELETE');
+        });
+
+        it('removes quiz', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          var quizzes = view.$el.find('.listing-quiz');
+          var deleteButtons = view.$el.find('.ownership-delete');
+          expect(view.$el).toContain(quizzes[0]);
+          expect(view.$el).toContain(deleteButtons[3]);
+          $(deleteButtons[3]).click();
+          view.$('#confirm').click();
+          serverRespond(this.server, 200, []);
+          expect(view.$el).not.toContain(quizzes[0]);
+          expect(view.$el).not.toContain(deleteButtons[3]);
+        });
+      });
+    });
   });
 
   // Helper function to send back successful respones for all api calls
