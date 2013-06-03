@@ -12,7 +12,9 @@
    events: {
     'click #create-quiz-add' : 'add',
     'click .create-quiz-delete' : 'deleteProblem',
-    'click #update': 'validateQuiz'
+    'click #update': 'validateQuiz',
+    'click #create-quiz-title': 'hideInvalid',
+    'click .create-quiz-question': 'hideInvalid',
    },
 
   initialize: function() {
@@ -139,5 +141,16 @@
     $.when(this.quiz.save()).then(
              function() { router.route('/courses/' + self.quiz.get('course_id')); },
              function() { self.render(self.errorTemplate()); });
+  },
+
+    // Show an invalid message on error
+  showInvalid: function(input, message) {
+    this.$(input).attr('data-content', message);
+    this.$(input).popover('show');
+  },
+
+  // Hide validation error when input is clicked upon
+  hideInvalid: function(e) {
+    this.$(e.target).parent().siblings().popover('hide');
   },
 });
