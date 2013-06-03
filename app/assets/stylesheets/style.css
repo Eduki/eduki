@@ -579,8 +579,9 @@ button {
   float:left;
 }
 
-#course p {
+#course-description {
   clear: both;
+  word-wrap: break-word;
 }
 
 .listing-square {
