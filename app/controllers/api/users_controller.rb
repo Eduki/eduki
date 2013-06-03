@@ -35,6 +35,7 @@ class Api::UsersController < Api::ApiController
 
   api :POST, '/users', "Create a new user"
   param :email, String, :required => true
+  param :password, String, :required => true
   param :first_name, String
   param :last_name, String
   param :background, String
@@ -73,6 +74,7 @@ class Api::UsersController < Api::ApiController
   api :PUT, '/users/:id', "Update a user's information"
   param :id, Fixnum, :required => true
   param :email, String
+  param :password, String
   param :first_name, String
   param :last_name, String
   param :background, String

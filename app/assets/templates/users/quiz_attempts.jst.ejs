@@ -1,0 +1,46 @@
+<div id="quiz-attempts" class="container">
+  <div class="row">
+    <div class="span12">
+      <h1><a href="/#/courses/<%- this.course.get('id') %>"><%- this.course.get('title') %></a></h1>
+      <hr />
+      <h2>Quiz Attempts</h2>
+    </div>
+  </div>
+  <div class="row">
+    <% if (this.quizAttempts.size() == 0) { %>
+    <h3>You have no quiz attempts. Start taking quizzes for this course now.</h3>
+    <div class="row">
+      <div class="listing-square listing-course">
+        <a class="offset5 span2" href="/#/courses/<%- this.course.get('id') %>"><span><%- this.course.get('title') %></span></a>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="span6 offset3">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Quiz</th>
+            <th>Total Correct</th>
+            <th>Total Problems</th>
+            <th>% Score</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for (var i = 0; i < this.quizAttempts.size(); i++) { %>
+          <% if (this.quizAttempts.models[i].get('percent') <= 50) { %>
+          <tr class="error">
+          <% } else { %>
+          <tr class="success">
+          <% } %>
+          <td class="title"><a href="/#/courses/<%- this.enrollment.get('course_id') %>/quizzes/<%- this.quizAttempts.models[i].get('quiz_id') %>"><%- this.quizzes.get(this.quizAttempts.models[i].get('quiz_id')).get('title') %></a></td>
+          <td class="correct-score"><%- this.quizAttempts.models[i].get('score') %></td>
+          <td class="total-problems"><%- this.quizAttempts.models[i].get('problem_attempts').length %></td>
+          <td class="percent-score"><%- this.quizAttempts.models[i].get('percent') %></td>
+        </tr>
+        <% } %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+  </div>
+</div>

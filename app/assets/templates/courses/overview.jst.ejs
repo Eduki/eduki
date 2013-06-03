@@ -11,7 +11,7 @@
     </div>
     <% if (this.ownership) { %>
       <div class="span2" id="course-ownership-actions">
-        <button id="course-ownership-delete" title="delete" class="eduki-button-icon"></button>
+        <button id="course-ownership-delete" title="delete" class="content-delete eduki-button-icon"></button>
         <a id="course-ownership-edit" class="eduki-button-icon" href="/#/courses/<%- this.course.get('id') %>/edit" title="edit"></a>
       </div>
     <% } %>
@@ -21,8 +21,17 @@
     <div id="course-lessons" class="span6">
       <h2>
         Lessons
+        <% if (this.ownership) { %>
         <a id="lesson-create" href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson"></a>
+        <% } %>
       </h2>
+      <% if (this.lessons.size() == 0) { %>
+      <p>Looks like there aren't any lessons yet!
+        <% if (this.ownership) { %>
+        <a href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson">Create one now.</a>
+        <% } %>
+      </p>
+      <% } else { %>
       <ul>
       <% for(var i = 0; i < this.lessons.size(); i++) { %>
         <li class="listing-line listing-lesson">
@@ -30,18 +39,30 @@
           <% if (this.ownership) { %>
           <div class="ownership-actions">
             <a class="eduki-button-icon ownership-edit" href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>/edit" title="edit"></a>
-            <button title="delete" class="ownership-delete eduki-button-icon"></button>
+            <button title="delete" class="ownership-delete content-delete eduki-button-icon"></button>
           </div>
           <% } %>
         </li>
       <% } %>
       </ul>
+      <% } %>
     </div>
     <div id="course-quizzes" class="span6">
       <h2>
         Quizzes
+        <% if (this.ownership) { %>
         <a id="quiz-create" href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson"></a>
+        <% } %>
       </h2>
+      <% if (currentUser.authenticated && this.quizzes.size() == 0) { %>
+      <p>Looks like there aren't any quizzes yet!
+        <% if (this.ownership) { %>
+        <a href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Quiz">Create one now.</a>
+        <% } %>
+      </p>
+      <% } else if (!currentUser.authenticated) { %>
+      <p>Please <a href="/" alt="Home">log in</a> to view quizzes</p>
+      <% } else { %>
       <ul>
         <% for(var i = 0; i < this.quizzes.size(); i++) { %>
           <li class="listing-line listing-quiz">
@@ -49,12 +70,13 @@
           <% if (this.ownership) { %>
             <div class="ownership-actions">
               <a class="eduki-button-icon ownership-edit" href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>/edit" title="edit"></a>
-              <button title="delete" class="ownership-delete eduki-button-icon"></button>
+              <button title="delete" class="ownership-delete content-delete eduki-button-icon"></button>
             </div>
           <% } %>
           </li>
         <% } %>
       </ul>
+      <% } %>
     </div>
   </div>
 </div>

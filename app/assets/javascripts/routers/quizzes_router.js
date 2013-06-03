@@ -8,7 +8,8 @@
 Eduki.Routers.Quizzes = Backbone.Router.extend({
   routes: {
     'courses/:cid/quizzes/new(/)': 'create',
-    'courses/:cid/quizzes/:id(/)': 'quiz'
+    'courses/:cid/quizzes/:id(/)': 'quiz',
+    'courses/:cid/quizzes/:id/edit(/)': 'edit'
   },
 
   // Delegate to the Quiz Creation page and render the form inside the container
@@ -22,5 +23,10 @@ Eduki.Routers.Quizzes = Backbone.Router.extend({
     var view = new Eduki.Views.QuizShow({attributes:{course_id: cid, quiz_id: id}});
     $('#main-content').html(view.render().el);
   },
+
+  edit: function(cid, id) {
+    var view = new Eduki.Views.QuizEdit({attributes:{course_id: cid, quiz_id: id}});
+    $('#main-content').html(view.render().el);
+  }
 });
 
