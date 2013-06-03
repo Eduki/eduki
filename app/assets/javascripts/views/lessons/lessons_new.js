@@ -8,10 +8,10 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
 
 	template: JST['lessons/new'],
   errorTemplate: JST['static/error'],
-  createdTemplate: JST['lessons/created'],
-
   events: {
-    'submit form' : 'create'
+    'submit form' : 'create',
+    'click #publish' : 'create',
+    'click input' : 'hideInvalid'
   },
 
   initialize: function() {
@@ -28,13 +28,32 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
   // handles the form submission, displays appropriate pages on success/error
   create: function(e) {
     e.preventDefault();
-    this.lesson = new Eduki.Models.Lesson({ title: $('#create-lesson-name').val(), 
-                                            body: $('#create-lesson-content').val(),
-                                             course_id: this.cid });
-    var self = this;
-    $.when(this.lesson.save()).then(
-            function() { self.render(self.createdTemplate()); },
-            function() { self.render(self.errorTemplate()); }
-          );
-  }
+    this.lesson = new Eduki.Models.Lesson({ title: this.$('#form-lesson-title').val(),
+                                            body: this.$('#form-lesson-body').val(),
+                                            course_id: this.cid });
+    if (this.lesson.isValid()) {
+      var self = this;
+      $.when(this.lesson.save()).then(
+              function() { router.route('/courses/' +
+                                        self.lesson.get('course_id') +
+                                        '/lessons/' +
+                                        self.lesson.get('id')); },
+              function() { self.render(self.errorTemplate()); }
+            );
+    } else {
+      this.showInvalid(this.lesson.validationError[0], this.lesson.validationError[1]);
+    }
+  },
+
+  // Show error message
+  showInvalid: function(input, message) {
+    this.$('#' + input).attr('data-content', message);
+    this.$('#' + input).popover('show');
+  },
+
+  // Hide validation error when input is clicked upon
+  hideInvalid: function() {
+    this.$('input').popover('hide');
+    this.$('textarea').popover('hide');
+  },
 });

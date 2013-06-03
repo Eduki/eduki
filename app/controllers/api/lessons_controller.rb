@@ -34,7 +34,7 @@ class Api::LessonsController < Api::ApiController
   api :GET, '/courses/:course_id/lessons', "Retrieve a list of lessons"
   param :course_id, Fixnum, :required => true
   def index
-    render :json => Lesson.find_all_by_course_id(@course.id), :each_serializer => LessonListingSerializer
+    render :json => Lesson.find_all_by_course_id(@course.id), :each_serializer => LessonSerializer
   end
 
   api :POST, '/courses/:course_id/lessons', "Create a lesson"

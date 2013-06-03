@@ -1,17 +1,21 @@
-<h1><a href="/#/courses/<%- this.course.get('id') %>" title="<%- this.course.get('title') %>"><%- this.course.get('title') %></a></h1>
-<div class="row lesson" id="lesson-<%- this.lesson.get('id') %>">
-  <div class="span8">
-    <h2><%- this.lesson.get('title') %></h2>
-    <hr />
-    <p><%- this.lesson.get('body') %></p>
-  </div>
-  <div id="course-lessons" class="span4">
-    <h2>Lessons</h2>
-    <hr />
-    <ul>
-      <% for(var i = 0; i < this.lessons.size(); i++) { %>
-        <li>
-          <a href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>" title="<%- this.lessons.models[i].get('title') %>"><%- this.lessons.models[i].get('title') %></a>
+<div class="container">
+  <div class="row">
+    <div id="lesson" class="span8">
+      <h1><%- this.lesson.get('title') %></h1>
+      <hr />
+      <div id="lesson-body"><%- this.lesson.get('body') %></div>
+    </div>
+    <ul id="lessons" class="span4">
+      <li id="course-home" class="listing-line listing-course">
+        <a href="/#/courses/<%- this.lesson.get('course_id') %>" title="Course Home"><span>Course Home</span></a>
+      </li>
+      <% for (var i = 0; i < this.lessons.size(); i++) { %>
+        <% if (this.lessons.models[i].get('id') == this.lesson.get('id')) { %>
+          <li id="current-lesson" class="listing-line listing-lesson">
+        <% } else { %>
+          <li class="listing-line listing-lesson">
+        <% } %>
+        <a href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>" title="<%- this.lessons.models[i].get('title') %>"><span><%- this.lessons.models[i].get('title') %></span></a>
         </li>
       <% } %>
     </ul>

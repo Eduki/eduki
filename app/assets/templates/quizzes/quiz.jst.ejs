@@ -1,11 +1,16 @@
-<h1><a href="/#/courses/<%- this.course.get('id') %>" title="<%- this.course.get('title') %>"><%- this.course.get('title') %></a></h1>
-<div class="row quiz" id="quiz-<%- this.quiz.get('id') %>">
-  <div class="span8">
-    <h2><%- this.quiz.get('title') %></h2>
-    <hr />
-    <form class="quiz">
-      <ol>
-        <% for (var i = 0; i < this.quiz.get('problems').length; i++) { %>
+<div class="container">
+  <div class="row">
+    <div id="quiz" class="span8">
+      <% if (!this.isEnrolled()) { %>
+        <div class="alert">
+          Please enroll in the course to take the quiz.
+        </div>
+      <% } %>
+      <h1><%- this.quiz.get('title') %></h1>
+      <hr />
+      <form>
+        <ol>
+          <% for (var i = 0; i < this.quiz.get('problems').length; i++) { %>
           <li>
             <fieldset class="quiz-answer">
               <label><%- this.quiz.get('problems')[i].question %></label>
@@ -15,21 +20,23 @@
               <input type="radio" name="problem-<%- this.quiz.get('problems')[i].id %>" value = "D" /> <span>D</span>
             </fieldset>
           </li>
-        <% } %>
-      </ol>
-      <button type="button" class="eduki-button-primary"><span>Submit</span></button>
-      <button type="reset" class="eduki-button-primary"><span>Reset</span></button>
-    </form>
-  </div>
-  <div id="course-quizzes-list" class="span4">
-    <h2>Other Quizzes</h2>
-    <hr />
-    <ul>
+          <% } %>
+        </ol>
+        <button type="button" id="submit-quiz" class="eduki-button-primary pull-right" data-placement="left" data-trigger="manual" data-toggle="popover"><span>Submit</span></button>
+      </form>
+    </div>
+    <ul id="quizzes" class="span4">
+      <li id="course-home" class="listing-line listing-course">
+        <a href="/#/courses/<%- this.quiz.get('course_id') %>" title="Course Home"><span>Course Home</span></a>
+      </li>
       <% for (var i = 0; i < this.quizzes.size(); i++) { %>
-        <li>
-          <a href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>" title="<%- this.quizzes.models[i].get('title') %>"><%- this.quizzes.models[i].get('title')%></a>
-        </li>
+      <% if (this.quizzes.models[i].get('id') == this.quiz.get('id')) { %>
+      <li id="current-quiz" class="listing-line listing-quiz">
+      <% } else { %>
+      <li class="listing-line listing-quiz">
+      <% } %>
+        <a href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>" title="<%- this.quizzes.models[i].get('title') %>"><span><%- this.quizzes.models[i].get('title') %></span></a>
+      </li>
       <% } %>
     </ul>
-  </div>
 </div>

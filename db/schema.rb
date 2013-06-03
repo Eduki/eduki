@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528172249) do
+ActiveRecord::Schema.define(:version => 20130601054132) do
 
   create_table "courses", :force => true do |t|
     t.string   "title",       :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.text     "description"
     t.integer  "user_id",     :null => false
+    t.text     "description"
   end
 
   create_table "enrollments", :force => true do |t|
@@ -38,10 +38,10 @@ ActiveRecord::Schema.define(:version => 20130528172249) do
   end
 
   create_table "problem_attempts", :force => true do |t|
-    t.integer  "quiz_attempt_id"
-    t.integer  "problem_id"
-    t.string   "answer"
-    t.boolean  "correct"
+    t.integer  "quiz_attempt_id", :null => false
+    t.integer  "problem_id",      :null => false
+    t.string   "answer",          :null => false
+    t.boolean  "correct",         :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(:version => 20130528172249) do
   end
 
   create_table "quiz_attempts", :force => true do |t|
-    t.integer  "quiz_id"
+    t.integer  "quiz_id",       :null => false
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "enrollment_id", :null => false
@@ -69,14 +69,17 @@ ActiveRecord::Schema.define(:version => 20130528172249) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "password_hash"
-    t.string   "password_salt"
+    t.string   "email",                :default => "", :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "first_name"
     t.string   "last_name"
     t.text     "background"
+    t.string   "encrypted_password",   :default => "", :null => false
+    t.string   "password_salt"
+    t.string   "authentication_token"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

@@ -1,17 +1,54 @@
-<div id="welcome-content">
-  <h1>Welcome</h1>
-  <hr />
-  <div class="eduki-buttons eduki-button-block" id="welcome-controls">
+<section id="splash-image">
+  <div class="container">
     <div class="row">
-        <a class="span4 offset4 eduki-button-primary" href="#/login"><span>Login</span></a>
+      <big class="span8" id="splash-message">start learning now</big>
+      <div class="span4" id="splash-form-container">
+        <div>
+          <h1 id="form-title">signup</h1>
+          <form id="signup">
+            <button id="toggle-signup" type="button" class="toggle eduki-button-icon"></button>
+            <hr />
+            <input data-placement="left" data-trigger="manual" data-toggle="popover" type="text" id="email" placeholder="email" />
+            <input data-placement="left" data-trigger="manual" data-toggle="popover" type="password" id="password" placeholder="password" />
+            <button data-placement="left" data-trigger="manual" data-toggle="popover" type="submit" id="submit-credentials" class="eduki-button-primary pull-right"><span>signup</span></button>
+          </form>
+        </div>
+      </div>
     </div>
-
-    <div class="row">
-        <a class="span4 offset4 eduki-button-primary" href="#/signup"><span>Signup</span></a>
+  </div>
+</section >
+<div id="info" class="container">
+  <div class="row">
+    <div class="span4" id="info-courses">
+      <h2>Take Courses</h2>
+      <hr/ >
+      <div class="info-icon" id="info-courses-icon">
+      </div>
+      <p class="info-description">
+        Start taking courses with eduki, now! Explore the numerous courses that
+        others have created for you!
+      </p>
     </div>
-
-    <div class="row">
-        <a class="span4 offset4 eduki-button-primary" href="#/courses"><span>Courses</span></a>
+    <div class="span4" id="info-create">
+      <h2>Create Courses</h2>
+      <hr/ >
+      <div class="info-icon" id="info-create-icon">
+      </div>
+      <p class="info-description">
+        Create material for yourself to help you study. Or create courses and
+        share your knowledge with other eduki users!
+      </p>
+    </div>
+    <div class="span4" id="info-dashboard">
+      <h2>Dashboard</h2>
+      <hr/ >
+      <div class="info-icon" id="info-dashboard-icon">
+      </div>
+      <p class="info-description">
+        See all the courses you are enrolled in and all the courses you have
+        created. View the statistics about your course enrollments such as quiz
+        scores.
+      </p>
     </div>
   </div>
 </div>

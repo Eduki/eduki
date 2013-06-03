@@ -2,6 +2,11 @@
  * Quiz collection
  */
 Eduki.Collections.Quizzes = Backbone.Collection.extend({
-  model: Eduki.Models.Quiz
+  initialize: function(options) {
+    if (options)
+      this.course_id = options.course_id;
+  },
+  model: Eduki.Models.Quiz,
+  url: function() { return '/api/courses/' + this.course_id + '/quizzes'; }
 });
 

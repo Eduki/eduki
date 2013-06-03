@@ -47,8 +47,6 @@ describe Api::LessonsController do
       body = JSON.parse(response.body)
       body[0]['title'].should == "lesson_one title"
       body[1]['title'].should == "lesson_two title"
-      # Body should not appear
-      body[0]['body'].should be_nil
       body.size.should == 2
     end
 

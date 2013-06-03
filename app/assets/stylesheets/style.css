@@ -1,67 +1,353 @@
+/* FONT */
+@font-face {
+  font-family: 'LiberationSerif';
+  src: url('LiberationSerif-Regular-webfont.eot');
+  src: url('LiberationSerif-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('LiberationSerif-Regular-webfont.woff') format('woff'),
+       url('LiberationSerif-Regular-webfont.ttf') format('truetype'),
+       url('LiberationSerif-Regular-webfont.svg#LiberationSerifRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LiberationSerifItalic';
+  src: url('LiberationSerif-Italic-webfont.eot');
+  src: url('LiberationSerif-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('LiberationSerif-Italic-webfont.woff') format('woff'),
+       url('LiberationSerif-Italic-webfont.ttf') format('truetype'),
+       url('LiberationSerif-Italic-webfont.svg#LiberationSerifItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LiberationSerifBold';
+  src: url('LiberationSerif-Bold-webfont.eot');
+  src: url('LiberationSerif-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('LiberationSerif-Bold-webfont.woff') format('woff'),
+       url('LiberationSerif-Bold-webfont.ttf') format('truetype'),
+       url('LiberationSerif-Bold-webfont.svg#LiberationSerifBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LiberationSerifBoldItalic';
+  src: url('LiberationSerif-BoldItalic-webfont.eot');
+  src: url('LiberationSerif-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('LiberationSerif-BoldItalic-webfont.woff') format('woff'),
+       url('LiberationSerif-BoldItalic-webfont.ttf') format('truetype'),
+       url('LiberationSerif-BoldItalic-webfont.svg#LiberationSerifBoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'SourceSansPro';
+  src: url('SourceSansPro-Light-webfont.eot');
+  src: url('SourceSansPro-Light-webfont.eot?#iefix') format('embedded-opentype'),
+       url('SourceSansPro-Light-webfont.woff') format('woff'),
+       url('SourceSansPro-Light-webfont.ttf') format('truetype'),
+       url('SourceSansPro-Light-webfont.svg#SourceSansProLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SourceSansProItalic';
+  src: url('SourceSansPro-LightIt-webfont.eot');
+  src: url('SourceSansPro-LightIt-webfont.eot?#iefix') format('embedded-opentype'),
+       url('SourceSansPro-LightIt-webfont.woff') format('woff'),
+       url('SourceSansPro-LightIt-webfont.ttf') format('truetype'),
+       url('SourceSansPro-LightIt-webfont.svg#SourceSansProLightItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SourceSansProBold';
+  src: url('SourceSansPro-Semibold-webfont.eot');
+  src: url('SourceSansPro-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('SourceSansPro-Semibold-webfont.woff') format('woff'),
+       url('SourceSansPro-Semibold-webfont.ttf') format('truetype'),
+       url('SourceSansPro-Semibold-webfont.svg#SourceSansProSemibold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SourceSansProBoldItalic';
+  src: url('SourceSansPro-SemiboldIt-webfont.eot');
+  src: url('SourceSansPro-SemiboldIt-webfont.eot?#iefix') format('embedded-opentype'),
+       url('SourceSansPro-SemiboldIt-webfont.woff') format('woff'),
+       url('SourceSansPro-SemiboldIt-webfont.ttf') format('truetype'),
+       url('SourceSansPro-SemiboldIt-webfont.svg#SourceSansProSemiboldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+strong {
+  font-family: "SourceSansProBold";
+  font-weight: normal;
+}
+em { font-family: "SourceSansProItalic"; }
+strong em, em strong { font-family: "SourceSansProBoldItalic"; }
+p strong { font-family: 'LiberationSerifBold'; }
+p em { font-family: 'LiberationSerifItalic'; }
+p strong em, p em strong { font-family: 'LiberationSerifBoldItalic'; }
+
+/* GENERAL */
+
 body {
   color: #3d3d3d;
+  background-color: #dbdbd9;
   font-size: 12pt;
-  font-family: 'Yanone Kaffeesatz' !important;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a {
-  color: #878787;
-}
-
-input,
-label,
-button,
-select,
-textarea {
-  font-family: 'Yanone Kaffeesatz' !important;
-}
-
-input,
-label,
-select,
-textarea {
-  font-size: 16pt !important;
+  font-family: 'SourceSansPro' !important;
 }
 
 h1, h2, h3, h4, h5 {
-  font-weight: 400;
-  color: #75ddf4
+  word-wrap:break-word;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
+a:hover { text-decoration: none; }
+
+hr {
+  clear:both;
+  margin: 10px 0 20px 0;
+}
+
+input, label, button, select, textarea,
+h1, h2, h3, h4, h5 {
+  color: #6d6e70 !important;
+  font-family: 'SourceSansPro' !important;
+}
+
+label, select { font-size: 16pt !important; }
+label { text-transform: lowercase; :}
+input { border-radius: 2px !important; }
+
+#create-course-form input,
+#create-course-form textarea,
+#create-course-form .uneditable-input,
+#create-course-form input,
+#create-course-form textarea,
+#create-course-form .uneditable-input,
+
+#edit-course-form input,
+#edit-course-form textarea,
+#edit-course-form .uneditable-input,
+#edit-lesson-form input,
+#edit-lesson-form textarea,
+#edit-lesson-form .uneditable-input {
+  width: 426px;
+}
+
+hr { border-color: #bbbdc0 !important; }
+
 p {
-  font-family: 'Roboto Slab' !important;
+  font-family: 'LiberationSerif';
+  color: #3f3f3f;
   font-size: 10pt;
-  font-weight: 300;
   margin-bottom: 20px;
 }
 
-.navbar li a {
-  text-transform: uppercase;
-  letter-spacing: 1pt;
-  font-size: 18pt;
+#main-content > div > .container { margin-top: 30px; }
+.popover { color: #a74738; }
+.form-actions { background: none !important; }
+
+small {
+  font-size: 10pt;
+  line-height: 5px;
 }
 
-#footer {
-  background-color: #d3d3d3;
-  width: 100%;
-  margin-top: 50px;
-  height: 200px;
-  padding: 10px 10px;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  font-size: 16pt;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.alert {
+  color: #3f3f3f;
+  background-color: #f9b6ac;
+  border-color: #be9790;
+}
+
+#course-description,
+#lesson-body,
+#quiz form li,
+#quiz fieldset label,
+#quiz fieldset input,
+#quiz fieldset span {
+  color: #3f3f3f !important;
+  font-family: 'LiberationSerif' !important;
+}
+
+/* NAVBAR */
+
+#navbar {
+  height: 115px;
+  background-color: #3f3f3f;
+  border-bottom: #1b1b1b 5px solid;
+}
+
+#nav-icons {
+  float: right;
+  height: 115px;
+}
+
+#nav-icons .eduki-button-icon { display: inline-block; }
+
+#nav-icons a {
+  background-size: 52px 52px;
+  padding-top: 52px;
+  width: 52px;
+  margin-left: 10px;
+}
+
+#nav-icons > div {
+  position: relative;
+  top: 39px;
+  float: right;
+}
+
+#nav-icons > div > div{
+  width: 260px;
+  display: inline-block;
+}
+
+#navbar-courses { background-image: url('icons/navbar_courses.png'); }
+#navbar-create { background-image: url('icons/navbar_create.png'); }
+#navbar-dashboard { background-image: url('icons/navbar_dashboard.png'); }
+#navbar-husky { background-image: url('icons/navbar_husky.png'); }
+
+#navbar-logout {
+  width: 41px;
+  padding-top: 35px;
+  background-image: url('icons/navbar_logout.png');
+  margin-left: 5px;
+  vertical-align: text-bottom;
+}
+
+#logo a {
+  background-size: 212px 115px;
+  padding-top: 115px;
+  width: 212px;
+  background-image: url('logo.png');
+  background-repeat: no-repeat;
+}
+
+/* HOME PAGE */
+#splash-image {
+  height: 400px;
+  background-image: url('study.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  border-bottom: #1b1b1b 5px solid;
+}
+
+#splash-message {
+  color: #a3dced !important;
+  text-transform: lowercase;
   text-align: center;
+  line-height: 400px;
+  font-size: 48pt;
 }
 
-.form-actions {
-  background: none !important;
+#splash-form-container h1 {
+  float: left;
+  font-size: 40pt;
+  position: relative;
+  top: 17px;
+  text-transform: lowercase;
+  color: #a3dced !important;
+  margin: 0;
 }
 
-#huskysoftlogo img {
-  margin-top: 50px;
-  max-height: 100px;
+#splash-form-container form hr {
+  clear: both;
+  margin: 0 0 20px 0;
 }
+
+#splash-form-container {
+  background-image: url('signup_bg.png');
+  height: 400px;
+}
+
+#splash-form-container > div { padding: 70px 40px 0 40px; }
+#splash-form-container button { margin-top: 10px; }
+
+#splash-form-container input {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 95%;
+}
+
+#toggle-signup {
+  background-size: 55px 40px;
+  padding-top: 40px;
+  width: 55px;
+  margin-right: 7px;
+  background-image: url('icons/login.png');
+  float: right;
+}
+
+#toggle-login {
+  background-size: 70px 40px;
+  padding-top: 40px;
+  width: 70px;
+  background-image: url('icons/signup.png');
+  float: right;
+}
+
+#info h2 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+#info hr { margin-top: 0; }
+
+.info-icon {
+  height: 90px;
+  background-repeat: no-repeat;
+  margin: 30px auto;
+}
+
+#info-courses-icon {
+  width: 76px;
+  background-image: url('icons/info_courses.png');
+}
+
+#info-create-icon {
+  width: 85px;
+  background-image: url('icons/info_create.png');
+}
+
+#info-dashboard-icon {
+  width: 96px;
+  background-image: url('icons/info_dashboard.png');
+}
+
+.info-description {
+  line-height: 18pt;
+  text-align: center;
+  font-size: 18pt;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* BUTTONS */
 
 button {
   border: none;
@@ -72,6 +358,16 @@ button {
   margin-bottom: 10px;
 }
 
+.eduki-button-icon {
+  display: block;
+  overflow: hidden;
+  height: 0px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+}
+
+
 .eduki-button-block .row {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -79,16 +375,22 @@ button {
 
 .eduki-button-primary {
   display: block;
-  box-shadow: 2px 2px 2px #999999;
-  color: white;
+  border-radius: 1px;
+  color: white !important;
   text-align: center;
   font-size: 14pt;
   text-transform: uppercase;
-  letter-spacing: 10px;
+  letter-spacing: 6px;
   background-color: #75ddf4 !important;
-  background-image: linear-gradient(to bottom, #9be8f7, #75ddf4) !important;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 8px;
+  padding-bottom: 5px;
+}
+
+.eduki-button-primary:hover {
+  background-color: #35849a !important;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
 }
 
 .eduki-button-small {
@@ -104,24 +406,13 @@ button {
   bottom: 5px;
 }
 
-.eduki-button-primary:hover {
-  text-decoration: none;
-  color: white;
-  background-image: none !important;
-  cursor: pointer;
-}
 
 .eduki-button-primary span {
-  margin-left: 10px;
+  font-family: "SourceSansProBold";
+  margin-left: 6px;
 }
-
-.eduki-button-small span {
-  margin-left: 5px;
-}
-
-.eduki-button-inline span {
-  margin-left: 5px;
-}
+.eduki-button-small span { margin-left: 5px; }
+.eduki-button-inline span { margin-left: 5px; }
 
 .eduki-button-new {
   padding-top: 0;
@@ -129,68 +420,48 @@ button {
   font-size: 20pt;
 }
 
-.success-message-text {
-  color: green;
-  font-size: 16pt;
-  font-weight: 400;
+/* QUIZ */
+
+#current-quiz > a{ background-color: #a56f37; }
+
+#quiz form li,
+#quiz fieldset label,
+#quiz fieldset input,
+#quiz fieldset span {
+  text-transform: none;
+  font-size: 14pt;
 }
 
-#welcome-content {
-  text-align: center;
-}
-
-#welcome-content h1 {
-  text-transform: lowercase;
-  letter-spacing: 5px;
-  color: #555656;
-  padding-left: 15px;
-}
-
-#welcome-controls {
-  margin-top: 40px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin:0;
-}
-
-ul li {
-  font-size: 16pt;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  letter-spacing: 1px;
-}
-
-.quiz li {
-  font-size: 18pt;
+#quiz form li {
   margin-bottom: 10px;
 }
 
-.quiz span {
+#quiz fieldset label {
+  line-height: 22px;
+}
+
+#quiz form span {
   margin-left: 5px;
   font-size: 14pt;
 }
 
-.quiz input {
+#quiz form input {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-#quiz-results-modal p {
+#quiz-results-modal big {
   font-size: 18pt;
-  color: green;
+  color: #3f3f3f;
 }
 
-form label {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 18pt;
+#create-quiz-form input[type="text"],
+#create-quiz-form textarea {
+  width: 380px;
 }
 
 #create-quiz-problems {
-  margin-top: 35px;
+  margin-top: 25px;
 }
 
 .create-quiz-problem {
@@ -202,37 +473,52 @@ form label {
   margin-bottom: 0;
 }
 
+.create-quiz-question {
+  height: 50px;
+}
+
+.create-quiz-answer {
+  margin-top: 10px;
+}
+
+.create-quiz-answer .controls {
+  margin-top: 3px;
+}
+
 .create-quiz-answer span {
-  margin-left: 10px;
+  margin-left: 7px;
   margin-right: 20px;
   position: relative;
   top: 3px;
 }
 
-.eduki-button-icon {
-  display: block;
-  overflow: hidden;
-  height: 0px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: 0;
+.create-quiz-delete, #create-quiz-add {
+  background-size: 30px 30px;
+  padding-top: 30px;
+  width: 30px;
+  background-color: #75ddf4 !important;
 }
 
-.eduki-button-icon-small {
-  background-size: 25px 25px;
-  padding-top: 25px;
-  width: 25px;
+.create-quiz-delete:hover, #create-quiz-add:hover {
+  background-color: #35849a !important;
 }
 
 #create-quiz-add {
-  background-image: url('icons/add.jpg');
+  background-image: url('icons/quiz_add.png');
   margin-bottom: 30px;
 }
 
 .create-quiz-delete {
-  display: inline;
+  background-image: url('icons/quiz_delete.png');
+  float:left;
   margin-left: 10px;
-  background-image: url('icons/delete.jpg');
+  position: relative;
+  left: 180px;
+  bottom: 45px;
+}
+
+.create-quiz-problem .control-group {
+  float: left;
 }
 
 #create-quiz-delete-error {
@@ -257,32 +543,186 @@ form label {
   cursor: auto !important;
 }
 
-.listing-block {
+/* COURSES */
+
+#course h1 {
+  width: 85%;
+  float:left;
+}
+
+#course p {
+  clear: both;
+}
+
+.listing-square {
   display: inline;
+  margin-bottom: 20px;
+}
+
+.listing-line {
+  overflow: hidden;
+  height: 40px;
   margin-bottom: 10px;
 }
 
-.listing-block a {
-  box-shadow: 2px 2px 2px #999999;
-  height: 155px;
+.listing-line > a, .listing-square a {
+  color: white;
   overflow: hidden;
-  background-color: #75ddf4;
-  margin-bottom: 25px;
 }
 
-.listing-block h3 {
-  text-transform: uppercase;
-  margin: 0;
-  line-height: 29px;
-  padding: 6px 10px;
-  color: white;
+.listing-square a {
+  padding: 10px 0 10px 0;
+  border-radius: 2px;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+.listing-line > a {
+  display: block;
+  border-radius: 2px;
+  padding: 10px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.listing-square span {
+  padding: 0 10px 0 10px;
+  height: 120px;
+  line-height: 16px;
+}
+
+.listing-line span, .listing-square span {
+  font-size: 12pt;
+  font-family: "SourceSansProBold" !important;
   word-wrap:break-word;
+  display: block;
+  overflow: hidden;
+  text-transform: uppercase;
 }
 
-.course-block a {
-  color: white;
+.listing-course > a { background-color: #87a8b1; }
+.listing-course > a:hover { background-color: #35849a; }
+.listing-lesson > a { background-color: #be9790; }
+.listing-lesson > a:hover { background-color: #a74738; }
+.listing-quiz > a { background-color: #bfb191; }
+.listing-quiz > a:hover { background-color: #a56f37; }
+
+#course-lessons .h2,
+#course-quizzes .h2 {
+  width: 410px;
 }
 
-#enrolled-courses > .row {
-  margin-bottom: 15px;
+#course-lessons .listing-line span,
+#course-quizzes .listing-line span {
+  position: relative;
+  top: 1px;
+  height: 13pt;
+  overflow: hidden;
 }
+
+#course-lessons .listing-line > a,
+#course-quizzes .listing-line > a {
+  float: left;
+  width: 390px;
+}
+
+#lesson-create, #quiz-create {
+  position: relative;
+  bottom: 5px;
+  float: right;
+  margin-right: 50px;
+  width: 41px;
+  padding-top: 40px;
+}
+
+#lesson-create { background-image: url('icons/lesson_create.png'); }
+#quiz-create{ background-image: url('icons/quiz_create.png'); }
+#lesson-create:hover { background-image: url('icons/lesson_create_hover.png'); }
+#quiz-create:hover { background-image: url('icons/quiz_create_hover.png'); }
+
+#course-ownership-actions {
+  margin-top: 10px;
+}
+
+#course-ownership-edit, #course-ownership-delete {
+  float: right;
+  margin-left: 10px;
+}
+
+#course-ownership-edit {
+  width: 31px;
+  padding-top: 31px;
+  background-image: url('icons/edit_big.png');
+}
+
+#course-ownership-delete {
+  width: 30px;
+  padding-top: 31px;
+  background-image: url('icons/delete_big.png');
+}
+
+.ownership-actions, .ownership-actions {
+  margin-left: 10px;
+  float: left;
+}
+
+.ownership-edit, .owernship-delete {
+  margin-bottom: 5px;
+}
+
+.ownership-edit {
+  width: 17px;
+  padding-top: 16px;
+  background-image: url('icons/edit_small.png');
+}
+
+.ownership-delete {
+  width: 18px;
+  padding-top: 19px;
+  background-image: url('icons/delete_small.png');
+}
+
+#enroll, #enrolled {
+  float: left;
+  margin-right: 10px;
+  margin-top: 5px;
+  width: 18px;
+  padding-top: 44px;
+}
+
+#enroll {
+  background-image: url('icons/enroll.png');
+}
+
+#enrolled {
+  background-image: url('icons/enrolled.png');
+}
+
+#enroll:hover {
+  background-image: url('icons/enroll_hover.png');
+}
+
+/* LESSONS */
+
+#lessons .listing-line > a,
+#quizzes .listing-line > a {
+  float: left;
+  width: 280px;
+}
+
+#lessons .listing-line span,
+#quizzes .listing-line span {
+  height: 13pt;
+  overflow: hidden;
+}
+
+#current-lesson > a{
+  background-color: #a74738;
+}
+
+#course-home {
+  text-align: right;
+}
+
+/* DASHBOARD */
+#enrolled-courses > .row { margin-bottom: 15px; }
