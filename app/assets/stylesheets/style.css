@@ -205,21 +205,25 @@ ul li {
 
 /* Pink Highlighting */
 .listing-lesson > a,
-#navbar-create {
+#navbar-create,
+#lesson-create {
   background-color: #be9790;
 }
 .listing-lesson > a:hover,
-#navbar-create:hover {
+#navbar-create:hover,
+#lesson-create:hover {
   background-color: #a74738;
 }
 
 /* Tan Highlighting */
 .listing-quiz > a,
-#navbar-dashboard {
+#navbar-dashboard,
+#quiz-create {
   background-color: #bfb191;
 }
 .listing-quiz > a:hover,
-#navbar-dashboard:hover {
+#navbar-dashboard:hover,
+#quiz-create:hover {
   background-color: #a56f37;
 }
 
@@ -649,14 +653,13 @@ button {
   bottom: 5px;
   float: right;
   margin-right: 50px;
-  width: 41px;
+  width: 40px;
   padding-top: 40px;
+  border-radius: 2px;
 }
 
 #lesson-create { background-image: url('icons/lesson_create.png'); }
 #quiz-create{ background-image: url('icons/quiz_create.png'); }
-#lesson-create:hover { background-image: url('icons/lesson_create_hover.png'); }
-#quiz-create:hover { background-image: url('icons/quiz_create_hover.png'); }
 
 #course-ownership-actions {
   margin-top: 10px;
