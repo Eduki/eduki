@@ -4,6 +4,9 @@
  */
 Eduki.Views.Navbar = Backbone.View.extend({
   template: JST['partials/navbar'],
+  events: {
+    'click #navbar-logout': 'logout'
+  },
 
   render: function() {
     $(this.el).html(this.template());

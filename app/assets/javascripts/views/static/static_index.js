@@ -8,6 +8,7 @@
 Eduki.Views.StaticIndex = Backbone.View.extend({
 
   template: JST['static/index'],
+  logoutTemplate: JST['partials/logout'],
   events: {
     'click .toggle': 'toggleForm',
     'click #submit-credentials': 'submit',
@@ -100,6 +101,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   onAuthenticateSuccess: function(data) {
     this.hideLoading();
     currentUser.save();
+    this.appendLogout();
     router.route('/dashboard');
   },
 
@@ -107,5 +109,10 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
     this.hideLoading();
     this.$('#submit-credentials').attr('data-content', 'Incorrect Username/Password');
     this.$('#submit-credentials').popover('show');
+  },
+
+  // Append the logout button
+  appendLogout: function() {
+    $(navbar).find('#navbar-dashboard').after(this.logoutTemplate());
   }
 });
