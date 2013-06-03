@@ -279,14 +279,6 @@ ul li {
   vertical-align: text-bottom;
 }
 
-#logo a {
-  background-size: 212px 115px;
-  padding-top: 115px;
-  width: 212px;
-  background-image: url('logo.png');
-  background-repeat: no-repeat;
-}
-
 /* HOME PAGE */
 #splash-image {
   height: 400px;
@@ -358,28 +350,21 @@ ul li {
 
 #info hr { margin-top: 0; }
 
+#info-courses h2,
+#info-create h2,
+#info-dashboard h2 {
+  font-family: "SourceSansProBold";
+  color: #3f3f3f !important;
+}
+
 .info-icon {
   height: 90px;
-  background-repeat: no-repeat;
-  margin: 30px auto;
-}
-
-#info-courses-icon {
-  width: 76px;
-  background-image: url('icons/info_courses.png');
-}
-
-#info-create-icon {
-  width: 85px;
-  background-image: url('icons/info_create.png');
-}
-
-#info-dashboard-icon {
-  width: 96px;
-  background-image: url('icons/info_dashboard.png');
+  text-align: center;
+  margin: 30px 0;
 }
 
 .info-description {
+  color: #3f3f3f;
   line-height: 18pt;
   text-align: center;
   font-size: 18pt;
