@@ -121,7 +121,7 @@ hr {
 }
 
 input, label, button, select, textarea,
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, th, td {
   color: #6d6e70 !important;
   font-family: 'SourceSansPro' !important;
 }
@@ -130,6 +130,9 @@ label, select { font-size: 16pt !important; }
 label { text-transform: lowercase; :}
 input { border-radius: 2px !important; }
 
+#update-profile-form input,
+#update-profile-form textarea,
+#update-profile-form .uneditable-input,
 #create-course-form input,
 #create-course-form textarea,
 #create-course-form .uneditable-input,
@@ -570,15 +573,19 @@ button {
   margin-bottom: 10px;
 }
 
-.listing-line > a, .listing-square a {
+.listing-line > a,
+.listing-square > a,
+.listing-enrolled-course > div{
   color: white;
   overflow: hidden;
 }
 
-.listing-square a {
-  padding: 10px 0 10px 0;
+.listing-square > a,
+.listing-enrolled-course > div{
+  padding: 10px;
   border-radius: 2px;
   height: 120px;
+  width: 120px;
   margin-bottom: 20px;
 }
 
@@ -591,7 +598,6 @@ button {
 }
 
 .listing-square span {
-  padding: 0 10px 0 10px;
   height: 120px;
   line-height: 16px;
 }
@@ -605,10 +611,10 @@ button {
   text-transform: uppercase;
 }
 
-.listing-course > a { background-color: #87a8b1; }
+.listing-course > a, .listing-enrolled-course > div { background-color: #87a8b1; }
 .listing-course > a:hover { background-color: #35849a; }
-.listing-lesson > a { background-color: #be9790; }
-.listing-lesson > a:hover { background-color: #a74738; }
+.listing-lesson > a, .listing-owned-course > a { background-color: #be9790; }
+.listing-lesson > a:hover, .listing-owned-course:hover > a { background-color: #a74738; }
 .listing-quiz > a { background-color: #bfb191; }
 .listing-quiz > a:hover { background-color: #a56f37; }
 
@@ -649,15 +655,24 @@ button {
   margin-top: 10px;
 }
 
-#course-ownership-edit, #course-ownership-delete {
+#course-ownership-edit,
+#course-ownership-delete,
+#premium,
+#update-profile {
   float: right;
   margin-left: 10px;
 }
 
-#course-ownership-edit {
+#course-ownership-edit,
+#update-profile {
+  background-image: url('icons/edit_big.png');
+}
+
+#course-ownership-edit,
+#premium,
+#update-profile {
   width: 31px;
   padding-top: 31px;
-  background-image: url('icons/edit_big.png');
 }
 
 #course-ownership-delete {
@@ -751,3 +766,59 @@ button {
 
 /* DASHBOARD */
 #enrolled-courses > .row { margin-bottom: 15px; }
+#dashboard h1 { float: left; }
+#update-profile { margin-top: 12px; }
+#premium { margin-top: 10px; }
+#premium { background-image: url('icons/premium.png'); }
+
+#premium-features {
+  margin-left: 20px;
+  list-style-image: url('eduki_bullet_point.png');
+}
+
+#premium-features li {
+  font-size: 18pt;
+}
+
+.enrolled-course-overlay {
+  background-image: url('signup_bg.png');
+  padding: 10px;
+  border-radius: 2px;
+  height: 120px;
+  width: 120px;
+  margin-bottom: 20px;
+  position: absolute;
+  z-index: 1020;
+  display: none;
+}
+
+.enrolled-course-overlay:hover {
+}
+
+.enrolled-course-overlay .eduki-button-icon {
+  margin-top: 32px;
+  display: inline-block;
+  width: 46px;
+  padding-top: 44px;
+  position: relative;
+  z-index: 1021;
+}
+
+.enrolled-icons {
+  text-align: center;
+  width: 120px;
+}
+
+.quiz-attempts {
+  background-image: url('icons/quiz_attempts.png');
+}
+.course-home {
+  background-image: url('icons/course_home.png');
+}
+
+#quiz-attempts h2,
+#quiz-attempts h3,
+#quiz-attempts table th,
+#quiz-attempts table td {
+  text-align: center !important;
+}
