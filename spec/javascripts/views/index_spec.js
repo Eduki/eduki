@@ -92,6 +92,8 @@ describe("Static Index", function() {
 
   describe("Signup", function() {
     it("signs up successfully and redirects to dashboard", function() {
+        navbar = new Eduki.Views.Navbar();
+        view.render();
         spyOn(router, 'route');
         view.$el.find("#email").val("derp@derpette.com");
         view.$el.find("#password").val("test password");

@@ -10,6 +10,9 @@
             <a class="eduki-button-icon" id="navbar-courses" href="/#/courses" title="Courses"></a>
             <a class="eduki-button-icon" id="navbar-create" href="/#/courses/new" title="Create Courses"></a>
             <a class="eduki-button-icon" id="navbar-dashboard" href="/#/dashboard" title="Dashboard"></a>
+            <% if (currentUser.authenticated) { %>
+            <button type="button" class="eduki-button-icon" id="navbar-logout"></button>
+            <% } %>
           </div>
           <a class="eduki-button-icon" id="navbar-husky" href="/#/about" title="About"></a>
         </div>
