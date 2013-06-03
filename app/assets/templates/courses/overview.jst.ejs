@@ -11,7 +11,7 @@
     </div>
     <% if (this.ownership) { %>
       <div class="span2" id="course-ownership-actions">
-        <button id="course-ownership-delete" title="delete" class="eduki-button-icon"></button>
+        <button id="course-ownership-delete" title="delete" class="content-delete eduki-button-icon"></button>
         <a id="course-ownership-edit" class="eduki-button-icon" href="/#/courses/<%- this.course.get('id') %>/edit" title="edit"></a>
       </div>
     <% } %>
@@ -30,7 +30,7 @@
           <% if (this.ownership) { %>
           <div class="ownership-actions">
             <a class="eduki-button-icon ownership-edit" href="/#/courses/<%- this.lessons.models[i].get('course_id') %>/lessons/<%- this.lessons.models[i].get('id') %>/edit" title="edit"></a>
-            <button title="delete" class="ownership-delete eduki-button-icon"></button>
+            <button title="delete" class="ownership-delete content-delete eduki-button-icon"></button>
           </div>
           <% } %>
         </li>
@@ -49,7 +49,7 @@
           <% if (this.ownership) { %>
             <div class="ownership-actions">
               <a class="eduki-button-icon ownership-edit" href="/#/courses/<%- this.quizzes.models[i].get('course_id') %>/quizzes/<%- this.quizzes.models[i].get('id') %>/edit" title="edit"></a>
-              <button title="delete" class="ownership-delete eduki-button-icon"></button>
+              <button title="delete" class="ownership-delete content-delete eduki-button-icon"></button>
             </div>
           <% } %>
           </li>

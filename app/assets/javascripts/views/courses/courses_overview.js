@@ -7,9 +7,12 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   template: JST['courses/overview'],
   errorTemplate: JST['static/error'],
+  confirmTemplate: JST['courses/confirm'],
   events: {
     'click #enroll': 'enroll',
-    'click #enrolled': 'unenroll'
+    'click #enrolled': 'unenroll',
+    'click .content-delete': 'confirmDelete',
+    'click #confirm': 'deleteContent'
   },
 
   initialize: function() {
@@ -87,5 +90,46 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
       },
       error: function() {self.render(self.errorTemplate());}
     });
+  },
+
+  // Confirm content deletion
+  confirmDelete: function(e) {
+    this.deleteTarget = $(e.target);
+    this.$('#delete-confirmation-modal').remove();
+
+    // Grab the title of the content a user wants to delete
+    if ($(e.target).attr('id') == 'course-ownership-delete')
+      this.deleteTitle = this.course.get('title');
+    else
+      this.deleteTitle = $(e.target).parent().siblings('a').find('span').html();
+
+    // Show confirmation modal
+    this.$el.append(this.confirmTemplate());
+    this.$('#delete-confirmation-modal').modal();
+  },
+
+  // Deletes the content from database
+  deleteContent: function() {
+    var self = this;
+    // Grabs the appropriate model to delete
+    if (this.course.get('title') == this.deleteTitle) {
+      this.course.destroy({
+        success: function() {router.route('/courses');},
+        error: function() {self.render(self.errorTemplate());}
+      });
+    } else {
+      // See if it is a quiz or lesson
+      var content = this.lessons.findWhere({title: this.deleteTitle});
+      if (!content)
+        content = this.quizzes.findWhere({title: this.deleteTitle});
+
+      content.destroy({
+        success: function() {
+          // Remove from view
+          $(self.deleteTarget).closest('.listing-line').remove();
+        },
+        error: function() {self.render(self.errorTemplate());}
+      });
+    }
   },
 });
