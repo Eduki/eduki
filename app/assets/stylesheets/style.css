@@ -846,18 +846,19 @@ button {
 }
 
 .plan h3 {
+  font-size: 20pt;
   color: #3f3f3f !important;
   margin-top: 20px;
 }
 
 .premium-features li {
   text-align: left;
-  font-size: 16pt;
+  font-size: 14pt;
 }
 
 .plan > div {
   border-radius: 5px;
-  height: 300px;
+  height: 390px;
   padding: 10px 30px;
   text-align: center;
 }
