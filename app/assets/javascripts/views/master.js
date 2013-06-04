@@ -3,6 +3,7 @@
  * David Mah
  */
 Eduki.Views.Master = Backbone.View.extend({
+  id: 'wrap',
   masterTemplate: JST['meta/application'],
 
   initialize: function() {

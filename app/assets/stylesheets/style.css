@@ -198,6 +198,7 @@ ul li {
 /* Blue Highlighting */
 .listing-course > a,
 .listing-enrolled-course > div,
+#student-plan > div,
 #navbar-courses {
   background-color: #87a8b1;
 }
@@ -211,6 +212,7 @@ ul li {
 .listing-lesson > a,
 .listing-owned-course > a,
 #navbar-create,
+#instructor-plan > div,
 #lesson-create {
   background-color: #be9790;
 }
@@ -224,6 +226,7 @@ ul li {
 /* Tan Highlighting */
 .listing-quiz > a,
 #navbar-dashboard,
+#education-plan > div,
 #quiz-create {
   background-color: #bfb191;
 }
@@ -832,13 +835,35 @@ button {
 #premium { margin-top: 10px; }
 #premium { background-image: url('icons/premium.png'); }
 
-#premium-features {
-  margin-left: 20px;
+.premium-features {
+  margin: 10px 0;
+  margin-left: 27px;
   list-style-image: url('eduki_bullet_point.png');
 }
 
-#premium-features li {
-  font-size: 18pt;
+.plan {
+  margin-top: 30px;
+}
+
+.plan h3 {
+  color: #3f3f3f !important;
+  margin-top: 20px;
+}
+
+.premium-features li {
+  text-align: left;
+  font-size: 16pt;
+}
+
+.plan > div {
+  border-radius: 5px;
+  height: 300px;
+  padding: 10px 30px;
+  text-align: center;
+}
+
+.plan h3, .plan > div {
+  text-align: center;
 }
 
 .enrolled-course-overlay {
@@ -882,4 +907,23 @@ button {
 #quiz-attempts table th,
 #quiz-attempts table td {
   text-align: center !important;
+}
+
+/* Sticky footer styles */
+html, body { height: 100%; }
+#push { height: 100px; }
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  background-color: #3f3f3f;
+  height: 60px;
 }
