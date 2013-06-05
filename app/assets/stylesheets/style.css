@@ -832,6 +832,7 @@ button {
 #enrolled-courses > .row { margin-bottom: 15px; }
 #dashboard h1 { float: left; }
 #update-profile { margin-top: 12px; }
+
 #premium { margin-top: 10px; }
 #premium { background-image: url('icons/premium.png'); }
 
@@ -877,9 +878,6 @@ button {
   position: absolute;
   z-index: 1020;
   display: none;
-}
-
-.enrolled-course-overlay:hover {
 }
 
 .enrolled-course-overlay .eduki-button-icon {
