@@ -199,13 +199,14 @@ ul li {
 .listing-course > a,
 .listing-enrolled-course > div,
 #student-plan > div,
+.course-home,
 #navbar-courses {
-  background-color: #87a8b1;
+  background-color: #87a8b1 !important;
 }
 .listing-course > a:hover,
-.listing-enrolled-course > div:hover,
+.course-home:hover,
 #navbar-courses:hover {
-  background-color: #35849a;
+  background-color: #35849a !important;
 }
 
 /* Pink Highlighting */
@@ -214,26 +215,28 @@ ul li {
 #navbar-create,
 #instructor-plan > div,
 #lesson-create {
-  background-color: #be9790;
+  background-color: #be9790 !important;
 }
 .listing-lesson > a:hover,
 .listing-owned-course > a:hover,
 #navbar-create:hover,
 #lesson-create:hover {
-  background-color: #a74738;
+  background-color: #a74738 !important;
 }
 
 /* Tan Highlighting */
 .listing-quiz > a,
 #navbar-dashboard,
 #education-plan > div,
+.quiz-attempts,
 #quiz-create {
-  background-color: #bfb191;
+  background-color: #bfb191 !important;
 }
 .listing-quiz > a:hover,
 #navbar-dashboard:hover,
+.quiz-attempts:hover,
 #quiz-create:hover {
-  background-color: #a56f37;
+  background-color: #a56f37 !important;
 }
 
 /* Grey Highlighting */
@@ -881,9 +884,12 @@ button {
 }
 
 .enrolled-course-overlay .eduki-button-icon {
+  background-size: 40px 40px;
+  background-position: center center;
+  border-radius: 2px;
   margin-top: 32px;
   display: inline-block;
-  width: 46px;
+  width: 44px;
   padding-top: 44px;
   position: relative;
   z-index: 1021;
