@@ -11,7 +11,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
   previewTemplate: JST['lessons/preview'],
 
   events: {
-  	'click #update' : 'update',
+  	'click #publish' : 'publish',
     'click #preview' : 'preview',
     'click input' : 'hideInvalid',
     'click textarea' : 'hideInvalid',
@@ -60,7 +60,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
     this.$('#form-lesson-body').val(this.lesson.get('body'));
   },
 
-  update: function() {
+  publish: function() {
   	this.lesson = new Eduki.Models.Lesson({ id: this.lesson.get('id'),
   																					course_id: this.lesson.get('course_id'),
                                             title: this.$('#form-lesson-title').val(),

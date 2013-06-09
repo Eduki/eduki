@@ -187,6 +187,7 @@ ul li {
 
 #course-description,
 #lesson-body,
+#lesson-preview,
 #quiz form li,
 #quiz fieldset label,
 #quiz fieldset input,
@@ -806,27 +807,38 @@ button {
 }
 
 #lesson-body p,
+#lesson-preview p,
 #lesson-body ul li,
-#lesson-body ol li {
+#lesson-preview ul li,
+#lesson-body ol li,
+#lesson-preview ol li {
   font-size: 12pt;
 }
 
-#lesson-body p {
+#lesson-body p,
+#lesson-preview p {
   margin-bottom: 13px;
 }
 
 #lesson-body ul,
-#lesson-body ol {
+#lesson-preview ul,
+#lesson-body ol,
+#lesson-preview ol {
   margin: 10px 0 20px 0;
   padding-left: 40px;
 }
 
-#lesson-body ul li {
+#lesson-body ul li,
+#lesson-preview ul li {
   list-style: square;
 }
 
 #preview-container {
   margin-bottom: 20px;
+}
+
+#preview, #edit {
+  margin-right: 20px;
 }
 
 /* DASHBOARD */
