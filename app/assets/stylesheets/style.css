@@ -825,8 +825,8 @@ button {
   list-style: square;
 }
 
-#lesson-space {
-  margin: 0 0 20px 0;
+#preview-container {
+  margin-bottom: 20px;
 }
 
 /* DASHBOARD */
