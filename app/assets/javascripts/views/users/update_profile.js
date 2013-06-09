@@ -12,6 +12,8 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
   events: {
     'click button' : 'update',
     'click #email': 'hideInvalid',
+    'keyup #password' : 'checkPassword',
+    'keyup #confirm-password' : 'checkPassword',
   },
 
   initialize: function() {
@@ -61,11 +63,35 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     }
   },
 
+  // Checks if the two passwords are the same
+  checkPassword: function() {
+    var password = this.$('#password').val();
+    var confirmPassword = this.$('#confirm-password').val();
+    var match = password === confirmPassword;
+
+    // Only show error popups if both fields have text
+    if (password && confirmPassword) {
+      this.invalidPasswordError(match);
+    }
+    return match;
+  },
+
+  invalidPasswordError: function(match) {
+    var popovers = this.$('#confirm-password').parent().find('.popover').length;
+    if (popovers === 0 && !match) {
+      this.showInvalid('confirm-password', 'Confirmation password doesn\'t match');
+    } else if (match) {
+      this.$('#confirm-password').popover('hide');
+    }
+  },
+
   // Update user's information in the database
   update: function() {
     this.user = new Eduki.Models.User({ id: currentUser.id,
                                         first_name: this.$('#first-name').val(),
                                         last_name: this.$('#last-name').val(),
+                                        password: this.$('#password').val() || null,
+                                        confirm_password: this.$('#confirm-password').val() || null,
                                         email: this.$('#email').val(),
                                         background: this.$('#background').val() });
 
@@ -79,8 +105,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
                       success: function() { router.route('/dashboard') },
                       error: function() { self.render(self.errorTemplate()); }});
     } else {
-      this.showInvalid(this.user.validationError[0],
-                       this.user.validationError[1]);
+      this.showInvalid(this.user.validationError[0], this.user.validationError[1]);
     }
   },
 
