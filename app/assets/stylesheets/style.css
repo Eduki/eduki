@@ -825,6 +825,10 @@ button {
   list-style: square;
 }
 
+#lesson-space {
+  margin: 0 0 20px 0;
+}
+
 /* DASHBOARD */
 #enrolled-courses > .row { margin-bottom: 15px; }
 #dashboard h1 { float: left; }
