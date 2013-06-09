@@ -8,11 +8,14 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
 
   template: JST['lessons/edit'],
   errorTemplate: JST['static/error'],
+  previewTemplate: JST['lessons/preview'],
 
   events: {
-  	'click button' : 'update',
+  	'click #update' : 'update',
+    'click #preview' : 'preview',
     'click input' : 'hideInvalid',
-    'click textarea' : 'hideInvalid'
+    'click textarea' : 'hideInvalid',
+    'click #edit': 'edit'
   },
 
   initialize: function() {
@@ -90,4 +93,18 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
     this.$('#' + input).attr('data-content', message);
     this.$('#' + input).popover('show');
   },
+
+  preview: function() {
+    var self = this;
+    $.post('/api/utility/preview', {"body": self.$('#form-lesson-body').val()}, function(data) {
+        self.$('#edit-lesson-form').hide();
+        self.$('#lesson-space').append(self.previewTemplate());
+        self.$('#lesson-preview').html(data.body_markdown);
+      }).fail(function() { self.render(self.errorTemplate()); });
+  },
+
+  edit: function() {
+    this.$('#preview-container').remove();
+    this.$('#edit-lesson-form').show();
+  }
 });

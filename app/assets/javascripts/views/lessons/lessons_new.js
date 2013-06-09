@@ -14,7 +14,8 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
     'submit form' : 'create',
     'click #publish' : 'create',
     'click input' : 'hideInvalid',
-    'click #preview' : 'preview'
+    'click #preview' : 'preview',
+    'click #edit' : 'edit'
   },
 
   initialize: function() {
@@ -62,10 +63,15 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
 
   preview: function() {
     var self = this;
-    self.$('#preview-modal').remove();
+    $.post('/api/utility/preview', {"body": self.$('#form-lesson-body').val()}, function(data) {
+        self.$('#create-lesson-form').hide();
+        self.$('#lesson-space').append(self.previewTemplate());
+        self.$('#lesson-preview').html(data.body_markdown);
+      }).fail(function() { self.render(self.errorTemplate()); });
+  },
 
-    // Show preview modal
-    self.$el.append(self.previewTemplate());
-    self.$('#preview-modal').modal();
+  edit: function() {
+    this.$('#preview-container').remove()
+    this.$('#create-lesson-form').show();
   }
 });
