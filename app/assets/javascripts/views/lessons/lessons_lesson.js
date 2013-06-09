@@ -4,59 +4,32 @@
  * author: Jolie Chen
  */
 Eduki.Views.LessonsLesson = Backbone.View.extend({
-
+  className: 'container',
   template: JST['lessons/lesson'],
-  errorTemplate: JST['static/error'],
 
   initialize: function() {
     // Initialize models
-    this.course = new Eduki.Models.Course({id: this.attributes.course_id});
-    this.lesson = new Eduki.Models.Lesson({ course_id: this.attributes.course_id,
+
+    var cid = this.attributes.course_id;
+    this.course = new Eduki.Models.Course({id: cid});
+    this.lesson = new Eduki.Models.Lesson({ course_id: cid,
                                             id: this.attributes.lesson_id });
-    this.lessons = new Eduki.Collections.Lessons({course_id: this.lesson.get('course_id')});
-
-    // Fetch course and lessons. Once retrieved, execute
-    // render through the callback to display them.
-    var self = this;
-    this.course.fetch({
-      success: function() {
-        self.renderLesson();
-      },
-      error: function(model, xhr, options) {
-        self.render(self.errorTemplate());
-      }
-    });
-  },
-
-  // renders lesson body, upon success, renders the lesson list
-  renderLesson: function() {
-    var self = this;
-    this.lesson.fetch({
-      success: function() {
-        self.renderLessonsList();
-      },
-      error: function(model, xhr, options) {
-        self.render(self.errorTemplate)
-      }
-    });
-  },
-
-  // renders the lesson list in the sidebar
-  renderLessonsList: function() {
-    var self = this;
-    this.lessons.fetch({
-      success: function() {
-        self.render(self.template());
-      },
-      error: function(model, xhr, options) {
-        self.render(self.errorTemplate)
-      }
-    });
+    this.lessons = new Eduki.Collections.Lessons({course_id: cid});
   },
 
   // Renders an individual lesson
-  render: function(template) {
-    $(this.el).html(template);
+  render: function() {
+    this.fetchData();
     return this;
+  },
+
+  fetchData: function() {
+    var self = this;
+    $.when(this.course.fetch(),
+           this.lesson.fetch(),
+           this.lessons.fetch()).then(
+      function() { $(self.el).html(self.template()); },
+      function() { router.route('/error'); }
+      );
   },
 });

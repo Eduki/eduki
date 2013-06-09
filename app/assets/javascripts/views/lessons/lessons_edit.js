@@ -14,9 +14,8 @@
  */
 
 Eduki.Views.LessonsEdit = Backbone.View.extend({
-
+  className: 'container',
   template: JST['lessons/edit'],
-  errorTemplate: JST['static/error'],
   previewTemplate: JST['lessons/preview'],
 
   events: {
@@ -32,30 +31,14 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
     // if they exist
     this.lesson = new Eduki.Models.Lesson({ course_id: this.attributes.course_id,
                                             id: this.attributes.lesson_id });
-    this.fetchLessonInfo();
-  },
-
-  // grabs current lesson info from database and displays in the form
-  // if it exists
-  fetchLessonInfo: function () {
-    var self = this;
-    this.lesson.fetch({
-      success: function () {
-        // only updates fields if template is rendered correctly
-        if (self.render(self.template)) {
-          self.updateFields();
-        }
-      },
-      error: function () { self.render(self.errorTemplate); }
-    });
   },
 
   // Renders the template only if user is logged in
   // otherwise, routes them to the login page
-  render: function (template) {
+  render: function () {
     var self;
     if (currentUser.authenticated) {
-      $(this.el).html(template);
+      this.fetchLessonInfo();
       self = this;
     } else {
       router.route('/');
@@ -64,7 +47,18 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
     return self;
   },
 
+  // grabs current lesson info from database and displays in the form
+  // if it exists
+  fetchLessonInfo: function () {
+    var self = this;
+    this.lesson.fetch({
+      success: function () { self.updateFields(); },
+      error: function () { router.route('/error'); }
+    });
+  },
+
   updateFields: function () {
+    $(this.el).html(this.template());
     this.$('#form-lesson-title').val(this.lesson.get('title'));
     this.$('#form-lesson-body').val(this.lesson.get('body'));
   },
@@ -84,7 +78,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
                      {wait: true,
                       success: function () { router.route('/courses/' + self.lesson.get('course_id') +
                                                           '/lessons/' + self.lesson.get('id')); },
-                      error: function () { self.render(self.errorTemplate()); }});
+                      error: function () { router.route('/error'); }});
     } else {
       this.showInvalid(this.lesson.validationError[0],
                        this.lesson.validationError[1]);
@@ -109,7 +103,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
       self.$('#edit-lesson-form').hide();
       self.$('#lesson-space').append(self.previewTemplate());
       self.$('#lesson-preview').html(data.body_markdown);
-    }).fail(function () { self.render(self.errorTemplate()); });
+    }).fail(function () { router.rout('/error'); });
   },
 
   edit: function () {

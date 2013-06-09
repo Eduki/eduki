@@ -9,6 +9,7 @@ describe('Lesson', function() {
   var view;
   beforeEach(function() {
   	view = new Eduki.Views.LessonsCreate({attributes:{course_id: 1}});
+    view.render();
   });
 
 	describe('New', function() {
@@ -49,11 +50,12 @@ describe('Lesson', function() {
     });
 
     it('displays error when server responds with error', function() {
+      spyOn(router, 'route')
       view.$('#form-lesson-title').val('derp');
       view.$('#form-lesson-body').val('derp');
       view.$('#publish').click();
       serverRespond(this.server, 404, fixtures['lesson']);
-      expect(view.$('h1')).toHaveText('Woops! Something went wrong.');
+      expect(router.route).toHaveBeenCalledWith('/error');
     });
 
     it('redirects when lesson successful', function() {
