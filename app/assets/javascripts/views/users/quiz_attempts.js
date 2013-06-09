@@ -5,25 +5,17 @@
  */
 
 Eduki.Views.QuizAttempts = Backbone.View.extend({
-
+  className: 'container',
+  id: 'quiz-attempts',
   template: JST['users/quiz_attempts'],
-  errorTemplate: JST['static/error'],
 
-  initialize: function() {
-    if (currentUser.authenticated) {
-      var self = this;
-      this.enrollment = new Eduki.Models.Enrollment({id: this.attributes.enrollment_id});
-      this.enrollment.fetch({
-        success: function() {self.renderQuizAttempts()},
-        error: function() {
-          self.render(self.errorTemplate())}
-      });
-    }
+  initialize: function () {
+    this.enrollment = new Eduki.Models.Enrollment({id: this.attributes.enrollment_id});
   },
 
-  render: function(template) {
+  render: function () {
     if (currentUser.authenticated) {
-      $(this.el).html(template);
+      this.fetchEnrollment();
       return this;
     } else {
       router.route('/');
@@ -31,8 +23,16 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
     }
   },
 
+  fetchEnrollment: function () {
+    var self = this;
+    this.enrollment.fetch({
+      success: function () { self.renderQuizAttempts() },
+      error: function () { router.route('/error'); }
+    });
+  },
+
   // Grabs the quiz attempts and adds scores and percents to the attempts
-  renderQuizAttempts: function() {
+  renderQuizAttempts: function () {
     this.course = new Eduki.Models.Course({id: this.enrollment.get('course_id')});
     this.quizzes = new Eduki.Collections.Quizzes({course_id: this.enrollment.get('course_id')});
     this.quizAttempts = new Eduki.Collections.QuizAttempts({enrollment_id: this.enrollment.get('id')});
@@ -40,27 +40,15 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
     $.when(this.course.fetch(),
            this.quizzes.fetch(),
            this.quizAttempts.fetch()).then(
-           function() {
-             for (var i = 0; i < self.quizAttempts.size(); i++) {
-               var attempt = self.quizAttempts.models[i].get('problem_attempts');
-               var score = self.calculatescore(attempt);
-               self.quizAttempts.models[i].set('score', score);
-               self.quizAttempts.models[i].set('percent', (score/attempt.length) * 100);
-             }
-             self.render(self.template());
-           },
-           function() {
-             self.render(self.errorTemplate());}
-           );
+      function () { self.renderScores(); },
+      function () { router.route('/error'); });
   },
 
-  // Calculates the number correct for a given attempt
-  calculatescore: function(attempt) {
-    var correct = 0;
-    for (var i = 0; i < attempt.length; i++) {
-      if (attempt[i]['correct'])
-        correct++
+  renderScores: function () {
+    var i;
+    for (i = 0; i < this.quizAttempts.size(); i += 1) {
+      this.quizAttempts.models[i].calculateScore();
     }
-    return correct;
-  }
+    $(this.el).html(this.template());
+  },
 });
