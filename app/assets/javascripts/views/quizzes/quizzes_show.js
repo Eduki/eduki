@@ -1,19 +1,28 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
+  JST: false, router: false */
+'use strict';
+
 /*
  * Handles rendering a view for taking a quiz
  *
  * author: Jolie Chen
- */
+*/
 
- Eduki.Views.QuizShow = Backbone.View.extend({
-   template: JST['quizzes/quiz'],
-   resultsTemplate: JST['quizzes/results'],
-   errorTemplate: JST['static/error'],
-   events: {
-     'click #submit-quiz': 'grade',
-     'submit form': 'grade',
-   },
+Eduki.Views.QuizShow = Backbone.View.extend({
+  template: JST['quizzes/quiz'],
+  resultsTemplate: JST['quizzes/results'],
+  errorTemplate: JST['static/error'],
+  events: {
+    'click #submit-quiz': 'grade',
+    'submit form': 'grade',
+  },
 
-  initialize: function() {
+  initialize: function () {
     // Initialize models
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.quiz = new Eduki.Models.Quiz({id: this.attributes.quiz_id});
@@ -27,63 +36,68 @@
            this.quizzes.fetch(),
            this.quiz.fetch(),
            this.enrollments.fetch()).then(
-             function() {self.render(self.template());},
-             function() {self.render(self.errorTemplate());}
-           );
+      function () { self.render(self.template()); },
+      function () { self.render(self.errorTemplate()); }
+    );
   },
 
   // Renders an quiz unless user isn't logged in
-  render: function(template) {
+  render: function (template) {
+    var self;
     if (currentUser.authenticated) {
       $(this.el).html(template);
-      return this;
+      self = this;
     } else {
       router.route('/');
-      return false;
+      self = false;
     }
+    return self;
   },
 
   // See if a user is enrolled
-  isEnrolled: function() {
-    this.enrollment = this.enrollments.findWhere({course_id: parseInt(this.course.get('id'))});
+  isEnrolled: function () {
+    this.enrollment = this.enrollments.findWhere({course_id: parseInt(this.course.get('id'), 10)});
     return this.enrollment;
   },
 
   // Saves quiz attempt
-  saveAttempt: function(problems) {
+  saveAttempt: function (problems) {
     this.quizAttempt = new Eduki.Models.QuizAttempt({quiz_id: this.quiz.get('id'),
-                                                     enrollment_id: this.enrollment.get('id'),
-                                                     problem_attempts: problems});
+                                                    enrollment_id: this.enrollment.get('id'),
+                                                    problem_attempts: problems});
 
     var self = this;
     this.quizAttempt.save({}, {
-      success: function() {
+      success: function () {
         self.$el.append(self.resultsTemplate());
         self.$('#quiz-results-modal').modal();
       },
-      error: function() {self.render(self.errorTemplate());}});
+      error: function () { self.render(self.errorTemplate()); }
+    });
   },
 
   // Calculate the total questions correct
   // Create the problem attempts array to send to database
-  grade: function() {
+  grade: function () {
     // Remove old modal
-    self.$('#quiz-results-modal').remove();
+    this.$('#quiz-results-modal').remove();
 
     // Enrolled users can submit quiz attempts
     if (this.isEnrolled()) {
-      var problemAttempts = new Array();
+      var problemAttempts = [];
       this.correct = 0;
-      for (var i = 0; i < this.quiz.get('problems').length; i++) {
+      var i;
+      for (i = 0; i < this.quiz.get('problems').length; i += 1) {
         //Grab user's input answer
         var inputAnswer = this.$('input:radio[name=problem-' +
-                          this.quiz.get('problems')[i].id + ']:checked').val();
+                                 this.quiz.get('problems')[i].id + ']:checked').val();
         var answer = this.quiz.get('problems')[i].answer;
-        if (inputAnswer == answer)
-          this.correct++;
+        if (inputAnswer === answer) {
+          this.correct += 1;
+        }
 
         // Empty string or user's answer is pushed onto problemAttempts
-        problemAttempts.push({answer: (inputAnswer ? inputAnswer : '')});
+        problemAttempts.push({answer: inputAnswer || ''});
       }
       this.saveAttempt(problemAttempts);
     } else {
