@@ -33,8 +33,9 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
 
   // Grabs the quiz attempts and adds scores and percents to the attempts
   renderQuizAttempts: function () {
-    this.course = new Eduki.Models.Course({id: this.enrollment.get('course_id')});
-    this.quizzes = new Eduki.Collections.Quizzes({course_id: this.enrollment.get('course_id')});
+    var cid = this.enrollment.get('course_id');
+    this.course = new Eduki.Models.Course({id: cid});
+    this.quizzes = new Eduki.Collections.Quizzes({course_id: cid});
     this.quizAttempts = new Eduki.Collections.QuizAttempts({enrollment_id: this.enrollment.get('id')});
     var self = this;
     $.when(this.course.fetch(),
