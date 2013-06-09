@@ -17,11 +17,14 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
 
   template: JST['lessons/edit'],
   errorTemplate: JST['static/error'],
+  previewTemplate: JST['lessons/preview'],
 
   events: {
-    'click button' : 'update',
+    'click #publish' : 'publish',
+    'click #preview' : 'preview',
     'click input' : 'hideInvalid',
-    'click textarea' : 'hideInvalid'
+    'click textarea' : 'hideInvalid',
+    'click #edit': 'edit'
   },
 
   initialize: function () {
@@ -43,9 +46,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
           self.updateFields();
         }
       },
-      error: function () {
-        self.render(self.errorTemplate);
-      }
+      error: function () { self.render(self.errorTemplate); }
     });
   },
 
@@ -68,7 +69,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
     this.$('#form-lesson-body').val(this.lesson.get('body'));
   },
 
-  update: function () {
+  publish: function () {
     this.lesson = new Eduki.Models.Lesson({ id: this.lesson.get('id'),
                                             course_id: this.lesson.get('course_id'),
                                             title: this.$('#form-lesson-title').val(),
@@ -81,8 +82,8 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
     if (this.lesson.isValid()) {
       this.lesson.save({id: this.lesson.get('id')},
                      {wait: true,
-                      success: function () { router.route('/courses/' + self.lesson.get('course_id')
-                                                         + '/lessons/' + self.lesson.get('id')); },
+                      success: function () { router.route('/courses/' + self.lesson.get('course_id') +
+                                                          '/lessons/' + self.lesson.get('id')); },
                       error: function () { self.render(self.errorTemplate()); }});
     } else {
       this.showInvalid(this.lesson.validationError[0],
@@ -101,4 +102,18 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
     this.$('#' + input).attr('data-content', message);
     this.$('#' + input).popover('show');
   },
+
+  preview: function () {
+    var self = this;
+    $.post('/api/utility/preview', {"body": self.$('#form-lesson-body').val()}, function (data) {
+      self.$('#edit-lesson-form').hide();
+      self.$('#lesson-space').append(self.previewTemplate());
+      self.$('#lesson-preview').html(data.body_markdown);
+    }).fail(function () { self.render(self.errorTemplate()); });
+  },
+
+  edit: function () {
+    this.$('#preview-container').remove();
+    this.$('#edit-lesson-form').show();
+  }
 });

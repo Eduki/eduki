@@ -36,14 +36,14 @@
     it('displays popover for no title', function() {
       serverRespond(this.server, 200, fixtures["lesson"]);
       view.$('#form-lesson-title').val('');
-      view.$('#update').click();
+      view.$('#publish').click();
       expect(view.$el.find('.popover-content').html()).toEqual('Please provide a title');
     });
 
     it('displays popover for no body', function() {
       serverRespond(this.server, 200, fixtures["lesson"]);
       view.$('#form-lesson-body').val('');
-      view.$('#update').click();
+      view.$('#publish').click();
       expect(view.$el.find('.popover-content').html()).toEqual('Please provide lesson content');
     });
 
@@ -52,7 +52,7 @@
 			serverRespond(this.server, 200, fixtures["lesson"]);
 			view.$('#form-lesson-title').val('edited lesson title');
 			view.$('#form-lesson-body').val('lessons yyeayeayea');
-			view.$('#update').click();
+			view.$('#publish').click();
 			serverRespond(this.server, 200, fixtures["lesson"]);
 			expect(router.route).toHaveBeenCalledWith('/courses/1/lessons/1');
     });
@@ -61,7 +61,7 @@
     	serverRespond(this.server, 200, fixtures["lesson"]);
 			view.$('#form-lesson-title').val('edited lesson title');
 			view.$('#form-lesson-body').val('lessons yyeayeayea');
-			view.$('#update').click();
+			view.$('#publish').click();
 			serverRespond(this.server, 400, fixtures["lesson"]);
 			expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
     });

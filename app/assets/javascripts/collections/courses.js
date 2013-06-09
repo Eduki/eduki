@@ -26,9 +26,6 @@ Eduki.Collections.Courses = Backbone.Collection.extend({
     return url;
   },
 
-  // TODO: When search API is implemented, use whatever endpoint that gets
-  searchUrl: '/api/courses',
-
   search: function (query) {
     return this.fetch({data: query});
   }
