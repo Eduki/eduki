@@ -1,7 +1,9 @@
 /* JSLint Arguments */
 /*jslint indent: 2*/
 /*jslint browser: true*/
-/*global Eduki: false, Backbone: false, $: false */
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false, */
 'use strict';
 
 Eduki.Routers.Static = Backbone.Router.extend({
