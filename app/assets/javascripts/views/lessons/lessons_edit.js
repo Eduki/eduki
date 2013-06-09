@@ -1,3 +1,12 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
+  JST: false, router: false */
+'use strict';
+
 /*
  * Handles editing page for lessons
  *
@@ -10,12 +19,12 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
   errorTemplate: JST['static/error'],
 
   events: {
-  	'click button' : 'update',
+    'click button' : 'update',
     'click input' : 'hideInvalid',
     'click textarea' : 'hideInvalid'
   },
 
-  initialize: function() {
+  initialize: function () {
     // renders form, then updates all existing fields with the current lesson values
     // if they exist
     this.lesson = new Eduki.Models.Lesson({ course_id: this.attributes.course_id,
@@ -25,41 +34,43 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
 
   // grabs current lesson info from database and displays in the form
   // if it exists
-  fetchLessonInfo: function() {
-  	var self = this;
-  	this.lesson.fetch({
-      success: function() {
-      	// only updates fields if template is rendered correctly
+  fetchLessonInfo: function () {
+    var self = this;
+    this.lesson.fetch({
+      success: function () {
+        // only updates fields if template is rendered correctly
         if (self.render(self.template)) {
-        	self.updateFields();
+          self.updateFields();
         }
       },
-      error: function() {
-        self.render(self.errorTemplate)
+      error: function () {
+        self.render(self.errorTemplate);
       }
     });
   },
 
   // Renders the template only if user is logged in
   // otherwise, routes them to the login page
-  render: function(template) {
+  render: function (template) {
+    var self;
     if (currentUser.authenticated) {
       $(this.el).html(template);
-      return this;
+      self = this;
     } else {
       router.route('/');
-      return false;
+      self = false;
     }
+    return self;
   },
 
-  updateFields: function() {
-  	this.$('#form-lesson-title').val(this.lesson.get('title'));
+  updateFields: function () {
+    this.$('#form-lesson-title').val(this.lesson.get('title'));
     this.$('#form-lesson-body').val(this.lesson.get('body'));
   },
 
-  update: function() {
-  	this.lesson = new Eduki.Models.Lesson({ id: this.lesson.get('id'),
-  																					course_id: this.lesson.get('course_id'),
+  update: function () {
+    this.lesson = new Eduki.Models.Lesson({ id: this.lesson.get('id'),
+                                            course_id: this.lesson.get('course_id'),
                                             title: this.$('#form-lesson-title').val(),
                                             body: this.$('#form-lesson-body').val() });
 
@@ -70,9 +81,9 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
     if (this.lesson.isValid()) {
       this.lesson.save({id: this.lesson.get('id')},
                      {wait: true,
-                      success: function() { router.route('/courses/' + self.lesson.get('course_id') 
-                      																	 + '/lessons/' + self.lesson.get('id')) },
-                      error: function() { self.render(self.errorTemplate()); }});
+                      success: function () { router.route('/courses/' + self.lesson.get('course_id')
+                                                         + '/lessons/' + self.lesson.get('id')); },
+                      error: function () { self.render(self.errorTemplate()); }});
     } else {
       this.showInvalid(this.lesson.validationError[0],
                        this.lesson.validationError[1]);
@@ -80,13 +91,13 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
   },
 
   // Hide validation error when input is clicked upon
-  hideInvalid: function() {
+  hideInvalid: function () {
     this.$('input').popover('hide');
     this.$('textarea').popover('hide');
   },
 
   // Make the popoever appear with an error message
-  showInvalid: function(input, message) {
+  showInvalid: function (input, message) {
     this.$('#' + input).attr('data-content', message);
     this.$('#' + input).popover('show');
   },
