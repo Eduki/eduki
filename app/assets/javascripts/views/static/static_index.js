@@ -33,6 +33,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
 
   // Toggles the form between signup and login view
   toggleForm: function() {
+    this.hideInvalid();
     var type = 'login';
     if (this.$('form').attr('id') == 'login')
       type = 'signup'
@@ -84,6 +85,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   // Hide validation error when input is clicked upon
   hideInvalid: function() {
     this.$('input').popover('hide');
+    this.$('#submit-credentials').popover('hide');
   },
 
   showInvalid: function(input, message) {
