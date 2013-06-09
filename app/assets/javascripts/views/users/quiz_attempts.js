@@ -38,6 +38,7 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
       router.route('/');
       self = false;
     }
+    return self;
   },
 
   // Grabs the quiz attempts and adds scores and percents to the attempts
