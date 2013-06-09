@@ -99,14 +99,12 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   },
 
   onAuthenticateSuccess: function(data) {
-    this.hideLoading();
     currentUser.save();
     this.appendLogout();
     router.route('/dashboard');
   },
 
   onAuthenticateFailure: function(data) {
-    this.hideLoading();
     this.$('#submit-credentials').attr('data-content', 'Incorrect Username/Password');
     this.$('#submit-credentials').popover('show');
   },

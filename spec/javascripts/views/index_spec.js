@@ -187,23 +187,13 @@ describe("Static Index", function() {
         expect(view.$el).toContain('.popover');
       });
 
-      // TODO: Auth should Use actual AJAX request. Pending on API auth
-      // it("should send a authentication request to the server with basic auth", function() {
-      //   view.$el.find("#login-button").click();
-      //   var request = this.server.requests[0];
-      //   expect(request.username).toEqual("test user");
-      //   expect(request.password).toEqual("test password");
-      //   expect(request.url).toEqual("/api/authenticate");
-      // });
-
-      // it("should display a loading modal upon click, then disappear after load", function() {
-      //   expect(view.$el).not.toContain("#loading-modal");
-      //   view.$el.find("#login-button").click();
-      //   expect(view.$el).toContain("#loading-modal");
-      //   serverRespond(this.server, 200, fixtures["user"]);
-      //   expect(view.$el).not.toContain("#loading-modal");
-      // });
-
+      it("should send a authentication request to the server with basic auth", function() {
+        view.$el.find("#submit-credentials").click();
+        var request = this.server.requests[0];
+        expect(request.username).toEqual("derp@derpette.com");
+        expect(request.password).toEqual("test password");
+        expect(request.url).toEqual("/api/authenticate");
+      });
     });
 
     describe("already logged in", function() {
