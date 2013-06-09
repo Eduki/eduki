@@ -3,9 +3,9 @@
 /*jslint browser: true*/
 /*jslint vars: true*/
 /*jslint regexp: true*/
+/*jslint sloppy: true*/
 /*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: true ,
   JST: false, router: true */
-'use strict';
 
 window.Eduki = {
   Assets: {},
