@@ -21,6 +21,7 @@ describe("Profile Update", function () {
       currentUser.id = -1;
       currentUser.authenticated = false;
       view = new Eduki.Views.UpdateProfile();
+			serverRespond(this.server, 200, fixtures["user"]);
       expect(router.route).toHaveBeenCalledWith('/');
 		});
 

@@ -22,7 +22,7 @@
       <h2>
         Lessons
         <% if (this.ownership) { %>
-        <a class="eduki-button-icon" id="lesson-create" href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson"></a>
+        <a id="lesson-create" href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson"></a>
         <% } %>
       </h2>
       <% if (this.lessons.size() == 0) { %>
@@ -51,7 +51,7 @@
       <h2>
         Quizzes
         <% if (this.ownership) { %>
-        <a class="eduki-button-icon" id="quiz-create" href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson"></a>
+        <a id="quiz-create" href="/#/courses/<%- this.course.get('id') %>/quizzes/new" title="New Lesson"></a>
         <% } %>
       </h2>
       <% if (currentUser.authenticated && this.quizzes.size() == 0) { %>

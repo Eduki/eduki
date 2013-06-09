@@ -136,10 +136,9 @@ input { border-radius: 2px !important; }
 #create-course-form input,
 #create-course-form textarea,
 #create-course-form .uneditable-input,
-#create-course-form input,
-#create-course-form textarea,
-#create-course-form .uneditable-input,
-
+#create-lesson-form input,
+#create-lesson-form textarea,
+#create-lesson-form .uneditable-input,
 #edit-course-form input,
 #edit-course-form textarea,
 #edit-course-form .uneditable-input,
@@ -196,6 +195,53 @@ ul li {
   font-family: 'LiberationSerif' !important;
 }
 
+/* Blue Highlighting */
+.listing-course > a,
+.listing-enrolled-course > div,
+#navbar-courses {
+  background-color: #87a8b1;
+}
+.listing-course > a:hover,
+.listing-enrolled-course > div:hover,
+#navbar-courses:hover {
+  background-color: #35849a;
+}
+
+/* Pink Highlighting */
+.listing-lesson > a,
+.listing-owned-course > a,
+#navbar-create,
+#lesson-create {
+  background-color: #be9790;
+}
+.listing-lesson > a:hover,
+.listing-owned-course > a:hover,
+#navbar-create:hover,
+#lesson-create:hover {
+  background-color: #a74738;
+}
+
+/* Tan Highlighting */
+.listing-quiz > a,
+#navbar-dashboard,
+#quiz-create {
+  background-color: #bfb191;
+}
+.listing-quiz > a:hover,
+#navbar-dashboard:hover,
+#quiz-create:hover {
+  background-color: #a56f37;
+}
+
+/* Grey Highlighting */
+#navbar-husky {
+  background-color: #6d6e70;
+}
+
+#navbar-husky:hover {
+  background-color: #595959;
+}
+
 #confirm, #cancel {
   display: inline-block;
   margin-left: 20px;
@@ -217,6 +263,7 @@ ul li {
 #nav-icons .eduki-button-icon { display: inline-block; }
 
 #nav-icons a {
+  border-radius: 2px;
   background-size: 52px 52px;
   padding-top: 52px;
   width: 52px;
@@ -245,14 +292,6 @@ ul li {
   background-image: url('icons/navbar_logout.png');
   margin-left: 5px;
   vertical-align: text-bottom;
-}
-
-#logo a {
-  background-size: 212px 115px;
-  padding-top: 115px;
-  width: 212px;
-  background-image: url('logo.png');
-  background-repeat: no-repeat;
 }
 
 /* HOME PAGE */
@@ -304,19 +343,26 @@ ul li {
 
 #toggle-signup {
   background-size: 55px 40px;
-  padding-top: 40px;
   width: 55px;
   margin-right: 7px;
   background-image: url('icons/login.png');
-  float: right;
 }
 
 #toggle-login {
   background-size: 70px 40px;
-  padding-top: 40px;
   width: 70px;
   background-image: url('icons/signup.png');
+}
+
+#toggle-signup, #toggle-login {
+  padding-top: 40px;
   float: right;
+  opacity: .7;
+}
+
+#toggle-signup:hover,
+#toggle-login:hover {
+  opacity: 1;
 }
 
 #info h2 {
@@ -326,28 +372,21 @@ ul li {
 
 #info hr { margin-top: 0; }
 
+#info-courses h2,
+#info-create h2,
+#info-dashboard h2 {
+  font-family: "SourceSansProBold";
+  color: #3f3f3f !important;
+}
+
 .info-icon {
   height: 90px;
-  background-repeat: no-repeat;
-  margin: 30px auto;
-}
-
-#info-courses-icon {
-  width: 76px;
-  background-image: url('icons/info_courses.png');
-}
-
-#info-create-icon {
-  width: 85px;
-  background-image: url('icons/info_create.png');
-}
-
-#info-dashboard-icon {
-  width: 96px;
-  background-image: url('icons/info_dashboard.png');
+  text-align: center;
+  margin: 30px 0;
 }
 
 .info-description {
+  color: #3f3f3f;
   line-height: 18pt;
   text-align: center;
   font-size: 18pt;
@@ -553,13 +592,43 @@ button {
 
 /* COURSES */
 
+#courses-index h1 {
+  float: left;
+}
+
+#search {
+  float: right;
+}
+
+#search button {
+  border-radius: 2px;
+  display: inline-block;
+  background-image: url('icons/search.png');
+  background-color: #87a8b1;
+  background-position: center; center;
+  width: 30px;
+  padding-top: 30px;
+}
+
+#search input {
+  position: relative;
+  top: 5px;
+}
+
+#search button:hover { background-color: #35849a; }
+
+#courses-index hr {
+  clear: both;
+}
+
 #course h1 {
   width: 85%;
   float:left;
 }
 
-#course p {
+#course-description {
   clear: both;
+  word-wrap: break-word;
 }
 
 .listing-square {
@@ -611,13 +680,6 @@ button {
   text-transform: uppercase;
 }
 
-.listing-course > a, .listing-enrolled-course > div { background-color: #87a8b1; }
-.listing-course > a:hover { background-color: #35849a; }
-.listing-lesson > a, .listing-owned-course > a { background-color: #be9790; }
-.listing-lesson > a:hover, .listing-owned-course:hover > a { background-color: #a74738; }
-.listing-quiz > a { background-color: #bfb191; }
-.listing-quiz > a:hover { background-color: #a56f37; }
-
 #course-lessons .h2,
 #course-quizzes .h2 {
   width: 410px;
@@ -642,14 +704,13 @@ button {
   bottom: 5px;
   float: right;
   margin-right: 50px;
-  width: 41px;
+  width: 40px;
   padding-top: 40px;
+  border-radius: 2px;
 }
 
 #lesson-create { background-image: url('icons/lesson_create.png'); }
 #quiz-create{ background-image: url('icons/quiz_create.png'); }
-#lesson-create:hover { background-image: url('icons/lesson_create_hover.png'); }
-#quiz-create:hover { background-image: url('icons/quiz_create_hover.png'); }
 
 #course-ownership-actions {
   margin-top: 10px;

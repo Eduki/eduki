@@ -252,7 +252,7 @@ describe('Course', function() {
 
       it('does not renders create lesson message for non-owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
-        serverRespond(this.server, 200, {"id":2, "title":"Bear Tendons"})
+        serverRespond(this.server, 200, {"id":3, "title":"Bear Tendons"})
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, []);
         serverRespond(this.server, 200, fixtures['user_courses']);
@@ -262,7 +262,7 @@ describe('Course', function() {
 
       it('does not renders create quiz message for non-owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
-        serverRespond(this.server, 200, {"id":2, "title":"Bear Tendons"})
+        serverRespond(this.server, 200, {"id":3, "title":"Bear Tendons"})
         serverRespond(this.server, 200, []);
         serverRespond(this.server, 200, fixtures['lessons']);
         serverRespond(this.server, 200, fixtures['user_courses']);
