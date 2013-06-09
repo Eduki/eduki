@@ -1,3 +1,12 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
+  JST: false, router: false */
+'use strict';
+
 /*
  * Update User Profile View
  *
@@ -14,7 +23,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     'click #email': 'hideInvalid',
   },
 
-  initialize: function() {
+  initialize: function () {
     // renders form, then updates all existing fields with the current profile values
     // if they exist
     this.fetchUserInfo();
@@ -22,27 +31,27 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
 
   // grabs current user info from database and displays in the form
   // if it exists
-  fetchUserInfo: function() {
+  fetchUserInfo: function () {
     this.user = new Eduki.Models.User({ id: currentUser.id });
 
     var self = this;
     // grab user from database
     this.user.fetch({
-      success: function() {
+      success: function () {
         if (self.render(self.template())) {
           self.updateFields();
         } else {
           self.render(self.errorTemplate());
         }
       },
-      error: function(model, xhr, options) {
+      error: function (model, xhr, options) {
         self.render(self.errorTemplate());
       }
     });
   },
 
   // updates form fields
-  updateFields: function() {
+  updateFields: function () {
     this.$('#first-name').val(this.user.get('first_name'));
     this.$('#last-name').val(this.user.get('last_name'));
     this.$('#email').val(this.user.get('email'));
@@ -51,18 +60,20 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
 
   // Renders the template only if user is logged in
   // otherwise, routes them to the login page
-  render: function(template) {
+  render: function (template) {
+    var self;
     if (currentUser.authenticated) {
       $(this.el).html(template);
-      return this;
+      self = this;
     } else {
       router.route('/');
-      return false;
+      self = false;
     }
+    return self;
   },
 
   // Update user's information in the database
-  update: function() {
+  update: function () {
     this.user = new Eduki.Models.User({ id: currentUser.id,
                                         first_name: this.$('#first-name').val(),
                                         last_name: this.$('#last-name').val(),
@@ -76,8 +87,8 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     if (this.user.isValid()) {
       this.user.save({id: this.user.get('id')},
                      {wait: true,
-                      success: function() { router.route('/dashboard') },
-                      error: function() { self.render(self.errorTemplate()); }});
+                      success: function () { router.route('/dashboard'); },
+                      error: function () { self.render(self.errorTemplate()); }});
     } else {
       this.showInvalid(this.user.validationError[0],
                        this.user.validationError[1]);
@@ -85,12 +96,12 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
   },
 
   // Hide validation error when input is clicked upon
-  hideInvalid: function() {
+  hideInvalid: function () {
     this.$('input').popover('hide');
   },
 
   // Make the popoever appear with an error message
-  showInvalid: function(input, message) {
+  showInvalid: function (input, message) {
     this.$('#' + input).attr('data-content', message);
     this.$('#' + input).popover('show');
   },
