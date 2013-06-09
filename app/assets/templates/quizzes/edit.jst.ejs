@@ -1,32 +1,30 @@
-<div class="container">
-  <div class="row">
-    <div class="offset2 span8">
-      <h1>Edit Quiz</h1>
-      <hr />
-      <p>Enter your question (with multiple choice possibilities) in the <strong>text box</strong> like this: "What is the airspeed velocity of a unladen swallow? A. 10 m/s B. 81 m/s C. 24 cm/s D. It depends, African or European"</p>
-      <p>Select the correct answer (A, B, C, D) from the <strong>radio buttons</strong></p>
-      <div class="row">
-        <form id="create-quiz-form"class="form-horizontal span8" id="quiz">
-          <div class="control-group">
-            <label class="control-label" data-placement="left" data-trigger="manual" data-toggle="popover">Title</label>
-            <div class="controls">
-              <input type="text" id="create-quiz-title" placeholder="Enter a quiz title" />
-            </div>
+<div class="row">
+  <div class="offset2 span8">
+    <h1>Edit Quiz</h1>
+    <hr />
+    <p>Enter your question (with multiple choice possibilities) in the <strong>text box</strong> like this: "What is the airspeed velocity of a unladen swallow? A. 10 m/s B. 81 m/s C. 24 cm/s D. It depends, African or European"</p>
+    <p>Select the correct answer (A, B, C, D) from the <strong>radio buttons</strong></p>
+    <div class="row">
+      <form id="create-quiz-form"class="form-horizontal span8" id="quiz">
+        <div class="control-group">
+          <label class="control-label" data-placement="left" data-trigger="manual" data-toggle="popover">Title</label>
+          <div class="controls">
+            <input type="text" id="create-quiz-title" placeholder="Enter a quiz title" />
           </div>
-          <div id="create-quiz-problems">
+        </div>
+        <div id="create-quiz-problems">
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="button" id="create-quiz-add" class="eduki-button-icon"></button>
           </div>
-          <div class="control-group">
-            <div class="controls">
-              <button type="button" id="create-quiz-add" class="eduki-button-icon"></button>
-            </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="button" class="pull-right eduki-button-primary" id="update" data-placement="left" data-trigger="manual" data-toggle="popover"><span>Update</span></button>
           </div>
-          <div class="control-group">
-            <div class="controls">
-              <button type="button" class="pull-right eduki-button-primary" id="update" data-placement="left" data-trigger="manual" data-toggle="popover"><span>Update</span></button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

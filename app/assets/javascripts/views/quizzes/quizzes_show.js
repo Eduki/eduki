@@ -5,9 +5,9 @@
  */
 
  Eduki.Views.QuizShow = Backbone.View.extend({
+   className: 'container',
    template: JST['quizzes/quiz'],
    resultsTemplate: JST['quizzes/results'],
-   errorTemplate: JST['static/error'],
    events: {
      'click #submit-quiz': 'grade',
      'submit form': 'grade',
@@ -20,27 +20,29 @@
     this.quizzes = new Eduki.Collections.Quizzes({course_id: this.course.get('id')});
     this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
 
-    // Fetch course and lessons. Once retrieved, execute
-    // render through the callback to display them.
-    var self = this;
-    $.when(this.course.fetch(),
-           this.quizzes.fetch(),
-           this.quiz.fetch(),
-           this.enrollments.fetch()).then(
-             function() {self.render(self.template());},
-             function() {self.render(self.errorTemplate());}
-           );
   },
 
   // Renders an quiz unless user isn't logged in
-  render: function(template) {
+  render: function() {
     if (currentUser.authenticated) {
-      $(this.el).html(template);
+      this.fetchData();
       return this;
     } else {
       router.route('/');
       return false;
     }
+  },
+
+  // Fetch all the necessary data
+  fetchData: function () {
+    var self = this;
+    $.when(this.course.fetch(),
+           this.quizzes.fetch(),
+           this.quiz.fetch(),
+           this.enrollments.fetch()).then(
+      function() { $(self.el).html(self.template()); },
+      function() { router.route('/error'); }
+      );
   },
 
   // See if a user is enrolled
@@ -61,7 +63,7 @@
         self.$el.append(self.resultsTemplate());
         self.$('#quiz-results-modal').modal();
       },
-      error: function() {self.render(self.errorTemplate());}});
+      error: function() { router.route('/error'); }});
   },
 
   // Calculate the total questions correct

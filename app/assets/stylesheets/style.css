@@ -158,6 +158,7 @@ p {
 }
 
 #main-content > div > .container { margin-top: 30px; }
+#main-content > .container { margin-top: 30px; }
 .popover { color: #a74738; }
 .form-actions { background: none !important; }
 

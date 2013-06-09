@@ -5,8 +5,8 @@
  */
 
  Eduki.Views.QuizEdit = Backbone.View.extend({
+   className: 'container',
    template: JST['quizzes/edit'],
-   errorTemplate: JST['static/error'],
    problemTemplate: JST['quizzes/problem'],
 
    events: {
@@ -32,25 +32,25 @@
 
     this.count = 0;
 
-    // Fetch course and lessons. Once retrieved, execute
-    // render through the callback to display them.
+  },
+
+  // Renders an quiz unless user isn't logged in
+  render: function() {
+    this.fetchData();
+    $(this.el).html(this.template());
+    return this;
+  },
+
+  fetchData: function () {
     var self = this;
     $.when(this.course.fetch(),
            this.quiz.fetch(),
            this.enrollments.fetch()).then(
-             function() {
-              if (self.render(self.template())) {
-                self.updateFields();
-              }
-            },
-             function() {self.render(self.errorTemplate());}
-           );
-  },
-
-  // Renders an quiz unless user isn't logged in
-  render: function(template) {
-    $(this.el).html(template);
-    return this;
+      function() {
+         self.updateFields();
+      },
+      function() { router.route('/error'); }
+    );
   },
 
   updateFields: function() {
@@ -74,7 +74,7 @@
     if (this.$('.create-quiz-problem').length > 1) {
       this.$(e.target).parent().remove();
     } else {
-      // A quiz must always have at least one problem
+      // A quiz ust always have at least one problem
       this.showInvalid('.create-quiz-delete', 'A quiz must have at least one problem');
       this.$('.create-quiz-delete').siblings('.popover').delay(2000).fadeOut();
     }
@@ -132,7 +132,7 @@
     var self = this;
     $.when(this.quiz.save()).then(
              function() { router.route('/courses/' + self.quiz.get('course_id')); },
-             function() { self.render(self.errorTemplate()); });
+             function() { router.route('/error'); });
   },
 
     // Show an invalid message on error

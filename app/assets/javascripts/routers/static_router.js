@@ -2,6 +2,7 @@ Eduki.Routers.Static = Backbone.Router.extend({
   routes: {
     '': 'index',
     'about(/)': 'about',
+    'error(/)': 'error',
   },
 
   index: function() {
@@ -12,6 +13,11 @@ Eduki.Routers.Static = Backbone.Router.extend({
 
   about: function() {
     var view = new Eduki.Views.About();
+    $('#main-content').html(view.render().el);
+  },
+
+  error: function() {
+    var view = new Eduki.Views.ErrorPage();
     $('#main-content').html(view.render().el);
   }
 });
