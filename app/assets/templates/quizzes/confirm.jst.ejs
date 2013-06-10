@@ -3,11 +3,12 @@
     <h3 id="myModalLabel">Hey!</h3>
   </div>
   <div id="confirmation-message" class="modal-body">
-    <big>Are you sure you want to delete <strong><%- this.deleteTitle %></strong>?</big>
+    <big>Are you sure you want to delete <strong><%- this.quiz.get('title') %></strong>?</big>
   </div>
   <div class="eduki-buttons modal-footer">
     <button id="delete" class="eduki-button-primary" data-dismiss="modal" aria-hidden="true"><span>Yes</span></button>
     <button id="cancel" class="eduki-button-primary" data-dismiss="modal" aria-hidden="true"><span>No</span></button>
   </div>
 </div>
+
 

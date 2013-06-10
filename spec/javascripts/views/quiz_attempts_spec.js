@@ -13,12 +13,14 @@ describe('Quiz Attempts', function() {
       currentUser.id = 1;
       currentUser.authenticated = true;
       view = new Eduki.Views.QuizAttempts({attributes:{enrollment_id: 1}});
+      view.render();
     });
 
     it('signup if user not logged in', function() {
       spyOn(router, 'route');
       currentUser.id = -1;
       currentUser.authenticated = false;
+      view.render();
       successServerResponses(this.server);
       expect(router.route).toHaveBeenCalledWith('/');
     });

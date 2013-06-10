@@ -157,7 +157,9 @@ p {
   margin-bottom: 20px;
 }
 
+#main-content { margin-bottom: 60px; }
 #main-content > div > .container { margin-top: 30px; }
+#main-content > .container { margin-top: 30px; }
 .popover { color: #a74738; }
 .form-actions { background: none !important; }
 
@@ -187,6 +189,7 @@ ul li {
 
 #course-description,
 #lesson-body,
+#quiz .question,
 #lesson-preview,
 #quiz form li,
 #quiz fieldset label,
@@ -199,13 +202,16 @@ ul li {
 /* Blue Highlighting */
 .listing-course > a,
 .listing-enrolled-course > div,
+.course-home,
 #navbar-courses {
-  background-color: #87a8b1;
+  background-color: #87a8b1 !important;
 }
+
 .listing-course > a:hover,
-.listing-enrolled-course > div:hover,
+.course-home:hover,
+#education-plan > div,
 #navbar-courses:hover {
-  background-color: #35849a;
+  background-color: #35849a !important;
 }
 
 /* Pink Highlighting */
@@ -213,25 +219,31 @@ ul li {
 .listing-owned-course > a,
 #navbar-create,
 #lesson-create {
-  background-color: #be9790;
+  background-color: #be9790 !important;
 }
+
 .listing-lesson > a:hover,
 .listing-owned-course > a:hover,
+#instructor-plan > div,
 #navbar-create:hover,
 #lesson-create:hover {
-  background-color: #a74738;
+  background-color: #a74738 !important;
 }
 
 /* Tan Highlighting */
 .listing-quiz > a,
 #navbar-dashboard,
+.quiz-attempts,
 #quiz-create {
-  background-color: #bfb191;
+  background-color: #bfb191 !important;
 }
+
 .listing-quiz > a:hover,
 #navbar-dashboard:hover,
+#student-plan > div,
+.quiz-attempts:hover,
 #quiz-create:hover {
-  background-color: #a56f37;
+  background-color: #a56f37 !important;
 }
 
 /* Grey Highlighting */
@@ -243,7 +255,7 @@ ul li {
   background-color: #595959;
 }
 
-#confirm, #cancel {
+#delete, #unenroll, #cancel {
   display: inline-block;
   margin-left: 20px;
 }
@@ -713,12 +725,18 @@ button {
 #lesson-create { background-image: url('icons/lesson_create.png'); }
 #quiz-create{ background-image: url('icons/quiz_create.png'); }
 
-#course-ownership-actions {
+#course-ownership-actions,
+#lesson-ownership-actions,
+#quiz-ownership-actions {
   margin-top: 10px;
 }
 
 #course-ownership-edit,
+#lesson-ownership-edit,
+#quiz-ownership-edit,
 #course-ownership-delete,
+#lesson-ownership-delete,
+#quiz-ownership-delete,
 #premium,
 #update-profile {
   float: right;
@@ -726,18 +744,24 @@ button {
 }
 
 #course-ownership-edit,
+#lesson-ownership-edit,
+#quiz-ownership-edit,
 #update-profile {
   background-image: url('icons/edit_big.png');
 }
 
 #course-ownership-edit,
+#lesson-ownership-edit,
+#quiz-ownership-edit,
 #premium,
 #update-profile {
   width: 31px;
   padding-top: 31px;
 }
 
-#course-ownership-delete {
+#course-ownership-delete,
+#lesson-ownership-delete,
+#quiz-ownership-delete {
   width: 30px;
   padding-top: 31px;
   background-image: url('icons/delete_big.png');
@@ -780,11 +804,18 @@ button {
   background-image: url('icons/enrolled.png');
 }
 
-#enroll:hover {
+#enroll:hover, #enrolled:hover {
   background-image: url('icons/enroll_hover.png');
 }
 
 /* LESSONS */
+
+#lesson > h1,
+#quiz > h1 {
+  float: left;
+  width: 85%;
+  word-wrap: break-word;
+}
 
 #lessons .listing-line > a,
 #quizzes .listing-line > a {
@@ -806,29 +837,38 @@ button {
   text-align: right;
 }
 
+#quiz .question p,
+#quiz .question ul li,
+#quiz .question ol li {
+  font-size: 14pt !important;
+}
+
 #lesson-body p,
 #lesson-preview p,
 #lesson-body ul li,
 #lesson-preview ul li,
 #lesson-body ol li,
 #lesson-preview ol li {
-  font-size: 12pt;
+  font-size: 12pt !important;
 }
 
 #lesson-body p,
+#quiz .question p,
 #lesson-preview p {
   margin-bottom: 13px;
 }
 
 #lesson-body ul,
+#quiz .question ul,
 #lesson-preview ul,
 #lesson-body ol,
+#quiz .question ol,
 #lesson-preview ol {
   margin: 10px 0 20px 0;
   padding-left: 40px;
 }
 
-#lesson-body ul li,
+#quiz .question ul li,
 #lesson-preview ul li {
   list-style: square;
 }
@@ -845,16 +885,49 @@ button {
 #enrolled-courses > .row { margin-bottom: 15px; }
 #dashboard h1 { float: left; }
 #update-profile { margin-top: 12px; }
-#premium { margin-top: 10px; }
-#premium { background-image: url('icons/premium.png'); }
 
-#premium-features {
-  margin-left: 20px;
+#premium { 
+  margin-top: 10px;
+  background-image: url('icons/premium.png');
+}
+
+.premium-features {
+  margin: 10px 0;
+  margin-left: 27px;
   list-style-image: url('eduki_bullet_point.png');
 }
 
-#premium-features li {
-  font-size: 18pt;
+.plan {
+  margin-top: 30px;
+}
+
+.plan, .plan h3 {
+  color: white !important;
+}
+
+.plan ul {
+  margin-top: 20px;
+}
+
+.plan h3 {
+  font-size: 20pt;
+  margin-top: 20px;
+}
+
+.premium-features li {
+  text-align: left;
+  font-size: 14pt;
+}
+
+.plan > div {
+  border-radius: 5px;
+  height: 390px;
+  padding: 10px 30px;
+  text-align: center;
+}
+
+.plan h3, .plan > div {
+  text-align: center;
 }
 
 .enrolled-course-overlay {
@@ -869,13 +942,13 @@ button {
   display: none;
 }
 
-.enrolled-course-overlay:hover {
-}
-
 .enrolled-course-overlay .eduki-button-icon {
+  background-size: 40px 40px;
+  background-position: center center;
+  border-radius: 2px;
   margin-top: 32px;
   display: inline-block;
-  width: 46px;
+  width: 44px;
   padding-top: 44px;
   position: relative;
   z-index: 1021;
@@ -898,4 +971,24 @@ button {
 #quiz-attempts table th,
 #quiz-attempts table td {
   text-align: center !important;
+}
+
+/* Sticky footer styles */
+html, body { height: 100%; }
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#push, #footer {
+  height: 60px;
+}
+
+#footer {
+  background-color: #3f3f3f;
 }
