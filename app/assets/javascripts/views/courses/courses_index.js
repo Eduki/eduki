@@ -22,27 +22,26 @@ Eduki.Views.CoursesIndex = Backbone.View.extend({
   // render through the callback to display them.
   initialize: function (query) {
     this.courses = new Eduki.Collections.Courses();
-    var self = this;
-    var retrievalFunction = this.courses.fetch;
-    var courses = this.courses;
+    this.query = query;
+  },
 
+  // Gathers necessary info and renders the course
+  render: function () {
     // If there is a search query param, use that
-    if (query !== undefined) {
-      retrievalFunction = function () { return courses.search(query); };
+    var self = this;
+    var retrievalFunction = self.courses.fetch;
+    var courses = self.courses;
+    if (self.query !== undefined) {
+      retrievalFunction = function () { return courses.search(self.query); };
     } else {
       retrievalFunction = function () { return courses.fetch(); };
     }
 
     $.when(retrievalFunction()).then(
-      function () { self.render(self.template()); },
-      function () { self.render(self.errorTemplate()); }
+      function () { $(self.el).html(self.template()); },
+      function () { router.route('/error'); }
     );
-  },
-
-  // Renders the course
-  render: function (template) {
-    $(this.el).html(template);
-    return this;
+    return self;
   },
 
   search: function (event) {
