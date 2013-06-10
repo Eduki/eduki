@@ -96,6 +96,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   // Hide validation error when input is clicked upon
   hideInvalid: function () {
     this.$('input').popover('hide');
+    this.$('#submit-credentials').popover('hide');
   },
 
   showInvalid: function (input, message) {
