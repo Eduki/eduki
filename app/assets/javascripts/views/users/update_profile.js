@@ -14,9 +14,10 @@
  */
 
 Eduki.Views.UpdateProfile = Backbone.View.extend({
+  className: 'container',
+  id: 'update',
 
   template: JST['users/update'],
-  errorTemplate: JST['static/error'],
 
   events: {
     'click button' : 'update',
@@ -26,34 +27,23 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
   },
 
   initialize: function () {
-    // renders form, then updates all existing fields with the current profile values
-    // if they exist
-    this.fetchUserInfo();
+    this.user = new Eduki.Models.User({ id: currentUser.id });
   },
 
   // grabs current user info from database and displays in the form
   // if it exists
   fetchUserInfo: function () {
-    this.user = new Eduki.Models.User({ id: currentUser.id });
-
     var self = this;
     // grab user from database
     this.user.fetch({
-      success: function () {
-        if (self.render(self.template())) {
-          self.updateFields();
-        } else {
-          self.render(self.errorTemplate());
-        }
-      },
-      error: function (model, xhr, options) {
-        self.render(self.errorTemplate());
-      }
+      success: function () { self.updateFields(); },
+      error: function () { router.route('/error'); }
     });
   },
 
   // updates form fields
   updateFields: function () {
+    $(this.el).html(this.template());
     this.$('#first-name').val(this.user.get('first_name'));
     this.$('#last-name').val(this.user.get('last_name'));
     this.$('#email').val(this.user.get('email'));
@@ -65,7 +55,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
   render: function (template) {
     var self;
     if (currentUser.authenticated) {
-      $(this.el).html(template);
+      this.fetchUserInfo();
       self = this;
     } else {
       router.route('/');
@@ -114,7 +104,7 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
       this.user.save({id: this.user.get('id')},
                      {wait: true,
                       success: function () { router.route('/dashboard'); },
-                      error: function () { self.render(self.errorTemplate()); }});
+                      error: function () { router.route('/error'); }});
     } else {
       this.showInvalid(this.user.validationError[0], this.user.validationError[1]);
     }

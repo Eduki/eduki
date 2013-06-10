@@ -13,6 +13,7 @@ describe("Profile Update", function () {
 		currentUser.id = 1;
     currentUser.authenticated = true;
     view = new Eduki.Views.UpdateProfile();
+    view.render();
 	});
 
 	describe("Renders Form", function () {
@@ -21,6 +22,7 @@ describe("Profile Update", function () {
       currentUser.id = -1;
       currentUser.authenticated = false;
       view = new Eduki.Views.UpdateProfile();
+      view.render();
 			serverRespond(this.server, 200, fixtures["user"]);
       expect(router.route).toHaveBeenCalledWith('/');
 		});
@@ -80,10 +82,11 @@ describe("Profile Update", function () {
     });
 
 		it("displays error page", function() {
+			spyOn(router, 'route');
 			serverRespond(this.server, 200, fixtures["user"]);
 			view.$('#submit-update').click();
 			serverRespond(this.server, 400, fixtures["user"]);
-			expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
+			expect(router.route).toHaveBeenCalledWith('/error');
 		});
 
 		it("displays popover with invalid email", function() {
