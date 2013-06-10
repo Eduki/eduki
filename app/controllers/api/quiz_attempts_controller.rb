@@ -2,6 +2,7 @@ class Api::QuizAttemptsController < Api::ApiController
 
   resource_description do
     description <<-EOS
+    ==Long description
     A QuizAttempt has the following fields
     * id:integer
     * enrollment_id:integer
@@ -20,6 +21,29 @@ class Api::QuizAttemptsController < Api::ApiController
     referenced. Take note that when creating a new QuizAttempt, problem_attempts
     only need the "answer" field filled, and all others will be filled upon
     generation.
+    
+    ===JSON Example
+      {
+        "id":1,
+        "quiz_id":1,
+        "enrollment_id":1,
+        "problem_attempts":[
+          {
+            "id":1,
+            "quiz_attempt_id":1,
+            "problem_id":1,
+            "answer":"A",
+            "correct":true
+          },
+          {
+            "id":2,
+            "quiz_attempt_id":1,
+            "problem_id":2,
+            "answer":"B",
+            "correct":false
+          }
+        ]
+      }
     EOS
   end
 

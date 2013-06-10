@@ -7,6 +7,7 @@ class Api::QuizzesController < Api::ApiController
 
   resource_description do
     description <<-EOS
+    ==Long description
     A quiz has the following fields
     * id:integer
     * course_id:integer
@@ -24,6 +25,29 @@ class Api::QuizzesController < Api::ApiController
     Including problems in a `create` or `update` call is optional.
     If you do, problem objects will be generated for you. Beware
     of filling in problems in update, for all old problems will be destroyed.
+
+    
+    ===JSON Example
+      {  
+        "id":1,  
+        "course_id":1,   
+        "title":"Example Quiz 1",  
+        "problems":[
+          {
+            "id":1,
+            "quiz_id":1,
+            "question":"Example Question 1",
+            "answer":"A"
+          }.
+          {
+            "id":2,
+            "quiz_id":1,
+            "question":"Example Question 2",
+            "answer":"D"
+          }
+        ]
+      }
+
     EOS
   end
 
