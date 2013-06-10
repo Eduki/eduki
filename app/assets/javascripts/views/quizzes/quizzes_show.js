@@ -17,9 +17,12 @@ Eduki.Views.QuizShow = Backbone.View.extend({
   className: 'container',
   template: JST['quizzes/quiz'],
   resultsTemplate: JST['quizzes/results'],
+  confirmTemplate: JST['quizzes/confirm'],
   events: {
     'click #submit-quiz': 'grade',
     'submit form': 'grade',
+    'click #quiz-ownership-delete': 'confirmDelete',
+    'click #delete': 'deleteQuiz',
   },
 
   initialize: function () {
@@ -51,7 +54,13 @@ Eduki.Views.QuizShow = Backbone.View.extend({
            this.quizzes.fetch(),
            this.quiz.fetch(),
            this.enrollments.fetch()).then(
-      function () { $(self.el).html(self.template()); },
+      function () {
+        if (currentUser.authenticated) {
+          self.fetchUserData();
+        } else {
+          $(self.el).html(self.template());
+        }
+      },
       function () { router.route('/error'); }
     );
   },
@@ -73,6 +82,18 @@ Eduki.Views.QuizShow = Backbone.View.extend({
       success: function () {
         self.$el.append(self.resultsTemplate());
         self.$('#quiz-results-modal').modal();
+      },
+      error: function () { router.route('/error'); }
+    });
+  },
+
+  fetchUserData: function () {
+    var self = this;
+    this.courses = new Eduki.Collections.Courses({user_id: currentUser.id});
+    this.courses.fetch({
+      success: function () {
+        self.ownership = self.courses.findWhere({id: parseInt(self.course.get('id'), 10)});
+        $(self.el).html(self.template());
       },
       error: function () { router.route('/error'); }
     });
@@ -107,5 +128,22 @@ Eduki.Views.QuizShow = Backbone.View.extend({
       this.$('#submit-quiz').attr('data-content', 'Please enroll in course to take this quiz');
       this.$('#submit-quiz').popover('show');
     }
+  },
+
+  // Confirm content deletion
+  confirmDelete: function () {
+    this.$('#delete-confirmation-modal').remove();
+    // Show confirmation modal
+    this.$el.append(this.confirmTemplate());
+    this.$('#delete-confirmation-modal').modal();
+  },
+
+  // Deletes the content from database
+  deleteQuiz: function () {
+    var self = this;
+    this.quiz.destroy({
+      success: function () { router.route('/courses/' + self.course.get('id')); },
+      error: function () { router.route('/error'); }
+    });
   },
 });

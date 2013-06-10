@@ -6,6 +6,12 @@
       </div>
     <% } %>
     <h1><%- this.quiz.get('title') %></h1>
+    <% if (this.ownership) { %>
+      <div id="quiz-ownership-actions">
+        <button id="quiz-ownership-delete" title="delete" class="content-delete eduki-button-icon"></button>
+        <a id="quiz-ownership-edit" class="eduki-button-icon" href="/#/courses/<%- this.course.get('id') %>/quizzes/<%- this.quiz.get('id')  %>/edit" title="edit"></a>
+      </div>
+    <% } %>
     <hr />
     <form>
       <ol>

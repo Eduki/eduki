@@ -45,13 +45,13 @@ describe("Quiz Edit", function() {
 	});
 
 	describe("Edit", function() {
-		it("redirects to course overview on success", function() {
+		it("redirects to quiz on success", function() {
     	spyOn(router, 'route');
       view.render();
       successServerResponses(this.server);
 			view.$('#update').click();
 			serverRespond(this.server, 200, fixtures["quiz"]);
-			expect(router.route).toHaveBeenCalledWith('/courses/1');
+			expect(router.route).toHaveBeenCalledWith('/courses/1/quizzes/1');
     });
 
     it('displays error on quiz save error', function() {

@@ -12,7 +12,7 @@ describe('Quiz', function() {
     });
 
     setupFakeServer();
-    it("renders error page for when an error occurs", function() {
+    it("routes error page for when an error occurs", function() {
       var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
       view.render();
       spyOn(router, 'route');
@@ -36,6 +36,34 @@ describe('Quiz', function() {
       expect(view.$el).toContain('#submit-quiz');
     });
 
+    it("renders ownership", function() {
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      view.render();
+      successServerResponses(this.server);
+      expect(view.$el).toContain('#quiz-ownership-actions');
+    });
+
+    it("renders ownership actions", function() {
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      view.render();
+      successServerResponses(this.server);
+      var actions = view.$('#quiz-ownership-actions').children();
+      expect($(actions[0]).attr('id')).toEqual('quiz-ownership-delete');
+      expect($(actions[1]).attr('href')).toEqual('/#/courses/1/quizzes/1/edit');
+    });
+
+    it("doesn't renders ownership", function() {
+      currentUser.id = 4;
+      currentUser.authenticated = true;
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      view.render();
+      serverRespond(this.server, 200, fixtures['course']);
+      serverRespond(this.server, 200, fixtures['quizzes']);
+      serverRespond(this.server, 200, fixtures['quiz']);
+      serverRespond(this.server, 200, fixtures['enrollments']);
+      expect(view.$el).not.toContain('#quiz-ownership-actions');
+    });
+
     it("renders two problems", function() {
       var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
       view.render();
@@ -53,7 +81,38 @@ describe('Quiz', function() {
       serverRespond(this.server, 200, fixtures['quizzes']);
       serverRespond(this.server, 200, fixtures['quiz']);
       serverRespond(this.server, 200, {"id":1, "user_id":1, "course_id": 2});
+      serverRespond(this.server, 200, fixtures['courses']);
       expect(view.$el).toContain('.alert');
+    });
+
+    it("renders modal", function() {
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      view.render();
+      successServerResponses(this.server);
+      view.$('#quiz-ownership-delete').click();
+      expect(view.$el).toContain('#delete-confirmation-modal');
+    });
+
+    it("routes after deletion", function() {
+      spyOn(router, 'route');
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      view.render();
+      successServerResponses(this.server);
+      view.$('#quiz-ownership-delete').click();
+      view.$('#delete').click();
+      serverRespond(this.server, 200, []);
+      expect(router.route).toHaveBeenCalledWith('/courses/1');
+    });
+
+    it("routes to error", function() {
+      spyOn(router, 'route');
+      var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
+      view.render();
+      successServerResponses(this.server);
+      view.$('#quiz-ownership-delete').click();
+      view.$('#delete').click();
+      serverRespond(this.server, 404, []);
+      expect(router.route).toHaveBeenCalledWith('/error');
     });
 
     // Tests the other quiz section
@@ -205,5 +264,6 @@ function successServerResponses(server) {
   serverRespond(server, 200, fixtures['quizzes']);
   serverRespond(server, 200, fixtures['quiz']);
   serverRespond(server, 200, fixtures['enrollments']);
+  serverRespond(server, 200, fixtures['courses']);
 }
 

@@ -142,7 +142,8 @@ Eduki.Views.QuizEdit = Backbone.View.extend({
     // Save quiz to database
     var self = this;
     $.when(this.quiz.save()).then(
-      function () { router.route('/courses/' + self.quiz.get('course_id')); },
+      function () { router.route('/courses/' + self.quiz.get('course_id') +
+                    '/quizzes/' + self.quiz.get('id')); },
       function () { router.route('/error'); }
     );
   },
