@@ -188,6 +188,14 @@ describe('Course', function() {
         serverRespond(this.server, 200, []);
         expect(view.$el).toContain('#enroll');
       });
+
+      it('doesn\'t unenrolls user', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        successServerResponses(this.server);
+        view.$('#enrolled').click();
+        view.$('#cancel').click();
+        expect(view.$el).toContain('#enrolled');
+      });
     });
 
     describe('Ownership', function() {
@@ -318,6 +326,23 @@ describe('Course', function() {
           serverRespond(this.server, 200, []);
           expect(router.route).toHaveBeenCalledWith('/courses');
         });
+
+        it('removes all quizzes', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('#course-quizzes .ownership-delete');
+          $(deleteButtons[0]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          $(deleteButtons[1]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          $(deleteButtons[2]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          expect(view.$el).toContain('#course-quizzes > p');
+          expect(view.$el).not.toContain('.listing-quiz');
+        });
       });
 
       describe('Lesson', function() {
@@ -362,6 +387,23 @@ describe('Course', function() {
           serverRespond(this.server, 200, []);
           expect(view.$el).not.toContain(deleteButtons[0]);
           expect(view.$el).not.toContain(lessons[0]);
+        });
+
+        it('removes all lessons', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('#course-lessons .ownership-delete');
+          $(deleteButtons[0]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          $(deleteButtons[1]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          $(deleteButtons[2]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          expect(view.$el).toContain('#course-lessons > p > a');
+          expect(view.$el).not.toContain('.listing-lesson');
         });
       });
 

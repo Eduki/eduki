@@ -168,6 +168,7 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     }
   },
 
+  // Show a message if there are no lessons or quizzes
   noContentMessage: function () {
     if (this.$('.listing-lesson').length === 0 &&
         this.$('#course-lessons').find('p').length === 0) {
