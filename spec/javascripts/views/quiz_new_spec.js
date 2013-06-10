@@ -13,32 +13,38 @@ describe('Create Quiz', function() {
 	describe('Render', function() {
 		it('renders title', function() {
       var view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
+      view.render();
       expect(view.$el.find('h1').html()).toEqual('Create a Quiz');
     });
 
 		it('renders quiz title input', function() {
 			var view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
+      view.render();
 			expect(view.$el.find('#create-quiz-title')).toBeDefined();
 		});
 
     it('renders first problem', function() {
     	var view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
+      view.render();
       expect(view.$el.find('#create-quiz-problems')).toContain('fieldset');
       expect(view.$el.find('.create-quiz-answer')).toContain('input[type=radio]');
     });
 
     it('renders delete icon', function() {
     	var view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
+      view.render();
       expect(view.$el.find('.create-quiz-problem')).toContain('.create-quiz-delete');
     });
 
     it('renders add icon', function() {
     	var view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
+      view.render();
       expect(view.$el.find('#create-quiz-form')).toContain('#create-quiz-add');
     });
 
     it('renders submit button', function() {
     	var view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
+      view.render();
     	var submit = view.$el.find('.eduki-button-primary');
     	expect(submit[0]).toHaveText('Publish');
     });
@@ -48,6 +54,7 @@ describe('Create Quiz', function() {
 		var view;
 		beforeEach(function () {
 			view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
+      view.render();
       /*
 			view.$('#create-quiz-title').val('quizz');
 			view.$('#problem-0').val('problem');
@@ -98,6 +105,7 @@ describe('Create Quiz', function() {
 		beforeEach(function () {
 			setupFakeServer();
 			view = new Eduki.Views.QuizNew({attributes:{course_id: 1}});
+      view.render();
 			view.$('#create-quiz-title').val('quizz');
 			view.$('#problem-0').val('problem');
 			view.$('.controls input[type=radio]:first-child').attr('checked', true);
@@ -111,9 +119,10 @@ describe('Create Quiz', function() {
 		});
 
 		it('fails to save a quiz and displays error message', function() {
+      spyOn(router, 'route');
 			view.submit();
 			serverRespond(this.server, 404, fixtures['quiz']);
-			expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
+      expect(router.route).toHaveBeenCalledWith('/error');
 		});
 
     it('displays error if no title', function() {

@@ -24,8 +24,13 @@ class Api::CoursesController < Api::ApiController
   end
 
   api :GET, '/courses', "Retrieve a list of courses"
+  param :query, String, :required => false
   def index
-    render :json => Course.all
+    if params[:query].nil?
+      render :json => Course.all
+    else
+      render :json => Course.where("title LIKE ?", '%'+params[:query]+'%')
+    end
   end
 
   api :GET, '/users/:user_id/courses', "Retrieve a list of courses owned by the given user"

@@ -1,18 +1,18 @@
 <div class="row">
   <div class="span10">
     <% if (currentUser.authenticated) { %>
-      <button class="eduki-button-icon" id="enroll"></button>
+    <button data-placement="top" data-trigger="manual" data-toggle="popover" class="eduki-button-icon" id="enroll"></button>
     <% } %>
     <h1><%- this.course.get('title') %></h1>
     <% if (this.course.get('description') != null) { %>
-      <p id="course-description"><%- this.course.get('description') %></p>
+    <p id="course-description"><%- this.course.get('description') %></p>
     <% } %>
   </div>
   <% if (this.ownership) { %>
-    <div class="span2" id="course-ownership-actions">
-      <button id="course-ownership-delete" title="delete" class="content-delete eduki-button-icon"></button>
-      <a id="course-ownership-edit" class="eduki-button-icon" href="/#/courses/<%- this.course.get('id') %>/edit" title="edit"></a>
-    </div>
+  <div class="span2" id="course-ownership-actions">
+    <button id="course-ownership-delete" title="delete" class="content-delete eduki-button-icon"></button>
+    <a id="course-ownership-edit" class="eduki-button-icon" href="/#/courses/<%- this.course.get('id') %>/edit" title="edit"></a>
+  </div>
   <% } %>
   <hr class="span12" />
 </div>

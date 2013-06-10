@@ -192,13 +192,33 @@ describe('Course', function() {
         expect(view.$el).toContain('#enrolled');
       });
 
+      it('shows unenrolls modal', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
+        successServerResponses(this.server);
+        view.$('#enrolled').click();
+        expect(view.$el).toContain('#unenroll-confirmation-modal');
+        expect(view.$el).toContain('#unenroll');
+        expect(view.$el).toContain('#cancel');
+      });
+
       it('unenrolls user', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         view.render();
         successServerResponses(this.server);
         view.$('#enrolled').click();
+        view.$('#unenroll').click();
         serverRespond(this.server, 200, []);
         expect(view.$el).toContain('#enroll');
+      });
+
+      it('doesn\'t unenrolls user', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
+        successServerResponses(this.server);
+        view.$('#enrolled').click();
+        view.$('#cancel').click();
+        expect(view.$el).toContain('#enrolled');
       });
     });
 
@@ -311,7 +331,7 @@ describe('Course', function() {
           successServerResponses(this.server);
           view.$('#course-ownership-delete').click();
           expect(view.$el).toContain('#delete-confirmation-modal');
-          expect(view.$el).toContain('#confirm');
+          expect(view.$el).toContain('#delete');
           expect(view.$el).toContain('#cancel');
         });
 
@@ -329,7 +349,7 @@ describe('Course', function() {
           spyOn($, 'ajax').andCallThrough();
           successServerResponses(this.server);
           view.$('#course-ownership-delete').click();
-          view.$('#confirm').click();
+          view.$('#delete').click();
           expect($.ajax.mostRecentCall.args[0]['url']).toEqual('/api/courses/1');
           expect($.ajax.mostRecentCall.args[0]['type']).toEqual('DELETE');
         });
@@ -340,9 +360,27 @@ describe('Course', function() {
           spyOn(router, 'route');
           successServerResponses(this.server);
           view.$('#course-ownership-delete').click();
-          view.$('#confirm').click();
+          view.$('#delete').click();
           serverRespond(this.server, 200, []);
           expect(router.route).toHaveBeenCalledWith('/courses');
+        });
+
+        it('removes all quizzes', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('#course-quizzes .ownership-delete');
+          $(deleteButtons[0]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          $(deleteButtons[1]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          $(deleteButtons[2]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          expect(view.$el).toContain('#course-quizzes > p');
+          expect(view.$el).not.toContain('.listing-quiz');
         });
       });
 
@@ -354,7 +392,7 @@ describe('Course', function() {
           var deleteButtons = view.$el.find('.ownership-delete');
           $(deleteButtons[0]).click();
           expect(view.$el).toContain('#delete-confirmation-modal');
-          expect(view.$el).toContain('#confirm');
+          expect(view.$el).toContain('#delete');
           expect(view.$el).toContain('#cancel');
         });
 
@@ -374,7 +412,7 @@ describe('Course', function() {
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
           $(deleteButtons[0]).click();
-          view.$('#confirm').click();
+          view.$('#delete').click();
           expect($.ajax.mostRecentCall.args[0]['url']).toEqual('/api/lessons/1');
           expect($.ajax.mostRecentCall.args[0]['type']).toEqual('DELETE');
         });
@@ -388,10 +426,28 @@ describe('Course', function() {
           expect(view.$el).toContain(deleteButtons[0]);
           expect(view.$el).toContain(lessons[0]);
           $(deleteButtons[0]).click();
-          view.$('#confirm').click();
+          view.$('#delete').click();
           serverRespond(this.server, 200, []);
           expect(view.$el).not.toContain(deleteButtons[0]);
           expect(view.$el).not.toContain(lessons[0]);
+        });
+
+        it('removes all lessons', function() {
+          var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
+          successServerResponses(this.server);
+          var deleteButtons = view.$el.find('#course-lessons .ownership-delete');
+          $(deleteButtons[0]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          $(deleteButtons[1]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          $(deleteButtons[2]).click();
+          view.$('#delete').click();
+          serverRespond(this.server, 200, []);
+          expect(view.$el).toContain('#course-lessons > p > a');
+          expect(view.$el).not.toContain('.listing-lesson');
         });
       });
 
@@ -403,7 +459,7 @@ describe('Course', function() {
           var deleteButtons = view.$el.find('.ownership-delete');
           $(deleteButtons[3]).click();
           expect(view.$el).toContain('#delete-confirmation-modal');
-          expect(view.$el).toContain('#confirm');
+          expect(view.$el).toContain('#delete');
           expect(view.$el).toContain('#cancel');
         });
 
@@ -423,7 +479,7 @@ describe('Course', function() {
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
           $(deleteButtons[3]).click();
-          view.$('#confirm').click();
+          view.$('#delete').click();
           expect($.ajax.mostRecentCall.args[0]['url']).toEqual('/api/quizzes/1');
           expect($.ajax.mostRecentCall.args[0]['type']).toEqual('DELETE');
         });
@@ -437,7 +493,7 @@ describe('Course', function() {
           expect(view.$el).toContain(quizzes[0]);
           expect(view.$el).toContain(deleteButtons[3]);
           $(deleteButtons[3]).click();
-          view.$('#confirm').click();
+          view.$('#delete').click();
           serverRespond(this.server, 200, []);
           expect(view.$el).not.toContain(quizzes[0]);
           expect(view.$el).not.toContain(deleteButtons[3]);

@@ -11,7 +11,8 @@
  * An overall view of a course and its lessons/quizzes
  *
  * author: Jolie Chen
-*/
+ */
+
 Eduki.Views.CoursesOverview = Backbone.View.extend({
   id: 'course',
   className: 'container',
@@ -19,11 +20,17 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
   template: JST['courses/overview'],
   errorTemplate: JST['static/error'],
   confirmTemplate: JST['courses/confirm'],
+  unenrollTemplate: JST['courses/unenroll'],
+  noLessonsTemplate: JST['courses/no_lessons'],
+  noQuizzesTemplate: JST['courses/no_quizzes'],
   events: {
     'click #enroll': 'enroll',
-    'click #enrolled': 'unenroll',
+    'click #enrolled': 'confirmUnenroll',
     'click .content-delete': 'confirmDelete',
-    'click #confirm': 'deleteContent'
+    'click #delete': 'deleteContent',
+    'click #unenroll': 'unenroll',
+    'mouseenter #enroll': 'showEnrollPopover',
+    'mouseleave #enroll': 'hideEnrollPopover',
   },
 
   initialize: function () {
@@ -84,9 +91,19 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     $(this.el).html(this.template());
   },
 
+  showEnrollPopover: function () {
+    this.$('#enroll').attr('data-content', "Enroll!");
+    this.$('#enroll').popover('show');
+  },
+
+  hideEnrollPopover: function () {
+    this.$('.popover').remove();
+  },
+
   // Enrolls a user in this course
   enroll: function () {
     if (!this.enrollment && currentUser.authenticated) {
+      this.$('.popover').remove();
       this.enrollment = new Eduki.Models.Enrollment({user_id: currentUser.id,
                                                     course_id: this.course.get('id')});
       this.enrollment.save({}, {wait: true});
@@ -94,8 +111,14 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
     }
   },
 
+  confirmUnenroll: function () {
+    this.$el.append(this.unenrollTemplate());
+    this.$('#unenroll-confirmation-modal').modal();
+  },
+
   // Unenrolls a user
   unenroll: function () {
+    this.$('#unenroll-confirmation-modal').remove();
     var self = this;
     this.enrollment.destroy({
       success: function () {
@@ -143,9 +166,21 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
         success: function () {
           // Remove from view
           $(self.deleteTarget).closest('.listing-line').remove();
+          self.noContentMessage();
         },
         error: function () { router.route('/error'); }
       });
+    }
+  },
+
+  // Show a message if there are no lessons or quizzes
+  noContentMessage: function () {
+    if (this.$('.listing-lesson').length === 0 &&
+        this.$('#course-lessons').find('p').length === 0) {
+      this.$('#course-lessons h2').after(this.noLessonsTemplate());
+    } else if (this.$('.listing-quiz').length === 0 &&
+               this.$('#course-quizzes').find('p').length === 0) {
+      this.$('#course-quizzes h2').after(this.noQuizzesTemplate());
     }
   },
 });
