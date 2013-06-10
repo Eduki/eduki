@@ -4,23 +4,24 @@
 /*jslint vars: true*/
 /*jslint regexp: true*/
 /*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
-  JST: false, router: false */
+  JST: false, router: false, navbar: false */
 'use strict';
 
 /*
- * About page View. Still very basic
+ * Error page View.
  *
  * Author: Jolie Chen
-*/
+ */
 
-Eduki.Views.About = Backbone.View.extend({
+Eduki.Views.ErrorPage = Backbone.View.extend({
   className: 'container',
 
-  template: JST['static/about'],
+  template: JST['static/error'],
 
   render: function () {
     $(this.el).html(this.template());
     return this;
   },
 });
+
 

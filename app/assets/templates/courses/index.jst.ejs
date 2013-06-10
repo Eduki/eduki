@@ -1,21 +1,19 @@
-<div id="courses-index" class="container">
-  <h1>Courses</h1>
-  <form id="search">
-    <input class="span3" type="text" id="search-query" data-placement="left" data-trigger="manual" data-toggle="popover" placeholder="search for courses" autofocus />
-    <button type="button" class="eduki-button-icon" id="search-button"><span>Search</span></button>
-  </form>
-  <hr />
-  <div id="courses">
-    <div class="row">
-    <% for (var i = 0; i < this.courses.size(); i++) { %>
-        <div class="listing-square listing-course">
-          <a class="span2" href="/#/courses/<%- this.courses.models[i].get('id') %>"><span><%- this.courses.models[i].get('title') %></span></a>
-        </div>
-      <% if ((i+1) % 6 == 0 && (i+1) < this.courses.size()) { %>
-    </div>
-    <div class="row">
-      <% } %>
+<h1>Courses</h1>
+<form id="search">
+  <input class="span3" type="text" id="search-query" data-placement="left" data-trigger="manual" data-toggle="popover" placeholder="search for courses" autofocus />
+  <button type="button" class="eduki-button-icon" id="search-button"><span>Search</span></button>
+</form>
+<hr />
+<div id="courses">
+  <div class="row">
+  <% for (var i = 0; i < this.courses.size(); i++) { %>
+      <div class="listing-square listing-course">
+        <a class="span2" href="/#/courses/<%- this.courses.models[i].get('id') %>"><span><%- this.courses.models[i].get('title') %></span></a>
+      </div>
+    <% if ((i+1) % 6 == 0 && (i+1) < this.courses.size()) { %>
+  </div>
+  <div class="row">
     <% } %>
-    </div>
+  <% } %>
   </div>
 </div>

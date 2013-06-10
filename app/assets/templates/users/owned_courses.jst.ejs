@@ -1,8 +1,11 @@
 <div id="owned-courses">
-  <% if (this.ownedCourses.size() <= 0) { %>
-    <h2>You have not created any courses.</h2>
-  <% } else { %>
     <h2>Your Courses</h2>
+  <% if (this.ownedCourses.size() <= 0) { %>
+  <p>
+    Looks like you haven't created any courses.
+    <a href="/#/courses/new" title="Create Course">Create a course now!</a>
+    </p>
+  <% } else { %>
   <div id="owned-courses-list">
     <div class="row">
     <% for (var i = 0; i < this.ownedCourses.size(); i++) { %>

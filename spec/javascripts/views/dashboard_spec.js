@@ -16,12 +16,14 @@ describe('Dashboard', function() {
 
     it('renders header for user with first name', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       expect(view.$el.find('h1')).toHaveText("derp\'s Dashboard");
     });
 
     it('renders header for user where first name is empty string', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       serverRespond(this.server, 200, {id:1, first_name: '', last_name: '',
                                        email: '', background: ''});
       serverRespond(this.server, 200, ['enrollments']);
@@ -32,6 +34,7 @@ describe('Dashboard', function() {
 
     it('renders header for user where first name is null', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       serverRespond(this.server, 200, {id:1, first_name: null, last_name: '',
                                        email: '', background: ''});
       serverRespond(this.server, 200, ['enrollments']);
@@ -42,6 +45,7 @@ describe('Dashboard', function() {
 
     it('renders course enrollments', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       expect(view.$el.find('#enrolled-courses h2')).toHaveText('Enrolled Courses');
       expect(view.$el).toContain('.listing-enrolled-course');
@@ -49,6 +53,7 @@ describe('Dashboard', function() {
 
     it('renders owned courses', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       expect(view.$el.find('#enrolled-courses h2')).toHaveText('Enrolled Courses');
       expect(view.$el).toContain('.listing-owned-course');
@@ -56,31 +61,73 @@ describe('Dashboard', function() {
 
     it('renders no enrollments', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
-      expect(view.$el.find('#enrolled-courses h2')).toHaveText('You are currently not enrolled in any courses.');
+      expect(view.$el.find('#enrolled-courses h2')).toHaveText('Enrolled Courses');
+    });
+
+    it('renders no enrollments', function() {
+      var view = new Eduki.Views.Dashboard();
+      view.render();
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, []);
+      expect(view.$el.find('#enrolled-courses p a').attr('href')).toEqual('/#/courses');
     });
 
     it('renders no owned courses', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       serverRespond(this.server, 200, fixtures['user']);
       serverRespond(this.server, 200, fixtures['enrollments']);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, fixtures['courses']);
-      expect(view.$el.find('#owned-courses h2')).toHaveText('You have not created any courses.');
+      expect(view.$el.find('#owned-courses h2')).toHaveText('Your Courses');
     });
 
-    it('renders one enrollments', function() {
+    it('renders no owned courses', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
+      serverRespond(this.server, 200, fixtures['user']);
+      serverRespond(this.server, 200, fixtures['enrollments']);
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, fixtures['courses']);
+      expect(view.$el.find('#owned-courses p a').attr('href')).toEqual('/#/courses/new');
+    });
+
+    it('renders two enrollments', function() {
+      var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       var courses = view.$el.find('.listing-enrolled-course');
       expect(courses.length).toBe(2);
     });
 
+    it('renders first overlay', function() {
+      var view = new Eduki.Views.Dashboard();
+      view.render();
+      successServerResponses(this.server);
+      var icons = view.$el.find('.enrolled-icons a');
+      expect($(icons[0]).attr('href')).toEqual('/#/courses/1');
+      expect($(icons[1]).attr('href')).toEqual('/#/user/enrollment/1/quizzes');
+    });
+
+    it('renders second overlay', function() {
+      var view = new Eduki.Views.Dashboard();
+      view.render();
+      successServerResponses(this.server);
+      var icons = view.$el.find('.enrolled-icons a');
+      expect($(icons[2]).attr('href')).toEqual('/#/courses/2');
+      expect($(icons[3]).attr('href')).toEqual('/#/user/enrollment/2/quizzes');
+    });
+
     it('renders one owned courses', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       var courses = view.$el.find('.listing-owned-course');
       expect(courses.length).toBe(2);
@@ -88,6 +135,7 @@ describe('Dashboard', function() {
 
     it('renders course titles', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       var courseTitles = view.$el.find('.listing-square > a');
       expect(courseTitles[0]).toHaveText('Bear Cooking');
@@ -96,6 +144,7 @@ describe('Dashboard', function() {
 
     it('renders first course link', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       var courseLinks = view.$el.find('.listing-square > a');
       expect($(courseLinks[0]).attr('href')).toEqual('/#/courses/1');
@@ -103,6 +152,7 @@ describe('Dashboard', function() {
 
     it('renders edit profile button', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       expect(view.$el).toContain('#update-profile');
     });

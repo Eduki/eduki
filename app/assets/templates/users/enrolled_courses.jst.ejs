@@ -1,8 +1,11 @@
 <div id="enrolled-courses">
+  <h2>Enrolled Courses</h2>
   <% if (this.enrollments.size() <= 0) { %>
-    <h2>You are currently not enrolled in any courses.</h2>
+  <p>
+    To enroll in a course, click the enrollment button <img src="<%- Eduki.Assets.imageUrl('icons/enroll.png') %>" alt="Enroll" /> on the course page.
+    <a href="/#/courses" title="Browse Courses">Start browsing courses</a>!
+  </p>
   <% } else { %>
-    <h2>Enrolled Courses</h2>
     <div id="enrolled-courses-list">
       <div class="row">
       <% for (var i = 0; i < this.courses.size(); i++) { %>
@@ -11,7 +14,7 @@
             <div class="enrolled-course-overlay">
               <div class="enrolled-icons">
                 <a class="eduki-button-icon course-home" href="/#/courses/<%- this.courses.models[i].get('id') %>"></a>
-                <a class="eduki-button-icon quiz-attempts" href="/#/user/enrollment/<%- this.enrollments.models[i].get('id') %>/quizzes/"></a>
+                <a class="eduki-button-icon quiz-attempts" href="/#/user/enrollment/<%- this.enrollments.findWhere({course_id: this.courses.models[i].get('id')}).get('id') %>/quizzes"></a>
               </div>
             </div>
           </div>

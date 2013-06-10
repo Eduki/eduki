@@ -20,4 +20,19 @@ Eduki.Models.QuizAttempt = Backbone.Model.extend({
     }
     return Backbone.sync.apply(this, arguments);
   },
+
+  // Calculates the score of a quiz attempt and its respective percentage score
+  calculateScore: function () {
+    var attempts = this.get('problem_attempts');
+    var correct = 0;
+    var i;
+    for (i = 0; i < attempts.length; i += 1) {
+      if (attempts[i].correct) {
+        correct += 1;
+      }
+    }
+
+    this.set('score', correct);
+    this.set('percent', (correct / attempts.length) * 100);
+  },
 });
