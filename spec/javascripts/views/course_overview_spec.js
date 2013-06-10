@@ -107,7 +107,7 @@ describe('Course', function() {
     });
 
     // Tests for quizzes
-      describe('Quizzes', function() {
+    describe('Quizzes', function() {
       it('renders quizzes list', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
         view.render();
@@ -191,6 +191,18 @@ describe('Course', function() {
         serverRespond(this.server, 200, fixtures['enrollment']);
         expect(view.$el).toContain('#enrolled');
       });
+
+      it('enrolls user causes error', function() {
+        var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        spyOn(router, 'route');
+        serverRespond(this.server, 200, {"id":3, "title":"Bear Cooking"});
+        serverRespond(this.server, 200, fixtures['quizzes']);
+        serverRespond(this.server, 200, fixtures['lessons']);
+        serverRespond(this.server, 200, fixtures['user_courses']);
+        serverRespond(this.server, 200, fixtures['enrollments']);
+        view.$('#enroll').click();
+        serverRespond(this.server, 404, fixtures['enrollment']);
+        expect(router.route).toHaveBeenCalledWith('/error');
 
       it('shows unenrolls modal', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});

@@ -2,14 +2,16 @@
  * course_new_spec is a test suite for creating courses
  *
  * author: Jolie Chen
- */
+*/
 
- describe('Course', function() {
-   describe('New', function(){
+describe('Course', function() {
+  describe('New', function(){
     setupFakeServer();
     var view;
 
     beforeEach(function() {
+      currentUser.id = 1;
+      currentUser.authenticated = true;
       view = new Eduki.Views.CoursesNew();
       view.render();
     });
@@ -33,15 +35,6 @@
       expect(router.route).toHaveBeenCalledWith('/courses/1');
     });
 
-    it('fails saving a course', function() {
-      spyOn(router, 'route');
-      view.$('#form-course-title').val('Course Bear Cooking succesfully created!');
-      view.$('#form-course-description').val('herp');
-      view.$('#publish').click();
-      serverRespond(this.server, 400, fixtures["course"]);
-      expect(router.route).toHaveBeenCalledWith('/error');
-    });
-
     it('displays popover for no title', function() {
       view.$('#form-course-description').val('herp');
       view.$('#publish').click();
@@ -53,5 +46,23 @@
       view.$('#publish').click();
       expect(view.$el.find('.popover').html()).toMatch('Please provide a valid description');
     });
-   });
- });
+
+    it('Enroll should have been called', function() {
+      spyOn(view, 'enroll');
+      view.$('#form-course-title').val('Course Bear Cooking succesfully created!');
+      view.$('#form-course-description').val('herp');
+      view.$('#publish').click();
+      serverRespond(this.server, 200, fixtures["course"]);
+      expect(view.enroll).toHaveBeenCalled();
+    });
+
+    it('fails saving a course', function() {
+      spyOn(router, 'route');
+      view.$('#form-course-title').val('Course Bear Cooking succesfully created!');
+      view.$('#form-course-description').val('herp');
+      view.$('#publish').click();
+      serverRespond(this.server, 400, fixtures["course"]);
+      expect(router.route).toHaveBeenCalledWith('/error');
+    });
+  });
+});

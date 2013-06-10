@@ -103,11 +103,14 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
   // Enrolls a user in this course
   enroll: function () {
     if (!this.enrollment && currentUser.authenticated) {
+      var self = this;
       this.$('.popover').remove();
       this.enrollment = new Eduki.Models.Enrollment({user_id: currentUser.id,
                                                     course_id: this.course.get('id')});
-      this.enrollment.save({}, {wait: true});
-      this.$('#enroll').attr('id', 'enrolled');
+      this.enrollment.save({}, {wait: true,
+                                success: function () { self.$('#enroll').attr('id', 'enrolled'); },
+                                error: function () { router.route('/error'); }}
+                          );
     }
   },
 
