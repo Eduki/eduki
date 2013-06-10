@@ -99,12 +99,30 @@ describe('Dashboard', function() {
       expect(view.$el.find('#owned-courses p a').attr('href')).toEqual('/#/courses/new');
     });
 
-    it('renders one enrollments', function() {
+    it('renders two enrollments', function() {
       var view = new Eduki.Views.Dashboard();
       view.render();
       successServerResponses(this.server);
       var courses = view.$el.find('.listing-enrolled-course');
       expect(courses.length).toBe(2);
+    });
+
+    it('renders first overlay', function() {
+      var view = new Eduki.Views.Dashboard();
+      view.render();
+      successServerResponses(this.server);
+      var icons = view.$el.find('.enrolled-icons a');
+      expect($(icons[0]).attr('href')).toEqual('/#/courses/1');
+      expect($(icons[1]).attr('href')).toEqual('/#/user/enrollment/1/quizzes');
+    });
+
+    it('renders second overlay', function() {
+      var view = new Eduki.Views.Dashboard();
+      view.render();
+      successServerResponses(this.server);
+      var icons = view.$el.find('.enrolled-icons a');
+      expect($(icons[2]).attr('href')).toEqual('/#/courses/2');
+      expect($(icons[3]).attr('href')).toEqual('/#/user/enrollment/2/quizzes');
     });
 
     it('renders one owned courses', function() {
