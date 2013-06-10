@@ -1,0 +1,5 @@
+<p>Looks like there aren't any lessons yet!
+  <% if (this.ownership) { %>
+  <a href="/#/courses/<%- this.course.get('id') %>/lessons/new" title="New Lesson">Create one now.</a>
+  <% } %>
+</p>
