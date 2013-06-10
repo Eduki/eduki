@@ -157,6 +157,7 @@ p {
   margin-bottom: 20px;
 }
 
+#main-content { margin-bottom: 60px; }
 #main-content > div > .container { margin-top: 30px; }
 .popover { color: #a74738; }
 .form-actions { background: none !important; }
@@ -944,19 +945,20 @@ button {
 
 /* Sticky footer styles */
 html, body { height: 100%; }
-#push { height: 100px; }
 
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  /* Negative indent footer by it's height */
   margin: 0 auto -60px;
 }
 
 /* Set the fixed height of the footer here */
+#push, #footer {
+  height: 60px;
+}
+
 #footer {
   background-color: #3f3f3f;
-  height: 60px;
 }
