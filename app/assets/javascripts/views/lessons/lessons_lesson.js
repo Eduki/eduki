@@ -1,3 +1,12 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
+  JST: false, router: false */
+'use strict';
+
 /*
  * Handles rendering a view for a single lesson
  *
@@ -8,7 +17,7 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
   template: JST['lessons/lesson'],
   errorTemplate: JST['static/error'],
 
-  initialize: function() {
+  initialize: function () {
     // Initialize models
     this.course = new Eduki.Models.Course({id: this.attributes.course_id});
     this.lesson = new Eduki.Models.Lesson({ course_id: this.attributes.course_id,
@@ -19,43 +28,43 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
     // render through the callback to display them.
     var self = this;
     this.course.fetch({
-      success: function() {
+      success: function () {
         self.renderLesson();
       },
-      error: function(model, xhr, options) {
+      error: function (model, xhr, options) {
         self.render(self.errorTemplate());
       }
     });
   },
 
   // renders lesson body, upon success, renders the lesson list
-  renderLesson: function() {
+  renderLesson: function () {
     var self = this;
     this.lesson.fetch({
-      success: function() {
+      success: function () {
         self.renderLessonsList();
       },
-      error: function(model, xhr, options) {
-        self.render(self.errorTemplate)
+      error: function (model, xhr, options) {
+        self.render(self.errorTemplate);
       }
     });
   },
 
   // renders the lesson list in the sidebar
-  renderLessonsList: function() {
+  renderLessonsList: function () {
     var self = this;
     this.lessons.fetch({
-      success: function() {
+      success: function () {
         self.render(self.template());
       },
-      error: function(model, xhr, options) {
-        self.render(self.errorTemplate)
+      error: function (model, xhr, options) {
+        self.render(self.errorTemplate);
       }
     });
   },
 
   // Renders an individual lesson
-  render: function(template) {
+  render: function (template) {
     $(this.el).html(template);
     return this;
   },
