@@ -14,6 +14,7 @@
  */
 
 Eduki.Views.CoursesEdit = Backbone.View.extend({
+  className: 'container',
 
   template: JST['courses/edit'],
   errorTemplate: JST['static/error'],

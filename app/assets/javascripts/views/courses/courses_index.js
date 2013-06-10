@@ -8,6 +8,8 @@
 'use strict';
 
 Eduki.Views.CoursesIndex = Backbone.View.extend({
+  id: 'courses-index',
+  className: 'container',
 
   template: JST['courses/index'],
   errorTemplate: JST['static/error'],
@@ -27,11 +29,17 @@ Eduki.Views.CoursesIndex = Backbone.View.extend({
 
   // Gathers necessary info and renders the course
   render: function () {
-    // If there is a search query param, use that
+    this.fetchCourses();
+    return this;
+  },
+
+  fetchCourses: function () {
     var self = this;
     var retrievalFunction = self.courses.fetch;
     var courses = self.courses;
-    if (self.query !== undefined) {
+
+    // If there is a search query param, use that
+    if (this.query !== undefined) {
       retrievalFunction = function () { return courses.search(self.query); };
     } else {
       retrievalFunction = function () { return courses.fetch(); };
@@ -41,7 +49,6 @@ Eduki.Views.CoursesIndex = Backbone.View.extend({
       function () { $(self.el).html(self.template()); },
       function () { router.route('/error'); }
     );
-    return self;
   },
 
   search: function (event) {

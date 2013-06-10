@@ -154,9 +154,10 @@ describe('Course', function() {
       it('renders enroll button', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
         view.render();
-        serverRespond(this.server, 200, {"id":2, "title":"Bear Cooking"});
+        serverRespond(this.server, 200, {"id":3, "title":"Bear Cooking"});
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
+        serverRespond(this.server, 200, fixtures['courses']);
         serverRespond(this.server, 200, fixtures['enrollments']);
         expect(view.$el).toContain('#enroll');
       });

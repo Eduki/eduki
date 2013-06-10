@@ -13,6 +13,8 @@
  * author: Jolie Chen
 */
 Eduki.Views.CoursesOverview = Backbone.View.extend({
+  id: 'course',
+  className: 'container',
 
   template: JST['courses/overview'],
   errorTemplate: JST['static/error'],
@@ -33,14 +35,20 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
 
   // Renders a course's lesson
   render: function () {
+    this.fetchData();
+    return this;
+  },
+
+  fetchData: function () {
     var self = this;
     $.when(this.course.fetch(),
            this.quizzes.fetch(),
            this.lessons.fetch()).then(
       function () {
-        $(self.el).html(self.template());
         if (currentUser.authenticated) {
           self.getUserInfo();
+        } else {
+          $(self.el).html(self.template());
         }
       },
       function () { router.route('/error'); }
@@ -73,9 +81,7 @@ Eduki.Views.CoursesOverview = Backbone.View.extend({
   setOwnership: function () {
     // See if a user is enrolled in this particular course
     this.ownership = this.courses.findWhere({id: parseInt(this.course.get('id'), 10)});
-    if (this.ownership) {
-      $(this.el).html(this.template());
-    }
+    $(this.el).html(this.template());
   },
 
   // Enrolls a user in this course
