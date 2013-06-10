@@ -30,15 +30,9 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
     this.$('#remaining').html(500 - this.$('#form-course-description').val().length);
   },
 
-  initialize: function () {
-    // Fetch all courses. Once retrieved, execute
-    // render through the callback to display them.
-    this.render(this.template());
-  },
-
   // Renders the template
-  render: function (template) {
-    $(this.el).html(template);
+  render: function () {
+    $(this.el).html(this.template());
     return this;
   },
 
@@ -50,8 +44,8 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
       var self = this;
       this.course.save({title: this.course.get('title')},
                        {wait: true,
-                        success: function () { self.enroll(); },
-                        error: function () { self.render(self.errorTemplate()); }});
+                        success: function () { self.enroll() },
+                        error: function () { router.route('/error'); }});
     } else {
       this.showInvalid(this.course.validationError[0], this.course.validationError[1]);
     }

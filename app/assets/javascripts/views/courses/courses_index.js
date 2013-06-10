@@ -8,6 +8,8 @@
 'use strict';
 
 Eduki.Views.CoursesIndex = Backbone.View.extend({
+  id: 'courses-index',
+  className: 'container',
 
   template: JST['courses/index'],
   errorTemplate: JST['static/error'],
@@ -22,27 +24,31 @@ Eduki.Views.CoursesIndex = Backbone.View.extend({
   // render through the callback to display them.
   initialize: function (query) {
     this.courses = new Eduki.Collections.Courses();
+    this.query = query;
+  },
+
+  // Gathers necessary info and renders the course
+  render: function () {
+    this.fetchCourses();
+    return this;
+  },
+
+  fetchCourses: function () {
     var self = this;
-    var retrievalFunction = this.courses.fetch;
-    var courses = this.courses;
+    var retrievalFunction = self.courses.fetch;
+    var courses = self.courses;
 
     // If there is a search query param, use that
-    if (query !== undefined) {
-      retrievalFunction = function () { return courses.search(query); };
+    if (this.query !== undefined) {
+      retrievalFunction = function () { return courses.search(self.query); };
     } else {
       retrievalFunction = function () { return courses.fetch(); };
     }
 
     $.when(retrievalFunction()).then(
-      function () { self.render(self.template()); },
-      function () { self.render(self.errorTemplate()); }
+      function () { $(self.el).html(self.template()); },
+      function () { router.route('/error'); }
     );
-  },
-
-  // Renders the course
-  render: function (template) {
-    $(this.el).html(template);
-    return this;
   },
 
   search: function (event) {

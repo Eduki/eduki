@@ -14,9 +14,9 @@
  */
 
 Eduki.Views.QuizNew = Backbone.View.extend({
+  className: 'container',
   template: JST['quizzes/new'],
   problemTemplate: JST['quizzes/problem'],
-  errorTemplate: JST['static/error'],
 
   events: {
     'click #create-quiz-add' : 'add',
@@ -29,13 +29,12 @@ Eduki.Views.QuizNew = Backbone.View.extend({
 
   initialize: function () {
     this.count = 0;
-    this.render(this.template());
-    this.$('#create-quiz-problems').append(this.problemTemplate());
   },
 
-    // Renders the template
-  render: function (template) {
-    $(this.el).html(template);
+  // Renders the template
+  render: function () {
+    $(this.el).html(this.template());
+    this.$('#create-quiz-problems').append(this.problemTemplate());
     return this;
   },
 
@@ -104,14 +103,14 @@ Eduki.Views.QuizNew = Backbone.View.extend({
   // Submit quiz to database
   submit: function (problems) {
     this.quiz = new Eduki.Models.Quiz({ course_id: this.attributes.course_id,
-                                        title: $('#create-quiz-title').val(),
-                                        problems: problems});
+                                      title: $('#create-quiz-title').val(),
+                                      problems: problems});
     // Save quiz to database
     var self = this;
     $.when(this.quiz.save()).then(
       function () { router.route('/courses/' + self.quiz.get('course_id') +
-                                 '/quizzes/' + self.quiz.get('id')); },
-      function () { self.render(self.errorTemplate()); }
+                                '/quizzes/' + self.quiz.get('id')); },
+      function () { router.route('/error'); }
     );
   },
 

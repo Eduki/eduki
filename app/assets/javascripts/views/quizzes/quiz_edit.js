@@ -14,8 +14,8 @@
 */
 
 Eduki.Views.QuizEdit = Backbone.View.extend({
+  className: 'container',
   template: JST['quizzes/edit'],
-  errorTemplate: JST['static/error'],
   problemTemplate: JST['quizzes/problem'],
 
   events: {
@@ -40,31 +40,30 @@ Eduki.Views.QuizEdit = Backbone.View.extend({
     };
 
     this.count = 0;
+  },
 
+  // Renders an quiz unless user isn't logged in
+  render: function () {
+    this.fetchData();
+    $(this.el).html(this.template());
+    return this;
+  },
+
+  fetchData: function () {
     var self = this;
-    // Fetch course and lessons. Once retrieved, execute
-    // render through the callback to display them.
     $.when(this.course.fetch(),
            this.quiz.fetch(),
            this.enrollments.fetch()).then(
       function () {
-        if (self.render(self.template())) {
-          self.updateFields();
-        }
+        self.updateFields();
       },
-      function () { self.render(self.errorTemplate()); }
+      function () { router.route('/error'); }
     );
   },
 
-  // Renders an quiz unless user isn't logged in
-  render: function (template) {
-    $(this.el).html(template);
-    return this;
-  },
-
   updateFields: function () {
-    var i;
     this.$('#create-quiz-title').val(this.quiz.get('title'));
+    var i;
     for (i = 0; i < this.quiz.get('problems').length; i +=  1) {
       var problem = this.quiz.get('problems')[i];
       this.add();
@@ -84,7 +83,7 @@ Eduki.Views.QuizEdit = Backbone.View.extend({
     if (this.$('.create-quiz-problem').length > 1) {
       this.$(e.target).parent().remove();
     } else {
-      // A quiz must always have at least one problem
+      // A quiz ust always have at least one problem
       this.showInvalid('.create-quiz-delete', 'A quiz must have at least one problem');
       this.$('.create-quiz-delete').siblings('.popover').delay(2000).fadeOut();
     }
@@ -137,14 +136,15 @@ Eduki.Views.QuizEdit = Backbone.View.extend({
 
   update: function (problems) {
     this.quiz = new Eduki.Models.Quiz({ id: this.quiz.get('id'),
-                                      course_id: this.attributes.course_id,
-                                      title: $('#create-quiz-title').val(),
-                                      problems: problems});
-                                      // Save quiz to database
+                                        course_id: this.attributes.course_id,
+                                        title: $('#create-quiz-title').val(),
+                                        problems: problems});
+    // Save quiz to database
     var self = this;
     $.when(this.quiz.save()).then(
-      function () { router.route('/courses/' + self.quiz.get('course_id')); },
-      function () { self.render(self.errorTemplate()); }
+      function () { router.route('/courses/' + self.quiz.get('course_id') +
+                    '/quizzes/' + self.quiz.get('id')); },
+      function () { router.route('/error'); }
     );
   },
 
