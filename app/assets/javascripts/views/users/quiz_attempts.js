@@ -37,7 +37,7 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
   fetchEnrollment: function () {
     var self = this;
     this.enrollment.fetch({
-      success: function () { self.renderQuizAttempts() },
+      success: function () { self.renderQuizAttempts(); },
       error: function () { router.route('/error'); }
     });
   },
@@ -53,7 +53,8 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
            this.quizzes.fetch(),
            this.quizAttempts.fetch()).then(
       function () { self.renderScores(); },
-      function () { router.route('/error'); });
+      function () { router.route('/error'); }
+    );
   },
 
   renderScores: function () {
