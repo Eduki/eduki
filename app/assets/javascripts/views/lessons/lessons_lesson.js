@@ -1,3 +1,12 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
+  JST: false, router: false */
+'use strict';
+
 /*
  * Handles rendering a view for a single lesson
  *
@@ -7,9 +16,8 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
   className: 'container',
   template: JST['lessons/lesson'],
 
-  initialize: function() {
+  initialize: function () {
     // Initialize models
-
     var cid = this.attributes.course_id;
     this.course = new Eduki.Models.Course({id: cid});
     this.lesson = new Eduki.Models.Lesson({ course_id: cid,
@@ -18,18 +26,18 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
   },
 
   // Renders an individual lesson
-  render: function() {
+  render: function () {
     this.fetchData();
     return this;
   },
 
-  fetchData: function() {
+  fetchData: function () {
     var self = this;
     $.when(this.course.fetch(),
            this.lesson.fetch(),
            this.lessons.fetch()).then(
-      function() { $(self.el).html(self.template()); },
-      function() { router.route('/error'); }
-      );
+      function () { $(self.el).html(self.template()); },
+      function () { router.route('/error'); }
+    );
   },
 });
