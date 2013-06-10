@@ -5,6 +5,7 @@ class Api::EnrollmentsController < Api::ApiController
 
   resource_description do
     description <<-EOS
+    ==Long description
     An enrollment represents an association between a user and a course.
     A student can only take quizzes for courses that the student is
     enrolled in.
@@ -13,6 +14,13 @@ class Api::EnrollmentsController < Api::ApiController
     * id:integer
     * user_id:integer
     * course_id:integer
+
+    ===JSON Example
+      {
+        "id":1,
+        "course_id":1,
+        "user_id":1
+      }
     EOS
   end
 
