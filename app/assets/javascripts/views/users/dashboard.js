@@ -39,11 +39,10 @@ Eduki.Views.Dashboard = Backbone.View.extend({
     if (!currentUser.authenticated) {
       router.route('/');
       self = false;
-      return self;
     } else {
       self.fetchUserInfo();
     }
-    return this;
+    return self;
   },
 
   fetchUserInfo: function () {
@@ -73,17 +72,15 @@ Eduki.Views.Dashboard = Backbone.View.extend({
     // Grab all the courses in the database
     this.courses.fetch({
       success: function () {
-        alert('in renderUserInfo')
         var enrollments = self.enrollments.pluck('course_id');
         // Filter only the courses a user is enrolled in
         var courses = self.courses.filter(function (course) {
           return jQuery.inArray(course.get('id'), enrollments) >= 0;
         });
         self.courses = new Eduki.Collections.Courses(courses);
-        self.$('#dashboard').append(self.enrolledCoursesTemplate());
-        alert('appended courses');
+        $(self.el).append(self.enrolledCoursesTemplate());
         self.calculateOverlays();
-        self.$('#dashboard').append(self.ownedCoursesTemplate());
+        $(self.el).append(self.ownedCoursesTemplate());
       },
       // If there is an error in fetching courses, display the error page
       error: function () { router.route('/error'); }
