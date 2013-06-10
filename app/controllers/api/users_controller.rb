@@ -12,6 +12,7 @@ class Api::UsersController < Api::ApiController
 
   resource_description do
     description <<-EOS
+    ==Long description
     A user has the following fields
     * id:integer
     * email:string
@@ -19,6 +20,15 @@ class Api::UsersController < Api::ApiController
     * last_name:string
     * password:string -- only used in creation, editing, and authentication
     * background:string - a body of text that the user can use to describe themselves with.
+    
+    ===JSON Example
+      {
+        "id":1,
+        "email":"user219@derp.com",
+        "first_name":null,
+        "last_name":null,
+        "background":null
+      }
     EOS
   end
 

@@ -10,6 +10,7 @@ class Api::LessonsController < Api::ApiController
 
   resource_description do
     description <<-EOS
+    == Long description
     A lesson has the following fields
     * id:integer
     * course_id:integer
@@ -21,6 +22,15 @@ class Api::LessonsController < Api::ApiController
     operation.
 
     body and body_markdown are not distributed in #index
+
+    ===JSON Example
+      {
+        "id":1,  
+        "title":"PoliCTF Bin 200 - An Example of an Exploitation Problem",  
+        "course_id":1,  
+        "body":"# PoliCTF Bin/Pwn 200 [...] ",  
+        "body_markdown":"<h1>PoliCTF Bin/Pwn 200</h1> [...] "
+      }
     EOS
   end
 

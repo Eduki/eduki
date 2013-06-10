@@ -7,6 +7,7 @@ class Api::ProblemsController < Api::ApiController
 
   resource_description do
     description <<-EOS
+    ==Long description
     A problem has the following fields:
     * id:integer
     * quiz_id:integer
@@ -17,6 +18,13 @@ class Api::ProblemsController < Api::ApiController
 
     An answer is an exact string that needs to be sent for the problem
     in order to be confirmed as a correct answer
+    ===JSON Example
+      {
+        "id":1,
+        "quiz_id":1,
+        "question":"Example Question 1",
+        "answer":"A"
+      }
     EOS
   end
 

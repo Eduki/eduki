@@ -10,10 +10,19 @@ class Api::CoursesController < Api::ApiController
 
   resource_description do
     description <<-EOS
+    ==Long description
     A course has the following fields
     * id:integer
     * title:string
     * description:string
+
+    ===JSON Example
+      {
+        "id":1,
+        "title":"Introduction to Competitive Security Competitions",
+        "description":null,
+        "user_id":1
+      }
     EOS
   end
 
