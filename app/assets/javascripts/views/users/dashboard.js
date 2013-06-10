@@ -42,8 +42,8 @@ Eduki.Views.Dashboard = Backbone.View.extend({
     $.when(self.user.fetch(),
            self.enrollments.fetch(),
            self.ownedCourses.fetch()).then(
-      function () { 
-        self.renderUserInfo(); 
+      function () {
+        self.renderUserInfo();
         $(self.el).html(self.template());
         self = this;
       },
