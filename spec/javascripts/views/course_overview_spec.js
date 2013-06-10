@@ -194,6 +194,7 @@ describe('Course', function() {
 
       it('enrolls user causes error', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        view.render();
         spyOn(router, 'route');
         serverRespond(this.server, 200, {"id":3, "title":"Bear Cooking"});
         serverRespond(this.server, 200, fixtures['quizzes']);
@@ -203,6 +204,7 @@ describe('Course', function() {
         view.$('#enroll').click();
         serverRespond(this.server, 404, fixtures['enrollment']);
         expect(router.route).toHaveBeenCalledWith('/error');
+      });
 
       it('shows unenrolls modal', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
