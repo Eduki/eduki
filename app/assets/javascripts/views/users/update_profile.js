@@ -36,18 +36,14 @@ Eduki.Views.UpdateProfile = Backbone.View.extend({
     var self = this;
     // grab user from database
     this.user.fetch({
-      success: function () {
-        $(self.el).html(self.template());
-        self.updateFields();
-      },
-      error: function (model, xhr, options) {
-        router.route('/error');
-      }
+      success: function () { self.updateFields(); },
+      error: function () { router.route('/error'); }
     });
   },
 
   // updates form fields
   updateFields: function () {
+    $(this.el).html(this.template());
     this.$('#first-name').val(this.user.get('first_name'));
     this.$('#last-name').val(this.user.get('last_name'));
     this.$('#email').val(this.user.get('email'));
