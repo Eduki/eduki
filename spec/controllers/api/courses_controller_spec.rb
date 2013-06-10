@@ -40,6 +40,41 @@ describe Api::CoursesController do
     end
   end
 
+  describe "GET #index query" do
+    it "shows only matches" do
+      get :index, :query => "course_two example"
+      assert_response :success
+
+      # Responses should be as specific as query
+      body = JSON.parse(response.body)
+      body.size.should == 1
+      body[0]['title'].should == "course_two example"
+    end
+  end
+
+  describe "GET #index all query" do
+    it "shows all match" do
+      get :index, :query => "course"
+      assert_response :success
+
+      body = JSON.parse(response.body)
+      body.size.should == 3
+      body[0]['title'].should == "course example"
+      body[1]['title'].should == "course_two example"
+      body[2]['title'].should == "course_three example"
+    end
+  end
+
+  describe "GET #index empty query" do
+    it "shows no results" do
+      get :index, :query => "ooogabubgha"
+      assert_response :success
+
+      body = JSON.parse(response.body)
+      body.size.should == 0
+    end
+  end
+
   describe "GET #index_by_user" do
     it "shows all courses owned by a specific user" do
       get :index_by_user, :user_id => @user_two.id
