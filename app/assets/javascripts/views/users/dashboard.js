@@ -17,7 +17,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
   template: JST['users/dashboard'],
   enrolledCoursesTemplate: JST['users/enrolled_courses'],
   ownedCoursesTemplate: JST['users/owned_courses'],
-  errorTemplate: JST['static/error'],
+
   events: {
     'mouseleave .listing-enrolled-course': 'hideOverlay',
   },
@@ -28,31 +28,27 @@ Eduki.Views.Dashboard = Backbone.View.extend({
       this.courses = new Eduki.Collections.Courses();
       this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
       this.ownedCourses = new Eduki.Collections.Courses({user_id: currentUser.id});
-
-      var self = this;
-      // Get enrollments from database
-      $.when(this.user.fetch(),
-             this.enrollments.fetch(),
-             this.ownedCourses.fetch()).then(
-        function () {
-          self.renderUserInfo();
-        },
-        function () {
-          self.render(self.errorTemplate());
-        }
-      );
     }
   },
 
-  render: function (template) {
-    var self;
-    if (currentUser.authenticated) {
-      $(this.el).html(template);
-      self = this;
-    } else {
+  render: function () {
+    var self = this;
+    // Get enrollments from database
+    if (!currentUser.authenticated) {
       router.route('/');
       self = false;
+      return self;
     }
+    $.when(self.user.fetch(),
+           self.enrollments.fetch(),
+           self.ownedCourses.fetch()).then(
+      function () { 
+        self.renderUserInfo(); 
+        $(self.el).html(self.template());
+        self = this;
+      },
+      function () { router.route('/error'); }
+    );
     return self;
   },
 
@@ -66,7 +62,6 @@ Eduki.Views.Dashboard = Backbone.View.extend({
       this.firstName += '\'s';
     }
 
-    this.render(this.template());
     var self = this;
     // Grab all the courses in the database
     this.courses.fetch({
@@ -82,7 +77,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
         self.$('#dashboard').append(self.ownedCoursesTemplate());
       },
       // If there is an error in fetching courses, display the error page
-      error: function () { self.render(self.errorTemplate()); }
+      error: function () { router.route('/error'); }
     });
   },
 
