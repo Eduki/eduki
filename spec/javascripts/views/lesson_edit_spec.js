@@ -13,6 +13,7 @@
 		currentUser.id = 1;
     currentUser.authenticated = true;
     view = new Eduki.Views.LessonsEdit({attributes:{course_id: 1, lesson_id: 1}});
+    view.render();
 	});
 
 	describe("Edit", function() {
@@ -23,8 +24,9 @@
 		});
 
 		it("displays error page on lesson fetch error", function() {
+      spyOn(router, 'route');
 			serverRespond(this.server, 400, fixtures["lesson"]);
-			expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
+      expect(router.route).toHaveBeenCalledWith('/error');
 		});
 
 		it("renders existing info correctly", function() {
@@ -58,12 +60,13 @@
     });
 
     it('displays error on lesson save error', function() {
+      spyOn(router, 'route')
     	serverRespond(this.server, 200, fixtures["lesson"]);
 			view.$('#form-lesson-title').val('edited lesson title');
 			view.$('#form-lesson-body').val('lessons yyeayeayea');
 			view.$('#publish').click();
 			serverRespond(this.server, 400, fixtures["lesson"]);
-			expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
+      expect(router.route).toHaveBeenCalledWith('/error');
     });
 	});
 });

@@ -835,6 +835,7 @@ button {
 
 #course-home {
   text-align: right;
+  clear: both;
 }
 
 #quiz .question p,

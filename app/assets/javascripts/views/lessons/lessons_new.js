@@ -14,9 +14,8 @@
  */
 
 Eduki.Views.LessonsCreate = Backbone.View.extend({
-
+  className: 'container',
   template: JST['lessons/new'],
-  errorTemplate: JST['static/error'],
   previewTemplate: JST['lessons/preview'],
 
   events: {
@@ -28,13 +27,12 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
   },
 
   initialize: function () {
-    this.render(this.template());
     this.cid = this.attributes.course_id;
   },
 
   // Renders the create lesson form
-  render: function (template) {
-    $(this.el).html(template);
+  render: function () {
+    $(this.el).html(this.template());
     return this;
   },
 
@@ -51,7 +49,7 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
                                   self.lesson.get('course_id') +
                                   '/lessons/' +
                                   self.lesson.get('id')); },
-        function () { self.render(self.errorTemplate()); }
+        function () { router.route('/error'); }
       );
     } else {
       this.showInvalid(this.lesson.validationError[0], this.lesson.validationError[1]);
@@ -76,7 +74,7 @@ Eduki.Views.LessonsCreate = Backbone.View.extend({
       self.$('#create-lesson-form').hide();
       self.$('#lesson-space').append(self.previewTemplate());
       self.$('#lesson-preview').html(data.body_markdown);
-    }).fail(function () { self.render(self.errorTemplate()); });
+    }).fail(function () { router.route('/error'); });
   },
 
   edit: function () {
