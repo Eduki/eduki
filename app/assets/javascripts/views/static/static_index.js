@@ -25,10 +25,6 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
     'click input': 'hideInvalid',
   },
 
-  initialize: function () {
-    // nothing to initialize
-  },
-
   render: function () {
     var self;
     if (currentUser.authenticated) {
