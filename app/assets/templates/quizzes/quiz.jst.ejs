@@ -17,8 +17,8 @@
       <ol>
         <% for (var i = 0; i < this.quiz.get('problems').length; i++) { %>
         <li>
+          <p><%= this.quiz.get('problems')[i].question_markdown %></p>
           <fieldset class="quiz-answer">
-            <label><%- this.quiz.get('problems')[i].question %></label>
             <input type="radio" name="problem-<%- this.quiz.get('problems')[i].id %>" value = "A" /> <span>A</span>
             <input type="radio" name="problem-<%- this.quiz.get('problems')[i].id %>" value = "B" /> <span>B</span>
             <input type="radio" name="problem-<%- this.quiz.get('problems')[i].id %>" value = "C" /> <span>C</span>
