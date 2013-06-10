@@ -11,9 +11,10 @@
  * About page View. Still very basic
  *
  * Author: Jolie Chen
- */
+*/
 
 Eduki.Views.About = Backbone.View.extend({
+  className: 'container',
 
   template: JST['static/about'],
 
