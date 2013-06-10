@@ -14,6 +14,8 @@
  */
 
 Eduki.Views.UpdateProfile = Backbone.View.extend({
+  className: 'container',
+  id: 'update',
 
   template: JST['users/update'],
 
