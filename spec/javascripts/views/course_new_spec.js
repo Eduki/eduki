@@ -51,5 +51,15 @@
        view.$('#publish').click();
        expect(view.$el.find('.popover').html()).toMatch('Please provide a valid description');
      });
+
+     it('Enroll should have been called', function() {
+       var view = new Eduki.Views.CoursesNew();
+       spyOn(view, 'enroll');
+       view.$('#form-course-title').val('Course Bear Cooking succesfully created!');
+       view.$('#form-course-description').val('herp');
+       view.$('#publish').click();
+       serverRespond(this.server, 200, fixtures["enrollment"]);
+       expect(view.enroll).toHaveBeenCalled();
+     });
    });
  });

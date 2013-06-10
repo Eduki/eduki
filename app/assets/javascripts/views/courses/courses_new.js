@@ -50,11 +50,18 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
       var self = this;
       this.course.save({title: this.course.get('title')},
                        {wait: true,
-                        success: function () { router.route("/courses/" + self.course.get('id')); },
+                        success: function () { self.enroll(); },
                         error: function () { self.render(self.errorTemplate()); }});
     } else {
       this.showInvalid(this.course.validationError[0], this.course.validationError[1]);
     }
+  },
+
+  enroll: function () {
+    this.enrollment = new Eduki.Models.Enrollment({user_id: currentUser.id,
+                                                  course_id: this.course.get('id')});
+    this.enrollment.save({}, {wait: true});
+    router.route("/courses/" + this.course.get('id'));
   },
 
   // Hide validation error when input is clicked upon
