@@ -243,7 +243,7 @@ ul li {
   background-color: #595959;
 }
 
-#confirm, #cancel {
+#delete, #unenroll, #cancel {
   display: inline-block;
   margin-left: 20px;
 }
@@ -780,7 +780,7 @@ button {
   background-image: url('icons/enrolled.png');
 }
 
-#enroll:hover {
+#enroll:hover, #enrolled:hover {
   background-image: url('icons/enroll_hover.png');
 }
 
