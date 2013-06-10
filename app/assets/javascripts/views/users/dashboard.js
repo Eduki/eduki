@@ -13,6 +13,8 @@
  * author: David Mah & Jolie Chen
  */
 Eduki.Views.Dashboard = Backbone.View.extend({
+  className: 'container',
+  id: 'dashboard',
 
   template: JST['users/dashboard'],
   enrolledCoursesTemplate: JST['users/enrolled_courses'],
@@ -38,18 +40,23 @@ Eduki.Views.Dashboard = Backbone.View.extend({
       router.route('/');
       self = false;
       return self;
+    } else {
+      self.fetchUserInfo();
     }
+    return this;
+  },
+
+  fetchUserInfo: function () {
+    var self = this;
     $.when(self.user.fetch(),
            self.enrollments.fetch(),
            self.ownedCourses.fetch()).then(
       function () {
         self.renderUserInfo();
         $(self.el).html(self.template());
-        self = this;
       },
       function () { router.route('/error'); }
     );
-    return self;
   },
 
   // Renders all the courses a user is in
@@ -66,6 +73,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
     // Grab all the courses in the database
     this.courses.fetch({
       success: function () {
+        alert('in renderUserInfo')
         var enrollments = self.enrollments.pluck('course_id');
         // Filter only the courses a user is enrolled in
         var courses = self.courses.filter(function (course) {
@@ -73,6 +81,7 @@ Eduki.Views.Dashboard = Backbone.View.extend({
         });
         self.courses = new Eduki.Collections.Courses(courses);
         self.$('#dashboard').append(self.enrolledCoursesTemplate());
+        alert('appended courses');
         self.calculateOverlays();
         self.$('#dashboard').append(self.ownedCoursesTemplate());
       },
