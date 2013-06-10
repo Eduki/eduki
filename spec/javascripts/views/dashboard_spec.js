@@ -109,6 +109,7 @@ describe('Dashboard', function() {
 
     it('renders first overlay', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       var icons = view.$el.find('.enrolled-icons a');
       expect($(icons[0]).attr('href')).toEqual('/#/courses/1');
@@ -117,6 +118,7 @@ describe('Dashboard', function() {
 
     it('renders second overlay', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       successServerResponses(this.server);
       var icons = view.$el.find('.enrolled-icons a');
       expect($(icons[2]).attr('href')).toEqual('/#/courses/2');
