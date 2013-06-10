@@ -14,6 +14,7 @@
  */
 
 Eduki.Views.About = Backbone.View.extend({
+	className: 'container',
 
   template: JST['static/about'],
 
