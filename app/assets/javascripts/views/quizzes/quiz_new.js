@@ -1,3 +1,12 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
+  JST: false, router: false */
+'use strict';
+
 /*
  * Renders the view for creating quizzes
  *
@@ -5,40 +14,39 @@
  */
 
 Eduki.Views.QuizNew = Backbone.View.extend({
-	
-	template: JST['quizzes/new'],
+  template: JST['quizzes/new'],
   problemTemplate: JST['quizzes/problem'],
-	errorTemplate: JST['static/error'],
+  errorTemplate: JST['static/error'],
 
-	events: {
+  events: {
     'click #create-quiz-add' : 'add',
     'click .create-quiz-delete' : 'deleteProblem',
-		'click #publish': 'validateQuiz',
-		'submit form': 'validateQuiz',
+    'click #publish': 'validateQuiz',
+    'submit form': 'validateQuiz',
     'click #create-quiz-title': 'hideInvalid',
     'click .create-quiz-question': 'hideInvalid',
-	},
+  },
 
-	initialize: function() {
+  initialize: function () {
     this.count = 0;
     this.render(this.template());
     this.$('#create-quiz-problems').append(this.problemTemplate());
   },
 
     // Renders the template
-  render: function(template) {
+  render: function (template) {
     $(this.el).html(template);
     return this;
   },
 
   // adds a problem to the form
-  add: function() {
-    this.count++;
+  add: function () {
+    this.count += 1;
     this.$('#create-quiz-problems').append(this.problemTemplate());
   },
 
   // Deletes a problem from the form.
-  deleteProblem: function(e) {
+  deleteProblem: function (e) {
     if (this.$('.create-quiz-problem').length > 1) {
       this.$(e.target).parent().remove();
     } else {
@@ -49,8 +57,9 @@ Eduki.Views.QuizNew = Backbone.View.extend({
   },
 
   // Validate all fields are passed before submitting
-  validateQuiz: function(e) {
-    this.$('.popover').remove(); e.preventDefault();
+  validateQuiz: function (e) {
+    this.$('.popover').remove();
+    e.preventDefault();
 
     // Do not allow empty quiz title
     if (!this.$('#create-quiz-title').val()) {
@@ -58,8 +67,9 @@ Eduki.Views.QuizNew = Backbone.View.extend({
     }
 
     var submittedProblems = this.$('.create-quiz-problem');
-    var problems = new Array(); // Array for database submission
-    for (var i = 0; i < submittedProblems.length; i++) {
+    var problems = []; // Array for database submission
+    var i;
+    for (i = 0; i < submittedProblems.length; i += 1) {
       var questionLabel = $(submittedProblems[i]).find('.control-label').first();
       var question = $(submittedProblems[i]).find('textarea');
       var answer = this.$('input[name=' + $(question).attr('id') + ']:checked', '#quiz');
@@ -76,14 +86,14 @@ Eduki.Views.QuizNew = Backbone.View.extend({
           // by associating each question with its own 'problem-i' id, which corresponds
           // a set of radio buttons for that question, it lets everything stay grouped
           answer: answer.val()
-        }
+        };
         problems.push(problem);
-        }
       }
+    }
 
     // Submit the quiz if all the data is valid
     if (this.$('#create-quiz-title').val() &&
-        (submittedProblems.length == problems.length)) {
+        (submittedProblems.length === problems.length)) {
       this.submit(problems);
     } else {
       this.showInvalid(this.$('#publish'), "There are errors with your quiz");
@@ -92,27 +102,27 @@ Eduki.Views.QuizNew = Backbone.View.extend({
   },
 
   // Submit quiz to database
-  submit: function(problems) {
+  submit: function (problems) {
     this.quiz = new Eduki.Models.Quiz({ course_id: this.attributes.course_id,
                                         title: $('#create-quiz-title').val(),
                                         problems: problems});
     // Save quiz to database
     var self = this;
     $.when(this.quiz.save()).then(
-             function() { router.route('/courses/' + self.quiz.get('course_id') +
-                                       '/quizzes/' + self.quiz.get('id'));},
-             function() { self.render(self.errorTemplate()); }
-           );
+      function () { router.route('/courses/' + self.quiz.get('course_id') +
+                                 '/quizzes/' + self.quiz.get('id')); },
+      function () { self.render(self.errorTemplate()); }
+    );
   },
 
   // Show an invalid message on error
-  showInvalid: function(input, message) {
+  showInvalid: function (input, message) {
     this.$(input).attr('data-content', message);
     this.$(input).popover('show');
   },
 
   // Hide validation error when input is clicked upon
-  hideInvalid: function(e) {
+  hideInvalid: function (e) {
     this.$(e.target).parent().siblings().popover('hide');
   },
 });

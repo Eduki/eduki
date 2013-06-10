@@ -1,3 +1,11 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false, */
+'use strict';
+
 /* 
  * Handles routing for course related pages
  * delegates rendering to each view
@@ -12,26 +20,26 @@ Eduki.Routers.Courses = Backbone.Router.extend({
     'courses/:cid/edit(/)': 'edit'
   },
 
-  index: function(query) {
+  index: function (query) {
     // Delegate to the CoursesIndex View and render it inside of the container
     var view = new Eduki.Views.CoursesIndex(query);
     $('#main-content').html(view.render().el);
   },
 
-  create: function() {
+  create: function () {
     // Delegate to the CoursesOverview View and render it inside of the container
     var view = new Eduki.Views.CoursesNew();
     $('#main-content').html(view.render().el);
   },
 
-  overview: function(cid) {
+  overview: function (cid) {
     // Delegate to the CoursesOverview View and render it inside of the container
-    var view = new Eduki.Views.CoursesOverview({attributes:{course_id: cid}});
+    var view = new Eduki.Views.CoursesOverview({attributes: {course_id: cid}});
     $('#main-content').html(view.render().el);
   },
 
-  edit: function(cid) {
-    var view = new Eduki.Views.CoursesEdit({attributes:{course_id: cid}});
+  edit: function (cid) {
+    var view = new Eduki.Views.CoursesEdit({attributes: {course_id: cid}});
     $('#main-content').html(view.render().el);
   }
 });

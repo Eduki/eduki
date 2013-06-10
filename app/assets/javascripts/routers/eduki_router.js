@@ -1,3 +1,11 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false, */
+'use strict';
+
 // A class to wrap routing for the entire application
 // It is meant to be used as a singleton that can be referenced by the world
 // variable **router**.
@@ -9,7 +17,7 @@
 Eduki.Routers.Eduki = Backbone.Router.extend({
   masterView: undefined,
   routers: [],
-  initialize: function() {
+  initialize: function () {
     // Render Master View regardless of the URL
     this.renderMasterView();
     this.routers.push(new Eduki.Routers.Courses());
@@ -22,7 +30,7 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
   // Redirects the user to another route.
   // Params is a javascript object that will be encoded into
   // a querystring for the other route
-  route: function(url, params) {
+  route: function (url, params) {
     params = this.encodeParamsAsQueryString(params);
     Backbone.history.navigate(url + params, true);
   },
@@ -30,20 +38,20 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
   // Redirects the user to another route, refreshing the application
   // Params is a javascript object that will be encoded into
   // a querystring for the other route
-  redirect: function(url, params) {
+  redirect: function (url, params) {
     params = this.encodeParamsAsQueryString(params);
     window.location.replace(url + params);
   },
 
   // This rendering happens on every page, displaying page features that
   // are common to every page
-  renderMasterView: function() {
+  renderMasterView: function () {
     this.masterView = new Eduki.Views.Master();
     $('body').html(this.masterView.render().el);
   },
 
   // Params is a javascript object that will be encoded into a querystring
-  encodeParamsAsQueryString: function(params) {
+  encodeParamsAsQueryString: function (params) {
     return (params === undefined ? "" : "?" + jQuery.param(params));
   }
 });

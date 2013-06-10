@@ -1,3 +1,12 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
+  JST: false, router: false, navbar: false */
+'use strict';
+
 /* 
  * View that represents front page of eduki
  * Includes sign up and login form
@@ -16,27 +25,29 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
     'click input': 'hideInvalid',
   },
 
-  initialize: function() {
+  initialize: function () {
     // nothing to initialize
   },
 
-  render: function() {
+  render: function () {
+    var self;
     if (currentUser.authenticated) {
       router.route('/dashboard');
-      return false;
+      self = false;
     } else {
       $(this.el).html(this.template());
       this.$el.find('#error-area').hide();
-      return this;
+      self = this;
     }
+    return self;
   },
 
   // Toggles the form between signup and login view
-  toggleForm: function() {
-    this.hideInvalid();
+  toggleForm: function () {
     var type = 'login';
-    if (this.$('form').attr('id') == 'login')
-      type = 'signup'
+    if (this.$('form').attr('id') === 'login') {
+      type = 'signup';
+    }
 
     this.$('form').attr('id', type);
     this.$('#form-title').html(type);
@@ -45,7 +56,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   },
 
   // Validate user's credentials for valid email and non-empty password
-  submit: function(e) {
+  submit: function (e) {
     e.preventDefault();
     this.user = new Eduki.Models.User({ email: this.$('#email').val(),
                                         password: this.$('#password').val() });
@@ -54,7 +65,7 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
     if (!this.user.isValid()) {
       this.showInvalid(this.user.validationError[0],
                        this.user.validationError[1]);
-    } else if (this.$('form').attr('id') == 'signup') {
+    } else if (this.$('form').attr('id') === 'signup') {
       this.signup();
     } else {
       this.login();
@@ -62,57 +73,57 @@ Eduki.Views.StaticIndex = Backbone.View.extend({
   },
 
   // handles the form submission, displays appropriate pages on success/error
-  signup: function() {
+  signup: function () {
     var self = this;
 
     // Saves user to database
     this.user.save({email: this.user.get('email')},
-                   {
-                     wait: true,
-                     success: function() {
-                       self.login();
-                     },
-                     error: function(model, xhr, options) {
-                       if (xhr.status == 409)
-                         self.showInvalid('email', 'Email already exists');
-                       else
-                         self.render(self.errorTemplate());
-                     }
-                   });
+       {wait: true,
+        success: function () {
+          self.login();
+        },
+        error: function (model, xhr, options) {
+          if (xhr.status === 409) {
+            self.showInvalid('email', 'Email already exists');
+          } else {
+            self.render(self.errorTemplate());
+          }
+        }
+                  });
 
   },
 
   // Hide validation error when input is clicked upon
-  hideInvalid: function() {
+  hideInvalid: function () {
     this.$('input').popover('hide');
     this.$('#submit-credentials').popover('hide');
   },
 
-  showInvalid: function(input, message) {
+  showInvalid: function (input, message) {
     this.$('#' + input).attr('data-content', message);
     this.$('#' + input).popover('show');
   },
 
-  login: function() {
+  login: function () {
     currentUser.set_credentials(this.user.get('email'),
                                 this.user.get('password'));
     currentUser.authenticate(this.onAuthenticateSuccess,
                              this.onAuthenticateFailure, this);
   },
 
-  onAuthenticateSuccess: function(data) {
+  onAuthenticateSuccess: function (data) {
     currentUser.save();
     this.appendLogout();
     router.route('/dashboard');
   },
 
-  onAuthenticateFailure: function(data) {
+  onAuthenticateFailure: function (data) {
     this.$('#submit-credentials').attr('data-content', 'Incorrect Username/Password');
     this.$('#submit-credentials').popover('show');
   },
 
   // Append the logout button
-  appendLogout: function() {
+  appendLogout: function () {
     $(navbar).find('#navbar-dashboard').after(this.logoutTemplate());
   }
 });

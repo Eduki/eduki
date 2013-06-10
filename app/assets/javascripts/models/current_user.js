@@ -1,3 +1,11 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false, */
+'use strict';
+
 // This model represents the currently logged in user
 // It is meant to be used as a singleton that can be referenced by the world
 // variable **currentUser**.
@@ -13,44 +21,43 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
   password: "",
   authenticated: false,
 
-  initialize: function() {
+  initialize: function () {
   },
 
   // Save to cookie, because there isn't anything server like about this
-  save: function() {
+  save: function () {
     var user_data = {
       id: this.id,
       email: this.email,
       authenticated: this.authenticated
-    };
-    var serialized_user_data = JSON.stringify(user_data);
+    }, serialized_user_data = JSON.stringify(user_data);
     $.cookie(this.COOKIE_KEY, serialized_user_data);
   },
 
   // Sets it such that all backbone retrievals use the current user's
   // credentials with basic authentication
-  enable: function() {
+  enable: function () {
     Backbone.BasicAuth.set(this.email, this.password);
   },
 
   // Sets it such that all backbone retrievals no longer use basic
   // authentication
-  disable: function() {
+  disable: function () {
     Backbone.BasicAuth.clear();
   },
 
   // Assigns identifying user information and saves it to a cookie
-  set_credentials: function(email, password) {
+  set_credentials: function (email, password) {
     this.email = email;
     this.password = password;
   },
 
   // Clears identifying user information from the machine
-  flush_credentials: function() {
+  flush_credentials: function () {
     this.id = -1;
     this.email = "";
     this.password = "";
-    this.authenticated = false,
+    this.authenticated = false;
     this.clear();
     $.removeCookie(this.COOKIE_KEY);
   },
@@ -58,13 +65,13 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
   // Sends an authentication request to the server
   // If it succeeds, calls success_callback
   // If it fails, calls error_callback
-  authenticate: function(successCallback, errorCallback, callbackContext) {
+  authenticate: function (successCallback, errorCallback, callbackContext) {
     $.ajax({
       url: currentUser.urlRoot,
       type: 'GET',
       username: this.email,
       password: this.password,
-      success: function(data) {
+      success: function (data) {
         currentUser.authenticated = true;
         currentUser.id = data.id;
         successCallback.call(callbackContext);
@@ -80,20 +87,20 @@ Eduki.Models.CurrentUser = Backbone.Model.extend({
   // Creates and returns a CurrentUser object from serialized CurrentUser
   // data in the COOKIE_KEY
   // { email: ------, password: ------, authenticated: true/false, id: -- }
-Eduki.Models.CurrentUser.createFromCookie = function() {
-    var user = new Eduki.Models.CurrentUser();
-    try {
-      var serializedUserData = $.cookie(user.COOKIE_KEY);
-      var userData = JSON.parse(serializedUserData);
-      user.set_credentials(userData.email, userData.password);
-      user.id = userData.id;
-      user.authenticated = userData.authenticated;
-      user.enable();
-    } catch (exception) {
-      // Probably there is no cookie, or the cookie is badly constructed
-      // Regardless of the error that occurred... just reset the state
-      user.flush_credentials();
-    } finally {
-      return user;
-    }
-}
+Eduki.Models.CurrentUser.createFromCookie = function () {
+  var user = new Eduki.Models.CurrentUser();
+  try {
+    var serializedUserData = $.cookie(user.COOKIE_KEY);
+    var userData = JSON.parse(serializedUserData);
+    user.set_credentials(userData.email, userData.password);
+    user.id = userData.id;
+    user.authenticated = userData.authenticated;
+    user.enable();
+  } catch (exception) {
+    // Probably there is no cookie, or the cookie is badly constructed
+    // Regardless of the error that occurred... just reset the state
+    user.flush_credentials();
+  } finally {
+    return user;
+  }
+};
