@@ -103,7 +103,7 @@ Eduki.Views.LessonsEdit = Backbone.View.extend({
       self.$('#edit-lesson-form').hide();
       self.$('#lesson-space').append(self.previewTemplate());
       self.$('#lesson-preview').html(data.body_markdown);
-    }).fail(function () { router.rout('/error'); });
+    }).fail(function () { router.route('/error'); });
   },
 
   edit: function () {
