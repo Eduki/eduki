@@ -48,6 +48,7 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
   renderMasterView: function () {
     this.masterView = new Eduki.Views.Master();
     $('body').html(this.masterView.render().el);
+    $('body').append($('<div id="footer"></div>'));
   },
 
   // Params is a javascript object that will be encoded into a querystring

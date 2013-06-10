@@ -1,8 +1,11 @@
 <div id="enrolled-courses">
+  <h2>Enrolled Courses</h2>
   <% if (this.enrollments.size() <= 0) { %>
-    <h2>You are currently not enrolled in any courses.</h2>
+  <p>
+    To enroll in a course, click the enrollment button <img src="<%- Eduki.Assets.imageUrl('icons/enroll.png') %>" alt="Enroll" /> on the course page.
+    <a href="/#/courses" title="Browse Courses">Start browsing courses</a>!
+  </p>
   <% } else { %>
-    <h2>Enrolled Courses</h2>
     <div id="enrolled-courses-list">
       <div class="row">
       <% for (var i = 0; i < this.courses.size(); i++) { %>

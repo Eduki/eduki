@@ -157,6 +157,7 @@ p {
   margin-bottom: 20px;
 }
 
+#main-content { margin-bottom: 60px; }
 #main-content > div > .container { margin-top: 30px; }
 #main-content > .container { margin-top: 30px; }
 .popover { color: #a74738; }
@@ -200,13 +201,16 @@ ul li {
 /* Blue Highlighting */
 .listing-course > a,
 .listing-enrolled-course > div,
+.course-home,
 #navbar-courses {
-  background-color: #87a8b1;
+  background-color: #87a8b1 !important;
 }
+
 .listing-course > a:hover,
-.listing-enrolled-course > div:hover,
+.course-home:hover,
+#education-plan > div,
 #navbar-courses:hover {
-  background-color: #35849a;
+  background-color: #35849a !important;
 }
 
 /* Pink Highlighting */
@@ -214,25 +218,31 @@ ul li {
 .listing-owned-course > a,
 #navbar-create,
 #lesson-create {
-  background-color: #be9790;
+  background-color: #be9790 !important;
 }
+
 .listing-lesson > a:hover,
 .listing-owned-course > a:hover,
+#instructor-plan > div,
 #navbar-create:hover,
 #lesson-create:hover {
-  background-color: #a74738;
+  background-color: #a74738 !important;
 }
 
 /* Tan Highlighting */
 .listing-quiz > a,
 #navbar-dashboard,
+.quiz-attempts,
 #quiz-create {
-  background-color: #bfb191;
+  background-color: #bfb191 !important;
 }
+
 .listing-quiz > a:hover,
 #navbar-dashboard:hover,
+#student-plan > div,
+.quiz-attempts:hover,
 #quiz-create:hover {
-  background-color: #a56f37;
+  background-color: #a56f37 !important;
 }
 
 /* Grey Highlighting */
@@ -865,16 +875,49 @@ button {
 #enrolled-courses > .row { margin-bottom: 15px; }
 #dashboard h1 { float: left; }
 #update-profile { margin-top: 12px; }
-#premium { margin-top: 10px; }
-#premium { background-image: url('icons/premium.png'); }
 
-#premium-features {
-  margin-left: 20px;
+#premium { 
+  margin-top: 10px;
+  background-image: url('icons/premium.png');
+}
+
+.premium-features {
+  margin: 10px 0;
+  margin-left: 27px;
   list-style-image: url('eduki_bullet_point.png');
 }
 
-#premium-features li {
-  font-size: 18pt;
+.plan {
+  margin-top: 30px;
+}
+
+.plan, .plan h3 {
+  color: white !important;
+}
+
+.plan ul {
+  margin-top: 20px;
+}
+
+.plan h3 {
+  font-size: 20pt;
+  margin-top: 20px;
+}
+
+.premium-features li {
+  text-align: left;
+  font-size: 14pt;
+}
+
+.plan > div {
+  border-radius: 5px;
+  height: 390px;
+  padding: 10px 30px;
+  text-align: center;
+}
+
+.plan h3, .plan > div {
+  text-align: center;
 }
 
 .enrolled-course-overlay {
@@ -889,13 +932,13 @@ button {
   display: none;
 }
 
-.enrolled-course-overlay:hover {
-}
-
 .enrolled-course-overlay .eduki-button-icon {
+  background-size: 40px 40px;
+  background-position: center center;
+  border-radius: 2px;
   margin-top: 32px;
   display: inline-block;
-  width: 46px;
+  width: 44px;
   padding-top: 44px;
   position: relative;
   z-index: 1021;
@@ -918,4 +961,24 @@ button {
 #quiz-attempts table th,
 #quiz-attempts table td {
   text-align: center !important;
+}
+
+/* Sticky footer styles */
+html, body { height: 100%; }
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#push, #footer {
+  height: 60px;
+}
+
+#footer {
+  background-color: #3f3f3f;
 }
