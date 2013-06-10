@@ -1,3 +1,12 @@
+/* JSLint Arguments */
+/*jslint indent: 2*/
+/*jslint browser: true*/
+/*jslint vars: true*/
+/*jslint regexp: true*/
+/*global Eduki: false, Backbone: false, $: false, jQuery: false, currentUser: false,
+  JST: false, router: false */
+'use strict';
+
 /*
  * Quiz attempts view.
  *
@@ -14,13 +23,15 @@ Eduki.Views.QuizAttempts = Backbone.View.extend({
   },
 
   render: function () {
+    var self;
     if (currentUser.authenticated) {
       this.fetchEnrollment();
-      return this;
+      self = this;
     } else {
       router.route('/');
-      return false;
+      self = false;
     }
+    return self;
   },
 
   fetchEnrollment: function () {
