@@ -13,8 +13,10 @@ describe('Course', function() {
     setupFakeServer();
     it('renders error page', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+      view.render();
+      spyOn(router, 'route');
       serverRespond(this.server, 404, fixtures['course']);
-      expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
+      expect(router.route).toHaveBeenCalledWith('/error');
     });
 
     it('renders course title', function() {
@@ -26,18 +28,21 @@ describe('Course', function() {
 
     it('renders quiz create button', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+      view.render();
       successServerResponses(this.server);
       expect(view.$el).toContain('#quiz-create');
     });
 
     it('renders lesson create button', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+      view.render();
       successServerResponses(this.server);
       expect(view.$el).toContain('#lesson-create');
     });
 
     it('renders message if there are no lessons', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+      view.render();
       serverRespond(this.server, 200, fixtures['course']);
       serverRespond(this.server, 200, fixtures['quizzes']);
       serverRespond(this.server, 200, []);
@@ -48,6 +53,7 @@ describe('Course', function() {
 
     it('renders message if there are no quizzes', function() {
       var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+      view.render();
       serverRespond(this.server, 200, fixtures['course']);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, fixtures['lessons']);
@@ -60,12 +66,14 @@ describe('Course', function() {
     describe('Lessons', function() {
       it("renders lessons list", function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         expect(view.$el.find('#course-lessons')).toContain('li');
       });
 
       it('renders all lessons for that course', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         var lessons = view.$el.find('.listing-lesson > a');
         expect(lessons.length).toBe(3);
@@ -73,6 +81,7 @@ describe('Course', function() {
 
       it('renders lessons title', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         var lessons = view.$el.find('.listing-lesson > a');
         expect(lessons[1]).toHaveText('Chopping Tongue');
@@ -80,6 +89,7 @@ describe('Course', function() {
 
       it('renders lessons link', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         var lessons = view.$el.find('.listing-lesson > a');
         expect($(lessons[1]).attr('href')).toEqual('/#/courses/1/lessons/2');
@@ -88,6 +98,7 @@ describe('Course', function() {
       it('renders message if there are no lessons for a non-logged in user', function() {
         currentUser.authenticated = false;
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         serverRespond(this.server, 200, fixtures['course']);
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, []);
@@ -99,12 +110,14 @@ describe('Course', function() {
       describe('Quizzes', function() {
       it('renders quizzes list', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         expect(view.$el.find('#course-quizzes')).toContain('li');
       });
 
       it('renders all quizzes for that course', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         var quizzes = view.$el.find('.listing-quiz > a');
         expect(quizzes.length).toBe(3);
@@ -112,6 +125,7 @@ describe('Course', function() {
 
       it('renders quiz title', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         var quizzes = view.$el.find('.listing-quiz > a');
         expect(quizzes[1]).toHaveText('Quiz 2');
@@ -119,6 +133,7 @@ describe('Course', function() {
 
       it('renders quiz link', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         var quizzes = view.$el.find('.listing-quiz > a');
         expect($(quizzes[1]).attr('href')).toEqual('/#/courses/1/quizzes/2');
@@ -127,6 +142,7 @@ describe('Course', function() {
       it('renders message for user to log in to take quizzes', function() {
         currentUser.authenticated = false;
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         serverRespond(this.server, 200, fixtures['course']);
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, []);
@@ -137,6 +153,7 @@ describe('Course', function() {
     describe('Enrollments', function() {
       it('renders enroll button', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        view.render();
         serverRespond(this.server, 200, {"id":2, "title":"Bear Cooking"});
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
@@ -146,6 +163,7 @@ describe('Course', function() {
 
       it('renders enrolled button', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         expect(view.$el).toContain('#enrolled');
       });
@@ -153,6 +171,7 @@ describe('Course', function() {
       it('doesn\'t render button for user not logged in', function() {
         currentUser.authenticated = false;
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        view.render();
         serverRespond(this.server, 200, fixtures['course']);
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
@@ -161,6 +180,7 @@ describe('Course', function() {
 
       it('enrolls user', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        view.render();
         serverRespond(this.server, 200, {"id":3, "title":"Bear Cooking"});
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
@@ -173,6 +193,7 @@ describe('Course', function() {
 
       it('unenrolls user', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         view.$('#enrolled').click();
         serverRespond(this.server, 200, []);
@@ -183,6 +204,7 @@ describe('Course', function() {
     describe('Ownership', function() {
       it('shows course action icons for a course owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         expect(view.$el).toContain('#course-ownership-delete');
         expect(view.$el).toContain('#course-ownership-edit');
@@ -190,6 +212,7 @@ describe('Course', function() {
 
       it('shows lesson action icons for a course owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         expect(view.$el).toContain('.listing-lesson .ownership-delete');
         expect(view.$el).toContain('.listing-lesson .ownership-edit');
@@ -198,6 +221,7 @@ describe('Course', function() {
 
       it('shows quiz action icons for a course owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         expect(view.$el).toContain('.listing-quiz .ownership-delete');
         expect(view.$el).toContain('.listing-quiz .ownership-edit');
@@ -206,6 +230,7 @@ describe('Course', function() {
 
       it('does not show action buttons for non-owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 2}});
+        view.render();
         serverRespond(this.server, 200, {"id":3, "title":"Bear Tendons"})
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, fixtures['lessons']);
@@ -219,12 +244,14 @@ describe('Course', function() {
 
       it('renders course edit link', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         expect(view.$el.find('#course-ownership-edit').attr('href')).toEqual('/#/courses/1/edit');
       });
 
       it('renders lesson edit link', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         successServerResponses(this.server);
         var edits = view.$el.find('.ownership-edit');
         expect($(edits[0]).attr('href')).toEqual('/#/courses/1/lessons/1/edit');
@@ -232,6 +259,7 @@ describe('Course', function() {
 
       it('renders create message if there are no lessons', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         serverRespond(this.server, 200, fixtures['course']);
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, []);
@@ -242,6 +270,7 @@ describe('Course', function() {
 
       it('renders message if there are no quizzes', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         serverRespond(this.server, 200, fixtures['course']);
         serverRespond(this.server, 200, []);
         serverRespond(this.server, 200, fixtures['lessons']);
@@ -252,6 +281,7 @@ describe('Course', function() {
 
       it('does not renders create lesson message for non-owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         serverRespond(this.server, 200, {"id":3, "title":"Bear Tendons"})
         serverRespond(this.server, 200, fixtures['quizzes']);
         serverRespond(this.server, 200, []);
@@ -262,6 +292,7 @@ describe('Course', function() {
 
       it('does not renders create quiz message for non-owner', function() {
         var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+        view.render();
         serverRespond(this.server, 200, {"id":3, "title":"Bear Tendons"})
         serverRespond(this.server, 200, []);
         serverRespond(this.server, 200, fixtures['lessons']);
@@ -275,6 +306,7 @@ describe('Course', function() {
       describe('Course', function() {
         it('shows modal when course delete is clicked', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           successServerResponses(this.server);
           view.$('#course-ownership-delete').click();
           expect(view.$el).toContain('#delete-confirmation-modal');
@@ -284,6 +316,7 @@ describe('Course', function() {
 
         it('shows course title in modal', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           successServerResponses(this.server);
           view.$('#course-ownership-delete').click();
           expect(view.$('#confirmation-message big').html()).toEqual('Are you sure you want to delete <strong>Bear Cooking</strong>?');
@@ -291,6 +324,7 @@ describe('Course', function() {
 
         it('correct url to delete course', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           spyOn($, 'ajax').andCallThrough();
           successServerResponses(this.server);
           view.$('#course-ownership-delete').click();
@@ -301,6 +335,7 @@ describe('Course', function() {
 
         it('redirects to courses index after deletion', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           spyOn(router, 'route');
           successServerResponses(this.server);
           view.$('#course-ownership-delete').click();
@@ -313,6 +348,7 @@ describe('Course', function() {
       describe('Lesson', function() {
         it('shows modal when lesson delete button is clicked', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
           $(deleteButtons[0]).click();
@@ -323,6 +359,7 @@ describe('Course', function() {
 
         it('shows lesson title in modal', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
           $(deleteButtons[0]).click();
@@ -331,6 +368,7 @@ describe('Course', function() {
 
         it('correct url to delete lesson', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           spyOn($, 'ajax').andCallThrough();
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
@@ -342,6 +380,7 @@ describe('Course', function() {
 
         it('removes lesson', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
           var lessons = view.$el.find('.listing-lesson');
@@ -358,6 +397,7 @@ describe('Course', function() {
       describe('Quiz', function() {
         it('shows modal when quiz delete button is clicked', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
           $(deleteButtons[3]).click();
@@ -368,6 +408,7 @@ describe('Course', function() {
 
         it('shows quiz title in modal', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
           $(deleteButtons[3]).click();
@@ -376,6 +417,7 @@ describe('Course', function() {
 
         it('correct url to delete quiz', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           spyOn($, 'ajax').andCallThrough();
           successServerResponses(this.server);
           var deleteButtons = view.$el.find('.ownership-delete');
@@ -387,6 +429,7 @@ describe('Course', function() {
 
         it('removes quiz', function() {
           var view = new Eduki.Views.CoursesOverview({attributes:{course_id: 1}});
+          view.render();
           successServerResponses(this.server);
           var quizzes = view.$el.find('.listing-quiz');
           var deleteButtons = view.$el.find('.ownership-delete');
