@@ -6,50 +6,52 @@
 
  describe('Course', function() {
    describe('New', function(){
-     setupFakeServer();
-     it('renders form', function() {
-       var view = new Eduki.Views.CoursesNew();
-       expect(view.$el.find('form')).toContain('label');
-       expect(view.$el.find('form')).toContain('button');
-       expect(view.$el.find('form')).toContain('input[type=text]');
-     });
+    setupFakeServer();
+    var view;
 
-     it('renders form title', function() {
-       var view = new Eduki.Views.CoursesNew();
-       expect(view.$el.find('h1')).toHaveText('Create Course');
-     });
+    beforeEach(function() {
+      view = new Eduki.Views.CoursesNew();
+      view.render();
+    });
 
-     it('saves a course and redirects to course overview page', function() {
-       var view = new Eduki.Views.CoursesNew();
-       spyOn(router, 'route');
-       view.$('#form-course-title').val('Course Bear Cooking succesfully created!');
-       view.$('#form-course-description').val('herp');
-       view.$('#publish').click();
-       serverRespond(this.server, 200, fixtures["course"]);
-       expect(router.route).toHaveBeenCalledWith('/courses/1');
-     });
+    it('renders form', function() {
+      expect(view.$el.find('form')).toContain('label');
+      expect(view.$el.find('form')).toContain('button');
+      expect(view.$el.find('form')).toContain('input[type=text]');
+    });
 
-     it('fails saving a course', function() {
-       var view = new Eduki.Views.CoursesNew();
-       view.$('#form-course-title').val('Course Bear Cooking succesfully created!');
-       view.$('#form-course-description').val('herp');
-       view.$('#publish').click();
-       serverRespond(this.server, 400, fixtures["course"]);
-       expect(view.$el.find('h1')).toHaveText('Woops! Something went wrong.');
-     });
+    it('renders form title', function() {
+      expect(view.$el.find('h1')).toHaveText('Create Course');
+    });
 
-     it('displays popover for no title', function() {
-       var view = new Eduki.Views.CoursesNew();
-       view.$('#form-course-description').val('herp');
-       view.$('#publish').click();
-       expect(view.$el.find('.popover').html()).toMatch('Please provide a title');
-     });
+    it('saves a course and redirects to course overview page', function() {
+      spyOn(router, 'route');
+      view.$('#form-course-title').val('Course Bear Cooking succesfully created!');
+      view.$('#form-course-description').val('herp');
+      view.$('#publish').click();
+      serverRespond(this.server, 200, fixtures["course"]);
+      expect(router.route).toHaveBeenCalledWith('/courses/1');
+    });
 
-     it('displays popover for no description', function() {
-       var view = new Eduki.Views.CoursesNew();
-       view.$('#form-course-title').val('herp');
-       view.$('#publish').click();
-       expect(view.$el.find('.popover').html()).toMatch('Please provide a valid description');
-     });
+    it('fails saving a course', function() {
+      spyOn(router, 'route');
+      view.$('#form-course-title').val('Course Bear Cooking succesfully created!');
+      view.$('#form-course-description').val('herp');
+      view.$('#publish').click();
+      serverRespond(this.server, 400, fixtures["course"]);
+      expect(router.route).toHaveBeenCalledWith('/error');
+    });
+
+    it('displays popover for no title', function() {
+      view.$('#form-course-description').val('herp');
+      view.$('#publish').click();
+      expect(view.$el.find('.popover').html()).toMatch('Please provide a title');
+    });
+
+    it('displays popover for no description', function() {
+      view.$('#form-course-title').val('herp');
+      view.$('#publish').click();
+      expect(view.$el.find('.popover').html()).toMatch('Please provide a valid description');
+    });
    });
  });

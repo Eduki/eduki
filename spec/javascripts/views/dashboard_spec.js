@@ -66,7 +66,25 @@ describe('Dashboard', function() {
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
-      expect(view.$el.find('#enrolled-courses h2')).toHaveText('You are currently not enrolled in any courses.');
+      expect(view.$el.find('#enrolled-courses h2')).toHaveText('Enrolled Courses');
+    });
+
+    it('renders no enrollments', function() {
+      var view = new Eduki.Views.Dashboard();
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, []);
+      expect(view.$el.find('#enrolled-courses p a').attr('href')).toEqual('/#/courses');
+    });
+
+    it('renders no owned courses', function() {
+      var view = new Eduki.Views.Dashboard();
+      serverRespond(this.server, 200, fixtures['user']);
+      serverRespond(this.server, 200, fixtures['enrollments']);
+      serverRespond(this.server, 200, []);
+      serverRespond(this.server, 200, fixtures['courses']);
+      expect(view.$el.find('#owned-courses h2')).toHaveText('Your Courses');
     });
 
     it('renders no owned courses', function() {
@@ -76,7 +94,7 @@ describe('Dashboard', function() {
       serverRespond(this.server, 200, fixtures['enrollments']);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, fixtures['courses']);
-      expect(view.$el.find('#owned-courses h2')).toHaveText('You have not created any courses.');
+      expect(view.$el.find('#owned-courses p a').attr('href')).toEqual('/#/courses/new');
     });
 
     it('renders one enrollments', function() {
