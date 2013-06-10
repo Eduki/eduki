@@ -14,7 +14,7 @@
  */
 
 Eduki.Views.ErrorPage = Backbone.View.extend({
-	className: 'container',
+  className: 'container',
 
   template: JST['static/error'],
 
