@@ -156,7 +156,7 @@ describe('Quiz', function() {
         var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
         view.render();
         successServerResponses(this.server);
-        var questions = view.$el.find('label');
+        var questions = view.$el.find('.question');
         expect(questions[0]).toHaveText("What is a corgi? A. Dog B. Cat C. Cow D. Derp");
       });
 
@@ -164,7 +164,7 @@ describe('Quiz', function() {
         var view = new Eduki.Views.QuizShow({attributes:{course_id: 1, quiz_id: 1}});
         view.render();
         successServerResponses(this.server);
-        var questions = view.$el.find('label');
+        var questions = view.$el.find('.question');
         expect(questions[1]).toHaveText("what is 1+1? A. 1 B. 2 C. 3 D. 0");
       });
     });
