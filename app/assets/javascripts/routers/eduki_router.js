@@ -47,7 +47,6 @@ Eduki.Routers.Eduki = Backbone.Router.extend({
   // are common to every page
   renderMasterView: function () {
     this.masterView = new Eduki.Views.Master();
-    this.footer = new Eduki.Views.Footer();
     $('body').html(this.masterView.render().el);
     $('body').append($('<div id="footer"></div>'));
   },
