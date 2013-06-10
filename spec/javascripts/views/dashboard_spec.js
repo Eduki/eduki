@@ -71,6 +71,7 @@ describe('Dashboard', function() {
 
     it('renders no enrollments', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
       serverRespond(this.server, 200, []);
@@ -80,6 +81,7 @@ describe('Dashboard', function() {
 
     it('renders no owned courses', function() {
       var view = new Eduki.Views.Dashboard();
+      view.render();
       serverRespond(this.server, 200, fixtures['user']);
       serverRespond(this.server, 200, fixtures['enrollments']);
       serverRespond(this.server, 200, []);
