@@ -45,7 +45,7 @@ Eduki.Views.CoursesNew = Backbone.View.extend({
       this.course.save({title: this.course.get('title')},
                        {wait: true,
                         success: function () { router.route('/courses/' + self.course.get('id')); },
-                        error: function () { router.route('/error') }});
+                        error: function () { router.route('/error'); }});
     } else {
       this.showInvalid(this.course.validationError[0], this.course.validationError[1]);
     }

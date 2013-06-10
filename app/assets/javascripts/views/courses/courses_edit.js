@@ -43,7 +43,7 @@ Eduki.Views.CoursesEdit = Backbone.View.extend({
   render: function () {
     var self;
     if (currentUser.authenticated) {
-      this.fetchCourseInfo(); 
+      this.fetchCourseInfo();
       self = this;
     } else {
       router.route('/');
