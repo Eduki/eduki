@@ -15,6 +15,11 @@
 Eduki.Views.LessonsLesson = Backbone.View.extend({
   className: 'container',
   template: JST['lessons/lesson'],
+  confirmTemplate: JST['lessons/confirm'],
+  events: {
+    'click .content-delete': 'confirmDelete',
+    'click #delete': 'deleteLesson'
+  },
 
   initialize: function () {
     // Initialize models
@@ -36,8 +41,45 @@ Eduki.Views.LessonsLesson = Backbone.View.extend({
     $.when(this.course.fetch(),
            this.lesson.fetch(),
            this.lessons.fetch()).then(
-      function () { $(self.el).html(self.template()); },
+      function () {
+        if (currentUser.authenticated) {
+          self.fetchUserData();
+        } else {
+          $(self.el).html(self.template());
+        }
+      },
       function () { router.route('/error'); }
     );
+  },
+
+  fetchUserData: function () {
+    var self = this;
+    this.courses = new Eduki.Collections.Courses({user_id: currentUser.id});
+    this.enrollments = new Eduki.Collections.Enrollments({user_id: currentUser.id});
+    $.when(this.courses.fetch(),
+           this.enrollments.fetch()).then(
+      function () {
+        self.ownership = self.courses.findWhere({id: parseInt(self.course.get('id'), 10)});
+        $(self.el).html(self.template());
+      },
+      function () { router.route('/error'); }
+    );
+  },
+
+  // Confirm content deletion
+  confirmDelete: function () {
+    this.$('#delete-confirmation-modal').remove();
+    // Show confirmation modal
+    this.$el.append(this.confirmTemplate());
+    this.$('#delete-confirmation-modal').modal();
+  },
+
+  // Deletes the content from database
+  deleteLesson: function () {
+    var self = this;
+    this.lesson.destroy({
+      success: function () { router.route('/courses/' + self.course.get('id')); },
+      error: function () { router.route('/error'); }
+    });
   },
 });

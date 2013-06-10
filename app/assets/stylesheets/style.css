@@ -714,12 +714,18 @@ button {
 #lesson-create { background-image: url('icons/lesson_create.png'); }
 #quiz-create{ background-image: url('icons/quiz_create.png'); }
 
-#course-ownership-actions {
+#course-ownership-actions,
+#lesson-ownership-actions,
+#quiz-ownership-actions {
   margin-top: 10px;
 }
 
 #course-ownership-edit,
+#lesson-ownership-edit,
+#quiz-ownership-edit,
 #course-ownership-delete,
+#lesson-ownership-delete,
+#quiz-ownership-delete,
 #premium,
 #update-profile {
   float: right;
@@ -727,18 +733,23 @@ button {
 }
 
 #course-ownership-edit,
+#lesson-ownership-edit,
+#quiz-ownership-edit,
 #update-profile {
   background-image: url('icons/edit_big.png');
 }
 
-#course-ownership-edit,
+#lesson-ownership-edit,
+#quiz-ownership-edit,
 #premium,
 #update-profile {
   width: 31px;
   padding-top: 31px;
 }
 
-#course-ownership-delete {
+#course-ownership-delete,
+#lesson-ownership-delete,
+#quiz-ownership-delete {
   width: 30px;
   padding-top: 31px;
   background-image: url('icons/delete_big.png');
@@ -787,6 +798,13 @@ button {
 
 /* LESSONS */
 
+#lesson > h1,
+#quiz > h1 {
+  float: left;
+  width: 85%;
+  word-wrap: break-word;
+}
+
 #lessons .listing-line > a,
 #quizzes .listing-line > a {
   float: left;
@@ -805,6 +823,7 @@ button {
 
 #course-home {
   text-align: right;
+  clear: both;
 }
 
 #lesson-body p,
