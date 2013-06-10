@@ -24,7 +24,7 @@ Eduki.Routers.Static = Backbone.Router.extend({
     $('#main-content').html(view.render().el);
   },
 
-  error: function() {
+  error: function () {
     var view = new Eduki.Views.ErrorPage();
     $('#main-content').html(view.render().el);
   }
